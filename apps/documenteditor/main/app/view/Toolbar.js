@@ -1792,7 +1792,7 @@ define([
                         caption: me.textStyleMenuNew
                     });
 
-                    var itemWidth = 104,
+                    var itemWidth = 84,  // Word-like gallery, see DE.Controllers.WordFormatting
                         itemHeight = 40;
                     this.listStyles = new Common.UI.ComboDataView({
                         cls: 'combo-styles',
@@ -1812,6 +1812,7 @@ define([
                         itemTemplate: _.template([
                             '<div class="style" id="<%= id %>">',
                                 '<div style="background-image: url(<%= imageUrl %>); width: ' + itemWidth + 'px; height: ' + itemHeight + 'px;"></div>',
+                                '<div class="style-label"><%= Common.Utils.String.htmlEncode(typeof tip !== "undefined" && tip ? tip : title) %></div>',
                             '</div>'
                         ].join('')),
                         beforeOpenHandler: function (e) {

@@ -1,0 +1,251 @@
+// SPDX-FileCopyrightText: 2026 ElixirOffice contributors
+// SPDX-License-Identifier: AGPL-3.0-only
+//
+// Word-like formatting UI of the document editor (DE.Controllers.WordFormatting):
+// Styles gallery with names under the previews, Styles pane, Apply Styles, Modify Style,
+// Font dialog, Paste Options.
+
+// ---------------------------------------------------------------- Styles gallery
+@word-style-preview-width: 84px;
+@word-style-label-height: 17px;
+
+#slot-field-styles .combo-styles {
+    .combo-styles(62px, 62px, 1);
+
+    .style {
+        display: flex;
+        flex-direction: column;
+        background-color: @canvas-content-background;
+
+        > .style-label {
+            width: @word-style-preview-width;
+            height: @word-style-label-height;
+            line-height: @word-style-label-height;
+            padding: 0 4px;
+            box-sizing: border-box;
+            font-size: 11px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: @text-normal-ie;
+            color: @text-normal;
+            background: transparent;
+        }
+    }
+
+    .dropdown-menu .style > .style-label {
+        color: @text-normal-ie;
+        color: @text-normal;
+    }
+}
+
+// ---------------------------------------------------------------- Styles pane
+.word-styles-pane {
+    .body {
+        height: calc(100% - 34px);
+    }
+
+    .word-styles-pane-box {
+        padding: 8px 8px 0;
+    }
+
+    .word-styles-list {
+        border: @scaled-one-px-value-ie solid @border-regular-control-ie;
+        border: @scaled-one-px-value solid @border-regular-control;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+
+        .item {
+            width: 100%;
+            padding: 0;
+            border: none !important;
+            background: transparent;
+        }
+    }
+
+    .word-style-row {
+        display: flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 2px 4px 2px 8px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 3px;
+
+        .word-style-name {
+            flex: 1 1 auto;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .word-style-type {
+            flex: 0 0 auto;
+            width: 20px;
+            text-align: center;
+            color: @text-secondary-ie;
+            color: @text-secondary;
+            font-size: 12px;
+        }
+
+        .word-style-menu-btn {
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            visibility: hidden;
+            cursor: pointer;
+
+            .caret {
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border: solid 1px @icon-normal-ie;
+                border: solid 1px @icon-normal;
+                border-top: none;
+                border-left: none;
+                transform: rotate(45deg) translate(-2px, -1px);
+            }
+        }
+
+        &:hover .word-style-menu-btn {
+            visibility: visible;
+        }
+
+        &.clear-all .word-style-name {
+            font-style: italic;
+        }
+    }
+
+    .selected .word-style-row,
+    .item.selected .word-style-row {
+        border-color: @border-preview-select-ie;
+        border-color: @border-preview-select;
+    }
+
+    .word-styles-options {
+        padding: 8px 0 4px;
+    }
+
+    .word-styles-footer {
+        display: flex;
+        gap: 4px;
+        padding: 4px 0 8px;
+        border-top: @scaled-one-px-value-ie solid @border-divider-ie;
+        border-top: @scaled-one-px-value solid @border-divider;
+    }
+}
+
+// ---------------------------------------------------------------- Apply Styles
+.word-apply-styles {
+    .box {
+        padding: 12px 16px 14px;
+    }
+
+    .word-apply-buttons {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+
+        .btn {
+            min-width: 86px;
+        }
+
+        .word-apply-pane {
+            margin-left: auto;
+        }
+    }
+}
+
+// ---------------------------------------------------------------- Modify Style
+.word-modify-style {
+    .box {
+        padding: 6px 16px 4px;
+    }
+
+    .word-ms-section {
+        font-weight: bold;
+        margin: 8px 0 6px;
+    }
+
+    .word-ms-props {
+        width: 100%;
+
+        td {
+            padding: 2px 0;
+            vertical-align: middle;
+
+            &:first-child {
+                width: 190px;
+                padding-right: 8px;
+            }
+        }
+    }
+
+    .word-ms-row {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        margin-bottom: 6px;
+
+        .word-ms-font {
+            margin-right: 4px;
+        }
+
+        .word-ms-size {
+            margin-right: 8px;
+        }
+
+        .word-ms-sep {
+            width: 1px;
+            height: 18px;
+            margin: 0 6px;
+            background: @border-divider-ie;
+            background: @border-divider;
+        }
+
+        .word-ms-ls .caption {
+            min-width: 18px;
+        }
+
+        &.word-ms-bottom {
+            margin-top: 8px;
+            gap: 16px;
+
+            .word-ms-format {
+                margin-left: auto;
+            }
+        }
+    }
+
+    .word-ms-preview {
+        height: 120px;
+        overflow: hidden;
+        padding: 8px 10px;
+        border: @scaled-one-px-value-ie solid @border-regular-control-ie;
+        border: @scaled-one-px-value solid @border-regular-control;
+        background: #fff;
+        color: #000;
+        font-size: 10pt;
+
+        .word-ms-preview-before,
+        .word-ms-preview-after {
+            color: #a0a0a0;
+            font-size: 7pt;
+            margin: 4px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .word-ms-preview-text {
+            margin: 6px 0;
+            max-height: 70px;
+            overflow: hidden;
+        }
+    }
+}

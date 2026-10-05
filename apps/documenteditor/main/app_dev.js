@@ -147,6 +147,7 @@ require([
             ,'Common.Controllers.Protection'
             ,'Common.Controllers.Shortcuts'
             ,'Common.Controllers.ElixirAI'
+            ,'WordFormatting'
         ]
     });
 
@@ -192,6 +193,7 @@ require([
                 ,'common/main/lib/controller/Protection'
                 ,'common/main/lib/controller/Shortcuts'
                 ,'common/main/lib/elixir-ai/Controller'
+                ,'documenteditor/main/app/controller/WordFormatting'
                 ,'documenteditor/main/app/elixir-ai/WordTools'
                 ,'common/main/lib/controller/Draw'
             ], function() {
