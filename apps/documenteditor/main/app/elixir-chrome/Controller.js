@@ -10,8 +10,8 @@
  */
 define([
     'core',
-    'documenteditor/main/app/elixir-chrome/Icons',
-    'documenteditor/main/app/elixir-chrome/CommandIndex',
+    'common/main/lib/elixir-chrome/Icons',
+    'common/main/lib/elixir-chrome/CommandIndex',
     'documenteditor/main/app/elixir-chrome/Backstage',
     'documenteditor/main/app/elixir-chrome/TitleBar',
     'documenteditor/main/app/elixir-chrome/NavPane'
