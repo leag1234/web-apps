@@ -131,9 +131,11 @@ define([
             if (!this.$doc || !this.$search) return;
             var rtl = Common.UI.isRTL(), d = this.$doc[0].getBoundingClientRect(), s = this.$search[0].getBoundingClientRect();
             var room = rtl ? d.right - s.right - 12 : s.left - d.left - 12;
-            // when the name and its state do not fit, the state shows as an icon only
+            // like Word the name is shortened first; the state shows as an icon only
+            // when even a short name and the state do not fit
             this.$doc.removeClass('elx-compact').css('max-width', 'none');
-            var need = this.$doc[0].scrollWidth;
+            var $txt = this.$doc.find('.elx-docname-text'),
+                need = this.$doc[0].scrollWidth - $txt[0].scrollWidth + Math.min($txt[0].scrollWidth, 90);
             this.$doc.toggleClass('elx-compact', need > room);
             this.$doc.css('max-width', Math.max(80, Math.floor(room)) + 'px');
         },
