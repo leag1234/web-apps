@@ -206,6 +206,7 @@ require([
                 ,'common/main/lib/elixir-ai/Controller'
                 ,'documenteditor/main/app/controller/WordFormatting'
                 ,'documenteditor/main/app/elixir-ai/WordTools'
+                ,'documenteditor/main/app/elixir-ai/EntryPoints'
                 ,'documenteditor/main/app/elixir-chrome/Controller'
                 ,'documenteditor/main/app/elixir-images/Controller'
                 ,'documenteditor/main/app/controller/WordShortcuts'

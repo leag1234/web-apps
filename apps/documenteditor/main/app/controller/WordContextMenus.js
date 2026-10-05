@@ -49,6 +49,7 @@ define([
             ['menuSpellPara', 'menuSpellMorePara'],
             ['menuIgnoreSpellPara', 'menuIgnoreAllSpellPara', 'menuToDictionaryPara', 'langParaMenu'],
             ['menuParaCut', 'menuParaCopy', 'menuParaPaste'],
+            ['@elixir'],
             ['menuParaAccept', 'menuParaReject'],
             ['menuParaRefreshField', 'menuParaEditField', 'menuParaFieldCodes', 'menuParaTOCRefresh', 'menuParaTOCSettings',
                 'menuParaRemoveControl', 'menuParaControlSettings', 'menuEquationInsertCaption'],
@@ -61,6 +62,7 @@ define([
         tableMenu: [
             ['menuSpellCheckTable'],
             ['menuTableCut', 'menuTableCopy', 'menuTablePaste'],
+            ['@elixir'],
             ['menuTableAccept', 'menuTableReject'],
             ['menuTableRefreshField', 'menuTableEditField', 'menuTableFieldCodes'],
             ['menuTableInsertText', 'menuTableDeleteText', 'menuTableSelectText', 'mnuTableMerge', 'mnuTableSplit',
@@ -72,6 +74,7 @@ define([
         ],
         pictureMenu: [
             ['menuImgCut', 'menuImgCopy', 'menuImgPaste'],
+            ['@elixir'],
             ['menuEditObject', 'menuChartEdit', 'menuImgEditPoints'],
             ['menuImgAccept', 'menuImgReject'],
             ['menuSignatureEditSign', 'menuSignatureEditSetup'],
@@ -185,6 +188,16 @@ define([
                                 iconCls: 'menu__icon btn-menu-font'
                             });
                             item.on('click', function() { me.onFont(); });
+                        } else if (name === '@elixir') {
+                            // Elixir AI: opens the "Ask Elixir" menu where the context menu was
+                            var AI = window.Common && Common.ElixirAI;
+                            item = new Common.UI.MenuItem({
+                                caption: AI && AI.t ? AI.t('menuAsk') : 'Ask Elixir',
+                                iconCls: 'menu__icon elixir-ai-icon elixir-ai-icon-sparkle'
+                            });
+                            me.elixirItems = me.elixirItems || [];
+                            me.elixirItems.push(item);
+                            item.on('click', function() { me.onAskElixir(menu); });
                         } else if (name.charAt(0) === '@') {
                             item = me.rule(view, menu, name.substring(1));
                         } else {
@@ -252,7 +265,17 @@ define([
                 font.setVisible(!!(anchor && anchor.el && anchor.el.style.display !== 'none') && !!this.mode.isEdit);
             }
             _.each(menu.items, function(it) { it._wordHidden && it.setVisible(false); });
+            var ai = this.getApplication().getController('Common.Controllers.ElixirAI'), aiOn = !!(ai && ai.isAvailable && ai.isAvailable());
+            _.each(this.elixirItems || [], function(it) { it.setVisible(aiOn); });
             this.updateSeparators(menu);
+        },
+
+        onAskElixir: function(menu) {
+            var $m = menu.cmpEl.find('> .dropdown-menu').addBack('.dropdown-menu').first();
+            if (!$m.length) $m = menu.cmpEl;
+            var off = $m.offset() || {left: 100, top: 100};
+            var ep = Common.ElixirAI && Common.ElixirAI.entryPoints && Common.ElixirAI.entryPoints.word;
+            _.defer(function() { ep && ep.openAskMenu && ep.openAskMenu(off.left, off.top); });
         },
 
         afterShow: function(menu) {

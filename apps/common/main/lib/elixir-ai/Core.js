@@ -27,7 +27,8 @@ define([], function () {
     // price list; overridable through the stored settings ("prices"). Used only for the journal estimate.
     var DEFAULT_PRICES = {
         'gpt-4.1-mini': [0.40, 1.60],
-        'gpt-5.4-mini': [0.75, 4.50]
+        'gpt-5.4-mini': [0.75, 4.50],
+        'gpt-5.4': [2.50, 15.00]
     };
 
     var DEFAULTS = {
@@ -35,7 +36,10 @@ define([], function () {
         apiKey: '',
         model: 'gpt-4.1-mini',
         extraParams: '',    // optional JSON merged into the request body, e.g. {"reasoning_effort":"low"}
-        maxRounds: 8,
+        maxRounds: 10,
+        mode: 'scaffold',   // "scaffold" (plan, analysis tools, playbooks, verification) or "direct" (plain tool loop)
+        earlyStop: true,    // end without a closing model call when a round only made successful changes
+        verify: 'always',   // scaffolded mode: verify every change ("always") or only compound ones ("compound")
         prices: DEFAULT_PRICES
     };
 
@@ -193,7 +197,7 @@ define([], function () {
                 stream: true,
                 stream_options: { include_usage: true }
             };
-            if (opts.tools && opts.tools.length) { body.tools = opts.tools; body.tool_choice = 'auto'; }
+            if (opts.tools && opts.tools.length) { body.tools = opts.tools; body.tool_choice = opts.toolChoice || 'auto'; }
             if (s.extraParams) {
                 try { Object.assign(body, JSON.parse(s.extraParams)); } catch (e) {}
             }
@@ -280,6 +284,17 @@ define([], function () {
 
     // ---------------------------------------------------------------------------------------------
     // Orchestrator: model <-> tools loop
+    //
+    // Two modes (settings.mode):
+    //  - "scaffold" (default): the model first submits a structured plan (submit_plan: goal,
+    //    preconditions, steps mapped to tools) that is validated; it can use analysis tools that
+    //    pre-digest the document and playbooks for common compound requests; after execution the
+    //    orchestrator shows it the document state and asks for verify_result, with one automatic
+    //    repair round; plan steps left undone are pointed out once.
+    //  - "direct": the plain tool loop (no plan, no analysis tools, no verification), kept to
+    //    measure what the scaffolding brings.
+    // In both modes a round whose calls all succeeded and all changed the document ends the action
+    // without a closing model call (earlyStop), unless a verification is due.
     // ---------------------------------------------------------------------------------------------
 
     function addUsage(total, u) {
@@ -290,22 +305,27 @@ define([], function () {
     }
 
     /**
-     * opts: {instruction, toolset, settings, signal, onEvent(type, data)}
-     * Events: context, delta, round, tool:start, tool:end, done, error.
-     * Resolves {ok, ctx, summary, untracked:[notes], changed, entry}
+     * opts: {instruction, toolset, settings, signal, lang, onEvent(type, data)}
+     * Events: context, delta, round, tool:start, tool:end, verify, done, error.
+     * Resolves {ok, ctx, summary, answer, done:[{name, args, result}], untracked:[keys], changed, plan,
+     *           verification, cannotDo, question, entry}
      */
     ElixirAI.Orchestrator = {
         run: function (opts) {
             var ts = opts.toolset, s = opts.settings, emit = opts.onEvent || function () {};
-            var maxRounds = Math.max(1, Math.min(20, +s.maxRounds || 8));
+            var mode = s.mode === 'direct' ? 'direct' : 'scaffold';
+            var maxRounds = Math.max(1, Math.min(20, +s.maxRounds || 10));
+            var earlyStop = s.earlyStop !== false;
+            var tools = ts.toolsFor ? ts.toolsFor(mode) : ts.tools;
             var t0 = performance.now();
             var entry = {
-                ts: new Date().toISOString(), editor: ts.id, prompt: opts.instruction,
+                ts: new Date().toISOString(), editor: ts.id, prompt: opts.instruction, mode: mode,
                 endpointHost: ElixirAI.Settings.publicView(s).endpointHost, model: s.model,
                 extraParams: s.extraParams || '', rounds: [], usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
                 outcome: 'running'
             };
             var ctx = null, messages = [], changed = false, untracked = [], groupStarted = false, finalText = '';
+            var done = [], executed = {}, userNotes = [], answerText = '', laterText = '', nudged = false, verifyAsked = false, repairRounds = 0;
 
             var finish = function (outcome, err) {
                 entry.outcome = outcome;
@@ -313,24 +333,78 @@ define([], function () {
                 entry.costUsd = ElixirAI.Settings.estimateCost(s, s.model, entry.usage);
                 if (err) entry.error = String(err && err.message || err);
                 entry.summary = finalText;
+                entry.answer = answerText;
                 entry.changed = changed;
+                if (ctx) {
+                    entry.plan = ctx.plan || null;
+                    entry.verification = ctx.verification || null;
+                    entry.cannotDo = ctx.cannotDo || null;
+                    entry.question = ctx.question || null;
+                }
                 return ElixirAI.Journal.add(entry).then(function (id) { entry.id = id; return entry; });
+            };
+
+            // Plan steps whose tool never succeeded (mutating tools only)
+            var missingSteps = function () {
+                if (!ctx.plan) return [];
+                return ctx.plan.steps.filter(function (st) { return ts.isMutating(st.tool) && !executed[st.tool]; });
+            };
+            var needVerify = function () {
+                if (mode !== 'scaffold' || !changed || verifyAsked) return false;
+                if (s.verify !== 'compound') return true;
+                var mut = ctx.plan ? ctx.plan.steps.filter(function (st) { return ts.isMutating(st.tool); }).length : 0;
+                return mut >= 2 || Object.keys(executed).some(function (n) { return ts.needsVerify && ts.needsVerify(n); });
+            };
+
+            // What to do after a round: 'continue' (call the model again) or 'stop'
+            var afterRound = function (calls, results) {
+                if (ctx.cannotDo || ctx.question) return Promise.resolve('stop');
+                var allOk = results.every(function (r) { return r && r.ok; });
+                var acted = calls.filter(function (c) { return ts.isMutating(c.name); });
+                var onlyActions = acted.length > 0 && calls.every(function (c) { return ts.isMutating(c.name) || c.name === 'submit_plan'; });
+                if (calls.length && !(allOk && onlyActions && earlyStop)) return Promise.resolve('continue');
+                if (!calls.length && !changed) return Promise.resolve('stop');
+                // the model stopped (or a clean action round): check the plan, then verify
+                if (mode === 'scaffold') {
+                    var miss = missingSteps();
+                    if (miss.length && !nudged) {
+                        nudged = true;
+                        messages.push({ role: 'user', content: 'These steps of your plan were not done: ' + miss.map(function (m) { return m.tool + ' (' + m.purpose + ')'; }).join('; ') + '. Do them now, or call verify_result with the reason they are not needed.' });
+                        return Promise.resolve('continue');
+                    }
+                    if (needVerify()) {
+                        verifyAsked = true;
+                        emit('verify', {});
+                        return ts.verifyState(ctx).then(function (state) {
+                            messages.push({
+                                role: 'user', content: 'Verification. User request: ' + opts.instruction + (ctx.plan ? '\nYour goal: ' + ctx.plan.goal : '') +
+                                    '\nDocument state now: ' + JSON.stringify(state) +
+                                    '\nCheck every part of the request against this state (text, styles, alignment, sizes, lists, tables, page setup, pages). If everything is done, call verify_result {goal_met:true}. Otherwise call verify_result {goal_met:false, problems} AND, in the same turn, the tools that fix the problems.'
+                            });
+                            return 'continue';
+                        });
+                    }
+                }
+                if (!calls.length) return Promise.resolve('stop');
+                return Promise.resolve(earlyStop ? 'stop' : 'continue');
             };
 
             return ts.init().then(function (c) {
                 ctx = c;
+                ctx.instruction = opts.instruction;
                 entry.scope = { kind: ctx.scope, from: ctx.from, to: ctx.to, blocks: ctx.context.blocks.length };
                 emit('context', ctx);
                 messages = [
-                    { role: 'system', content: ts.systemPrompt(ctx) },
+                    { role: 'system', content: ts.systemPrompt(ctx, { mode: mode, lang: opts.lang }) },
                     { role: 'user', content: ts.userMessage(opts.instruction, ctx) }
                 ];
                 var round = function (n) {
                     if (opts.signal && opts.signal.aborted) throw new Error('Cancelled');
                     emit('round', { n: n });
-                    var r0 = performance.now();
                     return ElixirAI.Connector.chat({
-                        settings: s, messages: messages, tools: ts.tools, signal: opts.signal,
+                        settings: s, messages: messages, tools: tools, signal: opts.signal,
+                        // scaffolded mode: the first answer must go through the tools (the plan, cannot_do, ask_user or a reading tool)
+                        toolChoice: mode === 'scaffold' && n === 1 ? { type: 'function', 'function': { name: 'submit_plan' } } : 'auto',
                         onDelta: function (d, all) { emit('delta', { text: all, round: n }); }
                     }).then(function (res) {
                         var rec = { n: n, ms: Math.round(res.ms), ttfbMs: Math.round(res.ttfbMs || 0), usage: res.usage, finish_reason: res.finish_reason, content: res.message.content || '', tool_calls: [] };
@@ -339,13 +413,14 @@ define([], function () {
                         messages.push(res.message);
                         if (res.message.content) finalText = res.message.content;
                         var calls = res.message.tool_calls || [];
-                        if (!calls.length) return 'done';
-                        if (n >= maxRounds) {
+                        if (!calls.length && res.message.content) answerText = res.message.content;
+                        if (n > 1 && res.message.content) laterText = res.message.content;
+                        if (calls.length && n >= maxRounds) {
                             rec.capped = true;
                             throw new Error('Stopped after ' + maxRounds + ' tool rounds.');
                         }
                         // execute tool calls sequentially, in order
-                        var chain = Promise.resolve();
+                        var chain = Promise.resolve(), results = [], named = [];
                         calls.forEach(function (call) {
                             chain = chain.then(function () {
                                 var name = call['function'].name, args, t1 = performance.now();
@@ -353,9 +428,13 @@ define([], function () {
                                 catch (e) { args = undefined; }
                                 var tc = { id: call.id, name: name, args: args !== undefined ? args : call['function'].arguments };
                                 rec.tool_calls.push(tc);
+                                named.push(tc);
                                 emit('tool:start', tc);
                                 var p;
+                                if (args !== undefined && ts.normalize) args = ts.normalize(name, args);
                                 var err = args === undefined ? { ok: false, error: { code: 'invalid_json', message: 'Arguments are not valid JSON.' } } : ts.validate(name, args, ctx);
+                                if (!err && mode === 'direct' && tools.indexOf(tools.filter(function (t) { return t['function'].name === name; })[0]) < 0)
+                                    err = { ok: false, error: { code: 'unknown_tool', message: 'Unknown tool "' + name + '".' } };
                                 if (err) p = Promise.resolve(err);
                                 else if (ts.isMutating(name) && !groupStarted) {
                                     groupStarted = true;
@@ -364,26 +443,46 @@ define([], function () {
                                 return p.then(function (result) {
                                     tc.result = result;
                                     tc.ms = Math.round(performance.now() - t1);
+                                    results.push(result);
                                     if (result && result.ok && ts.isMutating(name)) {
                                         changed = true;
-                                        var note = ts.untrackedNote(name);
+                                        executed[name] = (executed[name] || 0) + 1;
+                                        done.push({ name: name, args: args, result: result });
+                                        var note = ts.untrackedNote(name, args);
                                         if (note && untracked.indexOf(note) < 0) untracked.push(note);
+                                        var un = ts.userNote && ts.userNote(name, args, result);
+                                        if (un && userNotes.indexOf(un) < 0) userNotes.push(un);
                                     }
                                     emit('tool:end', tc);
-                                    messages.push({ role: 'tool', tool_call_id: call.id, content: JSON.stringify(result) });
+                                    // the model gets the result without the UI-only summary data
+                                    var forModel = result;
+                                    if (result && result.done) { forModel = Object.assign({}, result); delete forModel.done; }
+                                    messages.push({ role: 'tool', tool_call_id: call.id, content: JSON.stringify(forModel) });
                                 });
                             });
                         });
-                        return chain.then(function () { return round(n + 1); });
+                        return chain.then(function () {
+                            if (ctx.verification && ctx.verification.goal_met === false) {
+                                // the repair calls came with verify_result: allow one more look, then stop
+                                if (repairRounds++ >= 1) return 'stop';
+                            }
+                            if (ctx.verification && ctx.verification.goal_met === true && !calls.some(function (c) { return ts.isMutating(c['function'].name); })) return 'stop';
+                            return afterRound(named, results);
+                        }).then(function (next) {
+                            return next === 'continue' ? round(n + 1) : null;
+                        });
                     });
                 };
                 return round(1);
             }).then(function () {
                 return (groupStarted ? ts.end(ctx, true) : Promise.resolve()).then(function () {
                     entry.revisions = ctx.revisionsAfter || null;
-                    return finish(changed ? 'applied' : 'no-change');
+                    return finish(changed ? 'applied' : (ctx.cannotDo ? 'cannot-do' : (ctx.question ? 'question' : 'no-change')));
                 }).then(function () {
-                    var res = { ok: true, ctx: ctx, summary: finalText, untracked: untracked, changed: changed, entry: entry };
+                    var res = {
+                        ok: true, ctx: ctx, summary: finalText, answer: answerText || (ctx.verification && ctx.verification.message) || laterText, userNotes: userNotes, done: done, untracked: untracked, changed: changed,
+                        plan: ctx.plan || null, verification: ctx.verification || null, cannotDo: ctx.cannotDo || null, question: ctx.question || null, entry: entry
+                    };
                     emit('done', res);
                     return res;
                 });

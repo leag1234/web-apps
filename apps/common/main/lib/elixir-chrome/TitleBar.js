@@ -7,7 +7,10 @@
  * - file name with the save state ("Saved" / "Saving…") and a flyout to rename
  *   the file (when the host supports it), see its location and version history;
  * - centred "Search (Alt+Q)" box that runs ribbon commands (CommandIndex) and
- *   falls back to Find in the document;
+ *   falls back to Find in the document; when Elixir AI is loaded in the editor
+ *   (Common.Controllers.ElixirAI, Word only for now) it becomes "Search or ask
+ *   Elixir (Alt+Q)" and sends the text to Elixir AI (last row; Enter when no
+ *   command matches, Shift+Enter always);
  * - on the tab row: Comments, the Editing / Reviewing / Viewing mode, Share.
  *
  * Built on the upstream header (Common.Views.Header) instance, which keeps its
@@ -279,6 +282,15 @@ define([
             this.$pop = this.$search.find('.elx-search-pop');
 
             this.$input.on('focus', function () { me.openSearch(); });
+            // Elixir AI: "Search or ask Elixir" once the AI layer is available in this editor
+            var aiReady = function (ctrl) {
+                if (!ctrl || !ctrl.isAvailable || !ctrl.isAvailable() || !Common.ElixirAI || !Common.ElixirAI.tf) return;
+                me.ai = ctrl;
+                var aph = Common.ElixirAI.tf('searchPlaceholder', [me.shortcut()]);
+                me.$input.attr('placeholder', aph).attr('aria-label', aph);
+            };
+            Common.NotificationCenter.on('elixir:ready', aiReady);
+            try { var aic = this.ctrl('Common.Controllers.ElixirAI'); aic && aic.api && aiReady(aic); } catch (e) {}
             this.$input.on('input', function () { me.renderResults(); });
             this.$input.on('keydown', function (e) { me.onSearchKey(e); });
             this.$input.on('blur', function () { setTimeout(function () { if (!me.$search[0].contains(document.activeElement)) me.closeSearch(); }, 120); });
@@ -364,11 +376,20 @@ define([
                     this.results.push({ type: 'replace', q: q });
                     html += '<div class="elx-sr" role="option" id="elx-sr-' + (this.results.length - 1) + '"><span class="elx-sr-ic">' + this.icon('rename', 20) + '</span><span class="elx-sr-label">' + esc(Common.Utils.String.format(this.txtReplaceText, q)) + '</span></div>';
                 }
+                if (this.ai && Common.ElixirAI) {
+                    var AI = Common.ElixirAI;
+                    this.results.push({ type: 'ask', q: q });
+                    html += '<div class="elx-sg">' + esc(AI.t('searchAskGroup')) + '</div>' +
+                        '<div class="elx-sr elx-sr-ask" role="option" id="elx-sr-' + (this.results.length - 1) + '"><span class="elx-sr-ic">' + AI.Icons.svg('sparkle', 20) + '</span>' +
+                        '<span class="elx-sr-label">' + esc(AI.tf('searchAsk', [q])) + '</span><span class="elx-sr-where">' + esc(AI.t('searchAskHint')) + '</span></div>';
+                }
             }
             this.$pop.html(html).toggle(!!html);
             this.$input.attr('aria-expanded', html ? 'true' : 'false');
-            // first enabled command is the default, like Word; otherwise Find
-            var first = _.findIndex(this.results, function (r) { return r.type !== 'cmd' || !Index.isDisabled(r.c); });
+            // first enabled command is the default, like Word; otherwise Ask Elixir (or Find)
+            var first = _.findIndex(this.results, function (r) { return r.type === 'cmd' && !Index.isDisabled(r.c); });
+            if (first < 0) first = _.findIndex(this.results, function (r) { return r.type === 'ask'; });
+            if (first < 0) first = _.findIndex(this.results, function (r) { return r.type !== 'cmd'; });
             this.highlight(first < 0 ? 0 : first);
         },
 
@@ -396,7 +417,11 @@ define([
             e.stopPropagation();
             if (e.keyCode === K.DOWN) { this.highlight((this.active || 0) + 1); e.preventDefault(); }
             else if (e.keyCode === K.UP) { this.highlight((this.active || 0) - 1); e.preventDefault(); }
-            else if (e.keyCode === K.RETURN) { this.runResult(this.active); e.preventDefault(); }
+            else if (e.keyCode === K.RETURN) {
+                e.preventDefault();
+                var ai = e.shiftKey && this.ai ? _.findIndex(this.results, function (r) { return r.type === 'ask'; }) : -1;
+                this.runResult(ai >= 0 ? ai : this.active);
+            }
             else if (e.keyCode === K.ESC) {
                 e.preventDefault();
                 if (this.$input.val()) { this.$input.val(''); this.renderResults(); }
@@ -413,6 +438,9 @@ define([
             this.$input.blur();
             if (r.type === 'cmd') {
                 Index.run(r.c, this.toolbar);
+            } else if (r.type === 'ask') {
+                var ai = this.ai;
+                _.defer(function () { ai.ask(r.q); });
             } else {
                 this.controller.findInDocument(r.q, r.type === 'replace');
             }
