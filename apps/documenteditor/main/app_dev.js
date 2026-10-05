@@ -149,6 +149,7 @@ require([
             ,'Common.Controllers.ElixirAI'
             ,'WordShortcuts'
             ,'WordKeyTips'
+            ,'MiniToolbar'
         ]
     });
 
@@ -197,6 +198,7 @@ require([
                 ,'documenteditor/main/app/elixir-ai/WordTools'
                 ,'documenteditor/main/app/controller/WordShortcuts'
                 ,'documenteditor/main/app/controller/WordKeyTips'
+                ,'documenteditor/main/app/controller/MiniToolbar'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 app.postLaunchScripts = [
