@@ -42,6 +42,8 @@ const DIRS = [
     { editor: 'visioeditor',        subpath: 'main'  },
     { editor: 'documenteditor',     subpath: 'forms' },
     { editor: 'common',             subpath: ''      },
+    // cache warm-up pages (preload.html, cache-scripts.html)
+    { editor: 'api',                subpath: 'documents' },
 ];
 
 // Mirror grunt-inline's exact regexes.

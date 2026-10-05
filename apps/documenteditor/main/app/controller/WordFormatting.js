@@ -97,19 +97,21 @@ define([
                 me.stylesPane && me.stylesPane.isVisible() && me.refreshStylesPane();
             });
             var keymap = {};
-            // Word: Ctrl+D opens the Font dialog
-            keymap['command+d,ctrl+d'] = function (e) {
-                if (!me.isEditingAllowed() || $('.asc-window.modal:visible').length) return true;
-                me.openFontDialog();
-                e && e.preventDefault && e.preventDefault();
-                return false;
-            };
+            // Ctrl+D / Ctrl+Shift+F (Font dialog): WordShortcuts, which calls onGroupLauncher('font')
             keymap['command+alt+shift+s,ctrl+alt+shift+s'] = function (e) {
                 if (!me.isEditingAllowed()) return true;
                 me.toggleStylesPane();
                 e && e.preventDefault && e.preventDefault();
                 return false;
             };
+            // Word for Windows: Ctrl+Shift+S opens the Apply Styles box (Save As is F12;
+            // on macOS Cmd+Shift+S stays Save As)
+            !Common.Utils.isMac && (keymap['ctrl+shift+s'] = function (e) {
+                e && e.preventDefault && e.preventDefault();
+                if (!me.isEditingAllowed() || $('.asc-window.modal:visible').length) return false;
+                me.showApplyStyles();
+                return false;
+            });
             Common.util.Shortcuts.delegateShortcuts({shortcuts: keymap});
         },
 

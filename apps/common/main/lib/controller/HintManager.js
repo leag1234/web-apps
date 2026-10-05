@@ -111,6 +111,8 @@ Common.UI.HintManager = new(function() {
         _isEditDiagram = false,
         _isInternalEditorLoading = true,
         _usedTitles = [],
+        _itemFilter = null,     // function(item, level): false hides the hint of item
+        _chordLetters = null,   // function(): letters that open a level-0 hint while Alt is held (Word: Alt+H)
         _appPrefix,
         _staticHints = { // for 0 level
             // "btnhome": 'K'
@@ -154,6 +156,8 @@ Common.UI.HintManager = new(function() {
             Common.NotificationCenter.trigger('toolbar:collapse');
         }
         if (_currentHints.length === 0 || ($('#file-menu-panel').is(':visible' || _isEditDiagram) && _currentLevel === 1)) {
+            // integrators may set data-hint-title on the controls of this level first
+            Common.NotificationCenter.trigger('hints:before-show', _currentLevel, _currentSection);
             _getHints();
         }
         if (_currentHints.length > 0) {
@@ -231,7 +235,7 @@ Common.UI.HintManager = new(function() {
         var l = letter;
         if (_arrAlphabet.indexOf(l) === -1) {
             var ind = _arrEnAlphabet.indexOf(l);
-            l = _arrAlphabet[ind];
+            l = ind === -1 ? letter : _arrAlphabet[ind]; // digits stay digits (Word: Alt, H, 1 = Bold)
         }
         return l;
     };
@@ -257,15 +261,12 @@ Common.UI.HintManager = new(function() {
             itemsWithStaticTitle = $(_currentSection).find('[data-hint-title][data-hint=' + (_currentLevel) + ']').toArray();
             itemsWithTitle = $(_currentSection).find('[data-hint-title-lang][data-hint=' + (_currentLevel) + ']').toArray();
         }
-        var visibleItems = arr.filter(function (item) {
-            return $(item).is(':visible');
-        });
-        var visibleItemsWithTitle = itemsWithTitle.filter(function (item) {
-            return $(item).is(':visible');
-        });
-        var visibleItemsWithStaticTitle = itemsWithStaticTitle.filter(function (item) {
-            return $(item).is(':visible');
-        });
+        var isShown = function (item) {
+            return $(item).is(':visible') && (!_itemFilter || _itemFilter($(item), _currentLevel) !== false);
+        };
+        var visibleItems = arr.filter(isShown);
+        var visibleItemsWithTitle = itemsWithTitle.filter(isShown);
+        var visibleItemsWithStaticTitle = itemsWithStaticTitle.filter(isShown);
         if (visibleItems.length === visibleItemsWithTitle.length) { // all buttons have data-hint-title-lang
             visibleItems.forEach(function (item) {
                 _currentControls.push($(item));
@@ -287,7 +288,7 @@ Common.UI.HintManager = new(function() {
         }
         if (visibleItems.length + (_currentLevel === 0 ? _.size(_staticHints) : 0) > _arrAlphabet.length) {
             visibleItemsWithStaticTitle.forEach(function (item) {
-                var t = String($(item).attr('data-hint-title')).charAt(0).toLowerCase(); // attr: data() turns "1" into a number
+                var t = String($(item).attr('data-hint-title')).charAt(0).toLowerCase();
                 t = _getLetterInUILanguage(t);
                 if (_usedTitles.indexOf(t) < 0) {
                     _usedTitles.push(t);
@@ -493,28 +494,46 @@ Common.UI.HintManager = new(function() {
         $(document).on('mousedown', function () {
             _clearHints();
         });
+        var _toggleHints = function () {
+            if (!_hintVisible) {
+                $('input:focus').blur(); // to change value in inputField
+                _currentLevel = ($('#file-menu-panel').is(':visible') || _isEditDiagram) ? 1 : 0;
+                _setCurrentSection();
+                _showHints();
+            } else {
+                _hideHints();
+                _resetToDefault();
+                if (_isLockedKeyEvents) {
+                    _isLockedKeyEvents = false;
+                    _api.asc_enableKeyEvents(true);
+                }
+            }
+        };
         $(document).on('keyup', function(e) {
             if ((e.keyCode == Common.UI.Keys.ALT || e.keyCode === 91) && _needShow && !(window.SSE && window.SSE.getController('Statusbar').getIsDragDrop())) {
                 e.preventDefault();
-                if (!_hintVisible) {
-                    $('input:focus').blur(); // to change value in inputField
-                    _currentLevel = ($('#file-menu-panel').is(':visible') || _isEditDiagram) ? 1 : 0;
-                    _setCurrentSection();
-                    _showHints();
-                } else {
-                    _hideHints();
-                    _resetToDefault();
-                    if (_isLockedKeyEvents) {
-                        _isLockedKeyEvents = false;
-                        _api.asc_enableKeyEvents(true);
-                    }
-                }
+                _toggleHints();
             } else if (_hintVisible) {
                 e.preventDefault();
             }
             _needShow = false;
         });
         $(document).on('keydown', function(e) {
+            var hintsOn = Common.Utils.InternalSettings.get(_appPrefix + "settings-show-alt-hints") && _isDocReady && _arrAlphabet.length > 0 &&
+                    !Common.Utils.ModalWindow.isVisible() && !(Common.UI.ScreenReaderFocusManager && Common.UI.ScreenReaderFocusManager.isFocusMode());
+            // F10 alone turns the hints on or off, as in Word (not on macOS: F10 belongs to the system)
+            if (hintsOn && e.keyCode === 121 && !e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && !Common.Utils.isMac) {
+                e.preventDefault();
+                _needShow = false;
+                _toggleHints();
+                return;
+            }
+            // Alt+letter held together, as Alt then the letter (Word: Alt+H opens the Home tab hints)
+            if (hintsOn && !_hintVisible && e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && _chordLetters && !e.isDefaultPrevented() &&
+                    (e.keyCode > 64 && e.keyCode < 91) && _chordLetters().indexOf(String.fromCharCode(e.keyCode)) > -1) {
+                _toggleHints();
+                _needShow = false;
+            }
             if (_hintVisible) {
                 e.preventDefault();
                 if (e.keyCode == Common.UI.Keys.ESC ) {
@@ -727,6 +746,8 @@ Common.UI.HintManager = new(function() {
         needCloseFileMenu: _needCloseFileMenu,
         isHintVisible: _isHintVisible,
         getStaticHint: _getStaticHint,
-        setInternalEditorLoading: _setInternalEditorLoading
+        setInternalEditorLoading: _setInternalEditorLoading,
+        setItemFilter: function (fn) { _itemFilter = fn; },
+        setChordLetters: function (fn) { _chordLetters = fn; }
     }
 })();
