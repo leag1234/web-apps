@@ -158,6 +158,7 @@ require([
             ,'Common.Controllers.Shortcuts'
             ,'Common.Controllers.ElixirAI'
             ,'ElixirChrome'
+            ,'WordFormatting'
         ]
     });
 
@@ -203,6 +204,7 @@ require([
                 ,'common/main/lib/controller/Protection'
                 ,'common/main/lib/controller/Shortcuts'
                 ,'common/main/lib/elixir-ai/Controller'
+                ,'documenteditor/main/app/controller/WordFormatting'
                 ,'documenteditor/main/app/elixir-ai/WordTools'
                 ,'documenteditor/main/app/elixir-chrome/Controller'
                 ,'common/main/lib/controller/Draw'

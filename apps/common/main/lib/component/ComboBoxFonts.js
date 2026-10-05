@@ -759,15 +759,31 @@ define([
 
                 if (_.isUndefined(scrollY)) scrollY = parseInt($(me.el).find('.ps-scrollbar-x-rail').css('bottom'));
 
-                var scrollH = $(me.el).find('.dropdown-menu').height(),
+                var menuEl = $(me.el).find('.dropdown-menu'),
+                    scrollH = menuEl.height(),
                     count = Math.max(Math.floor(scrollH / listItemHeight) + 3, 0),
                     from = Math.max(Math.floor(-(scrollY / listItemHeight)) - 1, 0),
                     to = from + count;
 
                 var listItems = $(me.el).find('a');
 
+                // The list may hold other rows than fonts (dividers, section headers): when it does,
+                // find the visible fonts from their positions instead of their index.
+                var visible = null,
+                    ul = menuEl.get(0);
+                if (ul && ul.clientHeight > 0 && menuEl.children('li:not(:has(> a.font-item))').length > 1) {
+                    var top = ul.scrollTop - 2 * listItemHeight,
+                        bottom = ul.scrollTop + ul.clientHeight + 2 * listItemHeight;
+                    visible = [];
+                    for (j = 0; j < storeCount; ++j) {
+                        var li = listItems[j] ? listItems[j].parentNode : null,
+                            y = li ? li.offsetTop : j * listItemHeight;
+                        visible.push(y + listItemHeight >= top && y <= bottom);
+                    }
+                }
+
                 for (j = 0; j < storeCount; ++j) {
-                    if (from <= j && j < to) {
+                    if (visible ? visible[j] : (from <= j && j < to)) {
                         if (null === me.tiles[j]) {
                             index = Math.floor(me.store.at(j).get('imgidx')/spriteCols);
                             var fontImage = me.spriteThumbs.getImage(index);
