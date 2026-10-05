@@ -135,7 +135,8 @@ define([
             };
 
             var keymap = {};
-            me.hkComments = Common.Utils.isMac ? 'command+alt+a' : 'alt+h';
+            // Word: Ctrl+Alt+M (Cmd+Option+A on macOS); Alt+H is the Home tab KeyTip
+            me.hkComments = Common.Utils.isMac ? 'command+alt+a' : 'ctrl+alt+m';
             keymap[me.hkComments] = function() {
                 if (me.api.can_AddQuotedComment()!==false) {
                     me.addComment();

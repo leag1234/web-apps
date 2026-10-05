@@ -140,10 +140,11 @@ define([
                 'ctrl+h': _.bind(this.onShortcut, this, 'replace'),
                 'esc': _.bind(this.onShortcut, this, 'escape'),
                 /** coauthoring begin **/
-                'command+shift+h,ctrl+shift+h': _.bind(this.onShortcut, this, 'comments'),
+                'command+shift+h,ctrl+shift+h': _.bind(this.onShortcut, this, 'comments')
                 /** coauthoring end **/
-                'f1': _.bind(this.onShortcut, this, 'help')
             };
+            // F1 is Undo in Word for Mac
+            !Common.Utils.isMac && (keymap['f1'] = _.bind(this.onShortcut, this, 'help'));
             keymap[Common.Utils.isMac ? 'ctrl+alt+f' : 'alt+f'] = _.bind(this.onShortcut, this, 'file');
             keymap[Common.Utils.isMac ? 'ctrl+alt+q' : 'alt+q'] = _.bind(this.onShortcut, this, 'chat');
             Common.util.Shortcuts.delegateShortcuts({shortcuts:keymap});
