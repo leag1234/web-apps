@@ -9,15 +9,6 @@
 // Equation, Header & Footer): at the right of the tab row, label in the
 // accent colour, like Word.
 // --------------------------------------------------------------------------
-#toolbar .toolbar .box-tabs .ribtab.contextual {
-    > a {
-        color: var(--toolbar-contextual-tab-color, var(--highlight-toolbar-tab-underline-document, @text-normal));
-    }
-    &.active > a {
-        color: var(--toolbar-contextual-tab-color, var(--highlight-toolbar-tab-underline-document, @text-normal));
-    }
-}
-
 #toolbar .toolbar {
     // three rows of small controls in the height of a two-row group
     .elx-table-options .elset,
@@ -84,12 +75,6 @@
     vertical-align: middle;
 }
 
-// stock controls kept for their handlers and locks while a twin is shown
-// (DE.Controllers.RibbonTabs.hideSource)
-#toolbar .toolbar .btn-slot.elx-source {
-    display: none !important;
-}
-
 // --------------------------------------------------------------------------
 // Layout tab
 // --------------------------------------------------------------------------
@@ -120,62 +105,6 @@
     }
 }
 
-// Word-like gallery menus (Margins, Breaks): large icon, bold title, details
-.elx-gallery-menu {
-    .elx-gallery-item {
-        display: flex !important;
-        align-items: center;
-        padding: 4px 16px 4px 8px !important;
-        white-space: normal;
-        .rtl & {
-            padding: 4px 8px 4px 16px !important;
-        }
-    }
-    .elx-gallery-icon {
-        flex: 0 0 auto;
-        width: 36px;
-        height: 36px;
-        margin-right: 10px;
-        .rtl & {
-            margin-right: 0;
-            margin-left: 10px;
-        }
-        .icon {
-            width: 36px;
-            height: 36px;
-        }
-    }
-    .elx-gallery-text {
-        display: flex;
-        flex-direction: column;
-        max-width: 320px;
-        b {
-            font-weight: 600;
-        }
-    }
-    .elx-gallery-grid {
-        display: grid;
-        grid-template-columns: auto auto;
-        column-gap: 16px;
-    }
-    .elx-gallery-desc {
-        color: @text-secondary-ie;
-        color: @text-secondary;
-        white-space: normal;
-    }
-    .elx-menu-header {
-        padding: 4px 12px;
-        font-weight: 600;
-        background-color: @background-toolbar-additional-ie;
-        background-color: @background-toolbar-additional;
-    }
-}
-
-// groups that Word shows elsewhere (DE.Controllers.RibbonTabs)
-#toolbar .toolbar .box-panels > .panel > .elx-hidden-group {
-    display: none !important;
-}
-
 // Word Count dialog (Review > Proofing)
 .elx-word-count {
     padding: 16px 20px 8px;
@@ -192,61 +121,6 @@
             text-align: right;
             .rtl & {
                 text-align: left;
-            }
-        }
-    }
-}
-
-// --------------------------------------------------------------------------
-// Ribbon behaviour (Common.UI.RibbonCollapse, DE.Controllers.RibbonTabs)
-// --------------------------------------------------------------------------
-#toolbar .toolbar {
-    .box-controls {
-        position: relative;
-    }
-    // collapse / pin the ribbon, bottom right like Office
-    .elx-ribbon-pin {
-        position: absolute;
-        right: 4px;
-        bottom: 2px;
-        z-index: 2;
-        .rtl & {
-            right: auto;
-            left: 4px;
-        }
-        .btn-toolbar {
-            min-width: 20px;
-            width: 20px;
-            height: 20px;
-            padding: 0;
-        }
-    }
-    &.folded:not(.expanded) .elx-ribbon-pin {
-        display: none;
-    }
-
-    // a group collapsed into one drop-down button
-    .elx-collapsed-group .inner-box-caption .caret {
-        display: inline-block;
-        margin-left: 2px;
-    }
-    .elx-group-popup {
-        padding: 8px 10px 6px 4px;
-        border-radius: 6px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-        .elx-group-popup-inner {
-            display: table;
-            > .group {
-                padding-bottom: 0;
-                &::after {
-                    display: none !important;
-                }
-                > .group-launcher {
-                    display: none !important;
-                }
-            }
-            > .separator.long {
-                height: @toolbar-group-height;
             }
         }
     }

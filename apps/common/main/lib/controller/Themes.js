@@ -747,6 +747,8 @@ define([
         "canvas-cell-title-border-hover",
         "canvas-cell-title-border-selected",
         "canvas-cell-title-text",
+        "canvas-cell-title-text-selected",
+        "canvas-cell-selection-border",
 
         "canvas-dark-cell-title",
         "canvas-dark-cell-title-hover",

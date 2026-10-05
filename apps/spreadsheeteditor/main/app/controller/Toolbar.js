@@ -1827,7 +1827,7 @@ define([
                     info.asc_setSymbol(this._state.langId);
                     var arr = this.api.asc_getFormatCells(info); // all formats
                     me.toolbar.numFormatData.forEach( function(item, index) {
-                        me.toolbar.numFormatData[index].format = arr[index];
+                        me.toolbar.numFormatData[index].format = arr[item.fmtIndex !== undefined ? item.fmtIndex : index];
                     });
                 }
 
@@ -2262,10 +2262,11 @@ define([
                 return;
 
             cmp.btnCondFormat.menu.on('item:click', _.bind(this.onCondFormatMenu, this));
-            for (var i=0; i<7; i++) {
-                cmp.btnCondFormat.menu.items[i].menu.on('item:click', _.bind(this.onCondFormatMenu, this));
-            }
-            cmp.btnCondFormat.menu.items[15].menu.on('item:click', _.bind(this.onCondFormatMenu, this));
+            // Highlight Cells Rules, Top/Bottom Rules and Clear Rules (ElixirOffice: Excel's menu)
+            _.each(cmp.btnCondFormat.menu.items, function (it) {
+                it.menu && it !== cmp.mnuDataBars && it !== cmp.mnuColorScales && it !== cmp.mnuIconSets &&
+                    it.menu.on('item:click', _.bind(this.onCondFormatMenu, this));
+            }, this);
 
             var collectionPresets = SSE.getCollection('ConditionalFormatIconsPresets');
             if (collectionPresets.length<1)
@@ -5065,10 +5066,15 @@ define([
                         // hide 'undo' and 'redo' buttons and get container
                         var $box = me.toolbar.btnUndo.$el.hide().next().hide().parent();
 
+                        if (me.toolbar.btnPaste.$el.closest('.panel[data-tab=home]').length) {
+                            // ElixirOffice: the clipboard is a group of the Home tab, like Excel
+                            $box.closest('.panel.static').hide();
+                        } else {
                         // move 'paste' button to the container instead of 'undo' and 'redo'
                         me.toolbar.btnPaste.$el.detach().appendTo($box);
                         me.toolbar.btnPaste.$el.find('button').attr('data-hint-direction', 'bottom');
                         me.toolbar.btnCopy.$el.removeClass('split');
+                        }
                         me.toolbar.processPanelVisible(null, true);
                     }
 

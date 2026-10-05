@@ -152,6 +152,15 @@ require([
             ,'Common.Controllers.ReviewChanges'
             ,'Common.Controllers.Protection'
             ,'Common.Controllers.Shortcuts'
+            ,'ElixirChrome'
+            ,'RibbonTabs'
+            ,'ExcelGrid'
+            ,'ExcelKeyTips'
+            ,'ExcelScreenTips'
+            ,'ExcelContextMenus'
+            ,'ExcelMiniToolbar'
+            ,'ExcelContextTabs'
+            ,'ExcelShortcuts'
         ]
     });
 
@@ -199,6 +208,15 @@ require([
             ,'common/main/lib/controller/Protection'
             ,'common/main/lib/controller/Shortcuts'
             ,'common/main/lib/controller/Draw'
+            ,'spreadsheeteditor/main/app/elixir-chrome/Controller'
+            ,'spreadsheeteditor/main/app/controller/RibbonTabs'
+            ,'spreadsheeteditor/main/app/controller/ExcelGrid'
+            ,'spreadsheeteditor/main/app/controller/ExcelKeyTips'
+            ,'spreadsheeteditor/main/app/controller/ExcelScreenTips'
+            ,'spreadsheeteditor/main/app/controller/ExcelContextMenus'
+            ,'spreadsheeteditor/main/app/controller/ExcelMiniToolbar'
+            ,'spreadsheeteditor/main/app/controller/ExcelContextTabs'
+            ,'spreadsheeteditor/main/app/controller/ExcelShortcuts'
         ], function() {
             const code_path = 'spreadsheeteditor/main/code';
             app.postLaunchScripts = [

@@ -26,18 +26,15 @@
 /**
  *  ScreenTips.js
  *
- *  Office ScreenTips on the ribbon and the quick access toolbar: the name of
- *  the command with its shortcut in bold (the existing hint), one line saying
- *  what it does, shown after a short delay and then at once while the pointer
- *  moves along the ribbon (common/main/lib/mods/tooltip.js).
+ *  Word's ScreenTips (engine: common/main/lib/controller/ElixirScreenTips.js):
+ *  the commands and their one-line descriptions.
  */
 
 define([
-    'core'
+    'core',
+    'common/main/lib/controller/ElixirScreenTips'
 ], function () {
     'use strict';
-
-    var DELAY = 500;   // ms before the first ScreenTip, as in Office
 
     // accessor (see resolve) -> description string of this controller
     var TIPS = [
@@ -59,51 +56,14 @@ define([
         ['tb.btnInsertEquation', 'descEquation'], ['tb.btnInsertSymbol', 'descSymbol']
     ];
 
-    DE.Controllers.ScreenTips = Backbone.Controller.extend(_.extend({
-        initialize: function() {
-            Common.NotificationCenter.on('app:ready', _.bind(this.onAppReady, this));
-        },
+    DE.Controllers.ScreenTips = Common.Controllers.ElixirScreenTips.extend(_.extend({
+        tips: TIPS,
 
-        onAppReady: function() {
-            var me = this;
-            this.ready = true;
-            this.apply();
-            // controls created later (tabs, delayed render)
-            setTimeout(function() { me.apply(); }, 1500);
-            $('#toolbar').on('click', '.ribtab > a', function() { _.defer(function() { me.apply(); }); });
-        },
-
-        resolve: function(path) {
-            var app = this.getApplication();
-            var roots = {
-                tb: function() { var c = app.getController('Toolbar'); return c && c.toolbar; },
-                links: function() { var c = app.getController('Links'); return c && c.view; },
-                header: function() { var c = app.getController('Viewport'); return c && c.header; }
-            };
-            if (path.charAt(0) === '#')
-                return $(path);
-            var parts = path.split('.'), root = roots[parts[0]] && roots[parts[0]]();
-            for (var i = 1; root && i < parts.length; i++)
-                root = root[parts[i]];
-            return root && root.cmpEl ? root.cmpEl : $();
-        },
-
-        // the elements a tooltip may be bound to: the control and its buttons or input
-        targets: function($el) {
-            return $el.add($el.find('button, input, [data-hint]'));
-        },
-
-        apply: function() {
-            if (!this.ready) return;
-            var me = this;
-            // Office's delay on every ribbon and title bar control
-            this.targets($('#toolbar [data-hint], #toolbar button')).attr('data-screentip-delay', DELAY);
-            _.each(TIPS, function(entry) {
-                var text = me[entry[1]];
-                var $el = me.resolve(entry[0]);
-                if (!text || !$el.length) return;
-                me.targets($el).attr({'data-screentip': text, 'data-screentip-delay': DELAY});
-            });
+        roots: function() {
+            var app = this.getApplication(),
+                roots = Common.Controllers.ElixirScreenTips.prototype.roots.call(this);
+            roots.links = function() { var c = app.getController('Links'); return c && c.view; };
+            return roots;
         },
 
         descPaste: 'Add content on the Clipboard to your document.',

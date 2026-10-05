@@ -17,7 +17,7 @@
  */
 define([
     'core',
-    'documenteditor/main/app/elixir-chrome/Icons'
+    'common/main/lib/elixir-chrome/Icons'
 ], function () {
     'use strict';
 
