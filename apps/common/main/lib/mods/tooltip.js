@@ -274,11 +274,21 @@
 
     self.hoverState = 'in'
 
-    if (!self.options.delay || !self.options.delay.show) return self.show()
+    var showDelay = self.options.delay && self.options.delay.show
+    // ScreenTips (data-screentip-delay): a delay before the first one, none while
+    // the pointer goes from one control to the next, as in Office
+    var screenTipDelay = self.$element.attr('data-screentip-delay')
+    if (screenTipDelay) {
+      var recent = $('.tooltip.screentip.in').length > 0 || (Date.now() - (Tooltip.lastScreenTipHide || 0) < 700) ||
+        (Date.now() - (Tooltip.lastScreenTipShow || 0) < 2000)
+      showDelay = recent ? 0 : parseInt(screenTipDelay, 10)
+    }
+
+    if (!showDelay) return self.show()
 
     self.timeout = setTimeout(function () {
       if (self.hoverState == 'in') self.show()
-    }, self.options.delay.show)
+    }, showDelay)
   }
 
   Tooltip.prototype.isInStateTrue = function () {
@@ -301,6 +311,10 @@
     if (obj instanceof $.Event) {
       self.inState[obj.type == 'focusout' ? 'focus' : 'hover'] = false
     }
+
+    // leaving a control whose ScreenTip is shown: the next one shows at once
+    if (self.$element.attr('data-screentip-delay') && self.$tip && self.$tip.hasClass('in'))
+      Tooltip.lastScreenTipHide = Date.now()
 
     if (self.isInStateTrue()) return
 
@@ -439,10 +453,18 @@
   }
 
   Tooltip.prototype.setContent = function () {
+    if (this.$element.attr('data-screentip-delay')) Tooltip.lastScreenTipShow = Date.now()
     var $tip  = this.tip()
     var title = this.getTitle()
+    var description = this.$element.attr('data-screentip')
 
-    if (this.options.html) {
+    $tip.toggleClass('screentip', !!this.$element.attr('data-screentip-delay'))
+    if (description && !this.options.html) {
+      // ScreenTip: the title (with its shortcut) in bold, then one line of description
+      var $inner = $tip.find('.tooltip-inner').empty()
+      $('<div class="screentip-title"></div>').text(title).appendTo($inner)
+      $('<div class="screentip-description"></div>').text(description).appendTo($inner)
+    } else if (this.options.html) {
       if (this.options.sanitize) {
         title = sanitizeHtml(title, this.options.whiteList, this.options.sanitizeFn)
       }
@@ -458,6 +480,8 @@
   Tooltip.prototype.hide = function (callback) {
     var that = this
     var $tip = $(this.$tip)
+    if (this.$element && this.$element.attr('data-screentip-delay') && (this.hoverState == 'out' || $tip.hasClass('in')) && $tip.is(':visible'))
+      Tooltip.lastScreenTipHide = Date.now()
     var e    = $.Event('hide.bs.' + this.type)
 
     function complete() {
