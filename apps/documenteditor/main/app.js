@@ -158,6 +158,7 @@ require([
             ,'Common.Controllers.Shortcuts'
             ,'Common.Controllers.ElixirAI'
             ,'WordShortcuts'
+            ,'WordKeyTips'
         ]
     });
 
@@ -205,6 +206,7 @@ require([
                 ,'common/main/lib/elixir-ai/Controller'
                 ,'documenteditor/main/app/elixir-ai/WordTools'
                 ,'documenteditor/main/app/controller/WordShortcuts'
+                ,'documenteditor/main/app/controller/WordKeyTips'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 const code_path = 'documenteditor/main/code';
