@@ -373,7 +373,7 @@ define([
 
             if (!me._isScrolling) {
                 me._isScrolling = true;
-                me._ctrlPressedAtScrollStart = event.ctrlKey;
+                me._ctrlPressedAtScrollStart = event.ctrlKey || Common.Utils.isMac && event.metaKey;
             }
 
             clearTimeout(me._scrollEndTimeout);
