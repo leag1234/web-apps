@@ -89,3 +89,84 @@
 #toolbar .toolbar .btn-slot.elx-source {
     display: none !important;
 }
+
+// --------------------------------------------------------------------------
+// Layout tab
+// --------------------------------------------------------------------------
+#toolbar .toolbar {
+    // three rows of small buttons (Breaks, Line Numbers, Hyphenation; Indent; Spacing)
+    .elx-rows3 > .elset,
+    .elset-column.elx-rows3 > .elset {
+        height: 18px;
+        &:not(:first-child) {
+            margin-top: 0;
+        }
+        .btn-toolbar:not(.x-huge) {
+            height: 18px;
+        }
+    }
+    .elx-rows3 .spinner {
+        height: 18px;
+        input {
+            height: 18px;
+        }
+    }
+    .elx-subhead {
+        font-size: 11px;
+        line-height: 16px;
+        color: @text-secondary-ie;
+        color: @text-secondary;
+        white-space: nowrap;
+    }
+}
+
+// Word-like gallery menus (Margins, Breaks): large icon, bold title, details
+.elx-gallery-menu {
+    .elx-gallery-item {
+        display: flex !important;
+        align-items: center;
+        padding: 4px 16px 4px 8px !important;
+        white-space: normal;
+        .rtl & {
+            padding: 4px 8px 4px 16px !important;
+        }
+    }
+    .elx-gallery-icon {
+        flex: 0 0 auto;
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+        .rtl & {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+        .icon {
+            width: 36px;
+            height: 36px;
+        }
+    }
+    .elx-gallery-text {
+        display: flex;
+        flex-direction: column;
+        max-width: 320px;
+        b {
+            font-weight: 600;
+        }
+    }
+    .elx-gallery-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 16px;
+    }
+    .elx-gallery-desc {
+        color: @text-secondary-ie;
+        color: @text-secondary;
+        white-space: normal;
+    }
+    .elx-menu-header {
+        padding: 4px 12px;
+        font-weight: 600;
+        background-color: @background-toolbar-additional-ie;
+        background-color: @background-toolbar-additional;
+    }
+}

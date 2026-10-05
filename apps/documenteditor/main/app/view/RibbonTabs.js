@@ -119,7 +119,120 @@ define([
                 });
             },
 
+            // ---- Layout -------------------------------------------------------------------
+            // Word's margin presets, [top, left, bottom, right] in mm; mirrored: inside/outside
+            marginPresets: function () {
+                var us = /^(ca|us)$/i.test(Common.Utils.InternalSettings.get('de-config-region'));
+                return [
+                    {id: 'normal', caption: this.txtMarginsNormal, value: us ? [25.4, 25.4, 25.4, 25.4] : [25, 25, 25, 25]},
+                    {id: 'narrow', caption: this.txtMarginsNarrow, value: [12.7, 12.7, 12.7, 12.7]},
+                    {id: 'moderate', caption: this.txtMarginsModerate, value: [25.4, 19.05, 25.4, 19.05]},
+                    {id: 'wide', caption: this.txtMarginsWide, value: [25.4, 50.8, 25.4, 50.8]},
+                    {id: 'mirrored', caption: this.txtMarginsMirrored, value: [25.4, 31.75, 25.4, 25.4], mirror: true},
+                    {id: 'office2003', caption: this.txtMarginsOffice2003, value: [25.4, 31.75, 25.4, 31.75]}
+                ];
+            },
+
+            marginItemTemplate: function () {
+                var me = this;
+                return _.template('<a id="<%= id %>" tabindex="-1" type="menuitem" class="elx-gallery-item">' +
+                    '<span class="elx-gallery-icon"><svg class="icon"><use href="#<%= options.icon %>"></use></svg></span>' +
+                    '<span class="elx-gallery-text"><b><%= caption %></b>' +
+                    '<% if (options.value) { var m = Common.Utils.Metric, f = function (v) { return parseFloat(m.fnRecalcFromMM(v).toFixed(2)) + " " + m.getCurrentMetricName(); }; %>' +
+                    '<span class="elx-gallery-grid">' +
+                        '<span>' + me.txtTop + ' <%= f(options.value[0]) %></span><span>' + me.txtBottom + ' <%= f(options.value[2]) %></span>' +
+                        '<span><%= options.mirror ? "' + me.txtInside + '" : "' + me.txtLeft + '" %> <%= f(options.value[1]) %></span>' +
+                        '<span><%= options.mirror ? "' + me.txtOutside + '" : "' + me.txtRight + '" %> <%= f(options.value[3]) %></span>' +
+                    '</span><% } %></span></a>');
+            },
+
+            breakItemTemplate: function () {
+                return _.template('<a id="<%= id %>" tabindex="-1" type="menuitem" class="elx-gallery-item">' +
+                    '<span class="elx-gallery-icon"><svg class="icon"><use href="#<%= options.icon %>"></use></svg></span>' +
+                    '<span class="elx-gallery-text"><b><%= caption %></b><span class="elx-gallery-desc"><%= options.desc %></span></span></a>');
+            },
+
+            createLayout: function () {
+                var me = this, tb = this.toolbar;
+                var mi = this.marginItemTemplate();
+                var ls = Common.localStorage,
+                    last = ls.itemExists('de-pgmargins-top') ? _.map(['top', 'left', 'bottom', 'right'], function (k) { return parseFloat(ls.getItem('de-pgmargins-' + k)); }) : null;
+                var items = [{caption: this.txtMarginsLast, value: last, elxId: 'last', icon: 'btn-elx-margins-last', template: mi, checkable: true, toggleGroup: 'elx-margins'}];
+                _.each(this.marginPresets(), function (p) {
+                    items.push({caption: p.caption, value: p.value, mirror: !!p.mirror, preset: p.id, icon: 'btn-elx-margins-' + p.id, template: mi, checkable: true, toggleGroup: 'elx-margins'});
+                });
+                items.push({caption: '--'}, {caption: this.txtCustomMargins, value: 'advanced'});
+                this.btnLayMargins = this.mirror('slot-elx-lay-margins', function () { return tb.btnPageMargins; }, {
+                    caption: tb.capBtnMargins, iconCls: 'toolbar__icon btn-pagemargins', split: false,
+                    menu: new Common.UI.Menu({cls: 'elx-gallery-menu', items: items})
+                });
+
+                var bi = this.breakItemTemplate(), hdr = function (t) { return {template: _.template('<div class="elx-menu-header">' + t + '</div>')}; };
+                this.btnLayBreaks = this.mirror('slot-elx-lay-breaks', function () { return tb.btnsPageBreak && tb.btnsPageBreak[0]; }, {
+                    cls: 'btn-toolbar', caption: this.txtBreaks, iconCls: 'toolbar__icon btn-pagebreak', split: false,
+                    menu: new Common.UI.Menu({cls: 'elx-gallery-menu', items: [
+                        hdr(this.txtPageBreaks),
+                        {caption: this.txtBreakPage, desc: this.txtBreakPageDesc, value: 'page', icon: 'btn-elx-brk-page', template: bi},
+                        {caption: this.txtBreakColumn, desc: this.txtBreakColumnDesc, value: 'column', icon: 'btn-elx-brk-column', template: bi},
+                        hdr(this.txtSectionBreaks),
+                        {caption: this.txtBreakNext, desc: this.txtBreakNextDesc, value: Asc.c_oAscSectionBreakType.NextPage, icon: 'btn-elx-brk-next', template: bi},
+                        {caption: this.txtBreakCont, desc: this.txtBreakContDesc, value: Asc.c_oAscSectionBreakType.Continuous, icon: 'btn-elx-brk-cont', template: bi},
+                        {caption: this.txtBreakEven, desc: this.txtBreakEvenDesc, value: Asc.c_oAscSectionBreakType.EvenPage, icon: 'btn-elx-brk-even', template: bi},
+                        {caption: this.txtBreakOdd, desc: this.txtBreakOddDesc, value: Asc.c_oAscSectionBreakType.OddPage, icon: 'btn-elx-brk-odd', template: bi}
+                    ]})
+                });
+
+                // Arrange: Position and Rotate (handlers of DE.Controllers.ContextTabs)
+                var objLock = this._baseLock().concat(['elx-no-object']);
+                this.btnLayPosition = this.btn('slot-elx-lay-position', {
+                    iconCls: 'toolbar__icon btn-elx-position', caption: this.txtPosition, lock: objLock,
+                    menu: new Common.UI.Menu({cls: 'elx-position-menu', items: []})
+                });
+                this.btnLayRotate = this.btn('slot-elx-lay-rotate', {
+                    iconCls: 'toolbar__icon btn-elx-rotate', caption: this.txtRotate, lock: objLock,
+                    menu: new Common.UI.Menu({items: []})
+                });
+            },
+
             // ---- strings ----------------------------------------------------------------
+            txtMarginsLast: 'Last Custom Setting',
+            txtMarginsNormal: 'Normal',
+            txtMarginsNarrow: 'Narrow',
+            txtMarginsModerate: 'Moderate',
+            txtMarginsWide: 'Wide',
+            txtMarginsMirrored: 'Mirrored',
+            txtMarginsOffice2003: 'Office 2003 Default',
+            txtCustomMargins: 'Custom Margins...',
+            txtTop: 'Top:',
+            txtBottom: 'Bottom:',
+            txtLeft: 'Left:',
+            txtRight: 'Right:',
+            txtInside: 'Inside:',
+            txtOutside: 'Outside:',
+            txtBreaks: 'Breaks',
+            txtPageBreaks: 'Page Breaks',
+            txtSectionBreaks: 'Section Breaks',
+            txtBreakPage: 'Page',
+            txtBreakPageDesc: 'Mark the point at which one page ends and the next page begins.',
+            txtBreakColumn: 'Column',
+            txtBreakColumnDesc: 'Indicate that the text following the column break will begin in the next column.',
+            txtBreakNext: 'Next Page',
+            txtBreakNextDesc: 'Insert a section break and start the new section on the next page.',
+            txtBreakCont: 'Continuous',
+            txtBreakContDesc: 'Insert a section break and start the new section on the same page.',
+            txtBreakEven: 'Even Page',
+            txtBreakEvenDesc: 'Insert a section break and start the new section on the next even-numbered page.',
+            txtBreakOdd: 'Odd Page',
+            txtBreakOddDesc: 'Insert a section break and start the new section on the next odd-numbered page.',
+            txtPosition: 'Position',
+            txtRotate: 'Rotate',
+            txtWrapText: 'Wrap Text',
+            txtIndent: 'Indent',
+            txtSpacing: 'Spacing',
+            txtIndLeft: 'Left:',
+            txtIndRight: 'Right:',
+            txtBefore: 'Before:',
+            txtAfter: 'After:',
             txtPageBreak: 'Page Break',
             tipPageBreak: 'Start the next page at the current position',
             txtBookmark: 'Bookmark',

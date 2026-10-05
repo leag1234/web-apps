@@ -789,19 +789,25 @@ define([
 
         bindArrange: function (arr) {
             var me = this;
-            arr.position.menu.on('item:click', function (menu, item) {
-                if (item.value === 'more') { me.openImageAdvanced(9); return; }
-                me.applyPosition(item.value);
-            });
-            arr.rotate.menu.on('item:click', function (menu, item) {
-                if (item.value === 'more') { me.openImageAdvanced(7); return; }
-                var p = new Asc.asc_CImgProperty();
-                if (item.value === 'r90' || item.value === 'r270') p.asc_putRotAdd((item.value === 'r90' ? 90 : 270) * Math.PI / 180);
-                else if (item.value === 'fh') p.asc_putFlipHInvert(true);
-                else p.asc_putFlipVInvert(true);
-                me.api.ImgApply(p);
-                Common.NotificationCenter.trigger('edit:complete', me.toolbar);
-            });
+            arr.position.menu.on('item:click', function (menu, item) { me.onPositionClick(item); });
+            arr.rotate.menu.on('item:click', function (menu, item) { me.onRotateClick(item); });
+        },
+
+        // also used by the Layout tab (DE.Controllers.RibbonTabs)
+        onPositionClick: function (item) {
+            if (item.value === 'more') { this.openImageAdvanced(9); return; }
+            this.applyPosition(item.value);
+        },
+
+        onRotateClick: function (item) {
+            if (!this.api) return;
+            if (item.value === 'more') { this.openImageAdvanced(7); return; }
+            var p = new Asc.asc_CImgProperty();
+            if (item.value === 'r90' || item.value === 'r270') p.asc_putRotAdd((item.value === 'r90' ? 90 : 270) * Math.PI / 180);
+            else if (item.value === 'fh') p.asc_putFlipHInvert(true);
+            else p.asc_putFlipVInvert(true);
+            this.api.ImgApply(p);
+            Common.NotificationCenter.trigger('edit:complete', this.toolbar);
         },
 
         // Word's Position gallery: square wrapping, aligned on the margins

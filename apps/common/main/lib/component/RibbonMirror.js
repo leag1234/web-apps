@@ -80,6 +80,7 @@ define([
         twin.on('click', function (btn, e) {
             var src = getSrc();
             if (!src || src.isDisabled()) return;
+            if (twin.menu && !twin.split && !opts.click) return; // a plain menu button: the click only opens the menu
             if (opts.click) { opts.click(src, e); return; }
             if (src.options.enableToggle) src.toggle(twin.pressed);
             src.trigger('click', src, e);
