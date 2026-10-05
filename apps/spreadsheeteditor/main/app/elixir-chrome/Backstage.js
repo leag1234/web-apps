@@ -36,8 +36,7 @@ define([
         txtFmtXltx: 'Excel template (*.xltx)', txtFmtXltxDesc: 'Starting point for new workbooks',
         txtFmtOds: 'OpenDocument spreadsheet (*.ods)', txtFmtOdsDesc: 'Open standard, for LibreOffice and others',
         txtFmtOts: 'OpenDocument template (*.ots)', txtFmtOtsDesc: 'Open standard template',
-        txtFmtCsv: 'CSV UTF-8 (comma delimited) (*.csv)', txtFmtCsvDesc: 'Values of the current sheet only, as text',
-        txtFmtPdfDescSheet: 'Fixed layout, easy to share and print'
+        txtFmtCsv: 'CSV UTF-8 (comma delimited) (*.csv)', txtFmtCsvDesc: 'Values of the current sheet only, as text'
     };
 
     SSE.Views.ElixirBackstage = Common.Views.ElixirBackstage.extend(_.extend({

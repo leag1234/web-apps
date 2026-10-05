@@ -234,9 +234,6 @@ define([
         txtSelectAll: 'Select All',
         tipDecIndent: 'Decrease Indent',
         tipIncIndent: 'Increase Indent',
-        txtSort: 'Sort',
-        txtSortAsc: 'Sort A to Z',
-        txtSortDesc: 'Sort Z to A',
         txtCollapseRibbon: 'Collapse the Ribbon',
         txtPinRibbon: 'Pin the ribbon'
 

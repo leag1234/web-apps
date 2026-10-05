@@ -110,7 +110,7 @@ define([
         descEquation: 'Add common mathematical equations to your workbook.',
         descSymbol: 'Add symbols that are not on your keyboard.',
         descCheckbox: 'Insert checkboxes in the selected cells.',
-        descMargins: 'Set the margins for the entire document or the current section.',
+        descMargins: 'Set the margins of the printed pages.',
         descOrientationPage: 'Give your pages a portrait or landscape layout.',
         descSize: 'Choose a paper size for your printout.',
         descPrintArea: 'Mark a specific area of the sheet for printing.',
