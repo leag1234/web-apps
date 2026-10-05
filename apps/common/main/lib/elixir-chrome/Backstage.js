@@ -239,7 +239,7 @@ define([
             // Save As, Protect and Version History -> Info tiles, Access Rights -> Share,
             // Go to Documents / Close File -> Close
             [fm.miRecent, fm.miRename, fm.miProtect, fm.miHistory, fm.miAccess, fm.miBack].forEach(function (mi) { mi && mi.hide(); });
-            el('#fm-btn-close').hide();
+            el('#fm-btn-close, #fm-btn-export-pdf').hide();
 
             this.items['elx-home'][(mode.canCreateNew || mode.canOpenRecent) ? 'show' : 'hide']();
             this.items['elx-open'][(mode.canOpenRecent || this.hostConfig().uploadUrl || this.hostConfig().openUrl) ? 'show' : 'hide']();
