@@ -194,7 +194,90 @@ define([
                 });
             },
 
+            // a control rendered into an existing (live) slot
+            liveBtn: function ($slot, cfg) {
+                var b = new Common.UI.Button(_.extend({
+                    cls: 'btn-toolbar x-huge icon-top', lock: this._baseLock(),
+                    dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: 'small'
+                }, cfg));
+                b.render($slot);
+                this.lockedControls.push(b);
+                return b;
+            },
+
+            liveMirror: function ($slot, src, opts) {
+                var safe = _.isFunction(src) ? function () { try { return src(); } catch (e) { return undefined; } } : src;
+                var twin = Common.UI.RibbonMirror(safe, opts);
+                twin.render($slot);
+                this.twins.push(twin);
+                twin.mirrorAttach();
+                return twin;
+            },
+
+            // Word's watermark presets
+            watermarkPresets: function () {
+                return [this.txtWmConfidential, this.txtWmDoNotCopy, this.txtWmDraft, this.txtWmSample, this.txtWmUrgent, this.txtWmAsap];
+            },
+
             // ---- strings ----------------------------------------------------------------
+            txtWordCount: 'Word Count',
+            txtWordCountTitle: 'Word Count',
+            txtStatistics: 'Statistics:',
+            txtPages: 'Pages',
+            txtWords: 'Words',
+            txtCharsNoSpaces: 'Characters (no spaces)',
+            txtCharsSpaces: 'Characters (with spaces)',
+            txtParagraphs: 'Paragraphs',
+            txtCounting: 'Counting...',
+            txtSpelling: 'Spelling',
+            tipSpelling: 'Check spelling as you type',
+            txtLanguage: 'Language',
+            txtSetProofingLanguage: 'Set Proofing Language...',
+            txtPrevComment: 'Previous',
+            txtNextComment: 'Next',
+            tipPrevComment: 'Go to the previous comment',
+            tipNextComment: 'Go to the next comment',
+            txtShowComments: 'Show Comments',
+            txtTrackChanges: 'Track Changes',
+            txtForEveryone: 'For Everyone',
+            txtJustMine: 'Just Mine',
+            txtAllMarkup: 'All Markup',
+            txtSimpleMarkup: 'Simple Markup',
+            txtNoMarkup: 'No Markup',
+            txtOriginal: 'Original',
+            txtPrevChange: 'Previous',
+            txtNextChange: 'Next',
+            txtInsertFootnote: 'Insert Footnote',
+            txtInsertEndnote: 'Insert Endnote',
+            txtNextFootnote: 'Next Footnote',
+            txtPrevFootnote: 'Previous Footnote',
+            txtNextEndnote: 'Next Endnote',
+            txtPrevEndnote: 'Previous Endnote',
+            txtInsertCaption: 'Insert Caption',
+            txtReadMode: 'Read Mode',
+            tipReadMode: 'Read the document without editing it',
+            txtPrintLayout: 'Print Layout',
+            tipPrintLayout: 'Edit the document as it will be printed',
+            txtRuler: 'Ruler',
+            txtNavigationPane: 'Navigation Pane',
+            txtOnePage: 'One Page',
+            txtPageWidth: 'Page Width',
+            txtMultiplePages: 'Multiple Pages',
+            txtZoom100: '100%',
+            txtWatermark: 'Watermark',
+            txtCustomWatermark: 'Custom Watermark...',
+            txtRemoveWatermark: 'Remove Watermark',
+            txtWmConfidential: 'CONFIDENTIAL',
+            txtWmDoNotCopy: 'DO NOT COPY',
+            txtWmDraft: 'DRAFT',
+            txtWmSample: 'SAMPLE',
+            txtWmUrgent: 'URGENT',
+            txtWmAsap: 'ASAP',
+            txtGroupProofing: 'Proofing',
+            txtGroupLanguage: 'Language',
+            txtGroupChanges: 'Changes',
+            txtGroupViews: 'Views',
+            txtGroupWindow: 'Interface',
             txtMarginsLast: 'Last Custom Setting',
             txtMarginsNormal: 'Normal',
             txtMarginsNarrow: 'Narrow',

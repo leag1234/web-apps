@@ -170,3 +170,29 @@
         background-color: @background-toolbar-additional;
     }
 }
+
+// groups that Word shows elsewhere (DE.Controllers.RibbonTabs)
+#toolbar .toolbar .box-panels > .panel > .elx-hidden-group {
+    display: none !important;
+}
+
+// Word Count dialog (Review > Proofing)
+.elx-word-count {
+    padding: 16px 20px 8px;
+    .elx-wc-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    table {
+        width: 100%;
+        td {
+            padding: 3px 0;
+        }
+        .elx-wc-val {
+            text-align: right;
+            .rtl & {
+                text-align: left;
+            }
+        }
+    }
+}
