@@ -214,6 +214,13 @@
             margin: 0;
         }
     </style>
+    <style id="elixir-presenter">
+        /* ElixirOffice: PowerPoint-like Presenter View (large timer, wall clock, accent End button) */
+        #dem_id_time { font-size: 18px !important; font-weight: 600; letter-spacing: .02em; bottom: 3px !important; }
+        #dem_id_slides { font-size: 13px !important; }
+        #elx-presenter-clock { position: absolute; right: 150px; bottom: 6px; font: 13px "Segoe UI", system-ui, -apple-system, Arial, sans-serif; color: inherit; opacity: .8; white-space: nowrap; }
+        #dem_id_end { background: var(--elixir-accent, #0082c9) !important; border-color: transparent !important; color: #fff !important; border-radius: 4px; }
+    </style>
 </head>
 <body>
     <div id="loading-mask" class="loadmask"><div class="placeholder"><div class="slide-h"><div class="slide-v"><div class="slide-container"><div class="line"></div><div class="line empty"></div><div class="line"></div></div></div></div></div></div>
@@ -251,5 +258,19 @@
 
     <script data-main="app_dev.reporter" src="../../../vendor/requirejs/require.js"></script>
 
+    <script id="elixir-presenter-clock">
+        // ElixirOffice: wall clock next to the timer, like PowerPoint's Presenter View
+        (function () {
+            var tick = function () {
+                var bar = document.getElementById('id_reporter_dem_controller');
+                if (!bar) return;
+                var el = document.getElementById('elx-presenter-clock');
+                if (!el) { el = document.createElement('label'); el.id = 'elx-presenter-clock'; el.className = 'block_elem_no_select dem-text-color'; bar.appendChild(el); }
+                var d = new Date();
+                try { el.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { el.textContent = d.toTimeString().slice(0, 5); }
+            };
+            setInterval(tick, 1000);
+        })();
+    </script>
 </body>
 </html>
