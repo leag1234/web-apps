@@ -50,7 +50,7 @@ define([
                     column(elset(small('elx-chk-tbl-header', 'text')) + elset(small('elx-chk-tbl-total', 'text')) + elset(small('elx-chk-tbl-banded', 'text'))) +
                     column(elset(small('elx-chk-tbl-first', 'text')) + elset(small('elx-chk-tbl-last', 'text')) + elset(small('elx-chk-tbl-colbanded', 'text'))),
                     'small elx-table-options') + SEP +
-                '<div class="group small flex elx-tbl-styles" id="elx-tbl-styles" data-group="tablestyles" style="width: 100%; min-width: 160px;" data-group-width="100%"></div>' +
+                '<div class="group small flex elx-tbl-styles" id="elx-tbl-styles" data-group="tablestyles" style="width: 540px; min-width: 160px;" data-group-width="540px"></div>' +
                 group('tablestyles', null, big('elx-btn-tbl-shading')) + SEP +
                 group('borders', 'borders',
                     column(elset(small('elx-cmb-tbl-border-size')) + elset(small('elx-btn-tbl-pen-color', 'text'))) +
