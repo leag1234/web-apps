@@ -9,7 +9,8 @@
 
 define([
     'common/main/lib/elixir-ai/Core',
-    'common/main/lib/elixir-ai/Icons'
+    'common/main/lib/elixir-ai/Icons',
+    'common/main/lib/elixir-ai/Strings'
 ], function () {
     'use strict';
 
@@ -70,8 +71,18 @@ define([
     };
 
     var lang = 'en';
-    ElixirAI.setLang = function (l) { lang = (l || 'en').toLowerCase().split(/[-_]/)[0] === 'fr' ? 'fr' : 'en'; };
-    var t = ElixirAI.t = function (k) { return (STRINGS[lang] && STRINGS[lang][k]) || STRINGS.en[k] || k; };
+    ElixirAI.setLang = function (l) { lang = ElixirAI.langOf(l); };
+    ElixirAI.getLang = function () { return lang; };
+    // Command bar and entry points: Strings.js (12 languages); settings dialog: STRINGS above (en, fr)
+    var t = ElixirAI.t = function (k) {
+        var S = ElixirAI.Strings || {};
+        return (S[lang] && S[lang][k]) || (STRINGS[lang] && STRINGS[lang][k]) || (S.en && S.en[k]) || STRINGS.en[k] || k;
+    };
+    // t() with {0} / {name} placeholders
+    var tf = ElixirAI.tf = function (k, vals) {
+        vals = vals || {};
+        return t(k).replace(/\{(\w+)\}/g, function (m, n) { return vals[n] !== undefined && vals[n] !== null ? String(vals[n]) : m; });
+    };
 
     function esc(s) {
         return String(s === undefined || s === null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -109,6 +120,8 @@ define([
         '.elixir-ai-steps li .err-msg{color:#c62828;font-size:11px;display:block;}',
         '.elixir-ai-status{margin-top:6px;}',
         '.elixir-ai-status.error{color:#c62828;}',
+        '.elixir-ai-answer{margin-top:6px;white-space:pre-wrap;}',
+        '.elixir-ai-note.warn{background:#fff4e5;color:#7a4b00;}',
         '.elixir-ai-note{margin-top:6px;padding:4px 8px;border-radius:6px;background:var(--background-toolbar-additional,#f3f3f3);font-size:12px;}',
         '.elixir-ai-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px;}',
         '.elixir-ai-modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:1002;}',
@@ -139,36 +152,53 @@ define([
     // Command bar
     // ---------------------------------------------------------------------------------------------
 
-    var TOOL_LABELS = {
-        en: {
-            read_context: function () { return 'Reading the document'; },
-            insert_paragraphs: function (a) { return 'Inserting ' + (a.items || []).length + ' paragraph(s) after block ' + a.after; },
-            apply_style: function (a) { return 'Style “' + a.style + '” on ' + span(a); },
-            apply_styles: function (a) { return 'Restyling ' + (a.changes || []).length + ' range(s): ' + (a.changes || []).map(function (c) { return c.style + ' ' + span(c); }).join(', '); },
-            list_to_table: function (a) { return 'Converting the list (' + span(a) + ') into a table'; },
-            create_table: function (a) { return 'Creating a table of ' + (a.rows || []).length + ' row(s)'; },
-            set_columns: function (a) { return a.count + ' column(s) on ' + span(a); },
-            replace_text: function (a) { return 'Replacing text in block ' + a.block; }
-        },
-        fr: {
-            read_context: function () { return 'Lecture du document'; },
-            insert_paragraphs: function (a) { return 'Insertion de ' + (a.items || []).length + ' paragraphe(s) après le bloc ' + a.after; },
-            apply_style: function (a) { return 'Style « ' + a.style + ' » sur ' + span(a); },
-            apply_styles: function (a) { return 'Styles sur ' + (a.changes || []).length + ' plage(s) : ' + (a.changes || []).map(function (c) { return c.style + ' ' + span(c); }).join(', '); },
-            list_to_table: function (a) { return 'Conversion de la liste (' + span(a) + ') en tableau'; },
-            create_table: function (a) { return 'Création d’un tableau de ' + (a.rows || []).length + ' ligne(s)'; },
-            set_columns: function (a) { return a.count + ' colonne(s) sur ' + span(a); },
-            replace_text: function (a) { return 'Remplacement de texte dans le bloc ' + a.block; }
-        }
+    // Label of a step while it runs (reading tools) and plain words of what it did (changes)
+    var READ_LABELS = {
+        read_context: 'r_read', document_info: 'r_info', find_text: 'r_find', explain_layout: 'r_layout',
+        get_outline_candidates: 'r_outline', get_layout_summary: 'r_layoutSummary', find_overflowing_elements: 'r_overflow'
     };
-    function span(a) {
-        if (a.from === undefined) return '';
-        return a.from === a.to ? (lang === 'fr' ? 'le bloc ' : 'block ') + a.from : (lang === 'fr' ? 'les blocs ' : 'blocks ') + a.from + '–' + a.to;
+    function runLabel(name, args) {
+        if (READ_LABELS[name]) return tf(READ_LABELS[name], { find: (args && (args.text || args.find)) || '' });
+        if (name === 'submit_plan') return tf('r_plan', [args && args.goal || '']).replace('{0}', args && args.goal || '');
+        return t('working');
     }
-    function toolLabel(name, args) {
-        var f = (TOOL_LABELS[lang] || TOOL_LABELS.en)[name];
-        try { return f ? f(args || {}) : name; } catch (e) { return name; }
+    function doneText(name, args, result) {
+        var d = (result && result.done) || {}, a = args || {};
+        var n = d.n;
+        switch (name) {
+            case 'apply_styles':
+                return Object.keys(d.byStyle || {}).map(function (st) { return tf('d_apply_style', { style: st, n: d.byStyle[st] }); }).join('; ');
+            case 'apply_style': return tf('d_apply_style', { style: a.style, n: n });
+            case 'set_list': return tf(d.kind === 'bullet' ? 'd_list_bullet' : d.kind === 'none' ? 'd_list_none' : 'd_list_numbered', { n: n });
+            case 'insert_table_of_contents': return tf('d_toc', { n: n });
+            case 'table_rows': return tf(d.action === 'delete' ? 'd_rows_delete' : 'd_rows_insert', { n: n });
+            case 'table_columns': return tf(d.action === 'delete' ? 'd_cols_delete' : 'd_cols_insert', { n: n });
+            case 'table_merge_cells': return tf('d_merge', { n: n });
+            case 'table_sort': return tf('d_sort', { column: d.column });
+            case 'table_set_cells': return tf('d_cells', { n: n });
+            case 'set_image_layout': return t('d_image_layout');
+            case 'fit_content': return tf('d_fit', { n: n });
+            case 'set_page_setup': return t('d_page_setup');
+            case 'set_columns': return tf('d_columns', { n: n, count: d.count });
+            case 'insert_break': return t(d.kind === 'page' ? 'd_break_page' : d.kind === 'column' ? 'd_break_column' : 'd_break_section');
+            case 'set_header_footer': return t(d.part === 'header' ? 'd_header' : 'd_footer');
+            case 'add_comment': return t('d_comment');
+            case 'list_to_table': case 'create_table': return tf('d_' + name, { rows: d.rows, cols: d.cols });
+            case 'find_replace': return tf('d_find_replace', { find: d.find, replace: d.replace, n: n });
+            case 'table_format': return t('d_table_format');
+            case 'insert_image': return t('d_insert_image');
+            case 'modify_style': return tf('d_modify_style', { style: a.style });
+        }
+        var k = 'd_' + name;
+        return t(k) !== k ? tf(k, { n: n }) : name;
     }
+    ElixirAI.doneText = doneText;
+    // The plain-words summary of an action: one line per kind of change, in order
+    ElixirAI.summarize = function (done) {
+        var out = [];
+        (done || []).forEach(function (x) { var s = doneText(x.name, x.args, x.result); if (s && out.indexOf(s) < 0) out.push(s); });
+        return out.join('. ') + (out.length ? '.' : '');
+    };
 
     /**
      * host: {api, toolsetFactory(), openSettings(), shortcutLabel, isHistoryAt(index)…}
@@ -340,8 +370,13 @@ define([
     };
 
     CommandBar.prototype.addStep = function (tc) {
+        if (tc.name === 'cannot_do' || tc.name === 'ask_user' || tc.name === 'verify_result') return;
+        if (tc.name === 'submit_plan') {
+            this.panel.querySelector('.elixir-ai-plan').textContent = (tc.args && tc.args.goal) || '';
+            return;
+        }
         var li = document.createElement('li');
-        li.textContent = toolLabel(tc.name, tc.args);
+        li.textContent = runLabel(tc.name, tc.args);
         this.panel.querySelector('.elixir-ai-steps').appendChild(li);
         tc._li = li;
     };
@@ -351,6 +386,7 @@ define([
         if (!li) return;
         var ok = tc.result && tc.result.ok !== false;
         li.className = ok ? 'ok' : 'err';
+        if (ok && !READ_LABELS[tc.name]) li.textContent = doneText(tc.name, tc.args, tc.result);
         if (!ok) {
             var m = document.createElement('span');
             m.className = 'err-msg';
@@ -376,15 +412,17 @@ define([
         this.showPanel();
         this.setStatus(t('reading'));
         this.abort = new AbortController();
+        this.lastInstruction = text;
         ElixirAI.Orchestrator.run({
-            instruction: text, toolset: toolset, settings: s, signal: this.abort.signal,
+            instruction: text, toolset: toolset, settings: s, signal: this.abort.signal, lang: lang,
             onEvent: function (type, data) {
                 if (type === 'context') {
                     me.el.querySelector('.elixir-ai-scope').textContent = data.scope === 'selection' ? t('scopeSelection') : t('scopeDocument');
                     me.setStatus(t('working'));
                 } else if (type === 'delta') {
                     me.panel.querySelector('.elixir-ai-plan').textContent = data.text;
-                } else if (type === 'tool:start') me.addStep(data);
+                } else if (type === 'verify') me.setStatus(t('verifying'));
+                else if (type === 'tool:start') me.addStep(data);
                 else if (type === 'tool:end') me.endStep(data);
             }
         }).then(function (res) {
@@ -400,20 +438,68 @@ define([
                 return;
             }
             me.result = res;
-            if (res.summary) me.panel.querySelector('.elixir-ai-plan').textContent = res.summary;
+            var planEl = me.panel.querySelector('.elixir-ai-plan');
             var notes = me.panel.querySelector('.elixir-ai-notes');
             notes.innerHTML = '';
             res.untracked.forEach(function (n) {
                 var d = document.createElement('div');
                 d.className = 'elixir-ai-note';
-                d.textContent = t('untracked') + ' — ' + n;
+                d.textContent = t('untracked') + ' — ' + t('u_' + n);
                 notes.appendChild(d);
             });
+            var again = function (instruction) { return function () { me.input.value = instruction; me.submit(); }; };
+            if (res.cannotDo && !res.changed) {
+                // never a silent no-op: what cannot be done, and the closest action in one click
+                me.setState('idle');
+                planEl.textContent = res.cannotDo.message || '';
+                me.el.querySelector('.elixir-ai-status').setAttribute('data-kind', 'cannot-do');
+                me.setStatus(t('cannotDo'));
+                var acts = [{ label: t('close'), fn: me.close.bind(me) }];
+                if (res.cannotDo.suggestion) acts.push({ id: 'suggestion', label: tf('tryThis', [res.cannotDo.suggestion]).replace('{0}', res.cannotDo.suggestion), primary: true, fn: again(res.cannotDo.suggestion) });
+                me.setActions(acts);
+                return;
+            }
+            if (res.question && !res.changed) {
+                me.setState('idle');
+                planEl.textContent = res.question.question || '';
+                me.setStatus(t('question'));
+                me.setActions((res.question.options || []).map(function (o, i) {
+                    return { id: 'option-' + i, label: o, primary: i === 0, fn: again(text + ' — ' + o) };
+                }).concat([{ label: t('close'), fn: me.close.bind(me) }]));
+                return;
+            }
+            var summary = ElixirAI.summarize(res.done);
+            me.summary = summary;
+            // steps the model corrected itself (e.g. a refused argument) are noise once the action succeeded
+            if (res.changed || res.cannotDo) Array.prototype.forEach.call(me.panel.querySelectorAll('.elixir-ai-steps li.err'), function (li) { li.remove(); });
             if (!res.changed) {
                 me.setState('idle');
-                me.setStatus(t('noChange'));
+                // a question about the document: the model's answer; otherwise say nothing was changed
+                planEl.textContent = res.answer || '';
+                me.setStatus(res.answer ? '' : t('noChange'));
                 me.setActions([{ label: t('close'), fn: me.close.bind(me) }]);
                 return;
+            }
+            // the plan line keeps what Elixir understood (the plan goal); the steps say, in plain words, what was done
+            if (!res.plan || !planEl.textContent) planEl.textContent = summary;
+            me.el.setAttribute('data-summary', summary);
+            (res.userNotes || []).forEach(function (k) {
+                var un = document.createElement('div');
+                un.className = 'elixir-ai-answer elixir-ai-usernote';
+                un.textContent = t(k);
+                notes.appendChild(un);
+            });
+            if (res.answer) {
+                var ans = document.createElement('div');
+                ans.className = 'elixir-ai-answer';
+                ans.textContent = res.answer;
+                notes.appendChild(ans);
+            }
+            if (res.verification && res.verification.goal_met === false && (res.verification.problems || []).length) {
+                var w = document.createElement('div');
+                w.className = 'elixir-ai-note warn';
+                w.textContent = tf('goalNotMet', [res.verification.problems.join('; ')]).replace('{0}', res.verification.problems.join('; '));
+                notes.appendChild(w);
             }
             me.setState('review');
             me.historyIndex = me.host.historyIndex();
@@ -426,6 +512,22 @@ define([
             var acc = me.el.querySelector('[data-act=accept]');
             acc && acc.focus();
         });
+    };
+
+    // Entry points: open the bar with an instruction and run it
+    CommandBar.prototype.ask = function (text, autoSubmit) {
+        var me = this;
+        // the server-managed configuration may still be loading: wait for it before deciding
+        if (!ElixirAI.Settings.isConfigured() && !this.managedLoaded) {
+            this.managedLoaded = true;
+            ElixirAI.Settings.loadManaged().then(function () { me.managedChecked = true; me.ask(text, autoSubmit); });
+            return;
+        }
+        this.open();
+        if (!this.input || this.input.disabled || this.state === 'running') return;
+        this.input.value = text || '';
+        if (autoSubmit !== false && text && ElixirAI.Settings.isConfigured()) this.submit();
+        else { var me = this; setTimeout(function () { me.input.focus(); me.input.setSelectionRange(me.input.value.length, me.input.value.length); }, 0); }
     };
 
     CommandBar.prototype.stop = function () {
@@ -498,7 +600,7 @@ define([
             '<input id="elixir-ai-key" type="password" autocomplete="off" value="' + esc(s.apiKey) + '">' +
             '<label for="elixir-ai-model">' + esc(t('model')) + '</label>' +
             '<input id="elixir-ai-model" list="elixir-ai-models" value="' + esc(s.model) + '">' +
-            '<datalist id="elixir-ai-models"><option value="gpt-4.1-mini"><option value="gpt-5.4-mini"></datalist>' +
+            '<datalist id="elixir-ai-models"><option value="gpt-4.1-mini"><option value="gpt-5.4-mini"><option value="gpt-5.4"></datalist>' +
             '<label for="elixir-ai-extra">' + esc(t('extra')) + '</label>' +
             '<input id="elixir-ai-extra" placeholder=\'{"reasoning_effort":"low"}\' value="' + esc(s.extraParams) + '">' +
             '<label for="elixir-ai-rounds">' + esc(t('rounds')) + '</label>' +
@@ -530,7 +632,8 @@ define([
                 endpoint: $('#elixir-ai-endpoint').value.trim(), apiKey: $('#elixir-ai-key').value.trim(),
                 model: $('#elixir-ai-model').value.trim(), extraParams: $('#elixir-ai-extra').value.trim(),
                 maxRounds: Math.max(1, Math.min(20, parseInt($('#elixir-ai-rounds').value, 10) || 8)),
-                prices: ElixirAI.Settings.get().prices
+                prices: ElixirAI.Settings.get().prices,
+                mode: ElixirAI.Settings.get().mode, earlyStop: ElixirAI.Settings.get().earlyStop
             };
             if (n.endpoint && !/^https?:\/\//i.test(n.endpoint)) { msg(t('invalidUrl'), true); return null; }
             if (n.extraParams) {

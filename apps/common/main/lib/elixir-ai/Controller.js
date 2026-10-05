@@ -15,6 +15,7 @@ define([
     'core',
     'common/main/lib/elixir-ai/Core',
     'common/main/lib/elixir-ai/Icons',
+    'common/main/lib/elixir-ai/Strings',
     'common/main/lib/elixir-ai/View'
 ], function () {
     'use strict';
@@ -92,6 +93,20 @@ define([
                 return false;
             };
             Common.util.Shortcuts.delegateShortcuts({ shortcuts: keymap });
+            ElixirAI.setLang(this.appOptions().lang);
+            ElixirAI.injectStyles();
+            // the editor's other entry points (title bar search, Ask Elixir menu, "/" menu)
+            var ep = ElixirAI.entryPoints && ElixirAI.entryPoints[this.toolsetId];
+            ep && ep.setup(this);
+            Common.NotificationCenter.trigger('elixir:ready', this);
+        },
+
+        // Run an instruction from another entry point (search box, Ask Elixir menu, "/" menu)
+        ask: function (text, autoSubmit) {
+            if (!this.isAvailable()) return false;
+            this.openBar();
+            this.bar.ask(text, autoSubmit);
+            return true;
         },
 
         host: function () {
