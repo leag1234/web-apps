@@ -130,6 +130,8 @@ define([
                 var $a = $(this), tab = $a.attr('data-tab');
                 names[tab] && $a.text(names[tab]);
                 keys[tab] && $a.attr('data-hint-title', keys[tab]);
+                // contextual tabs: at the right, in the accent colour, like Excel
+                /^(pivot|tabledesign|chartdesign|chartformat|shapeformat|pictureformat)$/.test(tab) && $a.closest('.ribtab').addClass('contextual');
             });
         },
 

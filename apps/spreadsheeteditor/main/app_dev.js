@@ -147,6 +147,7 @@ require([
             ,'ExcelGrid'
             ,'ExcelKeyTips'
             ,'ExcelScreenTips'
+            ,'ExcelContextMenus'
         ]
     });
 
@@ -200,6 +201,7 @@ require([
             ,'spreadsheeteditor/main/app/controller/ExcelGrid'
             ,'spreadsheeteditor/main/app/controller/ExcelKeyTips'
             ,'spreadsheeteditor/main/app/controller/ExcelScreenTips'
+            ,'spreadsheeteditor/main/app/controller/ExcelContextMenus'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',
