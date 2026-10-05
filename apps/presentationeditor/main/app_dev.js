@@ -142,6 +142,7 @@ require([
             ,'Common.Controllers.Shortcuts'
             ,'Transitions'
             ,'Animation'
+            ,'ElixirChrome'
         ]
     });
 
@@ -190,6 +191,7 @@ require([
             ,'common/main/lib/controller/Draw'
             ,'presentationeditor/main/app/controller/Transitions'
             ,'presentationeditor/main/app/controller/Animation'
+            ,'presentationeditor/main/app/elixir-slide/Controller'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',

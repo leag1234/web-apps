@@ -151,6 +151,7 @@ require([
             ,'Common.Controllers.Shortcuts'
             ,'Transitions'
             ,'Animation'
+            ,'ElixirChrome'
         ]
     });
 
@@ -199,6 +200,7 @@ require([
             ,'common/main/lib/controller/Draw'
             ,'presentationeditor/main/app/controller/Transitions'
             ,'presentationeditor/main/app/controller/Animation'
+            ,'presentationeditor/main/app/elixir-slide/Controller'
         ], function() {
             const code_path = 'presentationeditor/main/code';
             app.postLaunchScripts = [
