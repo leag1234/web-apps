@@ -291,3 +291,123 @@
         }
     }
 }
+
+// --------------------------------------------------------------------------
+// Ribbon group labels and dialog launchers (see DE.Views.Toolbar.updateGroupLabels)
+// Off by default; a theme turns them on with:
+//   --toolbar-group-label-display: block;
+//   --toolbar-group-label-space: <height reserved under the groups>;
+//   --toolbar-height-controls: <taller ribbon>;
+// --------------------------------------------------------------------------
+@group-label-space: var(--toolbar-group-label-space, 0px);
+
+#toolbar .toolbar {
+    .box-controls {
+        padding-top: calc((@toolbar-height-controls - @toolbar-group-height - @group-label-space) / 2);
+        padding-bottom: calc((@toolbar-height-controls - @toolbar-group-height - @group-label-space) / 2);
+    }
+
+    .box-panels > .panel {
+        > .group {
+            padding-bottom: @group-label-space;
+        }
+
+        > .separator.long {
+            height: calc(@toolbar-group-height + @group-label-space);
+        }
+
+        > .group.group-label-owner::after {
+            content: attr(data-label);
+            display: var(--toolbar-group-label-display, none);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: var(--group-label-width, 100%);
+            height: @group-label-space;
+            line-height: @group-label-space;
+            padding: 0 4px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 11px;
+            color: @text-secondary-ie;
+            color: @text-secondary;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+
+            .rtl & {
+                left: auto;
+                right: 0;
+            }
+        }
+
+        > .group.group-label-owner.has-launcher::after {
+            padding: 0 20px;
+        }
+
+        > .group > .group-launcher {
+            display: var(--toolbar-group-label-display, none);
+            position: absolute;
+            z-index: 1;
+            left: calc(var(--group-label-width, 100%) - 18px);
+            bottom: calc((@group-label-space - 16px) / 2);
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: 0 none;
+            border-radius: 3px;
+            background: transparent;
+            cursor: pointer;
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 3px;
+                background-color: @icon-normal-ie;
+                background-color: @icon-normal;
+                -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M.5 0h6a.5.5 0 0 1 0 1H1v5.5a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0Zm9 9.5a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.8L2.65 3.85a.5.5 0 0 1 .7-.7L8.5 8.3V4.5a.5.5 0 0 1 1 0v5Z'/%3E%3C/svg%3E") center / contain no-repeat;
+                mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M.5 0h6a.5.5 0 0 1 0 1H1v5.5a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0Zm9 9.5a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.8L2.65 3.85a.5.5 0 0 1 .7-.7L8.5 8.3V4.5a.5.5 0 0 1 1 0v5Z'/%3E%3C/svg%3E") center / contain no-repeat;
+            }
+
+            &:hover {
+                background-color: @highlight-button-hover-ie;
+                background-color: @highlight-button-hover;
+            }
+
+            &:active {
+                background-color: @highlight-button-pressed-ie;
+                background-color: @highlight-button-pressed;
+            }
+
+            .rtl & {
+                left: auto;
+                right: calc(var(--group-label-width, 100%) - 18px);
+                &::before {
+                    transform: scaleX(-1);
+                }
+            }
+        }
+    }
+
+    // groups moved to the overflow ("more") popup keep no label
+    .more-container .group {
+        padding-bottom: 0;
+        &::after, > .group-launcher {
+            display: none !important;
+        }
+    }
+
+    // a column of small buttons next to a large one in the same group
+    .elset-column {
+        display: inline-block;
+        vertical-align: top;
+        .margin-left-6();
+    }
+}
+
+// Font group: the font name box keeps a Word-like width (the first row now
+// also holds Clear formatting, so it is wider than the second one)
+#toolbar .group[data-group=font] #slot-field-fontname {
+    min-width: 128px;
+}

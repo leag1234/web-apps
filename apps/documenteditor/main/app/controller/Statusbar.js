@@ -86,8 +86,9 @@ define([
                 me.statusbar.$el.css('z-index', 1);
 
                 var lblzoom = $('.statusbar #label-zoom');
-                lblzoom.css('min-width', 80);
-                lblzoom.text(Common.Utils.String.format(me.zoomText, 100));
+                lblzoom.css('min-width', 40);
+                lblzoom.text(me.formatZoom(100));
+                me.createZoomSlider();
 
                 if ( cfg.isEdit ) {
                     var review = me.getApplication().getController('Common.Controllers.ReviewChanges').getView();
@@ -229,6 +230,43 @@ define([
             Common.NotificationCenter.trigger('edit:complete', this.statusbar);
         },
 
+        // Word-like zoom slider: 10%-100% on the left half, 100%-500% on the right half
+        zoomToSlider: function(percent) {
+            return percent <= 100 ? Math.max(0, (percent - 10) / 90 * 50) : Math.min(100, 50 + (percent - 100) / 400 * 50);
+        },
+
+        sliderToZoom: function(pos) {
+            var z = pos <= 50 ? 10 + pos / 50 * 90 : 100 + (pos - 50) / 50 * 400;
+            z = Math.round(z);
+            return Math.abs(z - 100) < 4 ? 100 : z;   // snap to 100%, like Word
+        },
+
+        formatZoom: function(percent) {
+            return Common.Utils.String.format(this.textZoomPercent || '{0}%', percent);
+        },
+
+        createZoomSlider: function() {
+            var me = this, $el = $('#status-zoom-slider');
+            if (!$el.length || me.zoomSlider || !Common.UI.SingleSlider) return;
+            me.zoomSlider = new Common.UI.SingleSlider({
+                el: $el,
+                width: 100,
+                minValue: 0,
+                maxValue: 100,
+                step: 1,
+                value: 50
+            });
+            me.zoomSlider.on('change', function(slider, value) {
+                me._zoomSliding = true;
+                me.api && me.api.zoom(me.sliderToZoom(value));
+            });
+            me.zoomSlider.on('changecomplete', function(slider, value) {
+                me._zoomSliding = false;
+                me.api && me.api.zoom(me.sliderToZoom(value));
+                Common.NotificationCenter.trigger('edit:complete', me.statusbar);
+            });
+        },
+
         zoomDocument: function(d,e) {
             switch (d) {
                 case 'up':      this.api.zoomIn(); break;
@@ -254,7 +292,8 @@ define([
                 this.api.SetMultipageViewMode(false);
                 this.statusbar.btnMultiplePages.toggle(false);
             }
-            $('.statusbar #label-zoom').text(Common.Utils.String.format(this.zoomText, percent));
+            $('.statusbar #label-zoom').text(this.formatZoom(percent));
+            this.zoomSlider && !this._zoomSliding && this.zoomSlider.setValue(this.zoomToSlider(percent));
             if (!this._isDocReady) return;
             var value = type == 2 ? -1 : (type == 1 ? -2 : percent);
             Common.localStorage.setItem('de-last-zoom', value);
@@ -377,6 +416,7 @@ define([
         },
 
         zoomText        : 'Zoom {0}%',
+        textZoomPercent : '{0}%',
         textHasChanges  : 'New changes have been tracked',
         textTrackChanges: 'The document is opened with the Track Changes mode enabled',
         tipReview       : 'Review',

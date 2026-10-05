@@ -171,6 +171,7 @@ define([
                                 {caption: me.textTabFile, action: 'file', extcls: 'canedit', layoutname: 'toolbar-file', haspanel:false, dataHintTitle: 'F'},
                                 {caption: me.textTabHome, action: 'home', extcls: 'canedit', dataHintTitle: 'H'},
                                 {caption: me.textTabInsert, action: 'ins', extcls: 'canedit', dataHintTitle: 'I'},
+                                {caption: me.textTabDesign, action: 'design', extcls: 'canedit', layoutname: 'toolbar-design', dataHintTitle: 'G'},
                                 {caption: me.textTabLayout, action: 'layout', extcls: 'canedit', layoutname: 'toolbar-layout', dataHintTitle: 'L'},
                                 {caption: me.textTabLinks, action: 'links', extcls: 'canedit', layoutname: 'toolbar-references', dataHintTitle: 'N'}
                                 // undefined, undefined, undefined, undefined,
@@ -268,8 +269,9 @@ define([
 
                     this.btnPaste = new Common.UI.Button({
                         id: 'id-toolbar-btn-paste',
-                        cls: 'btn-toolbar',
-                        iconCls: 'toolbar__icon btn-paste',
+                        cls: 'btn-toolbar x-huge icon-top',
+                        iconCls: 'toolbar__icon btn-big-paste',
+                        caption: me.tipPaste,
                         lock: [_set.paragraphLock, _set.headerLock, _set.richEditLock, _set.plainEditLock, _set.previewReviewMode, _set.viewFormMode, _set.lostConnect, _set.disableOnStart, _set.docLockViewIns, _set.docLockCommentsIns, _set.viewMode],
                         dataHint: '1',
                         dataHintDirection: 'top',
@@ -300,6 +302,7 @@ define([
                         id: 'id-toolbar-btn-select-all',
                         cls: 'btn-toolbar',
                         iconCls: 'toolbar__icon btn-select-all',
+                        caption: me.tipSelectAll,
                         lock: [_set.viewFormMode, _set.disableOnStart],
                         dataHint: '1',
                         dataHintDirection: 'bottom'
@@ -310,10 +313,22 @@ define([
                         label: this.tipSelectAll
                     };
 
+                    this.btnFind = new Common.UI.Button({
+                        id: 'id-toolbar-btn-find',
+                        cls: 'btn-toolbar',
+                        iconCls: 'toolbar__icon btn-menu-search',
+                        caption: me.capBtnFind,
+                        lock: [_set.viewFormMode, _set.disableOnStart],
+                        dataHint: '1',
+                        dataHintDirection: 'top'
+                    });
+                    this.toolbarControls.push(this.btnFind);
+
                     this.btnReplace = new Common.UI.Button({
                         id: 'id-toolbar-btn-replace',
                         cls: 'btn-toolbar',
                         iconCls: 'toolbar__icon btn-replace',
+                        caption: me.tipReplace,
                         lock: [_set.viewFormMode, _set.disableOnStart],
                         dataHint: '1',
                         dataHintDirection: 'top'
@@ -2166,6 +2181,8 @@ define([
                 _injectComponent('#slot-btn-select-tool', this.btnSelectTool);
                 _injectComponent('#slot-btn-hand-tool', this.btnHandTool);
                 // _injectComponent('#slot-btn-tb-edit-mode', this.btnEditMode);
+                // the clipboard group lives in the Home tab; form filling has no Home tab
+                $host.find('.panel.static > .separator').last().before($host.find('.group[data-group=clipboard]'));
 
                 return $host;
             },
@@ -2188,6 +2205,7 @@ define([
                 _injectComponent('#slot-btn-cut', this.btnCut);
                 _injectComponent('#slot-btn-select-all', this.btnSelectAll);
                 _injectComponent('#slot-btn-replace', this.btnReplace);
+                _injectComponent('#slot-btn-find', this.btnFind);
                 _injectComponent('#slot-btn-incfont', this.btnIncFontSize);
                 _injectComponent('#slot-btn-decfont', this.btnDecFontSize);
                 _injectComponent('#slot-btn-bold', this.btnBold);
@@ -3277,6 +3295,133 @@ define([
                     minColumns: 10,
                     maxRows: 8,
                     maxColumns: 10
+                });
+            },
+
+            // ---- Ribbon group labels and dialog launchers (Word-like) -------------
+            // Each run of groups between two separators is a ribbon "group" in
+            // the Office sense. Its label comes from the data-group attribute of
+            // its first group (set in Toolbar.template, or by groupTags below for
+            // the panels built by other controllers) and is drawn by CSS under
+            // the run (::after, width from --group-label-width), so the overflow
+            // logic of Mixtbar, which moves the panel children around, is not
+            // disturbed. Labels are hidden unless the theme sets
+            // --toolbar-group-label-display (see resources/less/toolbar.less).
+            groupTags: {
+                review: [
+                    ['#slot-btn-sharing, #slot-btn-coauthmode', 'collaboration'],
+                    ['.slot-comment, #slot-comment-remove', 'comments'],
+                    ['#btn-review-on', 'tracking'],
+                    ['#slot-btn-compare', 'compare'],
+                    ['#slot-btn-chat', 'chat'],
+                    ['#slot-btn-history', 'history'],
+                    ['#slot-btn-mailrecepients', 'mailmerge'],
+                    ['#slot-btn-add-password, #slot-btn-signature, #slot-btn-protect-form, #slot-btn-protect-doc', 'protect']
+                ],
+                view: [
+                    ['#slot-btn-navigation', 'show'],
+                    ['#slot-btn-zoom-100, #slot-field-zoom', 'zoom'],
+                    ['#slot-btn-interface-theme', 'appearance'],
+                    ['#slot-chk-toolbar, #slot-chk-rulers', 'show'],
+                    ['#slot-btn-macros', 'macros']
+                ],
+                draw: [
+                    ['#slot-btn-draw-select, #slot-btn-draw-eraser', 'drawingtools']
+                ],
+                headerfooter: [
+                    ['.slot-headerfooter, [id^=tlbtn-headerfooter]', 'headerfooter'],
+                    ['[id^=tlbtn-insertpagenum]', 'insert'],
+                    ['#slot-spin-header-top', 'position'],
+                    ['#slot-chk-diff-first, #slot-chk-sameas', 'options'],
+                    ['#slot-btn-close-tab', 'close']
+                ]
+            },
+
+            groupLabelText: function (key) {
+                var name = 'txtGroup' + key.charAt(0).toUpperCase() + key.slice(1);
+                return this[name] || '';
+            },
+
+            tagPanelGroups: function ($panel) {
+                var me = this,
+                    tab = $panel && $panel.attr('data-tab'),
+                    tags = tab && me.groupTags[tab];
+                if (!tags) return;
+                _.each(tags, function (t) {
+                    var $g = $panel.find(t[0]).first().closest('.group');
+                    $g.length && !$g.attr('data-group') && $g.attr('data-group', t[1]);
+                });
+            },
+
+            addTab: function (tab, panel, after) {
+                Common.UI.Mixtbar.prototype.addTab.apply(this, arguments);
+                panel && this.tagPanelGroups(panel);
+            },
+
+            processPanelVisible: function () {
+                var me = this;
+                Common.UI.Mixtbar.prototype.processPanelVisible.apply(me, arguments);
+                me.updateGroupLabels();
+                // Mixtbar re-runs the layout pass on a 100ms timer: follow it
+                clearTimeout(me._groupLabelsTimer);
+                me._groupLabelsTimer = setTimeout(function () { me.updateGroupLabels(); }, 250);
+            },
+
+            measureGroupLabel: function (text, $panel) {
+                var ctx = this._labelCtx || (this._labelCtx = document.createElement('canvas').getContext('2d'));
+                ctx.font = '11px ' + window.getComputedStyle($panel[0]).fontFamily;
+                return Math.ceil(ctx.measureText(text).width);
+            },
+
+            updateGroupLabels: function ($panel) {
+                var me = this;
+                $panel = $panel || (me.$panels && me.$panels.filter('.active'));
+                if (!$panel || !$panel.length || !$panel.is(':visible')) return;
+                var rtl = Common.UI.isRTL(),
+                    segments = [], cur = [];
+                $panel.children().each(function () {
+                    var $c = $(this);
+                    if ($c.hasClass('separator') && !$c.hasClass('invisible')) {
+                        if ($c.css('display') !== 'none') { cur.length && segments.push(cur); cur = []; }
+                    } else if ($c.hasClass('group') && $c.css('display') !== 'none') {
+                        cur.push($c);
+                    }
+                });
+                cur.length && segments.push(cur);
+                _.each(segments, function (seg) {
+                    var key, $owner = seg[0];
+                    _.each(seg, function ($g, i) {
+                        $g.removeClass('group-label-owner');
+                        !key && (key = $g.attr('data-group'));
+                    });
+                    var text = key ? me.groupLabelText(key) : '';
+                    var launcher;
+                    _.each(seg, function ($g) { launcher = launcher || $g.attr('data-launcher'); });
+                    // a label wider than its single group widens the group, like in Word
+                    if (seg.length === 1 && text && !$owner.hasClass('flex')) {
+                        $owner.css({'width': '', 'text-align': ''});
+                        var need = me.measureGroupLabel(text, $panel) + (launcher ? 36 : 8);
+                        if ($owner.outerWidth() < need) $owner.css({'width': need + 'px', 'text-align': 'center'});
+                    }
+                    var first = seg[0][0].getBoundingClientRect(),
+                        last = seg[seg.length - 1][0].getBoundingClientRect(),
+                        width = Math.round(rtl ? first.right - last.left : last.right - first.left);
+                    $owner.addClass('group-label-owner').toggleClass('has-launcher', !!(launcher && text)).attr('data-label', text);
+                    $owner[0].style.setProperty('--group-label-width', width + 'px');
+                    var $btn = $owner.children('.group-launcher');
+                    if (launcher && text) {
+                        if (!$btn.length) {
+                            $btn = $('<button type="button" class="group-launcher" data-hint="1" data-hint-direction="bottom" data-hint-offset="small"></button>');
+                            $btn.on('click', function (e) {
+                                me.fireEvent('group:launcher', [launcher]);
+                            });
+                            $owner.prepend($btn);
+                        }
+                        $btn.attr({'aria-label': text, 'data-launcher': launcher});
+                        $btn.attr('title', me.tipGroupLauncher ? Common.Utils.String.format(me.tipGroupLauncher, text) : text);
+                    } else {
+                        $btn.remove();
+                    }
                 });
             },
 

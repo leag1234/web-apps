@@ -1281,10 +1281,15 @@ define([], function () {
         }
     });
 
-    Common.Utils.InternalSettings.set('toolbar-height-tabs', 32);
-    Common.Utils.InternalSettings.set('toolbar-height-tabs-top-title', 28);
+    // Layout heights can be retuned by a theme through CSS custom properties.
+    var _layout_css_px = function (name, def) {
+        var v = parseInt(window.getComputedStyle(document.body).getPropertyValue(name));
+        return isNaN(v) ? def : v;
+    };
+    Common.Utils.InternalSettings.set('toolbar-height-tabs', _layout_css_px("--toolbar-height-tabs", 32));
+    Common.Utils.InternalSettings.set('toolbar-height-tabs-top-title', _layout_css_px("--toolbar-height-tabs-top-title", 28));
     Common.Utils.InternalSettings.set('toolbar-height-controls', parseInt(window.getComputedStyle(document.body).getPropertyValue("--toolbar-height-controls") || (Common.Utils.isIE ? 66 : 84)));
-    Common.Utils.InternalSettings.set('document-title-height', 28);
+    Common.Utils.InternalSettings.set('document-title-height', _layout_css_px("--document-title-height", 28));
     Common.Utils.InternalSettings.set('window-inactive-area-top', 0);
 
     Common.Utils.InternalSettings.set('toolbar-height-compact', Common.Utils.InternalSettings.get('toolbar-height-tabs'));
