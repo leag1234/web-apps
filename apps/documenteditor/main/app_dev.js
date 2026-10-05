@@ -151,6 +151,11 @@ require([
             ,'Common.Controllers.ElixirAI'
             ,'ElixirChrome'
             ,'WordFormatting'
+            ,'WordShortcuts'
+            ,'WordKeyTips'
+            ,'MiniToolbar'
+            ,'WordContextMenus'
+            ,'ScreenTips'
         ]
     });
 
@@ -201,6 +206,11 @@ require([
                 ,'documenteditor/main/app/controller/WordFormatting'
                 ,'documenteditor/main/app/elixir-ai/WordTools'
                 ,'documenteditor/main/app/elixir-chrome/Controller'
+                ,'documenteditor/main/app/controller/WordShortcuts'
+                ,'documenteditor/main/app/controller/WordKeyTips'
+                ,'documenteditor/main/app/controller/MiniToolbar'
+                ,'documenteditor/main/app/controller/WordContextMenus'
+                ,'documenteditor/main/app/controller/ScreenTips'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 app.postLaunchScripts = [
