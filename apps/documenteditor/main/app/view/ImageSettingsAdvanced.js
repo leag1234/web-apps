@@ -868,6 +868,17 @@ define([
                 }
             }, this));
 
+            // Word's "Lock anchor": the anchor stays on its paragraph when the object is moved
+            this.chLockAnchor = new Common.UI.CheckBox({
+                el: $('#image-checkbox-lockanchor'),
+                labelText: this.textLockAnchor
+            });
+            this.chLockAnchor.on('change', _.bind(function(field, newValue, oldValue, eOpts){
+                if (this._changedProps && this._changedProps.put_LockAnchor) {
+                    this._changedProps.put_LockAnchor(field.getValue()=='checked');
+                }
+            }, this));
+
             // Margins
             this.spnMarginTop = new Common.UI.MetricSpinner({
                 el: $('#image-margin-top'),
@@ -1512,6 +1523,8 @@ define([
                 }
 
                 this.chOverlap.setValue((props.get_AllowOverlap() !== null && props.get_AllowOverlap() !== undefined) ? props.get_AllowOverlap() : 'indeterminate', true);
+                var lockAnchor = props.get_LockAnchor ? props.get_LockAnchor() : false;
+                this.chLockAnchor.setValue((lockAnchor !== null && lockAnchor !== undefined) ? !!lockAnchor : 'indeterminate', true);
 
                 if (props.get_Height()>0)
                     this._nRatio = props.get_Width()/props.get_Height();
@@ -1646,7 +1659,7 @@ define([
                     this.btnWrapInline, this.btnWrapSquare, this.btnWrapTight, this.btnWrapThrough, this.btnWrapTopBottom, this.btnWrapInFront, this.btnWrapBehind,
                     this.spnTop, this.spnLeft, this.spnBottom, this.spnRight, // 9 tab
                     this.radioHAlign, this.radioHPosition, this.radioHPositionPc, this.cmbHAlign , this.cmbHRelative, this.spnX, this.cmbHPosition, this.spnXPc, this.cmbHPositionPc,
-                    this.radioVAlign, this.radioVPosition, this.radioVPositionPc, this.cmbVAlign , this.cmbVRelative, this.spnY, this.cmbVPosition, this.spnYPc, this.cmbVPositionPc, this.chMove, this.chOverlap, // 10 tab
+                    this.radioVAlign, this.radioVPosition, this.radioVPositionPc, this.cmbVAlign , this.cmbVRelative, this.spnY, this.cmbVPosition, this.spnYPc, this.cmbVPositionPc, this.chMove, this.chOverlap, this.chLockAnchor, // 10 tab
                     this.cmbCapType, this.cmbJoinType, this.btnBeginStyle, this.btnEndStyle, this.btnBeginSize, this.btnEndSize, // 11 tab
                     this.chAutofit, this.spnMarginTop, this.spnMarginLeft, this.spnMarginBottom, this.spnMarginRight, // 12 tab
                     this.inputAltTitle, this.textareaAltDescription ]); // 13 tab
@@ -3198,6 +3211,7 @@ define([
         textRightOf: 'to the right Of',
         textBelow: 'below',
         textOverlap: 'Allow overlap',
+        textLockAnchor: 'Lock anchor',
         textMove: 'Move object with text',
         textOptions: 'Options',
         textShape: 'Shape Settings',
