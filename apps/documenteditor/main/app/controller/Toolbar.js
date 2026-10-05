@@ -1304,13 +1304,7 @@ define([
             _.isArray(group) && (group = group[0]);
             if (!me.api) return;
             switch (group) {
-            case 'font':
-            case 'paragraph':
-                var dh = me.getApplication().getController('DocumentHolder'),
-                    win = dh && dh.advancedParagraphClick && dh.advancedParagraphClick({});
-                // Font tab of the paragraph settings dialog for the Font group
-                win && win.setActiveCategory && win.setActiveCategory(group === 'font' ? 3 : 0);
-                break;
+            // font, paragraph, styles: Word dialogs in DE.Controllers.WordFormatting
             case 'pagesetup':
                 me.onPageMarginsSelect(null, {value: 'advanced'});
                 break;

@@ -14,7 +14,9 @@
 
 define([
     'core',
-    'documenteditor/main/app/view/StylesPane'
+    'documenteditor/main/app/view/StylesPane',
+    'documenteditor/main/app/view/FontDialog',
+    'documenteditor/main/app/view/WordParagraphDialog'
 ], function () {
     'use strict';
 
@@ -88,6 +90,13 @@ define([
                 me.stylesPane && me.stylesPane.isVisible() && me.refreshStylesPane();
             });
             var keymap = {};
+            // Word: Ctrl+D opens the Font dialog
+            keymap['command+d,ctrl+d'] = function (e) {
+                if (!me.isEditingAllowed() || $('.asc-window.modal:visible').length) return true;
+                me.openFontDialog();
+                e && e.preventDefault && e.preventDefault();
+                return false;
+            };
             keymap['command+alt+shift+s,ctrl+alt+shift+s'] = function (e) {
                 if (!me.isEditingAllowed()) return true;
                 me.toggleStylesPane();
@@ -117,8 +126,73 @@ define([
 
         onGroupLauncher: function (group) {
             _.isArray(group) && (group = group[0]);
-            if (group === 'styles' && this.isEditingAllowed())
-                this.toggleStylesPane(true);
+            if (!this.isEditingAllowed()) return;
+            switch (group) {
+                case 'styles': this.toggleStylesPane(true); break;
+                case 'font': this.openFontDialog(); break;
+                case 'paragraph': this.openParagraphDialog(); break;
+            }
+        },
+
+        // ---------------------------------------------------------------- Font dialog
+        openFontDialog: function () {
+            var api = this.api || this.getApi(), me = this;
+            if (!api || !api.asc_GetFontDialogProps) return;
+            this.endPreview();
+            var text = '';
+            try { text = (api.asc_GetSelectedText(true) || '').replace(/\s+/g, ' ').trim().substr(0, 40); } catch (e) {}
+            (new DE.Views.FontDialog({
+                api: api,
+                props: api.asc_GetFontDialogProps(),
+                fontStore: this.getFontStore(),
+                previewText: text,
+                handler: function (result, changes) {
+                    result === 'ok' && !_.isEmpty(changes) && api.asc_SetFontDialogProps(changes);
+                    Common.NotificationCenter.trigger('edit:complete', me.toolbar);
+                }
+            })).show();
+        },
+
+        // ---------------------------------------------------------------- Paragraph and Tabs dialogs
+        getParagraphProps: function () {
+            var api = this.api, elements = api ? api.getSelectedElements() : null;
+            for (var i = elements ? elements.length - 1 : -1; i >= 0; i--) {
+                if (elements[i].get_ObjectType() === Asc.c_oAscTypeSelectElement.Paragraph)
+                    return elements[i].get_ObjectValue();
+            }
+            return null;
+        },
+
+        openParagraphDialog: function (View) {
+            var api = this.api || this.getApi(), me = this,
+                props = this.getParagraphProps(),
+                dh = this.getApplication().getController('DocumentHolder');
+            if (!props) return;
+            var win = new (View || DE.Views.WordParagraphDialog)({
+                tableStylerRows: 2,
+                tableStylerColumns: 1,
+                paragraphProps: props,
+                borderProps: dh && dh.borderAdvancedProps,
+                isChart: false,
+                isSmartArtInternal: false,
+                api: api,
+                handler: function (result, value) {
+                    if (result === 'tabs') {
+                        // Word applies the Paragraph dialog, then opens the Tabs dialog
+                        value = this.getSettings();
+                    }
+                    if ((result === 'ok' || result === 'tabs') && value) {
+                        dh && (dh.borderAdvancedProps = value.borderProps);
+                        api.paraApply(value.paragraphProps);
+                    }
+                    if (result === 'tabs')
+                        _.defer(function () { me.openParagraphDialog(DE.Views.WordTabsDialog); });
+                    else
+                        Common.NotificationCenter.trigger('edit:complete', me.toolbar);
+                }
+            });
+            win.show();
+            return win;
         },
 
         // ---------------------------------------------------------------- live preview

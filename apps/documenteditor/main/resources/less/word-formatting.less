@@ -249,3 +249,313 @@
         }
     }
 }
+
+// ---------------------------------------------------------------- Word dialogs: top tabs, groups
+.word-dlg-tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: @scaled-one-px-value-ie solid @border-divider-ie;
+    border-bottom: @scaled-one-px-value solid @border-divider;
+    margin-bottom: 10px;
+}
+
+.word-dlg-tab {
+    border: none;
+    background: transparent;
+    padding: 6px 12px 7px;
+    margin-bottom: -1px;
+    cursor: pointer;
+    color: @text-normal-ie;
+    color: @text-normal;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+        background-color: @highlight-button-hover-ie;
+        background-color: @highlight-button-hover;
+    }
+
+    &.active {
+        font-weight: bold;
+        border-bottom-color: @border-preview-select-ie;
+        border-bottom-color: @border-preview-select;
+    }
+}
+
+.word-dlg-group {
+    border: @scaled-one-px-value-ie solid @border-divider-ie;
+    border: @scaled-one-px-value solid @border-divider;
+    border-radius: 4px;
+    padding: 4px 10px 8px;
+    margin: 8px 0 4px;
+
+    legend {
+        width: auto;
+        padding: 0 4px;
+        margin: 0;
+        border: none;
+        font-size: inherit;
+        font-weight: bold;
+        color: inherit;
+    }
+}
+
+.word-dlg-section {
+    font-weight: bold;
+    margin: 10px 0 6px;
+    padding-bottom: 3px;
+    border-bottom: @scaled-one-px-value-ie solid @border-divider-ie;
+    border-bottom: @scaled-one-px-value solid @border-divider;
+}
+
+// ---------------------------------------------------------------- Font dialog
+.word-font-dlg {
+    .box {
+        padding: 0 16px 6px;
+    }
+
+    .word-font-lists {
+        width: 100%;
+        table-layout: fixed;
+
+        td {
+            vertical-align: top;
+            padding-right: 8px;
+
+            &.col-font { width: 52%; }
+            &.col-style { width: 28%; }
+            &.col-size { width: 20%; padding-right: 0; }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 2px;
+        }
+    }
+
+    .wf-font-list, .wf-style-list, .wf-size-list {
+        height: 118px;
+        margin-top: 2px;
+        border: @scaled-one-px-value-ie solid @border-regular-control-ie;
+        border: @scaled-one-px-value solid @border-regular-control;
+        position: relative;
+        overflow: hidden;
+
+        .item {
+            width: 100%;
+            padding: 0;
+            border: none !important;
+        }
+
+        .list-item {
+            padding: 1px 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .word-font-row2 {
+        width: 100%;
+        margin-top: 10px;
+
+        td {
+            vertical-align: top;
+            padding-right: 8px;
+            width: 33%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .word-font-colorbtn, .word-font-ucolor {
+            min-width: 110px;
+        }
+    }
+
+    .word-font-effects {
+        width: 100%;
+
+        td {
+            padding: 3px 0;
+            width: 50%;
+        }
+    }
+
+    .word-font-adv {
+        td {
+            padding: 3px 8px 3px 0;
+            vertical-align: middle;
+        }
+
+        .input-group-nr {
+            width: 200px;
+        }
+
+        .wf-kerning-by {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .wf-kerning-label {
+            margin-left: 6px;
+        }
+    }
+
+    .word-font-preview-title {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .word-font-preview {
+        position: relative;
+        height: 64px;
+        margin-top: 4px;
+        border: @scaled-one-px-value-ie solid @border-regular-control-ie;
+        border: @scaled-one-px-value solid @border-regular-control;
+        background: #fff;
+        overflow: hidden;
+
+        canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    .word-font-note {
+        min-height: 4px;
+    }
+}
+
+// ---------------------------------------------------------------- Paragraph dialog with top tabs
+.word-dlg-top-tabs .body .box {
+    position: relative;
+
+    > .menu-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0 !important;
+        height: 36px;
+        padding: 8px 0 0 0 !important;
+        margin-left: 16px;
+        overflow: visible;
+        white-space: nowrap;
+        z-index: 1;
+
+        > div {
+            display: inline-block;
+            height: auto;
+        }
+
+        .btn-category {
+            display: inline-block;
+            width: auto !important;
+            white-space: nowrap !important;
+            margin: 0 2px 0 0;
+            padding: 6px 12px 7px;
+            border-radius: 4px 4px 0 0;
+            text-align: center;
+
+            &.active {
+                font-weight: bold;
+                box-shadow: inset 0 -2px 0 @border-preview-select-ie;
+                box-shadow: inset 0 -2px 0 @border-preview-select;
+            }
+        }
+    }
+
+    > .separator:not(.horizontal) {
+        display: none;
+    }
+
+    > .content-panel {
+        padding-top: 44px;
+        border-top: none;
+        background-image: linear-gradient(@border-divider, @border-divider);
+        background-size: 100% 1px;
+        background-position: 0 43px;
+        background-repeat: no-repeat;
+    }
+}
+
+.word-paragraph-dlg {
+    .word-para {
+        padding: 0 16px;
+    }
+
+    .word-para-grid {
+        width: 100%;
+
+        td {
+            padding: 2px 8px 2px 0;
+            vertical-align: middle;
+
+            &.lbl {
+                width: 72px;
+                white-space: nowrap;
+            }
+
+            label {
+                white-space: nowrap;
+            }
+
+            &.lbl-top {
+                vertical-align: bottom;
+                padding-bottom: 0;
+            }
+        }
+
+        .word-para-radio {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    }
+
+    .word-para-checks > div {
+        margin: 4px 0;
+    }
+
+    .word-para-preview {
+        height: 96px;
+        overflow: hidden;
+        padding: 6px 10px;
+        border: @scaled-one-px-value-ie solid @border-regular-control-ie;
+        border: @scaled-one-px-value solid @border-regular-control;
+        background: #fff;
+        color: #000;
+        font-size: 7px;
+        line-height: 9px;
+
+        .pv-other {
+            color: #b0b0b0;
+            max-height: 18px;
+            overflow: hidden;
+        }
+
+        .pv-cur {
+            max-height: 46px;
+            overflow: hidden;
+        }
+    }
+
+    .footer {
+        position: relative;
+
+        .word-para-tabs-btn {
+            position: absolute;
+            left: 16px;
+        }
+    }
+}
+
+.word-tabs-dlg .body .box > .content-panel {
+    padding-left: 16px;
+}
+
+.word-paragraph-dlg #paragraphadv-spin-text-alignment,
+.word-paragraph-dlg #paragraphadv-spin-outline-level {
+    width: 140px !important;
+}

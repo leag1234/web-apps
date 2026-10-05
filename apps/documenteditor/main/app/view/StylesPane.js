@@ -380,6 +380,7 @@ define([
             Common.UI.Window.prototype.render.call(this);
             var me = this, $win = this.getChild(), info = this.styleInfo,
                 tp = info.TextPr || {}, pp = info.ParaPr || {};
+            $win.find('.dlg-btn').on('click', _.bind(this.onBtnClick, this));
 
             this.inputName = new Common.UI.InputField({
                 el: $win.find('.word-ms-name'), style: 'width: 100%;', allowBlank: false,
