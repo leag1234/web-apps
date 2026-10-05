@@ -74,12 +74,16 @@ define([
             this.bindGalleryPreview(toolbar.listStyles);
             this.extendGalleryMenus(toolbar);
             this.setupPasteButton(toolbar);
+            this.setupFontControls(toolbar);
         },
 
         onAppReady: function () {
             var api = this.getApi(), me = this;
             if (!api || !this.canEdit()) return;
             this.api = api;
+            // after the Toolbar view fills the size list on app:ready
+            _.defer(function () { me.setWordFontSizes(); me.setupDelayedMenus(); });
+            setTimeout(function () { me.setupDelayedMenus(); }, 1500);
             api.asc_UpdateStyleGallery && api.asc_UpdateStyleGallery();
             api.asc_registerCallback('asc_onParaStyleName', function (name) {
                 me._currentStyle = name;
@@ -135,6 +139,101 @@ define([
                 case 'font': this.openFontDialog(); break;
                 case 'paragraph': this.openParagraphDialog(); break;
             }
+        },
+
+        // ---------------------------------------------------------------- Font and paragraph controls
+        setupFontControls: function (toolbar) {
+            var me = this;
+            // font list: Theme Fonts / Recently Used Fonts / All Fonts
+            toolbar.cmbFontName && toolbar.cmbFontName.on('show:after', function (cmb) { me.decorateFontList(cmb || toolbar.cmbFontName); });
+
+            // line spacing: Line Spacing Options... opens the Paragraph dialog, icons as in Word
+            if (toolbar.mnuLineSpace) {
+                if (toolbar.mnuLineSpaceOptions) {
+                    toolbar.mnuLineSpaceOptions.value = 'word-paragraph';
+                    toolbar.mnuLineSpaceOptions.setCaption(this.textLineSpacingOptions);
+                }
+                toolbar.mnuLineSpaceBefore && toolbar.mnuLineSpaceBefore.setIconCls('menu__icon btn-para-space-more');
+                toolbar.mnuLineSpaceAfter && toolbar.mnuLineSpaceAfter.setIconCls('menu__icon btn-para-space-less');
+                toolbar.mnuLineSpace.on('item:click', function (menu, item) {
+                    item.value === 'word-paragraph' && me.openParagraphDialog();
+                });
+            }
+
+            // highlight: Word's "No Color"
+            toolbar.mnuHighlightTransparent && toolbar.mnuHighlightTransparent.setCaption(this.textNoColor);
+
+        },
+
+        // menus that the Toolbar view creates late (createDelayedElements)
+        setupDelayedMenus: function () {
+            var me = this, toolbar = this.toolbar;
+            // borders: Borders and Shading... at the end, as in Word
+            var bmenu = toolbar && toolbar.btnBorders && toolbar.btnBorders.menu;
+            if (bmenu && bmenu.addItem && !this.mnuBordersShading) {
+                bmenu.addItem(new Common.UI.MenuItem({caption: '--'}));
+                this.mnuBordersShading = new Common.UI.MenuItem({caption: this.textBordersShading, iconCls: 'menu__icon btn-border-style', value: 'word-borders-shading'});
+                bmenu.addItem(this.mnuBordersShading);
+                this.mnuBordersShading.on('click', function () { me.openBordersDialog(); });
+            }
+        },
+
+        openBordersDialog: function () {
+            var dh = this.getApplication().getController('DocumentHolder'),
+                win = dh && dh.advancedParagraphClick && dh.advancedParagraphClick({});
+            win && win.setActiveCategory && win.setActiveCategory(2);
+        },
+
+        // Word's font size list
+        setWordFontSizes: function () {
+            var cmb = this.toolbar && this.toolbar.cmbFontSize;
+            if (!cmb || this.toolbar._fontSizeChinese) return;
+            cmb.setData(_.map([8, 9, 10, 10.5, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72], function (v) {
+                return {value: v, displayValue: String(v)};
+            }));
+        },
+
+        decorateFontList: function (cmb) {
+            var me = this, api = this.api, $ul = $(cmb.el).find('ul.dropdown-menu');
+            if (!$ul.length) return;
+            $ul.children('.word-font-section, .word-theme-font').remove();
+            var header = function (text) { return $('<li class="divider word-font-section" role="presentation"></li>').text(text); };
+            var $items = $ul.children('li');
+            var $firstRecent = $items.first(), $divider = $ul.children('li.divider').first();
+            var hasRecent = $firstRecent.length && !$firstRecent.hasClass('divider');
+            hasRecent && $firstRecent.before(header(this.textRecentFonts));
+            $divider.after(header(this.textAllFonts));
+
+            // theme fonts, applied as theme references (+Headings / +Body)
+            var names = api && api.asc_GetThemeFontNames ? api.asc_GetThemeFontNames() : null;
+            names && (names.majorTile = names.majorSubst || names.major, names.minorTile = names.minorSubst || names.minor);
+            if (!names) return;
+            var $first = $ul.children('li').first();
+            $first.before(header(this.textThemeFonts));
+            var thumbs = cmb.spriteThumbs, lis = [];
+            _.each([[names.major, true, this.textHeadings, names.majorTile], [names.minor, false, this.textBody, names.minorTile]], function (f) {
+                var $li = $('<li class="divider word-theme-font" role="menuitem"><div class="font-item"></div></li>'),
+                    $item = $li.children('.font-item'),
+                    // the tile of the font itself; a font that is not installed (Calibri, rendered with
+                    // Carlito) shows its name as text, not the tile of its substitute
+                    rec = cmb.store.findWhere({name: f[0]});
+                if (rec && thumbs && thumbs.getImage && rec.get('imgidx') !== undefined) {
+                    var cols = thumbs.heightOne ? Math.max(1, Math.floor(thumbs.width / (thumbs.heightOne * 300 / 28))) : 1;
+                    try { $item.append(thumbs.getImage(Math.floor(rec.get('imgidx') / cols))); } catch (e) { $item.text(f[0]); }
+                } else
+                    $item.append($('<span class="word-theme-name"></span>').text(f[0]));
+                $item.append($('<span class="word-theme-role"></span>').text(f[2]));
+                $li.attr('title', f[0] + ' (' + f[2] + ')');
+                $li.on('click', function () {
+                    cmb.closeMenu ? cmb.closeMenu() : cmb.cmpEl.find('.dropdown-toggle').dropdown('toggle');
+                    api.asc_SetThemeFont(f[1]);
+                    rec && cmb.addItemToRecent && cmb.addItemToRecent(rec);
+                    Common.NotificationCenter.trigger('edit:complete', me.toolbar);
+                });
+                lis.push($li);
+            });
+            $ul.children('.word-font-section').first().after(lis);
+            cmb.updateVisibleFontsTiles && cmb.updateVisibleFontsTiles();
         },
 
         // ---------------------------------------------------------------- Paste
@@ -623,6 +722,14 @@ define([
             })).show();
         },
 
+        textNoColor: 'No Color',
+        textThemeFonts: 'Theme Fonts',
+        textRecentFonts: 'Recently Used Fonts',
+        textAllFonts: 'All Fonts',
+        textHeadings: 'Headings',
+        textBody: 'Body',
+        textLineSpacingOptions: 'Line Spacing Options...',
+        textBordersShading: 'Borders and Shading...',
         textPasteOptions: 'Paste Options:',
         textKeepSource: 'Keep Source Formatting',
         textMergeFormatting: 'Merge Formatting',

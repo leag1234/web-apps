@@ -494,7 +494,7 @@
             vertical-align: middle;
 
             &.lbl {
-                width: 72px;
+                width: 96px;
                 white-space: nowrap;
             }
 
@@ -555,11 +555,6 @@
     padding-left: 16px;
 }
 
-.word-paragraph-dlg #paragraphadv-spin-text-alignment,
-.word-paragraph-dlg #paragraphadv-spin-outline-level {
-    width: 140px !important;
-}
-
 // ---------------------------------------------------------------- Paste options
 .word-paste-menu .word-paste-header > a {
     font-weight: bold;
@@ -571,4 +566,69 @@
 
 .word-font-adv td {
     white-space: nowrap;
+}
+
+// ---------------------------------------------------------------- Font list sections
+.combobox.fonts .dropdown-menu {
+    > li.word-font-section {
+        display: block !important;
+        height: auto;
+        margin: 0;
+        padding: 5px 10px 3px;
+        background: @background-toolbar-ie;
+        background: @background-toolbar;
+        border-top: @scaled-one-px-value-ie solid @border-divider-ie;
+        border-top: @scaled-one-px-value solid @border-divider;
+        color: @text-normal-ie;
+        color: @text-normal;
+        font-weight: bold;
+        font-size: 11px;
+        line-height: 14px;
+        cursor: default;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    > li.word-theme-font {
+        display: block !important;
+        height: auto;
+        margin: 0;
+        background: transparent;
+        cursor: pointer;
+
+        > .font-item {
+            position: relative;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            padding: 0 0 0 0;
+            overflow: hidden;
+
+            canvas {
+                flex: 0 0 auto;
+                margin-left: 20px;
+            }
+        }
+
+        .word-theme-name {
+            padding-left: 28px;
+            font-size: 14px;
+        }
+
+        .word-theme-role {
+            position: absolute;
+            right: 10px;
+            top: 7px;
+            font-size: 11px;
+            color: @text-secondary-ie;
+            color: @text-secondary;
+        }
+
+        &:hover {
+            background-color: @highlight-button-hover-ie;
+            background-color: @highlight-button-hover;
+        }
+    }
 }

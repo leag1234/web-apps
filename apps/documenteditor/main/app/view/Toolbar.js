@@ -473,7 +473,7 @@ define([
                         menu: new Common.UI.Menu({
                             style: 'min-width: 100px;',
                             items: [
-                                {template: _.template('<div id="id-toolbar-menu-highlight" style="width: 145px; display: inline-block;" class="palette-large"></div>')},
+                                {template: _.template('<div id="id-toolbar-menu-highlight" style="width: 182px; display: inline-block;" class="palette-large"></div>')},
                                 {caption: '--'},
                                 this.mnuHighlightTransparent = new Common.UI.MenuItem({
                                     caption: this.strMenuNoFill,
@@ -3437,21 +3437,22 @@ define([
                     this.btnHighlightColor.setColor(this.btnHighlightColor.currentColor);
                     this.mnuHighlightColorPicker = new Common.UI.ThemeColorPalette({
                         el: $('#id-toolbar-menu-highlight'),
+                        // Word highlight colours, in Word order (5 x 3, no white)
                         colors: [
-                            'FFFF00', '00FF00', '00FFFF', 'FF00FF', '0000FF', 'FF0000', '00008B', '008B8B',
-                            '006400', '800080', '8B0000', '808000', 'FFFFFF', 'D3D3D3', 'A9A9A9', '000000'
+                            'FFFF00', '00FF00', '00FFFF', 'FF00FF', '0000FF',
+                            'FF0000', '00008B', '008B8B', '006400', '800080',
+                            '8B0000', '808000', 'A9A9A9', 'D3D3D3', '000000'
                         ],
                         colorHints: [
-                            Common.Utils.ThemeColor.txtYellow, Common.Utils.ThemeColor.txtBrightGreen, Common.Utils.ThemeColor.txtTurquosie, Common.Utils.ThemeColor.txtPink,
-                            Common.Utils.ThemeColor.txtBlue, Common.Utils.ThemeColor.txtRed, Common.Utils.ThemeColor.txtDarkBlue, Common.Utils.ThemeColor.txtTeal,
-                            Common.Utils.ThemeColor.txtGreen, Common.Utils.ThemeColor.txtViolet, Common.Utils.ThemeColor.txtDarkRed, Common.Utils.ThemeColor.txtDarkYellow,
-                            Common.Utils.ThemeColor.txtWhite, Common.Utils.ThemeColor.txtGray + '-25%', Common.Utils.ThemeColor.txtGray + '-50%', Common.Utils.ThemeColor.txtBlack
+                            Common.Utils.ThemeColor.txtYellow, Common.Utils.ThemeColor.txtBrightGreen, Common.Utils.ThemeColor.txtTurquosie, Common.Utils.ThemeColor.txtPink, Common.Utils.ThemeColor.txtBlue,
+                            Common.Utils.ThemeColor.txtRed, Common.Utils.ThemeColor.txtDarkBlue, Common.Utils.ThemeColor.txtTeal, Common.Utils.ThemeColor.txtGreen, Common.Utils.ThemeColor.txtViolet,
+                            Common.Utils.ThemeColor.txtDarkRed, Common.Utils.ThemeColor.txtDarkYellow, Common.Utils.ThemeColor.txtGray + '-50%', Common.Utils.ThemeColor.txtGray + '-25%', Common.Utils.ThemeColor.txtBlack
                         ],
                         value: 'FFFF00',
                         dynamiccolors: 0,
                         themecolors: 0,
                         effects: 0,
-                        columns: 4,
+                        columns: 5,
                         outerMenu: {menu: this.btnHighlightColor.menu, index: 0, focusOnShow: true}
                     });
                     this.btnHighlightColor.setPicker(this.mnuHighlightColorPicker);
