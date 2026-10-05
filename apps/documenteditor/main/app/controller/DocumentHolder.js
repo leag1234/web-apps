@@ -135,7 +135,8 @@ define([
             };
 
             var keymap = {};
-            me.hkComments = Common.Utils.isMac ? 'command+alt+a' : 'alt+h';
+            // Word: Ctrl+Alt+M (Cmd+Option+A on macOS); Alt+H is the Home tab KeyTip
+            me.hkComments = Common.Utils.isMac ? 'command+alt+a' : 'ctrl+alt+m';
             keymap[me.hkComments] = function() {
                 if (me.api.can_AddQuotedComment()!==false) {
                     me.addComment();
@@ -373,7 +374,7 @@ define([
 
             if (!me._isScrolling) {
                 me._isScrolling = true;
-                me._ctrlPressedAtScrollStart = event.ctrlKey;
+                me._ctrlPressedAtScrollStart = event.ctrlKey || Common.Utils.isMac && event.metaKey;
             }
 
             clearTimeout(me._scrollEndTimeout);
