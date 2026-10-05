@@ -405,3 +405,9 @@
         .margin-left-6();
     }
 }
+
+// Font group: the font name box keeps a Word-like width (the first row now
+// also holds Clear formatting, so it is wider than the second one)
+#toolbar .group[data-group=font] #slot-field-fontname {
+    min-width: 128px;
+}
