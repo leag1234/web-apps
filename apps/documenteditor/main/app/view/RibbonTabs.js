@@ -79,6 +79,13 @@ define([
                     click: function () { tb.fireEvent('insert:break', ['page']); }
                 });
 
+                // Illustrations: Icons (Insert Icons dialog)
+                this.btnInsIcons = this.btn('slot-elx-ins-icons', {
+                    iconCls: 'toolbar__icon btn-elx-icons', caption: this.txtIcons, hint: this.tipIcons,
+                    lock: this._baseLock().concat([Common.enumLock.paragraphLock, Common.enumLock.headerLock, Common.enumLock.inEquation, Common.enumLock.controlPlain, Common.enumLock.contentLock, Common.enumLock.cantAddImagePara])
+                });
+                tb.paragraphControls && tb.paragraphControls.push(this.btnInsIcons);
+
                 // Links: Bookmark and Cross-reference, like Word
                 var links = function () { var c = DE.getController('Links'); return c && c.getView('Links'); };
                 this.btnInsBookmark = this.mirror('slot-elx-ins-bookmark', function () { var v = links(); return v && v.btnBookmarks; },
@@ -335,6 +342,8 @@ define([
             txtTextFromUrl: 'Text from URL...',
             txtTextFromStorage: 'Text from Storage...',
             txtPictures: 'Pictures',
+            txtIcons: 'Icons',
+            tipIcons: 'Insert an icon to communicate using symbols',
             txtShapes: 'Shapes',
             txtInsertTableDlg: 'Insert Table...',
             txtConvertTextToTable: 'Convert Text to Table...',

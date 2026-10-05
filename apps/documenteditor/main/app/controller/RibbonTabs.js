@@ -15,6 +15,7 @@
 define([
     'core',
     'documenteditor/main/app/view/RibbonTabs',
+    'documenteditor/main/app/view/IconsDialog',
     'common/main/lib/component/RibbonCollapse'
 ], function () {
     'use strict';
@@ -104,6 +105,11 @@ define([
                 me.renameReviewControls();
                 me.renameViewControls();
                 me.renameReferencesControls();
+                // Icons: only with a theme that ships the icon set
+                DE.Views.IconsDialog.prototype.loadData().then(function (data) {
+                    v.btnInsIcons.setVisible(!!data);
+                    data && me.toolbar.processPanelVisible && me.toolbar.processPanelVisible(null, true);
+                });
                 me.toolbar.processPanelVisible && me.toolbar.processPanelVisible(null, true);
             }, 0);
         },
@@ -123,6 +129,9 @@ define([
             var $pb = $ins.find('.group[data-group=pages] .btn-pagebreak');
             $pb.after(slot('slot-elx-ins-pagebreak'));
             this.hideSource($pb);
+
+            // Illustrations: Pictures, Shapes, Icons, SmartArt, Chart
+            $ins.find('#slot-btn-insshape').after(slot('slot-elx-ins-icons'));
 
             // Links: Link, Bookmark, Cross-reference
             var $link = $ins.find('.group[data-group=links] .slot-inshyperlink');
@@ -159,6 +168,8 @@ define([
                 src && !src.isDisabled() && src.trigger('click', src);
             });
             v.btnInsObject.menu.on('item:click', function (menu, item) { v.btnInsObject.clickSourceItem(item.value); });
+            v.btnInsIcons.setVisible(false);
+            v.btnInsIcons.on('click', function () { me.showIcons(); });
             v.btnInsObject.menu.on('show:before', function (menu) {
                 var src = v.btnInsObject.mirrorSource();
                 if (!src || !src.menu || !_.isObject(src.menu)) return;
@@ -261,8 +272,47 @@ define([
             tb.processPanelVisible && tb.processPanelVisible(null, true);
         },
 
+        showIcons: function () {
+            var me = this;
+            DE.Views.IconsDialog.prototype.loadData().then(function (data) {
+                if (!data) return;
+                (new DE.Views.IconsDialog({
+                    data: data,
+                    handler: function (result, urls) {
+                        result === 'ok' && urls && urls.length && me.insertIcons(urls);
+                        result !== 'ok' && Common.NotificationCenter.trigger('edit:complete', me.toolbar);
+                    }
+                })).show();
+            });
+        },
+
+        // one picture at a time, each set to 1 inch once inserted, like Word's icons
+        insertIcons: function (urls) {
+            this._iconQueue = urls.slice();
+            this.nextIcon();
+        },
+
+        nextIcon: function () {
+            if (!this.api || !this._iconQueue || !this._iconQueue.length) { this._iconWait = null; return; }
+            this._iconWait = Date.now();
+            this.api.AddImageUrl([this._iconQueue.shift()]);
+        },
+
         onApiFocusObject: function (selected) {
             if (!this.view) return;
+            if (this._iconWait) {
+                var pic = _.find(selected, function (s) {
+                    var v = s.get_ObjectValue();
+                    return s.get_ObjectType() === Asc.c_oAscTypeSelectElement.Image && v.get_ImageUrl && v.get_ImageUrl() && !v.get_ShapeProperties();
+                });
+                if (pic && Date.now() - this._iconWait < 60000) {
+                    var me = this, p = new Asc.asc_CImgProperty();
+                    this._iconWait = null;
+                    p.put_Width(25.4);
+                    p.put_Height(25.4);
+                    setTimeout(function () { me.api.ImgApply(p); setTimeout(function () { me.nextIcon(); }, 100); }, 0);
+                } else if (Date.now() - this._iconWait >= 60000) this._iconWait = null;
+            }
             var obj = null;
             _.each(selected, function (s) {
                 if (s.get_ObjectType() === Asc.c_oAscTypeSelectElement.Image && !s.get_ObjectValue().get_ChartProperties()) obj = s.get_ObjectValue();
