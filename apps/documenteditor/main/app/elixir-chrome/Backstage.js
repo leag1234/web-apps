@@ -264,7 +264,7 @@ define([
 
         canShare: function () {
             var mode = this.mode, h = this.hostConfig();
-            return !!(mode && !mode.isOffline && (mode.canRequestSharingSettings || mode.sharingSettingsUrl || h.shareUrl || this.fm.panels['rights'] && this.fm.miAccess && this.fm.document && this.fm.document.info && this.fm.document.info.sharingSettings && this.fm.document.info.sharingSettings.length));
+            return !!(mode && !mode.isOffline && (mode.canRequestSharingSettings || mode.sharingSettingsUrl || h.shareUrl || this.fm.panels && this.fm.panels['rights'] && this.fm.miAccess && this.fm.document && this.fm.document.info && this.fm.document.info.sharingSettings && this.fm.document.info.sharingSettings.length));
         },
 
         select: function (action) { this.fm.selectMenu(action); },
