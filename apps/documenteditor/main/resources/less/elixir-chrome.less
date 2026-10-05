@@ -1,0 +1,1049 @@
+// ElixirOffice window chrome (apps/documenteditor/main/app/elixir-chrome):
+// Word-like backstage pages, title bar, navigation pane.
+// Colours come from the theme tokens, so light, dark and RTL follow.
+
+@elx-accent: var(--elixir-accent, var(--border-control-focus));
+
+svg.elx-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: middle;
+    // upstream menus and buttons paint their sprite <svg>s with `fill`; ours follow the text colour
+    fill: currentColor !important;
+}
+
+// ---------------------------------------------------------------------------
+// Backstage pages
+// ---------------------------------------------------------------------------
+#file-menu-panel.elx-backstage {
+    .panel-menu li.fm-btn > a.menu-item .elx-icon.menu-item-icon {
+        color: var(--icon-normal);
+        background: none;
+    }
+
+    .elx-page {
+        overflow: hidden;
+        height: 100%;
+        position: relative;
+        color: var(--text-normal);
+        font-size: 13px;
+    }
+
+    .elx-page-inner {
+        max-width: 1120px;
+        padding: 0 8px 48px 0;
+    }
+
+    .elx-page h1.header {
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 36px;
+        margin: 16px 0 20px;
+        padding: 0;
+    }
+
+    .elx-page h2,
+    .elx-section h2 {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 20px;
+        margin: 24px 0 12px;
+    }
+
+    .elx-section {
+        margin-bottom: 28px;
+    }
+
+    .elx-lead {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin: -8px 0 16px;
+    }
+
+    .elx-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        margin-top: 12px;
+        padding: 2px 0;
+        border: 0;
+        background: none;
+        color: var(--text-link);
+        font-size: 13px;
+        cursor: pointer;
+
+        &:hover { text-decoration: underline; }
+    }
+
+    .elx-empty {
+        padding: 24px 0;
+        color: var(--text-secondary);
+    }
+
+    // New: template thumbnails
+    .elx-thumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .elx-thumb {
+        width: 150px;
+        padding: 0;
+        border: 0;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        color: var(--text-normal);
+
+        .elx-thumb-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 194px;
+            border: 1px solid var(--border-divider);
+            border-radius: 4px;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            transition: border-color .1s, box-shadow .1s;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top center;
+            }
+        }
+
+        .elx-thumb-title {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &:hover .elx-thumb-img,
+        &:focus-visible .elx-thumb-img {
+            border-color: @elx-accent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+        }
+        &:focus { outline: none; }
+    }
+
+    // Recent files
+    .elx-filelist {
+        max-width: 900px;
+    }
+
+    .elx-filelist-head,
+    .elx-filerow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 12px;
+
+        .c-name {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .c-date {
+            flex: 0 0 170px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+    }
+
+    .elx-filelist-head {
+        height: 32px;
+        padding-left: 56px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border-divider);
+    }
+
+    .elx-filerow {
+        height: 52px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        .c-name {
+            display: flex;
+            flex-direction: column;
+
+            .t, .f {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .t { font-size: 13px; }
+            .f { font-size: 11px; color: var(--text-secondary); }
+        }
+
+        &:hover, &:focus-visible {
+            background-color: var(--highlight-button-hover);
+            outline: none;
+        }
+    }
+
+    .elx-file-icon {
+        display: inline-flex;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+        color: @elx-accent;
+
+        &.elx-file-cell { color: #2b8a3e; }
+        &.elx-file-slide { color: #c2571a; }
+        &.elx-file-pdf { color: #c4314b; }
+    }
+
+    // Open / Export: places column + content
+    .elx-open-cols {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+    }
+
+    .elx-open-places {
+        flex: 0 0 260px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .elx-place {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 52px;
+        padding: 8px 12px;
+        border: 0;
+        border-radius: 6px;
+        background: none;
+        color: var(--text-normal);
+        font-size: 14px;
+        text-align: left;
+        cursor: pointer;
+
+        .elx-icon { color: var(--icon-normal); }
+        small {
+            display: block;
+            margin-top: 2px;
+            font-size: 11px;
+            line-height: 14px;
+            color: var(--text-secondary);
+        }
+        &:hover { background-color: var(--highlight-button-hover); }
+        &.active {
+            background-color: var(--highlight-button-pressed);
+            box-shadow: inset 3px 0 0 @elx-accent;
+            font-weight: 600;
+        }
+    }
+
+    .elx-open-list,
+    .elx-export-detail {
+        flex: 1 1 auto;
+        min-width: 0;
+
+        > h2:first-child { margin-top: 12px; }
+    }
+
+    .elx-search-row {
+        position: relative;
+        max-width: 420px;
+        margin: 4px 0 12px;
+
+        .elx-search-ic {
+            position: absolute;
+            left: 8px;
+            top: 6px;
+            color: var(--icon-normal);
+        }
+        input {
+            width: 100%;
+            height: 32px;
+            padding-left: 34px;
+            font-size: 13px;
+        }
+    }
+
+    // Tiles (Share, Info, Save As)
+    .elx-tiles {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 640px;
+        margin-bottom: 8px;
+    }
+
+    .elx-tile {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--border-divider);
+        border-radius: 6px;
+        background: var(--background-normal);
+        color: var(--text-normal);
+        text-align: left;
+        cursor: pointer;
+
+        .elx-tile-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: var(--background-pane, var(--background-toolbar));
+            color: @elx-accent;
+        }
+        .elx-tile-body {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1 1 auto;
+            min-width: 0;
+            padding-top: 1px;
+        }
+        .elx-tile-title { font-size: 14px; font-weight: 600; }
+        .elx-tile-desc { font-size: 12px; line-height: 16px; color: var(--text-secondary); }
+        .elx-tile-chevron { color: var(--icon-normal); padding-top: 10px; }
+
+        &:hover:not([disabled]) { background-color: var(--highlight-button-hover); }
+        &[disabled] {
+            cursor: default;
+            .elx-tile-icon, .elx-tile-title { opacity: .5; }
+        }
+        &:focus { outline: none; }
+        &:focus-visible { box-shadow: 0 0 0 2px @elx-accent; }
+
+        &.elx-tile-big .elx-tile-icon {
+            width: 56px;
+            height: 56px;
+            .elx-icon { width: 28px; height: 28px; }
+        }
+    }
+
+    .elx-people {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-width: 640px;
+
+        .elx-person {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .n { flex: 1 1 auto; }
+            .p { color: var(--text-secondary); font-size: 12px; }
+        }
+    }
+
+    // Formats (Save As, Export > Change file type)
+    .elx-formats {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 8px;
+        max-width: 960px;
+    }
+
+    .elx-format {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 10px 12px;
+        border: 1px solid var(--border-divider);
+        border-radius: 6px;
+        background: var(--background-normal);
+        color: var(--text-normal);
+        text-align: left;
+        cursor: pointer;
+
+        .elx-format-icon { color: @elx-accent; display: inline-flex; }
+        .elx-format-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        .elx-format-name { font-size: 13px; font-weight: 600; }
+        .elx-format-desc { font-size: 12px; color: var(--text-secondary); }
+        &:hover { background-color: var(--highlight-button-hover); }
+        &:focus { outline: none; }
+        &:focus-visible { box-shadow: 0 0 0 2px @elx-accent; }
+    }
+
+    .elx-bullets {
+        margin: 0 0 20px;
+        padding-left: 20px;
+        line-height: 22px;
+        list-style: disc;
+    }
+
+    .elx-export-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .btn.elx-big-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: auto;
+        min-height: 40px;
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    // Info: action tiles + properties column
+    .elx-info-wrap {
+        max-width: 1180px;
+    }
+
+    .elx-info-file {
+        display: flex;
+        flex-direction: column;
+        margin: -10px 0 20px;
+
+        .elx-info-name { font-size: 15px; font-weight: 600; }
+        .elx-info-loc { font-size: 12px; color: var(--text-secondary); }
+    }
+
+    .elx-info-cols {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+    }
+
+    .elx-info-actions {
+        flex: 1 1 auto;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .elx-info-props {
+        flex: 0 0 400px;
+        padding-left: 28px;
+        border-left: 1px solid var(--border-divider);
+
+        > h2 { margin-top: 0; }
+
+        table.main {
+            width: 100%;
+            margin: 0;
+
+            td.title label {
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--text-secondary);
+            }
+            td.left {
+                width: 140px;
+                padding-right: 8px;
+                color: var(--text-secondary);
+                font-size: 12px;
+                vertical-align: top;
+            }
+            td.right {
+                font-size: 12px;
+            }
+            .form-control,
+            input[type=text] {
+                max-width: 220px;
+            }
+        }
+    }
+
+    // Print: the browser prints, settings column like Word
+    #panel-print.elx-print .main-header {
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 36px;
+        margin: 16px 0 20px;
+    }
+    .elx-print {
+        .elx-print-top {
+            margin: 0 0 18px;
+            .footer { display: flex; gap: 8px; padding: 0; }
+            #print-btn-print {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                min-width: 120px;
+                height: 36px;
+                font-size: 14px;
+            }
+            #print-btn-print-pdf { height: 36px; }
+        }
+        .elx-printer-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 248px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-divider);
+            border-radius: 6px;
+            color: var(--text-normal);
+
+            .elx-icon { color: var(--icon-normal); }
+            b { display: block; font-weight: 600; font-size: 13px; }
+            small { display: block; margin-top: 2px; font-size: 11px; line-height: 14px; color: var(--text-secondary); }
+        }
+    }
+
+    .elx-toast {
+        position: absolute;
+        left: 50%;
+        bottom: 32px;
+        transform: translateX(-50%);
+        z-index: 10;
+        padding: 10px 16px;
+        border-radius: 6px;
+        background: var(--background-contrast-popover, #333);
+        color: var(--text-contrast-background, #fff);
+        font-size: 13px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+        transition: opacity .4s;
+
+        &.out { opacity: 0; }
+    }
+}
+
+.rtl #file-menu-panel.elx-backstage {
+    .elx-place.active { box-shadow: inset -3px 0 0 @elx-accent; }
+    .elx-info-props { padding-left: 0; padding-right: 28px; border-left: 0; border-right: 1px solid var(--border-divider); }
+    .elx-thumb, .elx-tile, .elx-place, .elx-format { text-align: right; }
+    .elx-filelist-head { padding-left: 12px; padding-right: 56px; }
+    .elx-search-row .elx-search-ic { left: auto; right: 8px; }
+    .elx-search-row input { padding-left: 8px; padding-right: 34px; }
+}
+
+.elx-inspect {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    .elx-inspect-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        > .elx-icon { color: var(--icon-normal); }
+        .b { flex: 1 1 auto; }
+        .t { font-weight: 600; }
+        .d { color: var(--text-secondary); margin-top: 2px; }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Title bar (#box-document-title): file name + save state, centred search
+// ---------------------------------------------------------------------------
+body.elx-chrome {
+    #box-document-title.elx-titlebar {
+        position: relative;
+
+        #id-box-doc-name.elx-docname-box {
+            justify-content: flex-start !important;
+            padding: 0 4px !important;
+            min-width: 0;
+            flex-basis: auto !important;
+        }
+        #title-doc-name { display: none !important; }
+    }
+
+    .elx-docname {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        max-width: 40vw;
+        min-width: 0;
+        height: 28px;
+        padding: 0 6px 0 8px;
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--text-toolbar-header);
+        font-size: 12px;
+        line-height: 28px;
+        white-space: nowrap;
+        cursor: pointer;
+
+        .elx-docname-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            min-width: 0;
+        }
+        .elx-docstate {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+            font-weight: 400;
+
+            &::before {
+                content: '';
+                width: 1px;
+                height: 14px;
+                margin-right: 4px;
+                background: var(--border-divider);
+            }
+            .elx-icon { width: 16px; height: 16px; }
+            &[data-state=saving] .elx-icon { animation: elx-spin 1.2s linear infinite; }
+            &[data-state=unsaved], &[data-state=offline] { color: var(--text-normal); }
+        }
+        .elx-docname-chev {
+            display: inline-flex;
+            color: var(--icon-toolbar-header);
+            .elx-icon { width: 16px; height: 16px; }
+        }
+        &:hover, &[aria-expanded=true] { background-color: var(--highlight-header-button-hover); }
+        &:focus { outline: none; }
+        &:focus-visible { box-shadow: 0 0 0 2px @elx-accent; }
+    }
+
+    // centred search box
+    .elx-search {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: ~"min(440px, 30vw)";
+        z-index: 2;
+
+        .elx-search-ic {
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            color: var(--icon-toolbar-header);
+            pointer-events: none;
+            .elx-icon { width: 16px; height: 16px; margin-top: 2px; }
+        }
+        .elx-search-input {
+            width: 100%;
+            height: 28px;
+            padding: 0 10px 0 32px;
+            border: 1px solid var(--border-regular-control);
+            border-radius: 4px;
+            background: var(--background-normal);
+            color: var(--text-normal);
+            font-size: 13px;
+            outline: none;
+
+            &::placeholder { color: var(--text-secondary); opacity: 1; }
+            &:hover { border-color: var(--text-tertiary); }
+        }
+        &.open .elx-search-input {
+            border-color: @elx-accent;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 0 0 1px @elx-accent inset;
+        }
+    }
+
+    .elx-search-pop {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 4px 0 6px;
+        border: 1px solid var(--border-regular-control);
+        border-top: 0;
+        border-radius: 0 0 8px 8px;
+        background: var(--background-normal);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .14), 0 0 2px rgba(0, 0, 0, .12);
+        color: var(--text-normal);
+        font-size: 13px;
+
+        .elx-sg {
+            padding: 8px 14px 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .elx-sr {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 34px;
+            margin: 0 4px;
+            padding: 0 10px;
+            border-radius: 4px;
+            cursor: pointer;
+
+            .elx-sr-ic {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                flex-shrink: 0;
+                color: var(--icon-normal);
+                overflow: hidden;
+
+                svg.icon, .elx-sr-cmdicon { width: 20px; height: 20px; fill: var(--icon-normal); }
+                i.icon { transform: scale(.84); }
+            }
+            .elx-sr-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .elx-sr-where { flex-shrink: 0; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; color: var(--text-secondary); }
+
+            &.active { background-color: var(--highlight-button-hover); }
+            &.disabled { opacity: .45; cursor: default; }
+        }
+        .elx-sr-empty { padding: 6px 14px; color: var(--text-secondary); }
+    }
+
+    // tab row: Comments, Editing mode, Share like Word
+    #box-right-btn-group.elx-right {
+        align-items: center;
+
+        .elx-hedset-comments { margin-right: 4px; }
+        .btn-header.elx-hbtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: auto;
+            height: 28px;
+            margin: 0 2px;
+            padding: 0 10px 0 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-toolbar-header);
+
+            .elx-icon { color: var(--icon-toolbar-header); }
+            .caption { font-size: 12px; line-height: 28px; }
+            &.active { background-color: var(--highlight-header-button-pressed); }
+        }
+        .btn-header.elx-btn-comments {
+            border: 1px solid var(--border-regular-control);
+        }
+        .btn-header.elx-btn-share,
+        .btn-header-share.elx-btn-share {
+            background-color: @elx-accent;
+            color: #fff;
+            border: 0;
+            margin-left: 6px;
+
+            .elx-icon, svg.icon { color: #fff; fill: #fff; }
+            .caption { color: #fff; }
+            &:hover { filter: brightness(.94); background-color: @elx-accent; }
+            &:active { filter: brightness(.88); }
+        }
+        // the title bar search replaces the magnifier, the file name flyout has "Open file location"
+        #slot-btn-search, #slot-btn-back { display: none !important; }
+        .btn-header.btn-header-pdf-mode {
+            border: 1px solid var(--border-regular-control);
+            border-radius: 4px;
+        }
+    }
+
+    // avatar like Word: round, at the far right of the title bar
+    #box-document-title .btn-current-user,
+    #box-document-title .slot-btn-user-name {
+        .color-user-name {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            border-radius: 50%;
+            font-size: 11px;
+            background-size: cover;
+        }
+    }
+}
+
+.elx-flyout {
+    position: absolute;
+    z-index: 10000;
+    width: 320px;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--background-normal);
+    color: var(--text-normal);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18), 0 0 2px rgba(0, 0, 0, .14);
+    font-size: 12px;
+
+    .elx-fly-label {
+        display: block;
+        margin: 10px 0 4px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 11px;
+        &:first-child { margin-top: 0; }
+    }
+    .elx-fname-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        input { flex: 1 1 auto; height: 28px; font-size: 13px; }
+        .elx-fname-ext { color: var(--text-secondary); }
+    }
+    .elx-fly-hint { margin-top: 4px; color: var(--text-tertiary); font-size: 11px; &.error { color: var(--text-error, #c4314b); } }
+    .elx-fly-loc { display: flex; align-items: center; gap: 8px; color: var(--text-normal); .elx-icon { color: var(--icon-normal); } }
+    .elx-fly-actions {
+        margin-top: 12px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border-divider);
+        &:empty { display: none; }
+    }
+    .elx-fly-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        height: 32px;
+        padding: 0 8px;
+        border: 0;
+        border-radius: 4px;
+        background: none;
+        color: var(--text-normal);
+        font-size: 12px;
+        text-align: left;
+        cursor: pointer;
+        .elx-icon { color: var(--icon-normal); }
+        &:hover { background-color: var(--highlight-button-hover); }
+    }
+}
+
+@keyframes elx-spin { to { transform: rotate(360deg); } }
+
+.rtl body.elx-chrome, body.elx-chrome.rtl {
+    .elx-search .elx-search-ic { left: auto; right: 8px; }
+    .elx-search .elx-search-input { padding: 0 32px 0 10px; }
+    .elx-docname .elx-docstate::before { margin-right: 0; margin-left: 4px; }
+}
+
+// ---------------------------------------------------------------------------
+// Side panels without the icon rail; Navigation pane (Headings/Pages/Results)
+// ---------------------------------------------------------------------------
+body.elx-norail {
+    --layout-padding-left-panel: 0px 3px 8px 8px;
+    --layout-padding-left-panel-rtl: 0px 8px 8px 3px;
+
+    #left-menu {
+        .tool-menu-btns {
+            width: 0 !important;
+            padding: 0 !important;
+            border: 0 none !important;
+            overflow: hidden;
+        }
+        .left-panel { border: 0 none; }
+        &.elx-left-collapsed {
+            width: 0 !important;
+            overflow: hidden;
+        }
+    }
+    .left-menu-full-ct {
+        left: 0;
+        padding-right: 0;
+    }
+    &.rtl .left-menu-full-ct { right: 0; padding-left: 0; }
+}
+
+#left-menu .left-panel .elx-navhead { display: none; }
+
+body.elx-nav-on #left-menu .left-panel {
+    display: flex;
+    flex-direction: column;
+
+    > .content-box { flex: 1 1 auto; min-height: 0; }
+    > .content-box:not([style*="display: none"]) { border-radius: 0 0 8px 8px; }
+
+    .elx-navhead {
+        display: block;
+        flex: 0 0 auto;
+        padding: 10px 12px 0;
+        background: var(--background-toolbar);
+        border-radius: 8px 8px 0 0;
+        box-shadow: var(--shadow-side-panel);
+        position: relative;
+        z-index: 1;
+        clip-path: inset(-10px -10px 0 -10px);
+    }
+    .elx-navhead-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 28px;
+    }
+    .elx-navhead-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-normal);
+    }
+    .elx-navhead-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: 0;
+        border-radius: 4px;
+        background: none;
+        color: var(--icon-normal);
+        cursor: pointer;
+        &:hover { background: var(--highlight-button-hover); }
+    }
+    .elx-navtabs {
+        display: flex;
+        gap: 16px;
+        margin-top: 8px;
+        border-bottom: 1px solid var(--border-divider);
+
+        button {
+            position: relative;
+            height: 32px;
+            padding: 0 2px;
+            border: 0;
+            background: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+
+            &:hover { color: var(--text-normal); }
+            &.active {
+                color: var(--text-normal);
+                font-weight: 600;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -1px;
+                    height: 3px;
+                    border-radius: 3px;
+                    background: @elx-accent;
+                }
+            }
+        }
+    }
+
+    // the upstream panel titles give way to the pane header
+    #navigation-header label { display: none; }
+    #navigation-header #navigation-btn-close { display: none; }
+    #search-header { display: none; }
+    &.elx-pages-mode #left-panel-navigation { display: none !important; }
+}
+
+.elx-pages {
+    overflow-y: auto !important;
+    height: 100%;
+
+    .elx-pages-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 8px 24px;
+    }
+    .elx-page-thumb {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 6px;
+        border: 0;
+        border-radius: 6px;
+        background: none;
+        color: var(--text-secondary);
+        font-size: 11px;
+        cursor: pointer;
+
+        canvas {
+            width: 150px;
+            height: auto;
+            min-height: 60px;
+            background: #fff;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 1px 3px rgba(0, 0, 0, .18);
+        }
+        &:hover { background: var(--highlight-button-hover); }
+        &.current {
+            background: var(--highlight-button-pressed);
+            color: var(--text-normal);
+            canvas { box-shadow: 0 0 0 2px @elx-accent; }
+        }
+    }
+}
+
+#elx-thumb-render {
+    position: fixed;
+    left: -10000px;
+    top: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+// Comments pane docked on the right of the page area, like Word
+@elx-comments-width: 340px;
+#editor-container.elx-comments-docked #editor_sdk {
+    width: calc(100% - @elx-comments-width);
+}
+.rtl #editor-container.elx-comments-docked #editor_sdk {
+    margin-right: @elx-comments-width;
+}
+.elx-comments-dock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: @elx-comments-width;
+    padding: 0 8px 8px 0;
+    z-index: 2;
+
+    .rtl & { right: auto; left: 0; padding: 0 0 8px 8px; }
+
+    #left-panel-comments {
+        height: 100%;
+    }
+}
+
+// Word-like comment cards in the docked pane
+.elx-comments-dock #comments-box {
+    .messages-ct .dataview-ct > .item {
+        padding: 0 10px;
+    }
+    .user-comment-item {
+        margin: 10px 0 0;
+        padding: 4px 12px 12px;
+        border: 1px solid var(--border-divider);
+        border-radius: 8px;
+        background-color: var(--background-normal);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+        color: var(--text-normal);
+
+        &.last-item { margin-bottom: 0; }
+        .user-name { font-weight: 600; color: var(--text-normal); }
+        .user-date { color: var(--text-secondary); }
+        .user-quote {
+            margin: 6px 0;
+            padding-left: 8px;
+            border-left: 3px solid var(--border-regular-control);
+            color: var(--text-secondary);
+            font-style: normal;
+        }
+        .user-message { color: var(--text-normal); line-height: 18px; }
+        .user-reply { color: var(--text-link); text-decoration: none; }
+    }
+    .item:hover .user-comment-item { background-color: var(--background-normal); border-color: var(--border-regular-control); }
+    .item.active .user-comment-item {
+        background-color: var(--background-normal);
+        border-color: @elx-accent;
+        box-shadow: 0 0 0 1px @elx-accent, 0 2px 6px rgba(0, 0, 0, .10);
+    }
+}
+
+body.elx-chrome .elx-docname.elx-compact .elx-docstate-txt { display: none; }

@@ -1720,7 +1720,8 @@ define([
                 }
                 this.appOptions.canEditStyles  = this.appOptions.canLicense && this.appOptions.canEdit;
                 this.appOptions.canPrint       = (this.permissions.print !== false);
-                this.appOptions.canPreviewPrint = this.appOptions.canPrint && !Common.Utils.isMac && this.appOptions.isDesktopApp;
+                // print preview in the backstage on the web too (the browser prints the PDF), like Word
+                this.appOptions.canPreviewPrint = this.appOptions.canPrint && (!this.appOptions.isDesktopApp || !Common.Utils.isMac);
                 this.appOptions.canQuickPrint = this.appOptions.canPrint && !Common.Utils.isMac && this.appOptions.isDesktopApp;
                 this.appOptions.canRename      = this.editorConfig.canRename;
                 this.appOptions.buildVersion   = params.asc_getBuildVersion();

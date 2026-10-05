@@ -147,6 +147,7 @@ require([
             ,'Common.Controllers.Protection'
             ,'Common.Controllers.Shortcuts'
             ,'Common.Controllers.ElixirAI'
+            ,'ElixirChrome'
         ]
     });
 
@@ -193,6 +194,7 @@ require([
                 ,'common/main/lib/controller/Shortcuts'
                 ,'common/main/lib/elixir-ai/Controller'
                 ,'documenteditor/main/app/elixir-ai/WordTools'
+                ,'documenteditor/main/app/elixir-chrome/Controller'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 app.postLaunchScripts = [
