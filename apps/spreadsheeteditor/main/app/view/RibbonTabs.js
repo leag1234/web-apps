@@ -196,6 +196,11 @@ define([
         txtGroupTablestyleoptions: 'Table Style Options',
         txtGroupAccessibility: 'Accessibility',
         txtGroupTablestyles: 'Table Styles',
+        txtGroupType: 'Type',
+        txtGroupCurrentselection: 'Current Selection',
+        txtGroupInsertshapes: 'Insert Shapes',
+        txtGroupShapestyles: 'Shape Styles',
+        txtGroupPicturestyles: 'Picture Styles',
         tipGroupLauncher: 'More {0} options',
 
         txtTabPageLayout: 'Page Layout',

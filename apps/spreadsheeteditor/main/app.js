@@ -159,6 +159,7 @@ require([
             ,'ExcelScreenTips'
             ,'ExcelContextMenus'
             ,'ExcelMiniToolbar'
+            ,'ExcelContextTabs'
         ]
     });
 
@@ -213,6 +214,7 @@ require([
             ,'spreadsheeteditor/main/app/controller/ExcelScreenTips'
             ,'spreadsheeteditor/main/app/controller/ExcelContextMenus'
             ,'spreadsheeteditor/main/app/controller/ExcelMiniToolbar'
+            ,'spreadsheeteditor/main/app/controller/ExcelContextTabs'
         ], function() {
             const code_path = 'spreadsheeteditor/main/code';
             app.postLaunchScripts = [

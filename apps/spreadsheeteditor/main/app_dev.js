@@ -149,6 +149,7 @@ require([
             ,'ExcelScreenTips'
             ,'ExcelContextMenus'
             ,'ExcelMiniToolbar'
+            ,'ExcelContextTabs'
         ]
     });
 
@@ -204,6 +205,7 @@ require([
             ,'spreadsheeteditor/main/app/controller/ExcelScreenTips'
             ,'spreadsheeteditor/main/app/controller/ExcelContextMenus'
             ,'spreadsheeteditor/main/app/controller/ExcelMiniToolbar'
+            ,'spreadsheeteditor/main/app/controller/ExcelContextTabs'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',
