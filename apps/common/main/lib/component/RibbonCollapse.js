@@ -78,7 +78,7 @@ define([
         collapse: function (tab, $panel, seg) {
             var me = this, key = this.key(seg),
                 label = (key && this.opts.labelOf && this.opts.labelOf(key)) || '',
-                icon = $(seg.groups).find('.btn-slot:not(.elx-source) svg use').filter(function () { return $(this).closest('.elx-source').length === 0; }).first().attr('href'),
+                icon = $(seg.groups).filter('[data-collapse-icon]').attr('data-collapse-icon') || $(seg.groups).find('.btn-slot:not(.elx-source) svg use').filter(function () { return $(this).closest('.elx-source').length === 0; }).first().attr('href'),
                 width = 0;
             _.each(seg.nodes, function (n) { width += $(n).outerWidth(true); });
             var $ph = $('<div class="group elx-collapsed-group"><span class="btn-slot text x-huge"></span></div>'),
@@ -151,9 +151,25 @@ define([
         // expand, from left to right, every collapsed group that fits again
         expandFitting: function (tab, $panel, avail) {
             var me = this, changed = false,
-                order = _.sortBy((this.state[tab] || []).slice(), function (e) { return e.$ph.index(); });
+                order = _.sortBy((this.state[tab] || []).slice(), function (e) {
+                    // groups marked data-collapse-first come back last
+                    return ($(e.seg.groups).filter('[data-collapse-first]').length ? 100000 : 0) + e.$ph.index();
+                });
             _.each(order, function (e) {
                 var need = me.need($panel) - (e.$ph.outerWidth(true) + (e.$sep ? e.$sep.outerWidth(true) : 0)) + e.width;
+                if (need > avail && !$(e.seg.groups).filter('[data-collapse-first]').length) {
+                    // make room by collapsing the groups marked data-collapse-first (galleries) instead
+                    var first = _.filter(me.segments($panel), function (sg) { return $(sg.groups).filter('[data-collapse-first]').length; }),
+                        saving = 0;
+                    _.each(first, function (sg) { _.each(sg.nodes, function (n) {
+                        var $n = $(n);
+                        saving += $n.hasClass('flex') ? (parseFloat($n.css('min-width')) || 0) : $n.outerWidth(true);
+                    }); saving -= 72; });
+                    if (first.length && need - saving <= avail) {
+                        _.each(first, function (sg) { me.collapse(tab, $panel, sg); });
+                        need = me.need($panel) - (e.$ph.outerWidth(true) + (e.$sep ? e.$sep.outerWidth(true) : 0)) + e.width;
+                    }
+                }
                 if (need > avail) return;
                 me.expand(tab, e);
                 changed = true;
@@ -174,7 +190,12 @@ define([
                 while (this.need($panel) > avail && guard++ < 50) {
                     var segs = this.segments($panel);
                     if (segs.length < 2) break; // the first group stays, the stock overflow takes over
-                    this.collapse(tab, $panel, segs[segs.length - 1]);
+                    // a group marked data-collapse-first (e.g. a wide gallery) goes before the right-most one
+                    var pick = segs[segs.length - 1];
+                    for (var i = segs.length - 1; i > 0; i--) {
+                        if ($(segs[i].groups).filter('[data-collapse-first]').length) { pick = segs[i]; break; }
+                    }
+                    this.collapse(tab, $panel, pick);
                     changed = true;
                 }
                 // a big group may have gone: smaller ones collapsed before it can come back

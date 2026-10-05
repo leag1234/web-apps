@@ -142,6 +142,9 @@ require([
             ,'Common.Controllers.ReviewChanges'
             ,'Common.Controllers.Protection'
             ,'Common.Controllers.Shortcuts'
+            ,'ElixirChrome'
+            ,'RibbonTabs'
+            ,'ExcelGrid'
         ]
     });
 
@@ -190,6 +193,9 @@ require([
             ,'common/main/lib/controller/Protection'
             ,'common/main/lib/controller/Shortcuts'
             ,'common/main/lib/controller/Draw'
+            ,'spreadsheeteditor/main/app/elixir-chrome/Controller'
+            ,'spreadsheeteditor/main/app/controller/RibbonTabs'
+            ,'spreadsheeteditor/main/app/controller/ExcelGrid'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',

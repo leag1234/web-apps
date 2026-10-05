@@ -1827,7 +1827,7 @@ define([
                     info.asc_setSymbol(this._state.langId);
                     var arr = this.api.asc_getFormatCells(info); // all formats
                     me.toolbar.numFormatData.forEach( function(item, index) {
-                        me.toolbar.numFormatData[index].format = arr[index];
+                        me.toolbar.numFormatData[index].format = arr[item.fmtIndex !== undefined ? item.fmtIndex : index];
                     });
                 }
 
@@ -5065,10 +5065,15 @@ define([
                         // hide 'undo' and 'redo' buttons and get container
                         var $box = me.toolbar.btnUndo.$el.hide().next().hide().parent();
 
+                        if (me.toolbar.btnPaste.$el.closest('.panel[data-tab=home]').length) {
+                            // ElixirOffice: the clipboard is a group of the Home tab, like Excel
+                            $box.closest('.panel.static').hide();
+                        } else {
                         // move 'paste' button to the container instead of 'undo' and 'redo'
                         me.toolbar.btnPaste.$el.detach().appendTo($box);
                         me.toolbar.btnPaste.$el.find('button').attr('data-hint-direction', 'bottom');
                         me.toolbar.btnCopy.$el.removeClass('split');
+                        }
                         me.toolbar.processPanelVisible(null, true);
                     }
 

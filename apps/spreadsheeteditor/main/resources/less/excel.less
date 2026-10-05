@@ -1,0 +1,145 @@
+// SPDX-FileCopyrightText: 2026 ElixirOffice contributors
+// SPDX-License-Identifier: AGPL-3.0-only
+//
+// Excel-like additions of the spreadsheet editor (ElixirOffice): backstage
+// details, ribbon, grid chrome (Name Box, formula bar, sheet tabs, status bar).
+
+// ---------------------------------------------------------------------------
+// Backstage: large page titles like Excel
+// ---------------------------------------------------------------------------
+#file-menu-panel.elx-backstage .panel-context {
+    .elx-page h1.header,
+    #panel-info h1.header,
+    #panel-print .main-header {
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 36px;
+        margin-top: 16px;
+        margin-bottom: 20px;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Ribbon
+// ---------------------------------------------------------------------------
+#toolbar .toolbar {
+    // three rows of small buttons in the height of a two-row group (Editing)
+    .elx-rows3 > .elset,
+    .elset-column.elx-rows3 > .elset {
+        height: 18px;
+        &:not(:first-child) {
+            margin-top: 0;
+        }
+        .btn-toolbar:not(.x-huge) {
+            height: 18px;
+        }
+    }
+    // small buttons with their caption (Wrap Text, Merge & Center, AutoSum, Fill, Clear)
+    .elx-captioned .caption {
+        margin: 0 2px 0 4px;
+    }
+}
+
+#toolbar .toolbar .btn-toolbar.elx-captioned {
+    width: auto;
+    min-width: 24px;
+    display: inline-flex;
+    align-items: center;
+    padding-right: 4px;
+    .caption {
+        display: inline-block;
+        white-space: nowrap;
+        margin: 0 0 0 4px;
+    }
+}
+#toolbar .toolbar .btn-group.split .btn-toolbar.elx-captioned + .dropdown-toggle,
+#toolbar .toolbar .elx-rows3 .btn-group {
+    display: inline-flex;
+}
+
+// ---------------------------------------------------------------------------
+// Formula bar: Cancel / Enter before fx, like Excel (SSE.Controllers.ExcelGrid)
+// ---------------------------------------------------------------------------
+#cell-editing-box .ce-group-name {
+    .elx-ce-btns {
+        display: inline-flex;
+        align-items: center;
+        vertical-align: top;
+        height: 100%;
+        .margin-left(4px);
+        .btn {
+            width: 24px;
+            height: 22px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: @icon-normal-ie;
+            color: @icon-normal;
+            &.disabled {
+                opacity: 0.35;
+                pointer-events: none;
+            }
+            svg.elx-icon {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+    .elx-ce-grip {
+        width: 3px;
+        height: 14px;
+        margin: 0 3px;
+        border-left: 1px dotted @border-regular-control-ie;
+        border-left: 1px dotted @border-regular-control;
+        border-right: 1px dotted @border-regular-control-ie;
+        border-right: 1px dotted @border-regular-control;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Status bar: view buttons, zoom slider, percentage (SSE.Controllers.ExcelGrid)
+// ---------------------------------------------------------------------------
+#statusbar .elx-zoom-box {
+    .elx-sb-views {
+        display: inline-flex;
+        .margin-right(8px);
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: @icon-normal-ie;
+            color: @icon-normal;
+            &.active {
+                background-color: @highlight-button-pressed-ie;
+                background-color: @highlight-button-pressed;
+            }
+            svg.elx-icon {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+    .status-zoom-slider {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100px;
+        height: 18px;
+        margin: 0 2px;
+        position: relative;
+    }
+    .cnt-zoom {
+        .margin-left(4px);
+    }
+}
+
+// Excel's Home tab is dense: tighter groups so that it fits a 1440px window
+#toolbar .toolbar .box-panels > .panel[data-tab=home] {
+    > .group {
+        .padding-left(3px);
+    }
+    > .separator.long {
+        margin-left: 4px;
+        margin-right: 1px;
+    }
+}
