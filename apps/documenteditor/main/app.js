@@ -161,6 +161,7 @@ require([
             ,'WordKeyTips'
             ,'MiniToolbar'
             ,'WordContextMenus'
+            ,'ScreenTips'
         ]
     });
 
@@ -211,6 +212,7 @@ require([
                 ,'documenteditor/main/app/controller/WordKeyTips'
                 ,'documenteditor/main/app/controller/MiniToolbar'
                 ,'documenteditor/main/app/controller/WordContextMenus'
+                ,'documenteditor/main/app/controller/ScreenTips'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 const code_path = 'documenteditor/main/code';
