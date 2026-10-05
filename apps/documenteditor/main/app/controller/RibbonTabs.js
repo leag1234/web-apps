@@ -14,7 +14,8 @@
 
 define([
     'core',
-    'documenteditor/main/app/view/RibbonTabs'
+    'documenteditor/main/app/view/RibbonTabs',
+    'common/main/lib/component/RibbonCollapse'
 ], function () {
     'use strict';
 
@@ -75,6 +76,7 @@ define([
             Common.Utils.lockControls('elx-no-object', true, {array: [this.view.btnLayPosition, this.view.btnLayRotate]});
             this.bindInsert();
             this.bindLayout();
+            this.setupRibbonBehaviour(toolbar);
             var api = this.getApplication().getController('Viewport').getApi();
             api && api.asc_registerCallback('asc_onFocusObject', _.bind(this.onApiFocusObject, this));
             this.api = api;
@@ -92,6 +94,7 @@ define([
             if (!this.view) return;
             var me = this, v = this.view;
             this._docReady = true;
+            this.bindRibbonShortcuts();
             Common.Utils.lockControls(Common.enumLock.disableOnStart, false, {array: v.lockedControls});
             // the sources of some twins are created after the toolbar (Links, Header & Footer)
             setTimeout(function () {
@@ -305,6 +308,53 @@ define([
             props.put_MirrorMargins && props.put_MirrorMargins(!!item.options.mirror);
             api.asc_SetSectionProps(props);
             Common.NotificationCenter.trigger('edit:complete', this.toolbar);
+        },
+
+        // ---- Ribbon behaviour -------------------------------------------------------------
+        // Office-like responsive groups, collapse/pin button, Ctrl+F1
+        setupRibbonBehaviour: function (tb) {
+            var me = this, v = this.view;
+            Common.UI.RibbonCollapse.install(tb, {
+                labelOf: function (key) { return tb.groupLabelText ? tb.groupLabelText(key) : ''; }
+            });
+            var $box = tb.$el.find('.box-controls').first();
+            if (!$box.length) return;
+            var $slot = $('<div class="elx-ribbon-pin"></div>').appendTo($box);
+            v.btnRibbonPin = new Common.UI.Button({
+                cls: 'btn-toolbar', iconCls: 'toolbar__icon btn-elx-ribbon-collapse',
+                hint: v.tipCollapseRibbon, dataHint: '0', dataHintDirection: 'top', dataHintOffset: 'small'
+            });
+            v.btnRibbonPin.render($slot);
+            var sync = function () {
+                var folded = tb.isCompact();
+                v.btnRibbonPin.setIconCls('toolbar__icon ' + (folded ? 'btn-elx-ribbon-pin' : 'btn-elx-ribbon-collapse'));
+                v.btnRibbonPin.updateHint(folded ? v.tipPinRibbon : v.tipCollapseRibbon);
+            };
+            v.btnRibbonPin.on('click', function () { me.toggleRibbon(); });
+            tb.on('view:compact', function () { setTimeout(sync, 0); });
+            sync();
+        },
+
+        toggleRibbon: function () {
+            var tc = this.getApplication().getController('Toolbar');
+            tc && tc.onChangeCompactView && tc.onChangeCompactView(null, !this.toolbar.isCompact());
+            this.view.btnRibbonPin && setTimeout(_.bind(function () {
+                var folded = this.toolbar.isCompact(), v = this.view;
+                v.btnRibbonPin.setIconCls('toolbar__icon ' + (folded ? 'btn-elx-ribbon-pin' : 'btn-elx-ribbon-collapse'));
+                v.btnRibbonPin.updateHint(folded ? v.tipPinRibbon : v.tipCollapseRibbon);
+            }, this), 0);
+        },
+
+        bindRibbonShortcuts: function () {
+            var me = this, keymap = {};
+            // Word: Ctrl+F1 shows or hides the ribbon
+            keymap['ctrl+f1'] = function (e) {
+                if (Common.Utils.ModalWindow && Common.Utils.ModalWindow.isVisible()) return true;
+                me.toggleRibbon();
+                e && e.preventDefault && e.preventDefault();
+                return false;
+            };
+            Common.util.Shortcuts.delegateShortcuts({shortcuts: keymap});
         },
 
         // ---- References -------------------------------------------------------------------

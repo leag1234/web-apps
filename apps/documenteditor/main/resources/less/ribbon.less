@@ -196,3 +196,58 @@
         }
     }
 }
+
+// --------------------------------------------------------------------------
+// Ribbon behaviour (Common.UI.RibbonCollapse, DE.Controllers.RibbonTabs)
+// --------------------------------------------------------------------------
+#toolbar .toolbar {
+    .box-controls {
+        position: relative;
+    }
+    // collapse / pin the ribbon, bottom right like Office
+    .elx-ribbon-pin {
+        position: absolute;
+        right: 4px;
+        bottom: 2px;
+        z-index: 2;
+        .rtl & {
+            right: auto;
+            left: 4px;
+        }
+        .btn-toolbar {
+            min-width: 20px;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+        }
+    }
+    &.folded:not(.expanded) .elx-ribbon-pin {
+        display: none;
+    }
+
+    // a group collapsed into one drop-down button
+    .elx-collapsed-group .inner-box-caption .caret {
+        display: inline-block;
+        margin-left: 2px;
+    }
+    .elx-group-popup {
+        padding: 8px 10px 6px 4px;
+        border-radius: 6px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+        .elx-group-popup-inner {
+            display: table;
+            > .group {
+                padding-bottom: 0;
+                &::after {
+                    display: none !important;
+                }
+                > .group-launcher {
+                    display: none !important;
+                }
+            }
+            > .separator.long {
+                height: @toolbar-group-height;
+            }
+        }
+    }
+}

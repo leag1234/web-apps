@@ -273,6 +273,8 @@ define([
             txtWmSample: 'SAMPLE',
             txtWmUrgent: 'URGENT',
             txtWmAsap: 'ASAP',
+            tipCollapseRibbon: 'Collapse the Ribbon (Ctrl+F1)',
+            tipPinRibbon: 'Pin the Ribbon (Ctrl+F1)',
             txtGroupProofing: 'Proofing',
             txtGroupLanguage: 'Language',
             txtGroupChanges: 'Changes',
