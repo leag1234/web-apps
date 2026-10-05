@@ -1,0 +1,104 @@
+// ElixirOffice pictures (apps/documenteditor/main/app/elixir-images): Word's Layout Options
+// button and flyout, object anchor. Colours come from the theme tokens (light, dark, RTL).
+
+@elx-lo-accent: var(--elixir-accent, var(--border-control-focus));
+
+.elx-lo-icon {
+    display: block;
+    .elx-lo-line { fill: var(--icon-normal, #444); }
+    .elx-lo-pic { fill: #5b9bd5; }
+    .elx-lo-mount { fill: #2e75b6; }
+    .elx-lo-anchor, .elx-lo-x { fill: currentColor; }
+    .elx-lo-lock { fill: currentColor; }
+}
+
+.elx-lo-btn {
+    position: absolute;
+    z-index: 5;
+    width: 24px;
+    height: 24px;
+    padding: 1px;
+    border: 1px solid var(--border-regular-control, #c0c0c0);
+    border-radius: 2px;
+    background: var(--background-normal, #fff);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .18);
+    cursor: pointer;
+    &:hover { background: var(--highlight-button-hover, #e0e0e0); }
+    &.active, &:focus-visible { border-color: @elx-lo-accent; outline: none; }
+}
+
+.elx-lo-anchor-mark {
+    position: absolute;
+    z-index: 4;
+    width: 16px;
+    height: 16px;
+    color: var(--text-normal, #333);
+    pointer-events: auto;
+    .elx-lo-lockbadge {
+        position: absolute;
+        right: -5px;
+        bottom: -3px;
+        color: var(--text-normal, #333);
+    }
+}
+
+.elx-lo-pane {
+    position: absolute;
+    z-index: 6;
+    width: 220px;
+    padding: 8px 12px 10px;
+    background: var(--background-normal, #fff);
+    color: var(--text-normal, #333);
+    border: 1px solid var(--border-regular-control, #c0c0c0);
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+    font-size: 12px;
+    .elx-lo-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+    }
+    .elx-lo-title { font-size: 14px; font-weight: 600; }
+    .elx-lo-close {
+        border: 0;
+        background: none;
+        padding: 2px;
+        border-radius: 2px;
+        color: var(--text-normal, #333);
+        cursor: pointer;
+        &:hover { background: var(--highlight-button-hover, #e0e0e0); }
+    }
+    .elx-lo-group { margin: 6px 0 4px; color: var(--text-secondary, #666); }
+    .elx-lo-tiles { display: flex; flex-wrap: wrap; gap: 2px; }
+    .elx-lo-tile {
+        width: 42px;
+        height: 42px;
+        padding: 4px;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        background: none;
+        cursor: pointer;
+        &:hover { background: var(--highlight-button-hover, #e0e0e0); }
+        &.active { border-color: @elx-lo-accent; background: var(--highlight-button-pressed, #cbcbcb); }
+        &:focus-visible { outline: 2px solid @elx-lo-accent; outline-offset: -2px; }
+        &[disabled] { opacity: .4; cursor: default; }
+    }
+    .elx-lo-sep { height: 1px; margin: 8px 0 6px; background: var(--border-divider, #dfdfdf); }
+    .elx-lo-radio {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 4px 0;
+        cursor: pointer;
+        input { margin: 0; }
+        input[disabled] + span { opacity: .45; }
+    }
+    .elx-lo-more {
+        display: inline-block;
+        margin-top: 6px;
+        color: @elx-lo-accent;
+        text-decoration: none;
+        &:hover { text-decoration: underline; }
+    }
+}

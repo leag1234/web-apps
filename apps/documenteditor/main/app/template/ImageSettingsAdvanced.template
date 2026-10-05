@@ -321,6 +321,12 @@
                     <div id="image-checkbox-overlap"></div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <div id="image-checkbox-lockanchor"></div>
+                </td>
+                <td></td>
+            </tr>
         </table>
     </div>
 </div>
