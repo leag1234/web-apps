@@ -73,6 +73,7 @@ define([
             if (!this.canEdit() || !toolbar.listStyles) return;
             this.bindGalleryPreview(toolbar.listStyles);
             this.extendGalleryMenus(toolbar);
+            this.setupPasteButton(toolbar);
         },
 
         onAppReady: function () {
@@ -86,6 +87,8 @@ define([
                 me.applyStylesDlg && me.applyStylesDlg.isVisible() && me.applyStylesDlg.setCurrent(name);
                 me.checkHeadingLevels(name);
             });
+            // after the handler of DocumentHolder, which builds the Paste Options chip
+            api.asc_registerCallback('asc_onShowSpecialPasteOptions', function (options) { me.onSpecialPasteShown(options); });
             api.asc_registerCallback('asc_onInitEditorStyles', function () {
                 me.stylesPane && me.stylesPane.isVisible() && me.refreshStylesPane();
             });
@@ -131,6 +134,116 @@ define([
                 case 'styles': this.toggleStylesPane(true); break;
                 case 'font': this.openFontDialog(); break;
                 case 'paragraph': this.openParagraphDialog(); break;
+            }
+        },
+
+        // ---------------------------------------------------------------- Paste
+        pasteOptionInfo: function (value) {
+            var P = Asc.c_oSpecialPasteProps, info = {};
+            info[P.sourceformatting] = {caption: this.textKeepSource, key: 'K', icon: 'btn-paste-keep-source'};
+            info[P.mergeFormatting] = {caption: this.textMergeFormatting, key: 'M', icon: 'btn-paste-merge'};
+            info[P.destinationFormatting] = {caption: this.textDestinationStyles, key: 'S', icon: 'btn-paste-merge'};
+            info[P.keepTextOnly] = {caption: this.textKeepTextOnly, key: 'T', icon: 'btn-paste-text-only'};
+            info[P.picture] = {caption: this.textPicture, key: 'U', icon: 'btn-paste-picture'};
+            return info[value];
+        },
+
+        // Paste split button: click pastes, the arrow opens Word's paste options
+        setupPasteButton: function (toolbar) {
+            var btn = toolbar.btnPaste, me = this, P = Asc.c_oSpecialPasteProps;
+            if (!btn || !btn.setMenu || !btn.options.split) return;
+            var items = [{caption: this.textPasteOptions, cls: 'word-paste-header', disabled: true}];
+            _.each([P.sourceformatting, P.mergeFormatting, P.keepTextOnly], function (v) {
+                var i = me.pasteOptionInfo(v);
+                items.push({caption: i.caption + ' (' + i.key + ')', iconCls: 'menu__icon ' + i.icon, value: v});
+            });
+            var menu = new Common.UI.Menu({cls: 'word-paste-menu', items: items});
+            btn.setMenu(menu);
+            menu.on('item:click', function (m, item) {
+                item.value !== undefined && me.pasteWithOption(item.value);
+            });
+            // the main part pastes too; replaces the handler of the Toolbar controller, which warns
+            // that the clipboard is not reachable even when the asynchronous Clipboard API pastes
+            btn.off('click');
+            btn.on('click', function () { me.pasteWithOption(null); });
+        },
+
+        historyIndex: function () {
+            var ld = this.api && this.api.WordControl && this.api.WordControl.m_oLogicDocument;
+            return ld && ld.History ? ld.History.Index : null;
+        },
+
+        pasteWithOption: function (value) {
+            var api = this.api || this.getApi(), me = this;
+            if (!api) return;
+            var pending = this._pendingPaste = {value: value, time: Date.now(), history: this.historyIndex()};
+            var res = api.Paste();
+            if (!res) {
+                // asynchronous paste: warn only if nothing was pasted
+                setTimeout(function () {
+                    if (pending.pasted || (pending.history !== null && me.historyIndex() !== pending.history)) return;
+                    me._pendingPaste === pending && (me._pendingPaste = null);
+                    if (!Common.localStorage.getBool('de-hide-copywarning')) {
+                        (new Common.Views.CopyWarningDialog({
+                            handler: function (dontshow) {
+                                dontshow && Common.localStorage.setItem('de-hide-copywarning', 1);
+                                Common.NotificationCenter.trigger('edit:complete', me.toolbar);
+                            }
+                        })).show();
+                    }
+                }, 1500);
+            }
+            Common.NotificationCenter.trigger('edit:complete', this.toolbar);
+        },
+
+        // Word-like Paste Options chip after a paste: Word's labels, keys and icons, Merge
+        // Formatting (M); a paste started from the Paste menu switches to the chosen option.
+        onSpecialPasteShown: function (showOptions) {
+            // the chip of DocumentHolder may be built by a callback that runs after this one
+            var me = this;
+            _.defer(function () { me.decorateSpecialPaste(showOptions); });
+        },
+
+        decorateSpecialPaste: function (showOptions) {
+            var me = this, P = Asc.c_oSpecialPasteProps,
+                dh = this.getApplication().getController('DocumentHolder'),
+                options = showOptions && showOptions.asc_getOptions ? (showOptions.asc_getOptions() || []) : [];
+            var btn = dh && dh.btnSpecialPaste;
+            if (btn) {
+                btn.cmpEl && btn.cmpEl.closest('#special-paste-container').addClass('word-paste-chip');
+                _.each(btn.menu.items, function (item) {
+                    var i = me.pasteOptionInfo(item.value);
+                    if (i) {
+                        item.setCaption(i.caption + ' (' + i.key + ')');
+                        item.setIconCls && item.setIconCls('menu__icon ' + i.icon);
+                    }
+                });
+                dh.hkSpecPaste && (dh.hkSpecPaste[P.mergeFormatting] = 'M', dh.hkSpecPaste[P.destinationFormatting] = 'S');
+                if (!this._chipKeys) {
+                    this._chipKeys = true;
+                    // letters that the chip of DocumentHolder does not bind (M, S) while its menu is open
+                    document.addEventListener('keydown', function (e) {
+                        var b = dh.btnSpecialPaste;
+                        if (!b || !b.menu || !b.menu.isVisible() || e.ctrlKey || e.altKey || e.metaKey) return;
+                        var key = String.fromCharCode(e.keyCode);
+                        var item = _.find(b.menu.items, function (it) { var i = me.pasteOptionInfo(it.value); return i && i.key === key && (key === 'M' || key === 'S'); });
+                        if (item) {
+                            dh.onSpecialPasteItemClick({value: item.value});
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    }, true);
+                }
+            }
+            var pending = this._pendingPaste;
+            this._pendingPaste = null;
+            pending && (pending.pasted = true);
+            if (pending && pending.value !== null && Date.now() - pending.time < 15000 && options.length) {
+                var v = pending.value;
+                if (options.indexOf(v) < 0 && v === P.mergeFormatting && options.indexOf(P.destinationFormatting) >= 0)
+                    v = P.destinationFormatting;
+                if (options.indexOf(v) >= 0 && v !== options[0])
+                    _.defer(function () { dh && dh.onSpecialPasteItemClick ? dh.onSpecialPasteItemClick({value: v}) : me.api.asc_SpecialPaste(v); });
             }
         },
 
@@ -510,6 +623,12 @@ define([
             })).show();
         },
 
+        textPasteOptions: 'Paste Options:',
+        textKeepSource: 'Keep Source Formatting',
+        textMergeFormatting: 'Merge Formatting',
+        textDestinationStyles: 'Use Destination Styles',
+        textKeepTextOnly: 'Keep Text Only',
+        textPicture: 'Picture',
         textCreateStyle: 'Create a Style',
         textClearFormatting: 'Clear Formatting',
         textApplyStyles: 'Apply Styles...',

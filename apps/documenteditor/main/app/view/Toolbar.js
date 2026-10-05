@@ -272,6 +272,8 @@ define([
                         cls: 'btn-toolbar x-huge icon-top',
                         iconCls: 'toolbar__icon btn-big-paste',
                         caption: me.tipPaste,
+                        split: true, // Word-like paste options menu, see DE.Controllers.WordFormatting
+                        menu: true,
                         lock: [_set.paragraphLock, _set.headerLock, _set.richEditLock, _set.plainEditLock, _set.previewReviewMode, _set.viewFormMode, _set.lostConnect, _set.disableOnStart, _set.docLockViewIns, _set.docLockCommentsIns, _set.viewMode],
                         dataHint: '1',
                         dataHintDirection: 'top',
