@@ -290,6 +290,8 @@ define([
         },
 
         onFont: function() {
+            var fmt = this.getApplication().getController('WordFormatting');
+            if (fmt && fmt.onGroupLauncher) { fmt.onGroupLauncher('font'); return; }
             var toolbar = this.getApplication().getController('Toolbar');
             toolbar && toolbar.onGroupLauncher && toolbar.onGroupLauncher('font');
         },

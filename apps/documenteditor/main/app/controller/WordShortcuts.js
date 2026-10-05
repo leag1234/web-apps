@@ -138,9 +138,13 @@ define([
 
         onFontDialog: function() {
             if (this.isModal() || !this.mode.isEdit) return true;
-            // same as the dialog launcher of the Font group
-            var toolbar = this.getApplication().getController('Toolbar');
-            toolbar && toolbar.onGroupLauncher && toolbar.onGroupLauncher('font');
+            // same as the dialog launcher of the Font group (Word's Font dialog of WordFormatting)
+            var fmt = this.getApplication().getController('WordFormatting');
+            if (fmt && fmt.onGroupLauncher) fmt.onGroupLauncher('font');
+            else {
+                var toolbar = this.getApplication().getController('Toolbar');
+                toolbar && toolbar.onGroupLauncher && toolbar.onGroupLauncher('font');
+            }
             return false;
         },
 

@@ -97,13 +97,7 @@ define([
                 me.stylesPane && me.stylesPane.isVisible() && me.refreshStylesPane();
             });
             var keymap = {};
-            // Word: Ctrl+D opens the Font dialog
-            keymap['command+d,ctrl+d'] = function (e) {
-                if (!me.isEditingAllowed() || $('.asc-window.modal:visible').length) return true;
-                me.openFontDialog();
-                e && e.preventDefault && e.preventDefault();
-                return false;
-            };
+            // Ctrl+D / Ctrl+Shift+F (Font dialog): WordShortcuts, which calls onGroupLauncher('font')
             keymap['command+alt+shift+s,ctrl+alt+shift+s'] = function (e) {
                 if (!me.isEditingAllowed()) return true;
                 me.toggleStylesPane();
