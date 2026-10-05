@@ -147,7 +147,6 @@ define([
             // Save As: Cmd+Shift+S on macOS; F12 elsewhere (WordShortcuts), where Ctrl+Shift+S is Apply Styles (WordFormatting)
             Common.Utils.isMac && (keymap['command+shift+s'] = _.bind(this.onShortcut, this, 'save'));
             keymap[Common.Utils.isMac ? 'ctrl+alt+f' : 'alt+f'] = _.bind(this.onShortcut, this, 'file');
-            keymap[Common.Utils.isMac ? 'ctrl+alt+q' : 'alt+q'] = _.bind(this.onShortcut, this, 'chat');
             Common.util.Shortcuts.delegateShortcuts({shortcuts:keymap});
             Common.util.Shortcuts.suspendEvents();
         },

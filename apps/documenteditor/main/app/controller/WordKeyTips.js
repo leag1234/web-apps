@@ -41,7 +41,10 @@ define([
     // tab (data-tab of the ribbon tab) -> KeyTip
     var TABS = {
         file: 'F', home: 'H', ins: 'N', draw: 'JI', design: 'G', layout: 'P', links: 'S',
-        review: 'R', view: 'W', plugins: 'X', headerfooter: 'JH', forms: 'L', elixir: 'A'
+        review: 'R', view: 'W', plugins: 'X', headerfooter: 'JH', forms: 'L', elixir: 'A',
+        // contextual tabs (RibbonTabs / ContextTabs): Table Design, Layout (table), Picture Format,
+        // Shape Format, Equation, as in Word
+        tabledesign: 'JT', tablelayout: 'JL', pictureformat: 'JP', shapeformat: 'JD', equation: 'JE'
     };
 
     // per tab: [accessor, KeyTip]; an accessor is "<controller>.<path>" (see resolve) or a CSS selector
@@ -277,8 +280,13 @@ define([
                     // Word draws the quick access KeyTips under the buttons
                     $(this).attr({'data-hint-title': String(n++), 'data-hint-direction': 'bottom', 'data-hint-offset': '-6, 0'}).removeAttr('data-hint-title-lang');
                 });
-                // Search (Word: Alt, Q)
-                me.setTip(me.resolve('header.btnSearch'), 'Q');
+                // Search (Word: Alt, Q): the command search of the title bar, else the header search button
+                var $search = $('#box-document-title .elx-search-input:visible');
+                if ($search.length) {
+                    $search.attr({'data-hint': '0', 'data-hint-title': 'Q', 'data-hint-direction': 'bottom', 'data-hint-offset': 'small'})
+                        .removeAttr('data-hint-title-lang');
+                } else
+                    me.setTip(me.resolve('header.btnSearch'), 'Q');
                 return;
             }
             if ($('#file-menu-panel').is(':visible')) {
