@@ -3882,5 +3882,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Выровнять по нижнему краю",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Изменить тип диаграммы",
   "PE.Views.SlideContextTabs.txtEditData": "Изменить данные",
-  "PE.Views.SlideContextTabs.txtProperties": "Свойства"
+  "PE.Views.SlideContextTabs.txtProperties": "Свойства",
+  "PE.Views.SlideStatusbar.txtNotes": "Заметки",
+  "PE.Views.SlideStatusbar.tipNotes": "Заметки: введите заметки докладчика под слайдом",
+  "PE.Views.SlideStatusbar.txtComments": "Примечания",
+  "PE.Views.SlideStatusbar.tipComments": "Показать область примечаний",
+  "PE.Views.SlideStatusbar.tipNormal": "Обычный",
+  "PE.Views.SlideStatusbar.tipReadingView": "Режим чтения",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Слайд-шоу (SHIFT+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Вписать слайд в текущее окно",
+  "PE.Views.SlideStatusbar.tipZoom": "Масштаб",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

@@ -3427,5 +3427,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Allinea in basso",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Cambia tipo di grafico",
   "PE.Views.SlideContextTabs.txtEditData": "Modifica dati",
-  "PE.Views.SlideContextTabs.txtProperties": "Proprietà"
+  "PE.Views.SlideContextTabs.txtProperties": "Proprietà",
+  "PE.Views.SlideStatusbar.txtNotes": "Note",
+  "PE.Views.SlideStatusbar.tipNotes": "Note: inserisci le note del relatore sotto la diapositiva",
+  "PE.Views.SlideStatusbar.txtComments": "Commenti",
+  "PE.Views.SlideStatusbar.tipComments": "Mostra il riquadro Commenti",
+  "PE.Views.SlideStatusbar.tipNormal": "Normale",
+  "PE.Views.SlideStatusbar.tipReadingView": "Visualizzazione di lettura",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Presentazione (MAIUSC+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Adatta diapositiva alla finestra corrente",
+  "PE.Views.SlideStatusbar.tipZoom": "Zoom",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

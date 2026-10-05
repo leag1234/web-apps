@@ -387,8 +387,12 @@ define([
             var tbc = this.tbc();
             if (!tbc || !this.api) return;
             var presenter = this.view && this.view.chUsePresenter && this.view.chUsePresenter.getValue() === 'checked';
-            if (presenter) tbc.onPreview(current ? this.api.getCurrentPage() : 0, true, !!current);
-            else tbc.onPreview(current ? this.api.getCurrentPage() : 0, false, !!current);
+            tbc.onPreview(current ? this.api.getCurrentPage() : 0, !!presenter, !!current);
+            // PowerPoint shows the slide show full screen (the browser needs this user gesture)
+            if (!presenter) {
+                var vp = this.getApplication().getController('Viewport'), pv = vp && vp.getView('DocumentPreview');
+                pv && pv.toggleFullScreen && !document.fullscreenElement && pv.toggleFullScreen();
+            }
         },
 
         // PowerPoint's tab order and KeyTips
@@ -474,6 +478,9 @@ define([
                 [v.btnShowBegin, v.btnShowCurrent, v.btnShowPresenter, v.btnShowSetup, v.btnHideSlide]) });
             this.api && this.api.asc_registerCallback('asc_onFocusObject', function (objs) { me.onFocusObject(objs); });
             setTimeout(function () { me.arrangeTabs(); }, 0);
+            // slide context menu: PowerPoint's "Format Background..." for the slide settings
+            var dh = this.dh(), dhv = dh && dh.documentHolder;
+            dhv && dhv.menuSlideSettings && dhv.menuSlideSettings.setCaption(v.txtFormatBackground + '...');
             void tb;
         },
 

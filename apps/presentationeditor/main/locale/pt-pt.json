@@ -2763,5 +2763,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Alinhar Abaixo",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Alterar Tipo de Gráfico",
   "PE.Views.SlideContextTabs.txtEditData": "Editar Dados",
-  "PE.Views.SlideContextTabs.txtProperties": "Propriedades"
+  "PE.Views.SlideContextTabs.txtProperties": "Propriedades",
+  "PE.Views.SlideStatusbar.txtNotes": "Notas",
+  "PE.Views.SlideStatusbar.tipNotes": "Notas: introduza as notas do orador por baixo do diapositivo",
+  "PE.Views.SlideStatusbar.txtComments": "Comentários",
+  "PE.Views.SlideStatusbar.tipComments": "Mostrar o painel Comentários",
+  "PE.Views.SlideStatusbar.tipNormal": "Normal",
+  "PE.Views.SlideStatusbar.tipReadingView": "Vista de Leitura",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Apresentação de Diapositivos (Shift+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Ajustar diapositivo à janela atual",
+  "PE.Views.SlideStatusbar.tipZoom": "Zoom",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

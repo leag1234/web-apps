@@ -59,7 +59,11 @@ define([
                     'render:after': function () { me.backstage && me.backstage.onRender(); }
                 },
                 'LeftMenu': {
-                    'comments:show': function () { me.titleBar && me.titleBar.setCommentsPressed(true); },
+                    'comments:show': function () {
+                        me.titleBar && me.titleBar.setCommentsPressed(true);
+                        // the comments pane is docked on the right: the slide thumbnails stay, like PowerPoint
+                        setTimeout(function () { me.keepThumbnails(); }, 0);
+                    },
                     'comments:hide': function () { me.titleBar && me.titleBar.setCommentsPressed(false); }
                 }
             });
@@ -81,6 +85,11 @@ define([
             this.mode = mode;
             this.titleBar.setup(mode);
             ElixirSidePanels.setup();
+        },
+
+        keepThumbnails: function () {
+            var main = this.getApplication().getController('Main'), api = main && main.api;
+            api && api.ShowThumbnails && api.ShowThumbnails(true);
         },
 
         leftMenu: function () {

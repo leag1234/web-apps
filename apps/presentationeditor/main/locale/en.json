@@ -3889,5 +3889,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Align Bottom",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Change Chart Type",
   "PE.Views.SlideContextTabs.txtEditData": "Edit Data",
-  "PE.Views.SlideContextTabs.txtProperties": "Properties"
+  "PE.Views.SlideContextTabs.txtProperties": "Properties",
+  "PE.Views.SlideStatusbar.txtNotes": "Notes",
+  "PE.Views.SlideStatusbar.tipNotes": "Notes: enter speaker notes below the slide",
+  "PE.Views.SlideStatusbar.txtComments": "Comments",
+  "PE.Views.SlideStatusbar.tipComments": "Show the Comments pane",
+  "PE.Views.SlideStatusbar.tipNormal": "Normal",
+  "PE.Views.SlideStatusbar.tipReadingView": "Reading View",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Slide Show (Shift+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Fit slide to current window",
+  "PE.Views.SlideStatusbar.tipZoom": "Zoom",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

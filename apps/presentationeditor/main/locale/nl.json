@@ -2457,5 +2457,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Onder uitlijnen",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Ander grafiektype",
   "PE.Views.SlideContextTabs.txtEditData": "Gegevens bewerken",
-  "PE.Views.SlideContextTabs.txtProperties": "Eigenschappen"
+  "PE.Views.SlideContextTabs.txtProperties": "Eigenschappen",
+  "PE.Views.SlideStatusbar.txtNotes": "Notities",
+  "PE.Views.SlideStatusbar.tipNotes": "Notities: voer sprekersnotities in onder de dia",
+  "PE.Views.SlideStatusbar.txtComments": "Opmerkingen",
+  "PE.Views.SlideStatusbar.tipComments": "Het deelvenster Opmerkingen weergeven",
+  "PE.Views.SlideStatusbar.tipNormal": "Normaal",
+  "PE.Views.SlideStatusbar.tipReadingView": "Leesweergave",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Diavoorstelling (Shift+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Dia aanpassen aan huidig venster",
+  "PE.Views.SlideStatusbar.tipZoom": "In-/uitzoomen",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

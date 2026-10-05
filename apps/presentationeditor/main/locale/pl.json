@@ -2786,5 +2786,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Wyrównaj do dołu",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Zmień typ wykresu",
   "PE.Views.SlideContextTabs.txtEditData": "Edytuj dane",
-  "PE.Views.SlideContextTabs.txtProperties": "Właściwości"
+  "PE.Views.SlideContextTabs.txtProperties": "Właściwości",
+  "PE.Views.SlideStatusbar.txtNotes": "Notatki",
+  "PE.Views.SlideStatusbar.tipNotes": "Notatki: wprowadź notatki prelegenta pod slajdem",
+  "PE.Views.SlideStatusbar.txtComments": "Komentarze",
+  "PE.Views.SlideStatusbar.tipComments": "Pokaż okienko Komentarze",
+  "PE.Views.SlideStatusbar.tipNormal": "Normalny",
+  "PE.Views.SlideStatusbar.tipReadingView": "Widok do czytania",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Pokaz slajdów (Shift+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Dopasuj slajd do bieżącego okna",
+  "PE.Views.SlideStatusbar.tipZoom": "Powiększenie",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

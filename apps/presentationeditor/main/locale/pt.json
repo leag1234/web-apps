@@ -3882,5 +3882,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Alinhar Embaixo",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Alterar Tipo de Gráfico",
   "PE.Views.SlideContextTabs.txtEditData": "Editar Dados",
-  "PE.Views.SlideContextTabs.txtProperties": "Propriedades"
+  "PE.Views.SlideContextTabs.txtProperties": "Propriedades",
+  "PE.Views.SlideStatusbar.txtNotes": "Anotações",
+  "PE.Views.SlideStatusbar.tipNotes": "Anotações: insira as anotações do orador abaixo do slide",
+  "PE.Views.SlideStatusbar.txtComments": "Comentários",
+  "PE.Views.SlideStatusbar.tipComments": "Mostrar o painel Comentários",
+  "PE.Views.SlideStatusbar.tipNormal": "Normal",
+  "PE.Views.SlideStatusbar.tipReadingView": "Modo de Exibição de Leitura",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Apresentação de Slides (Shift+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Ajustar slide à janela atual",
+  "PE.Views.SlideStatusbar.tipZoom": "Zoom",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

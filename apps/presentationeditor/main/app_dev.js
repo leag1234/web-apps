@@ -145,6 +145,7 @@ require([
             ,'ElixirChrome'
             ,'SlideRibbon'
             ,'SlideContextTabs'
+            ,'SlideStatusbar'
         ]
     });
 
@@ -196,6 +197,7 @@ require([
             ,'presentationeditor/main/app/elixir-slide/Controller'
             ,'presentationeditor/main/app/elixir-slide/Ribbon'
             ,'presentationeditor/main/app/elixir-slide/ContextTabs'
+            ,'presentationeditor/main/app/elixir-slide/Statusbar'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',

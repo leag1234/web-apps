@@ -3577,5 +3577,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "下揃え",
   "PE.Views.SlideContextTabs.txtChangeChartType": "グラフの種類の変更",
   "PE.Views.SlideContextTabs.txtEditData": "データの編集",
-  "PE.Views.SlideContextTabs.txtProperties": "プロパティ"
+  "PE.Views.SlideContextTabs.txtProperties": "プロパティ",
+  "PE.Views.SlideStatusbar.txtNotes": "ノート",
+  "PE.Views.SlideStatusbar.tipNotes": "ノート: スライドの下に発表者のノートを入力します",
+  "PE.Views.SlideStatusbar.txtComments": "コメント",
+  "PE.Views.SlideStatusbar.tipComments": "[コメント] ウィンドウを表示します",
+  "PE.Views.SlideStatusbar.tipNormal": "標準",
+  "PE.Views.SlideStatusbar.tipReadingView": "閲覧表示",
+  "PE.Views.SlideStatusbar.tipSlideShow": "スライド ショー (Shift+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "スライドを現在のウィンドウ サイズに合わせる",
+  "PE.Views.SlideStatusbar.tipZoom": "ズーム",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0}%"
 }

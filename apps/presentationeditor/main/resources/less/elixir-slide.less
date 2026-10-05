@@ -40,3 +40,28 @@
         margin-left: 6px;
     }
 }
+
+// ---------------------------------------------------------------------------
+// Status bar (PE.Controllers.SlideStatusbar)
+// ---------------------------------------------------------------------------
+.statusbar.elx-slide-statusbar {
+    .elx-sb-views {
+        display: inline-flex;
+        align-items: center;
+        .btn-toolbar:not(.small) .caption {
+            padding: 0 2px;
+        }
+    }
+    .elx-sb-slot { display: inline-block; margin: 0 1px; }
+    .elx-sb-sep { margin: 0 6px; }
+    .elx-sb-zoom-slider {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100px;
+        height: 18px;
+        margin: 0 2px;
+        position: relative;
+    }
+    .elx-sb-hidden { display: none !important; }
+    .cnt-zoom { margin: 0 4px; }
+}

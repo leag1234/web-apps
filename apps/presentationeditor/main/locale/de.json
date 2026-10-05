@@ -3882,5 +3882,15 @@
   "PE.Views.SlideContextTabs.txtAlignBottom": "Unten ausrichten",
   "PE.Views.SlideContextTabs.txtChangeChartType": "Diagrammtyp ändern",
   "PE.Views.SlideContextTabs.txtEditData": "Daten bearbeiten",
-  "PE.Views.SlideContextTabs.txtProperties": "Eigenschaften"
+  "PE.Views.SlideContextTabs.txtProperties": "Eigenschaften",
+  "PE.Views.SlideStatusbar.txtNotes": "Notizen",
+  "PE.Views.SlideStatusbar.tipNotes": "Notizen: Sprechernotizen unter der Folie eingeben",
+  "PE.Views.SlideStatusbar.txtComments": "Kommentare",
+  "PE.Views.SlideStatusbar.tipComments": "Kommentarbereich anzeigen",
+  "PE.Views.SlideStatusbar.tipNormal": "Normal",
+  "PE.Views.SlideStatusbar.tipReadingView": "Leseansicht",
+  "PE.Views.SlideStatusbar.tipSlideShow": "Bildschirmpräsentation (Umschalt+F5)",
+  "PE.Views.SlideStatusbar.tipFit": "Folie an aktuelles Fenster anpassen",
+  "PE.Views.SlideStatusbar.tipZoom": "Zoom",
+  "PE.Views.SlideStatusbar.textZoomPercent": "{0} %"
 }
