@@ -391,7 +391,10 @@ define([
             // PowerPoint shows the slide show full screen (the browser needs this user gesture)
             if (!presenter) {
                 var vp = this.getApplication().getController('Viewport'), pv = vp && vp.getView('DocumentPreview');
-                pv && pv.toggleFullScreen && !document.fullscreenElement && pv.toggleFullScreen();
+                // once the show is running (the click or key still counts as the user gesture)
+                setTimeout(function () {
+                    pv && pv.isVisible && pv.isVisible() && pv.toggleFullScreen && !document.fullscreenElement && pv.toggleFullScreen();
+                }, 100);
             }
         },
 

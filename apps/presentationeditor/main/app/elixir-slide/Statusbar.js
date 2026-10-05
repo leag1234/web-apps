@@ -123,7 +123,9 @@ define([
             Common.NotificationCenter.trigger('preview:start', api.getCurrentPage(), false, false, true);
             if (full) {
                 var vp = this.getApplication().getController('Viewport'), pv = vp && vp.getView('DocumentPreview');
-                pv && pv.toggleFullScreen && pv.toggleFullScreen();
+                setTimeout(function () {
+                    pv && pv.isVisible && pv.isVisible() && pv.toggleFullScreen && !document.fullscreenElement && pv.toggleFullScreen();
+                }, 100);
             }
             this.btnReading.toggle(true, true);
         },

@@ -146,6 +146,7 @@ require([
             ,'SlideRibbon'
             ,'SlideContextTabs'
             ,'SlideStatusbar'
+            ,'SlideShortcuts'
         ]
     });
 
@@ -198,6 +199,7 @@ require([
             ,'presentationeditor/main/app/elixir-slide/Ribbon'
             ,'presentationeditor/main/app/elixir-slide/ContextTabs'
             ,'presentationeditor/main/app/elixir-slide/Statusbar'
+            ,'presentationeditor/main/app/elixir-slide/Shortcuts'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',

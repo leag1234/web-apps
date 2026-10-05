@@ -155,6 +155,7 @@ require([
             ,'SlideRibbon'
             ,'SlideContextTabs'
             ,'SlideStatusbar'
+            ,'SlideShortcuts'
         ]
     });
 
@@ -207,6 +208,7 @@ require([
             ,'presentationeditor/main/app/elixir-slide/Ribbon'
             ,'presentationeditor/main/app/elixir-slide/ContextTabs'
             ,'presentationeditor/main/app/elixir-slide/Statusbar'
+            ,'presentationeditor/main/app/elixir-slide/Shortcuts'
         ], function() {
             const code_path = 'presentationeditor/main/code';
             app.postLaunchScripts = [
