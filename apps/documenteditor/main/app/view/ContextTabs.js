@@ -10,11 +10,8 @@
  * The Header & Footer tab already exists (HeaderFooterTab); the controller only
  * restyles it as a contextual tab.
  *
- * Several commands already exist as ribbon buttons elsewhere (Wrap Text, Align,
- * Bring Forward...). They are not re-implemented: Common.UI.RibbonMirror makes a
- * twin button that follows the source button's state (disabled, pressed, hint)
- * and forwards clicks and menu clicks to it, so the existing controllers keep
- * doing the work.
+ * Commands that already exist as ribbon buttons elsewhere (Wrap Text, Align,
+ * Bring Forward...) are not re-implemented: see Common.UI.RibbonMirror.
  */
 
 define([
@@ -23,119 +20,10 @@ define([
     'common/main/lib/component/CheckBox',
     'common/main/lib/component/MetricSpinner',
     'common/main/lib/component/ComboDataView',
-    'common/main/lib/component/ColorButton'
+    'common/main/lib/component/ColorButton',
+    'common/main/lib/component/RibbonMirror'
 ], function () {
     'use strict';
-
-    // ---- RibbonMirror: a button that mirrors another ribbon button ----------------
-    // src: the source button or a function returning it (it may not exist yet).
-    // opts: caption, iconCls, cls (button classes), hint (overrides src hint).
-    Common.UI.RibbonMirror = function (src, opts) {
-        opts = opts || {};
-        var getSrc = _.isFunction(src) ? src : function () { return src; },
-            s = getSrc(),
-            hasMenu = !!(s ? s.menu : opts.menu),
-            twin = new Common.UI.Button({
-                cls: opts.cls || 'btn-toolbar x-huge icon-top',
-                iconCls: opts.iconCls || (s && s.options.iconCls) || '',
-                caption: opts.caption !== undefined ? opts.caption : (s ? s.options.caption : ''),
-                split: opts.split !== undefined ? opts.split : !!(s && s.options.split),
-                menu: hasMenu ? new Common.UI.Menu({cls: (s && s.menu && s.menu.options && s.menu.options.cls) || '', items: []}) : false,
-                enableToggle: !!(s && s.options.enableToggle),
-                dataHint: '1',
-                dataHintDirection: 'bottom',
-                dataHintOffset: 'small'
-            });
-        twin.mirrorSource = getSrc;
-
-        var attached = false;
-        var attach = function () {
-            var src = getSrc();
-            if (attached || !src) return;
-            attached = true;
-            var twins = src._mirrorTwins || (src._mirrorTwins = []);
-            twins.push(twin);
-            if (twins.length === 1) {
-                var origDisabled = src.setDisabled, origToggle = src.toggle, origHint = src.updateHint;
-                src.setDisabled = function () {
-                    origDisabled.apply(this, arguments);
-                    var d = this.isDisabled();
-                    _.each(this._mirrorTwins, function (t) { t.rendered && t.setDisabled(d); });
-                };
-                src.toggle = function (state, suppress) {
-                    origToggle.apply(this, arguments);
-                    var p = this.pressed;
-                    _.each(this._mirrorTwins, function (t) { t.rendered && t.pressed !== p && t.toggle(p, true); });
-                };
-                src.updateHint = function (hint) {
-                    origHint.apply(this, arguments);
-                    _.each(this._mirrorTwins, function (t) { !t._ownHint && t.rendered && t.updateHint(hint); });
-                };
-            }
-            twin.rendered && twin.setDisabled(src.isDisabled());
-            twin.rendered && src.pressed && twin.toggle(true, true);
-            if (opts.hint) { twin._ownHint = true; twin.rendered && twin.updateHint(opts.hint); }
-            else if (src.options.hint && twin.rendered) twin.updateHint(src.options.hint);
-        };
-        twin.on('render:after', function () { attach(); var src = getSrc(); src && twin.setDisabled(src.isDisabled()); });
-        twin.mirrorAttach = attach;
-
-        // a click on the twin is a click on the source
-        twin.on('click', function (btn, e) {
-            var src = getSrc();
-            if (!src || src.isDisabled()) return;
-            if (src.options.enableToggle) src.toggle(twin.pressed);
-            src.trigger('click', src, e);
-        });
-
-        // menus: rebuilt from the source menu each time they open
-        var cloneItems = function (srcMenu, dstMenu) {
-            dstMenu.removeAll();
-            _.each(srcMenu.items, function (it) {
-                if (it.caption === '--' || (it.options && it.options.caption === '--')) {
-                    dstMenu.addItem({caption: '--'}); return;
-                }
-                if (!it.caption && !it.menu) return; // pickers and other custom items are not cloned
-                var o = it.options || {};
-                var cfg = {
-                    caption: it.caption, iconCls: o.iconCls, value: it.value, checkable: it.checkable,
-                    checkmark: o.checkmark, toggleGroup: o.toggleGroup ? 'mirror-' + o.toggleGroup : undefined,
-                    checked: it.checked, disabled: it.disabled, allowDepress: o.allowDepress
-                };
-                var sub;
-                if (it.menu) {
-                    sub = new Common.UI.Menu({menuAlign: 'tl-tr', items: []});
-                    cfg.menu = sub;
-                }
-                var mi = new Common.UI.MenuItem(cfg);
-                mi.mirrorSource = it;
-                dstMenu.addItem(mi);
-                (it.$el && it.$el.css('display') === 'none') && mi.setVisible(false);
-                if (sub) cloneItems(it.menu, sub);
-            });
-            dstMenu.off('item:click').on('item:click', function (menu, item, e) {
-                var si = item.mirrorSource;
-                if (!si || si.menu) return;
-                // replays the click on the source item: checks it, fires its 'click' and the menu's 'item:click'
-                if (srcMenu.rendered)
-                    si.onItemClick({which: 1, target: {id: ''}, stopPropagation: function () {}, preventDefault: function () {}});
-                else {
-                    si.checkable && !(si.checked && si.toggleGroup) && si.setChecked(!si.checked);
-                    srcMenu.trigger('item:click', srcMenu, si, e);
-                }
-            });
-        };
-        if (hasMenu) {
-            twin.menu.on('show:before', function (menu) {
-                var src = getSrc();
-                if (!src || !src.menu || !_.isObject(src.menu)) return;
-                opts.prepare && opts.prepare(src);
-                if (opts.triggerShow !== false) src.menu.trigger('show:before', src.menu);
-                cloneItems(src.menu, twin.menu);
-            });
-        }
-        return twin;
-    };
 
     DE.Views.ContextTabs = Common.UI.BaseView.extend(_.extend((function () {
 
