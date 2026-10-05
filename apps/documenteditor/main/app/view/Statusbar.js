@@ -391,6 +391,10 @@ define([
                     this.api.asc_registerCallback('asc_onGetDocInfoStop', _.bind(this.onGetDocInfoEnd, this));
                     this.api.asc_registerCallback('asc_onDocInfo', _.bind(this.onDocInfo, this));
                     this.api.asc_registerCallback('asc_onGetDocInfoEnd', _.bind(this.onGetDocInfoEnd, this));
+                    // live word count in the status bar, like Word: recount when the
+                    // document is idle (caret/selection moves follow every edit)
+                    this.api.asc_registerCallback('asc_onDocumentContentReady', _.bind(this.scheduleWordCount, this, 0));
+                    this.api.asc_registerCallback('asc_onFocusObject', _.bind(this.scheduleWordCount, this, 1500));
                     this.api.asc_registerCallback('asc_onCoAuthoringDisconnect',_.bind(this.onApiCoAuthoringDisconnect, this));
                     Common.NotificationCenter.on('api:disconnect',      _.bind(this.onApiCoAuthoringDisconnect, this));
                     Common.NotificationCenter.on('protect:doclock', _.bind(this.onChangeProtectDocument, this));
@@ -490,11 +494,35 @@ define([
                 this.api && this.api.startGetDocInfo();
             },
 
+            scheduleWordCount: function(delay) {
+                var me = this;
+                if (!me.api || !me.btnDocInfo || !me.txtWordsLive) return;
+                clearTimeout(me._wordCountTimer);
+                me._wordCountTimer = setTimeout(function() {
+                    if (me._docInfoRunning || (me.btnDocInfo.menu && me.btnDocInfo.menu.isVisible())) {
+                        me.scheduleWordCount(1500);
+                        return;
+                    }
+                    me.api.startGetDocInfo();
+                }, delay || 0);
+            },
+
+            updateWordCountCaption: function() {
+                if (this._liveWords === undefined || !this.btnDocInfo || !this.txtWordsLive) return;
+                var lang = (Common.Locale && Common.Locale.getCurrentLanguage && Common.Locale.getCurrentLanguage()) || undefined,
+                    n;
+                try { n = this._liveWords.toLocaleString(lang); } catch (e) { n = String(this._liveWords); }
+                this.btnDocInfo.setCaption(Common.Utils.String.format(this.txtWordsLive, n));
+            },
+
             onGetDocInfoStart: function() {
+                this._docInfoRunning = true;
                 this.infoObj = {PageCount: 0, WordsCount: 0, ParagraphCount: 0, SymbolsCount: 0, SymbolsWSCount:0};
             },
 
             onDocInfo: function(obj) {
+                if (obj && obj.get_WordsCount()>-1)
+                    this._liveWords = obj.get_WordsCount();
                 if (obj && this.btnDocInfo && this.btnDocInfo.menu) {
                     if (obj.get_PageCount()>-1)
                         this.btnDocInfo.menu.items[0].options.value = obj.get_PageCount();
@@ -517,6 +545,8 @@ define([
             },
 
             onGetDocInfoEnd: function() {
+                this._docInfoRunning = false;
+                this.updateWordCountCaption();
                 clearInterval(this.timerDocInfo);
                 this.timerDocInfo = undefined;
                 this.fillDocInfo();
@@ -549,6 +579,7 @@ define([
             tipSelectTool       : 'Select tool',
             tipHandTool         : 'Hand tool',
             txtWordCount: 'Word count',
+            txtWordsLive: '{0} words',
             txtPages: 'Pages',
             txtWords: 'Words',
             txtParagraphs: 'Paragraphs',
