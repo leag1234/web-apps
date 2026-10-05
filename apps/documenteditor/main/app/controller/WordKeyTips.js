@@ -122,6 +122,111 @@ define([
                 return _.filter(_.values(TABS), function(t) { return t.length === 1 && 'FAX'.indexOf(t) < 0; }).join('');
             });
             me.ready = true;
+            // keyboard navigation inside the ribbon, as in Word
+            document.addEventListener('keydown', _.bind(me.onRibbonKeyDown, me), true);
+        },
+
+        ribbonTabs: function() {
+            return $('#toolbar .ribtab:visible > a[data-tab]');
+        },
+
+        ribbonControls: function() {
+            var $panel = $('#toolbar .panel.active');
+            return $panel.find('button, input, [tabindex="0"]').filter(function() {
+                var $el = $(this);
+                return $el.is(':visible') && !$el.prop('disabled') && !$el.closest('.disabled').length && $el.closest('.dropdown-menu').length === 0;
+            });
+        },
+
+        focusEl: function($el) {
+            if (!$el || !$el.length) return false;
+            this.getApplication().getController('Viewport').getApi().asc_enableKeyEvents(false);
+            $el[0].focus();
+            return document.activeElement === $el[0];
+        },
+
+        // Tab, arrows, Ctrl+arrows, Down / Alt+Down, Esc and Ctrl+Shift+F10 in the ribbon
+        onRibbonKeyDown: function(e) {
+            var K0 = Common.UI.Keys;
+            // KeyTips shown on the tabs: Tab, arrows leave them for the keyboard focus in the ribbon (Word)
+            if (Common.UI.HintManager.isHintVisible() && !$('#file-menu-panel').is(':visible') &&
+                    (e.keyCode === K0.TAB || e.keyCode === K0.LEFT || e.keyCode === K0.RIGHT || e.keyCode === K0.DOWN) &&
+                    $('.hint-div:visible').filter(function() { return $(this).offset().top < 70; }).length > 0) {
+                e.preventDefault(); e.stopPropagation();
+                Common.UI.HintManager.clearHints(false, true);
+                var $tab = $('#toolbar .ribtab.active > a');
+                this.focusEl($tab);
+                if (e.keyCode === K0.TAB || e.keyCode === K0.DOWN) this.focusEl(this.ribbonControls().first());
+                return;
+            }
+            var active = document.activeElement;
+            if (!active || !$(active).closest('#toolbar').length || Common.UI.HintManager.isHintVisible() || $(active).closest('.dropdown-menu').length)
+                return;
+            var K = Common.UI.Keys, me = this, api = this.getApplication().getController('Viewport').getApi();
+            var $tabs = this.ribbonTabs(), tabIndex = $tabs.index(active);
+            var stop = function() { e.preventDefault(); e.stopPropagation(); };
+            var isInput = active.tagName === 'INPUT';
+
+            if (e.keyCode === K.ESC) {
+                stop();
+                if (tabIndex < 0) me.focusEl($('#toolbar .ribtab.active > a'));
+                else { api.asc_enableKeyEvents(true); Common.NotificationCenter.trigger('edit:complete'); }
+                return;
+            }
+            if (e.keyCode === 121 && e.ctrlKey && e.shiftKey) {
+                // Ctrl+Shift+F10: the ScreenTip of the focused control
+                stop();
+                var $t = $(active).closest('[data-original-title], .btn-group, .btn-slot, button');
+                $t.trigger('mouseenter').trigger('mouseover');
+                return;
+            }
+            if (tabIndex > -1) {
+                if (e.keyCode === K.RIGHT || e.keyCode === K.LEFT) {
+                    stop();
+                    var next = $tabs.eq((tabIndex + (e.keyCode === K.RIGHT ? 1 : -1) + $tabs.length) % $tabs.length);
+                    next.trigger('click');
+                    _.defer(function() { me.focusEl(next); });
+                } else if ((e.keyCode === K.DOWN || e.keyCode === K.TAB) && !e.shiftKey) {
+                    stop();
+                    me.focusEl(me.ribbonControls().first());
+                }
+                return;
+            }
+            var $controls = this.ribbonControls(), index = $controls.index(active);
+            if (index < 0) return;
+            if (e.keyCode === K.TAB || (!isInput && (e.keyCode === K.RIGHT || e.keyCode === K.LEFT) && !e.ctrlKey)) {
+                stop();
+                var back = e.keyCode === K.TAB ? e.shiftKey : e.keyCode === K.LEFT;
+                if (back && index === 0) me.focusEl($('#toolbar .ribtab.active > a'));
+                else me.focusEl($controls.eq((index + (back ? -1 : 1) + $controls.length) % $controls.length));
+                return;
+            }
+            if ((e.keyCode === K.RIGHT || e.keyCode === K.LEFT) && e.ctrlKey) {
+                // Ctrl+arrows: the first control of the next or previous group
+                stop();
+                var $groups = $('#toolbar .panel.active .group').filter(':visible');
+                var g = $groups.index($(active).closest('.group'));
+                var target = $groups.eq(g + (e.keyCode === K.RIGHT ? 1 : -1));
+                if (g > -1 && target.length) {
+                    var first = $controls.filter(function() { return target[0].contains(this); }).first();
+                    me.focusEl(first);
+                }
+                return;
+            }
+            if (e.keyCode === K.DOWN && !isInput) {
+                // Down (or Alt+Down): the list or the menu of the control
+                var $group = $(active).closest('.btn-group');
+                var $toggle = $group.find('.dropdown-toggle').filter(':visible').first();
+                if ($toggle.length) {
+                    stop();
+                    $toggle.trigger('click');
+                    _.defer(function() {
+                        var $menu = $group.find('.dropdown-menu:visible').first();
+                        $menu.length && $menu.focus();
+                        $menu.find('a:visible').first().focus();
+                    });
+                }
+            }
         },
 
         resolve: function(path) {
