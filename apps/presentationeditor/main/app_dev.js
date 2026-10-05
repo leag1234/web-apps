@@ -143,6 +143,8 @@ require([
             ,'Transitions'
             ,'Animation'
             ,'ElixirChrome'
+            ,'SlideRibbon'
+            ,'SlideContextTabs'
         ]
     });
 
@@ -192,6 +194,8 @@ require([
             ,'presentationeditor/main/app/controller/Transitions'
             ,'presentationeditor/main/app/controller/Animation'
             ,'presentationeditor/main/app/elixir-slide/Controller'
+            ,'presentationeditor/main/app/elixir-slide/Ribbon'
+            ,'presentationeditor/main/app/elixir-slide/ContextTabs'
         ], function() {
             app.postLaunchScripts = [
                 'common/main/lib/controller/ScreenReaderFocus',

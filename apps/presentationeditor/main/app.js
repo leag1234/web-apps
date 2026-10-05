@@ -152,6 +152,8 @@ require([
             ,'Transitions'
             ,'Animation'
             ,'ElixirChrome'
+            ,'SlideRibbon'
+            ,'SlideContextTabs'
         ]
     });
 
@@ -201,6 +203,8 @@ require([
             ,'presentationeditor/main/app/controller/Transitions'
             ,'presentationeditor/main/app/controller/Animation'
             ,'presentationeditor/main/app/elixir-slide/Controller'
+            ,'presentationeditor/main/app/elixir-slide/Ribbon'
+            ,'presentationeditor/main/app/elixir-slide/ContextTabs'
         ], function() {
             const code_path = 'presentationeditor/main/code';
             app.postLaunchScripts = [

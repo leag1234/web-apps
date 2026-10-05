@@ -3,3 +3,40 @@
 //
 // PowerPoint-like chrome and ribbon of the presentation editor
 // (presentationeditor/main/app/elixir-slide/).
+
+// ---------------------------------------------------------------------------
+// Ribbon (PE.Controllers.SlideRibbon)
+// ---------------------------------------------------------------------------
+#toolbar .toolbar {
+    // groups that PowerPoint shows elsewhere
+    .box-panels > .panel > .elx-hidden-group,
+    .panel.static > .elx-hidden-group {
+        display: none !important;
+    }
+    // Find / Replace / Select on three rows in the height of a two-row group
+    .elx-three-rows .elset {
+        height: 18px;
+        &:not(:first-child) {
+            margin-top: 2px;
+        }
+        .btn-toolbar {
+            height: 18px;
+        }
+    }
+}
+
+// contextual tabs (PE.Controllers.SlideContextTabs)
+#toolbar .toolbar {
+    .elx-spin-label {
+        display: inline-block;
+        min-width: 44px;
+        margin-right: 4px;
+        line-height: 22px;
+        vertical-align: middle;
+    }
+    .elset-column {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 6px;
+    }
+}
