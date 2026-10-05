@@ -328,6 +328,8 @@ define([
             toolbar.btnCut.on('click',                                  _.bind(this.onCopyPaste, this, 'cut'));
             toolbar.btnSelectAll.on('click',                            _.bind(this.onSelectAll, this));
             toolbar.btnReplace.on('click',                              _.bind(this.onReplace, this));
+            toolbar.btnFind && toolbar.btnFind.on('click',              _.bind(this.onFind, this));
+            toolbar.on('group:launcher',                                _.bind(this.onGroupLauncher, this));
             toolbar.btnIncFontSize.on('click',                          _.bind(this.onIncrease, this));
             toolbar.btnDecFontSize.on('click',                          _.bind(this.onDecrease, this));
             toolbar.mnuChangeCase.on('item:click',                      _.bind(this.onChangeCase, this));
@@ -1290,6 +1292,29 @@ define([
 
         onReplace: function(e) {
             this.getApplication().getController('LeftMenu').onShortcut('replace');
+        },
+
+        onFind: function(e) {
+            this.getApplication().getController('LeftMenu').onShortcut('search');
+        },
+
+        // dialog launcher arrows under the ribbon groups
+        onGroupLauncher: function(group) {
+            var me = this;
+            _.isArray(group) && (group = group[0]);
+            if (!me.api) return;
+            switch (group) {
+            case 'font':
+            case 'paragraph':
+                var dh = me.getApplication().getController('DocumentHolder'),
+                    win = dh && dh.advancedParagraphClick && dh.advancedParagraphClick({});
+                // Font tab of the paragraph settings dialog for the Font group
+                win && win.setActiveCategory && win.setActiveCategory(group === 'font' ? 3 : 0);
+                break;
+            case 'pagesetup':
+                me.onPageMarginsSelect(null, {value: 'advanced'});
+                break;
+            }
         },
 
         onIncrease: function(e) {
@@ -3917,8 +3942,10 @@ define([
                 me.toolbar.btnSmartPicker && me.toolbar.btnSmartPicker.setVisible(!!available);
             });
 
-            var tab = {action: 'review', caption: me.toolbar.textTabCollaboration, dataHintTitle: 'U', layoutname: 'toolbar-collaboration'};
-            var $panel = me.application.getController('Common.Controllers.ReviewChanges').createToolbarPanel();
+            // Word's Review tab: collaboration, comments, tracking, compare and protection
+            var tab = {action: 'review', caption: me.toolbar.textTabReview || me.toolbar.textTabCollaboration, dataHintTitle: 'R', layoutname: 'toolbar-collaboration'};
+            var $panel = me.application.getController('Common.Controllers.ReviewChanges').createToolbarPanel(),
+                $reviewPanel = $panel;
             if ( $panel ) {
                 me.toolbar.addTab(tab, $panel, 6);
                 me.toolbar.setVisible('review', (config.isEdit || config.canCoAuthoring && config.canComments) && Common.UI.LayoutManager.isElementVisible('toolbar-collaboration') ); // use config.canViewReview in review controller. set visible review tab in view mode only when asc_HaveRevisionsChanges
@@ -3930,16 +3957,11 @@ define([
                 me.toolbar.btnSave.on('disabled', _.bind(me.onBtnChangeState, me, 'save:disabled'));
 
                 if (!config.compactHeader) {
-                    // hide 'print' and 'save' buttons group and next separator
+                    // save, print, undo and redo live in the quick access toolbar of the
+                    // title bar: hide their groups (and the separators after them); the
+                    // clipboard group is in the Home tab, like in Word
                     me.toolbar.btnPrint.$el.parents('.group').hide().next().hide();
-
-                    // hide 'undo' and 'redo' buttons and retrieve parent container
-                    var $box = me.toolbar.btnUndo.$el.hide().next().hide().parent();
-
-                    // move 'paste' button to the container instead of 'undo' and 'redo'
-                    me.toolbar.btnPaste.$el.detach().appendTo($box);
-                    me.toolbar.btnPaste.$el.find('button').attr('data-hint-direction', 'bottom');
-                    me.toolbar.btnCopy.$el.removeClass('split');
+                    me.toolbar.btnUndo.$el.parents('.group').hide().next().hide();
                     me.toolbar.processPanelVisible(null, true);
                 }
 
@@ -3983,8 +4005,16 @@ define([
                             $panel.append($('<div class="separator long"></div>'));
                         }
                         $panel.append(doctabController.createToolbarPanel());
-                        me.toolbar.addTab(tab, $panel, 7);
-                        me.toolbar.setVisible('protect', Common.UI.LayoutManager.isElementVisible('toolbar-protect'));
+                        if ($reviewPanel && Common.UI.LayoutManager.isElementVisible('toolbar-collaboration') && Common.UI.LayoutManager.isElementVisible('toolbar-protect')) {
+                            // merge the protection groups into the Review tab, as one "Protect" group
+                            $panel.find('> .separator').remove();
+                            $reviewPanel.append($('<div class="separator long"></div>'));
+                            $reviewPanel.append($panel.children());
+                            me.toolbar.tagPanelGroups && me.toolbar.tagPanelGroups($reviewPanel);
+                        } else {
+                            me.toolbar.addTab(tab, $panel, 7);
+                            me.toolbar.setVisible('protect', Common.UI.LayoutManager.isElementVisible('toolbar-protect'));
+                        }
                         Array.prototype.push.apply(me.toolbar.lockControls, doctabButtons);
                     }
                 }
@@ -4004,16 +4034,11 @@ define([
                 //     me.toolbar.btnEditMode && me.toolbar.btnEditMode.cmpEl.parents('.group').hide().next('.separator').hide();
 
                 if (!config.compactHeader) {
-                    // hide 'print' and 'save' buttons group and next separator
+                    // save, print, undo and redo live in the quick access toolbar of the
+                    // title bar: hide their groups (and the separators after them); the
+                    // clipboard group is in the Home tab, like in Word
                     me.toolbar.btnPrint.$el.parents('.group').hide().next().hide();
-
-                    // hide 'undo' and 'redo' buttons and retrieve parent container
-                    var $box = me.toolbar.btnUndo.$el.hide().next().hide().parent();
-
-                    // move 'paste' button to the container instead of 'undo' and 'redo'
-                    me.toolbar.btnPaste.$el.detach().appendTo($box);
-                    me.toolbar.btnPaste.$el.find('button').attr('data-hint-direction', 'bottom');
-                    me.toolbar.btnCopy.$el.removeClass('split');
+                    me.toolbar.btnUndo.$el.parents('.group').hide().next().hide();
                     me.toolbar.processPanelVisible(null, true);
                 }
             }
