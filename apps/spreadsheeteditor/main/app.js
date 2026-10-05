@@ -155,6 +155,8 @@ require([
             ,'ElixirChrome'
             ,'RibbonTabs'
             ,'ExcelGrid'
+            ,'ExcelKeyTips'
+            ,'ExcelScreenTips'
         ]
     });
 
@@ -205,6 +207,8 @@ require([
             ,'spreadsheeteditor/main/app/elixir-chrome/Controller'
             ,'spreadsheeteditor/main/app/controller/RibbonTabs'
             ,'spreadsheeteditor/main/app/controller/ExcelGrid'
+            ,'spreadsheeteditor/main/app/controller/ExcelKeyTips'
+            ,'spreadsheeteditor/main/app/controller/ExcelScreenTips'
         ], function() {
             const code_path = 'spreadsheeteditor/main/code';
             app.postLaunchScripts = [
