@@ -2262,10 +2262,11 @@ define([
                 return;
 
             cmp.btnCondFormat.menu.on('item:click', _.bind(this.onCondFormatMenu, this));
-            for (var i=0; i<7; i++) {
-                cmp.btnCondFormat.menu.items[i].menu.on('item:click', _.bind(this.onCondFormatMenu, this));
-            }
-            cmp.btnCondFormat.menu.items[15].menu.on('item:click', _.bind(this.onCondFormatMenu, this));
+            // Highlight Cells Rules, Top/Bottom Rules and Clear Rules (ElixirOffice: Excel's menu)
+            _.each(cmp.btnCondFormat.menu.items, function (it) {
+                it.menu && it !== cmp.mnuDataBars && it !== cmp.mnuColorScales && it !== cmp.mnuIconSets &&
+                    it.menu.on('item:click', _.bind(this.onCondFormatMenu, this));
+            }, this);
 
             var collectionPresets = SSE.getCollection('ConditionalFormatIconsPresets');
             if (collectionPresets.length<1)

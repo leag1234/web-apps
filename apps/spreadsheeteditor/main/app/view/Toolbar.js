@@ -3172,108 +3172,47 @@ define([
             if (this.btnCondFormat && this.btnCondFormat.rendered) {
                 this.btnCondFormat.setMenu( new Common.UI.Menu({
                     items: [
+                        // Excel's menu: Highlight Cells Rules, Top/Bottom Rules, then the visual rules;
+                        // the other rule types are in New Rule / More Rules (FormatRulesEditDlg)
                         {
-                            caption     : Common.define.conditionalData.textValue,
+                            caption     : this.txtElxHighlightRules,
+                            iconCls     : 'menu__icon btn-elx-cf-highlight',
                             menu        : new Common.UI.Menu({
                                 menuAlign   : 'tl-tr',
                                 items: [
-                                    {   caption     : Common.define.conditionalData.textGreater,    type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.greaterThan },
-                                    {   caption     : Common.define.conditionalData.textGreaterEq,  type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.greaterThanOrEqual },
-                                    {   caption     : Common.define.conditionalData.textLess,       type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.lessThan },
-                                    {   caption     : Common.define.conditionalData.textLessEq,     type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.lessThanOrEqual },
-                                    {   caption     : Common.define.conditionalData.textEqual,      type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.equal },
-                                    {   caption     : Common.define.conditionalData.textNotEqual,   type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.notEqual },
-                                    {   caption     : Common.define.conditionalData.textBetween,    type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.between },
-                                    {   caption     : Common.define.conditionalData.textNotBetween, type        : Asc.c_oAscCFType.cellIs, value       : Asc.c_oAscCFOperator.notBetween }
+                                    { caption: this.txtElxGreaterThan, type: Asc.c_oAscCFType.cellIs, value: Asc.c_oAscCFOperator.greaterThan },
+                                    { caption: this.txtElxLessThan, type: Asc.c_oAscCFType.cellIs, value: Asc.c_oAscCFOperator.lessThan },
+                                    { caption: this.txtElxBetween, type: Asc.c_oAscCFType.cellIs, value: Asc.c_oAscCFOperator.between },
+                                    { caption: this.txtElxEqualTo, type: Asc.c_oAscCFType.cellIs, value: Asc.c_oAscCFOperator.equal },
+                                    { caption: this.txtElxTextContains, type: Asc.c_oAscCFType.containsText },
+                                    { caption: this.txtElxDateOccurring, type: Asc.c_oAscCFType.timePeriod, value: Asc.c_oAscTimePeriod.today },
+                                    { caption: this.txtElxDuplicateValues, type: Asc.c_oAscCFType.duplicateValues },
+                                    { caption: '--' },
+                                    { caption: this.txtElxMoreRules, value: 'new' }
                                 ]
                             })
                         },
                         {
-                            caption     : Common.define.conditionalData.textTop + '/' + Common.define.conditionalData.textBottom,
-                            type        : Asc.c_oAscCFType.top10,
+                            caption     : this.txtElxTopBottomRules,
+                            iconCls     : 'menu__icon btn-elx-cf-topbottom',
                             menu        : new Common.UI.Menu({
                                 menuAlign   : 'tl-tr',
                                 items: [
-                                    { caption: Common.define.conditionalData.textTop + ' 10 ' + this.textItems,      type: Asc.c_oAscCFType.top10, value: 0, percent: false },
-                                    { caption: Common.define.conditionalData.textTop + ' 10%',      type: Asc.c_oAscCFType.top10, value: 0, percent: true },
-                                    { caption: Common.define.conditionalData.textBottom + ' 10 ' + this.textItems,   type: Asc.c_oAscCFType.top10, value: 1, percent: false },
-                                    { caption: Common.define.conditionalData.textBottom + ' 10%',   type: Asc.c_oAscCFType.top10, value: 1, percent: true }
-                                ]
-                            })
-                        },
-                        {
-                            caption: Common.define.conditionalData.textAverage,
-                            menu: new Common.UI.Menu({
-                                menuAlign   : 'tl-tr',
-                                items: [
-                                    { caption: Common.define.conditionalData.textAbove, type: Asc.c_oAscCFType.aboveAverage, value: 0},
-                                    { caption: Common.define.conditionalData.textBelow, type: Asc.c_oAscCFType.aboveAverage, value: 1},
-                                    { caption: Common.define.conditionalData.textEqAbove, type: Asc.c_oAscCFType.aboveAverage, value: 2},
-                                    { caption: Common.define.conditionalData.textEqBelow, type: Asc.c_oAscCFType.aboveAverage,value: 3},
-                                    { caption: Common.define.conditionalData.text1Above, type: Asc.c_oAscCFType.aboveAverage, value: 4},
-                                    { caption: Common.define.conditionalData.text1Below, type: Asc.c_oAscCFType.aboveAverage, value: 5},
-                                    { caption: Common.define.conditionalData.text2Above, type: Asc.c_oAscCFType.aboveAverage, value: 6},
-                                    { caption: Common.define.conditionalData.text2Below, type: Asc.c_oAscCFType.aboveAverage, value: 7},
-                                    { caption: Common.define.conditionalData.text3Above, type: Asc.c_oAscCFType.aboveAverage, value: 8},
-                                    { caption: Common.define.conditionalData.text3Below, type: Asc.c_oAscCFType.aboveAverage, value: 9}
-                                ]
-                            })
-                        },
-                        {
-                            caption     : Common.define.conditionalData.textText,
-                            menu        : new Common.UI.Menu({
-                                menuAlign   : 'tl-tr',
-                                items: [
-                                    { caption: Common.define.conditionalData.textContains,   type: Asc.c_oAscCFType.containsText },
-                                    { caption: Common.define.conditionalData.textNotContains,   type: Asc.c_oAscCFType.notContainsText },
-                                    { caption: Common.define.conditionalData.textBegins,   type: Asc.c_oAscCFType.beginsWith },
-                                    { caption: Common.define.conditionalData.textEnds,   type: Asc.c_oAscCFType.endsWith }
-                                ]
-                            })
-                        },
-                        {
-                            caption     : Common.define.conditionalData.textDate,
-                            menu        : new Common.UI.Menu({
-                                menuAlign   : 'tl-tr',
-                                items: [
-                                    { caption: Common.define.conditionalData.textYesterday,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.yesterday },
-                                    { caption: Common.define.conditionalData.textToday,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.today},
-                                    { caption: Common.define.conditionalData.textTomorrow,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.tomorrow},
-                                    { caption: Common.define.conditionalData.textLast7days,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.last7Days},
-                                    { caption: Common.define.conditionalData.textLastWeek,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.lastWeek},
-                                    { caption: Common.define.conditionalData.textThisWeek,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.thisWeek},
-                                    { caption: Common.define.conditionalData.textNextWeek,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.nextWeek},
-                                    { caption: Common.define.conditionalData.textLastMonth,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.lastMonth},
-                                    { caption: Common.define.conditionalData.textThisMonth,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.thisMonth},
-                                    { caption: Common.define.conditionalData.textNextMonth,  type: Asc.c_oAscCFType.timePeriod,  value: Asc.c_oAscTimePeriod.nextMonth}
-                                ]
-                            })
-                        },
-                        {
-                            caption: Common.define.conditionalData.textBlank + '/' + Common.define.conditionalData.textError,
-                            menu        : new Common.UI.Menu({
-                                menuAlign   : 'tl-tr',
-                                items: [
-                                    { caption: Common.define.conditionalData.textBlanks,   type: Asc.c_oAscCFType.containsBlanks },
-                                    { caption: Common.define.conditionalData.textNotBlanks,type: Asc.c_oAscCFType.notContainsBlanks },
-                                    { caption: Common.define.conditionalData.textErrors,   type: Asc.c_oAscCFType.containsErrors },
-                                    { caption: Common.define.conditionalData.textNotErrors,type: Asc.c_oAscCFType.notContainsErrors }
-                                ]
-                            })
-                        },
-                        {
-                            caption: Common.define.conditionalData.textDuplicate + '/' + Common.define.conditionalData.textUnique,
-                            menu        : new Common.UI.Menu({
-                                menuAlign   : 'tl-tr',
-                                items: [
-                                    { caption: Common.define.conditionalData.textDuplicate,    type: Asc.c_oAscCFType.duplicateValues },
-                                    { caption: Common.define.conditionalData.textUnique,       type: Asc.c_oAscCFType.uniqueValues }
+                                    { caption: this.txtElxTop10Items, type: Asc.c_oAscCFType.top10, value: 0, percent: false },
+                                    { caption: this.txtElxTop10Pct, type: Asc.c_oAscCFType.top10, value: 0, percent: true },
+                                    { caption: this.txtElxBottom10Items, type: Asc.c_oAscCFType.top10, value: 1, percent: false },
+                                    { caption: this.txtElxBottom10Pct, type: Asc.c_oAscCFType.top10, value: 1, percent: true },
+                                    { caption: this.txtElxAboveAverage, type: Asc.c_oAscCFType.aboveAverage, value: 0 },
+                                    { caption: this.txtElxBelowAverage, type: Asc.c_oAscCFType.aboveAverage, value: 1 },
+                                    { caption: '--' },
+                                    { caption: this.txtElxMoreRules, value: 'new' }
                                 ]
                             })
                         },
                         {caption: '--'},
                         this.mnuDataBars = new Common.UI.MenuItem({
                             caption     : this.textDataBars,
+                            iconCls     : 'menu__icon btn-elx-cf-databars',
                             type        : Asc.c_oAscCFType.dataBar,
                             menu        : new Common.UI.Menu({
                                 menuAlign   : 'tl-tr',
@@ -3283,6 +3222,7 @@ define([
                         }),
                         this.mnuColorScales = new Common.UI.MenuItem({
                             caption     : this.textColorScales,
+                            iconCls     : 'menu__icon btn-elx-cf-colorscales',
                             type        : Asc.c_oAscCFType.colorScale,
                             menu        : new Common.UI.Menu({
                                 menuAlign   : 'tl-tr',
@@ -3292,6 +3232,7 @@ define([
                         }),
                         this.mnuIconSets = new Common.UI.MenuItem({
                             caption     : Common.define.conditionalData.textIconSets,
+                            iconCls     : 'menu__icon btn-elx-cf-iconsets',
                             type        : Asc.c_oAscCFType.iconSet,
                             menu        : new Common.UI.Menu({
                                 menuAlign   : 'tl-tr',
@@ -3301,16 +3242,13 @@ define([
                         }),
                         {caption: '--'},
                         {
-                            caption     : Common.define.conditionalData.textFormula,
-                            type        : Asc.c_oAscCFType.expression
-                        },
-                        {caption: '--'},
-                        {
-                            caption     : this.textNewRule,
+                            caption     : this.txtElxNewRule,
+                            iconCls     : 'menu__icon btn-elx-cf-new',
                             value       : 'new'
                         },
                         {
                             caption     : this.textClearRule,
+                            iconCls     : 'menu__icon btn-elx-cf-clear',
                             menu        : new Common.UI.Menu({
                                 menuAlign   : 'tl-tr',
                                 items: [
@@ -3322,7 +3260,8 @@ define([
                             })
                         },
                         {
-                            caption     : this.textManageRule,
+                            caption     : this.txtElxManageRules,
+                            iconCls     : 'menu__icon btn-elx-cf-manage',
                             value       : 'manage'
                         }
                     ]
@@ -3910,6 +3849,24 @@ define([
         tipTextDirection: 'Text direction',
         textDirRtl: 'Right-to-Left',
         textDirLtr: 'Left-to-Right',
-        textDirContext: 'Context'
+        textDirContext: 'Context',
+            txtElxHighlightRules: 'Highlight Cells Rules',
+            txtElxTopBottomRules: 'Top/Bottom Rules',
+            txtElxGreaterThan: 'Greater Than...',
+            txtElxLessThan: 'Less Than...',
+            txtElxBetween: 'Between...',
+            txtElxEqualTo: 'Equal To...',
+            txtElxTextContains: 'Text that Contains...',
+            txtElxDateOccurring: 'A Date Occurring...',
+            txtElxDuplicateValues: 'Duplicate Values...',
+            txtElxMoreRules: 'More Rules...',
+            txtElxTop10Items: 'Top 10 Items...',
+            txtElxTop10Pct: 'Top 10%...',
+            txtElxBottom10Items: 'Bottom 10 Items...',
+            txtElxBottom10Pct: 'Bottom 10%...',
+            txtElxAboveAverage: 'Above Average...',
+            txtElxBelowAverage: 'Below Average...',
+            txtElxNewRule: 'New Rule...',
+            txtElxManageRules: 'Manage Rules...'
     }, SSE.Views.Toolbar || {}));
 });
