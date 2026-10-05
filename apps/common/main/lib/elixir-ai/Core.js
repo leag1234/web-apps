@@ -45,10 +45,30 @@ define([], function () {
 
     ElixirAI.Settings = {
         defaults: DEFAULTS,
+        // Server-managed mode: the document server may publish /elixir-ai/config.json
+        // (endpoint on the same origin, key added server-side). Settings saved in the
+        // browser with an endpoint take precedence.
+        managed: null,
+        managedReady: null,
+        loadManaged: function () {
+            var me = this;
+            if (!me.managedReady) {
+                me.managedReady = (window.fetch ? fetch('/elixir-ai/config.json', { cache: 'no-store', credentials: 'omit' }) : Promise.reject())
+                    .then(function (r) { return r.ok ? r.json() : null; })
+                    .then(function (c) { if (c && typeof c.endpoint === 'string' && c.endpoint.charAt(0) === '/') me.managed = c; return me.managed; })
+                    .catch(function () { return null; });
+            }
+            return me.managedReady;
+        },
         get: function () {
             var s = readJSON(SETTINGS_KEY) || {};
+            if (!s.endpoint && this.managed) {
+                s = Object.assign({}, s, { endpoint: this.managed.endpoint, apiKey: '', managed: true });
+                if (!s.model && this.managed.model) s.model = this.managed.model;
+            }
             var out = {};
             for (var k in DEFAULTS) out[k] = (s[k] !== undefined && s[k] !== null) ? s[k] : DEFAULTS[k];
+            out.managed = !!s.managed;
             out.prices = Object.assign({}, DEFAULT_PRICES, s.prices || {});
             return out;
         },
@@ -61,12 +81,12 @@ define([], function () {
         clear: function () { try { window.localStorage.removeItem(SETTINGS_KEY); } catch (e) {} },
         isConfigured: function (s) {
             s = s || this.get();
-            return !!(s.endpoint && /^https?:\/\//i.test(s.endpoint) && s.model);
+            return !!(s.endpoint && (/^https?:\/\//i.test(s.endpoint) || (s.managed && s.endpoint.charAt(0) === '/')) && s.model);
         },
         // What may be shown or journaled: never the key.
         publicView: function (s) {
             var host = '';
-            try { host = new URL(s.endpoint).host; } catch (e) {}
+            try { host = s.managed ? 'server' : new URL(s.endpoint).host; } catch (e) {}
             return { endpointHost: host, model: s.model, hasKey: !!s.apiKey };
         },
         estimateCost: function (s, model, usage) {

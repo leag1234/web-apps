@@ -260,6 +260,12 @@ define([
         this.el.style.display = '';
         if (this.state === 'closed') this.reset();
         var configured = ElixirAI.Settings.isConfigured();
+        if (!configured && !this.managedChecked) {
+            // the server-managed config may still be loading
+            this.managedChecked = true;
+            ElixirAI.Settings.loadManaged().then(this.open.bind(this));
+            return;
+        }
         var sel = '';
         try { sel = this.host.api.asc_GetSelectedText ? this.host.api.asc_GetSelectedText() : ''; } catch (e) {}
         this.el.querySelector('.elixir-ai-scope').textContent = (sel && sel.replace(/\s/g, '').length) ? t('scopeSelection') : t('scopeDocument');
