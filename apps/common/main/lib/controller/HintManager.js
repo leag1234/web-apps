@@ -287,7 +287,7 @@ Common.UI.HintManager = new(function() {
         }
         if (visibleItems.length + (_currentLevel === 0 ? _.size(_staticHints) : 0) > _arrAlphabet.length) {
             visibleItemsWithStaticTitle.forEach(function (item) {
-                var t = $(item).data('hint-title').charAt(0).toLowerCase();
+                var t = String($(item).attr('data-hint-title')).charAt(0).toLowerCase(); // attr: data() turns "1" into a number
                 t = _getLetterInUILanguage(t);
                 if (_usedTitles.indexOf(t) < 0) {
                     _usedTitles.push(t);
