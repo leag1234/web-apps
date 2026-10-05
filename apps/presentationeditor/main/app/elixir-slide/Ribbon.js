@@ -419,6 +419,7 @@ define([
             cap('animate', v.txtTabAnimations);
             tb.setVisible('slideshow', true);
             this.renameControls();
+            this.setKeyTips();
             // View: Presentation Views (Normal) | Master Views (Slide Master)
             var $sm = tb.$el.find('.panel[data-tab=view] #slot-btn-slide-master');
             if ($sm.length && !$sm.parent().is('[data-group=masterViews]')) {
@@ -435,6 +436,33 @@ define([
             });
             tb.$panels && tb.$panels.each(function () { tb.tagPanelGroups && tb.tagPanelGroups($(this)); });
             tb.processPanelVisible && tb.processPanelVisible(null, true);
+        },
+
+        // PowerPoint's KeyTips (Alt, tab letter, then these) on the main commands
+        setKeyTips: function () {
+            var tb = this.toolbar, v = this.view;
+            var tip = function (b, k) {
+                if (!b || !b.cmpEl) return;
+                var $b = b.cmpEl.is('button') ? b.cmpEl : b.cmpEl.find('button').first();
+                $b.attr('data-hint-title', k);
+            };
+            var first = function (a) { return a && a[0]; };
+            _.each([
+                [tb.btnPaste, 'V'], [tb.btnCut, 'X'], [tb.btnCopy, 'C'], [tb.btnCopyStyle, 'FP'],
+                [tb.btnAddSlide, 'I'], [tb.btnChangeSlide, 'L'], [v.btnResetSlide, 'RE'],
+                [tb.cmbFontName, 'FF'], [tb.cmbFontSize, 'FS'], [tb.btnIncFontSize, 'FG'], [tb.btnDecFontSize, 'FK'],
+                [tb.btnClearStyle, 'E'], [tb.btnBold, '1'], [tb.btnItalic, '2'], [tb.btnUnderline, '3'], [tb.btnStrikeout, '4'],
+                [tb.btnChangeCase, '7'], [tb.btnFontColor, 'FC'], [tb.btnMarkers, 'U'], [tb.btnNumbers, 'N'],
+                [tb.btnDecLeftOffset, 'AO'], [tb.btnIncLeftOffset, 'AI'], [tb.btnLineSpace, 'K'], [tb.btnColumns, 'AC'],
+                [tb.btnTextDir, 'AD'], [tb.btnShapeArrange, 'G'], [tb.btnShapeAlign, 'AA'],
+                [v.btnFind, 'FD'], [tb.btnReplace, 'R'], [tb.btnSelectAll, 'SL'],
+                [v.btnInsNewSlide, 'I'], [tb.btnInsertTable, 'T'], [first(tb.btnsInsertImage), 'P'], [tb.btnInsertSmartArt, 'M'],
+                [tb.btnInsertChart, 'C'], [tb.btnInsertHyperlink, 'IK'], [first(tb.btnsInsertText), 'X'], [tb.btnEditHeader, 'H'],
+                [tb.btnInsertTextArt, 'W'], [tb.btnInsDateTime, 'D'], [tb.btnInsSlideNum, 'SN'], [tb.btnInsertEquation, 'E'],
+                [tb.btnInsertSymbol, 'U'], [tb.btnInsVideo, 'V'], [tb.btnInsAudio, 'O'],
+                [tb.btnSlideSize, 'S'], [v.btnFormatBg, 'G'], [tb.btnColorSchemas, 'C'],
+                [v.btnShowBegin, 'B'], [v.btnShowCurrent, 'C'], [v.btnShowPresenter, 'PR'], [v.btnShowSetup, 'S'], [v.btnHideSlide, 'H']
+            ], function (p) { tip(p[0], p[1]); });
         },
 
         // PowerPoint's words on stock controls that are already rendered (they have a caption node)
