@@ -188,6 +188,12 @@ define([
                 return item;
             };
             this.items = {};
+            // Office order in editors whose File menu template differs from Word's (no-op for Word):
+            // Info in the first block, Options last (presentation editor)
+            var $recent = $menu.find('#fm-btn-recent'), $info = $menu.find('#fm-btn-info');
+            if ($recent.length && $info.length && $info.prevAll('#fm-btn-save').length) $info.insertAfter($recent);
+            var $settings = $menu.find('#fm-btn-settings');
+            $settings.length && $settings.nextAll('#fm-btn-help, #fm-btn-suggest').length && $settings.insertAfter($menu.find('#fm-btn-help, #fm-btn-suggest').last());
             this.items['elx-home'] = addItem('fm-btn-elx-home', 'elx-home', this.txtHome, 'home', 'insertBefore', $menu.find('#fm-btn-create'));
             this.items['elx-open'] = addItem('fm-btn-elx-open', 'elx-open', this.txtOpen, 'open', 'insertAfter', $menu.find('#fm-btn-create'));
             // Save As (download formats) right after Save a Copy, then Print
