@@ -179,9 +179,13 @@ define([
         },
 
         onToggleRibbon: function() {
+            if (this.isModal()) return true;
             var toolbar = this.getApplication().getController('Toolbar');
             if (!toolbar || !toolbar.toolbar) return true;
-            toolbar.onChangeCompactView(null, !toolbar.toolbar.isCompact());
+            // the ribbon controller also updates its pin button
+            var ribbon = this.getApplication().getController('RibbonTabs');
+            if (ribbon && ribbon.toggleRibbon && ribbon.toolbar) ribbon.toggleRibbon();
+            else toolbar.onChangeCompactView(null, !toolbar.toolbar.isCompact());
             return false;
         },
 

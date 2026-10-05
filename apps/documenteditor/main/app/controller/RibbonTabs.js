@@ -95,7 +95,6 @@ define([
             if (!this.view) return;
             var me = this, v = this.view;
             this._docReady = true;
-            this.bindRibbonShortcuts();
             Common.Utils.lockControls(Common.enumLock.disableOnStart, false, {array: v.lockedControls});
             // the sources of some twins are created after the toolbar (Links, Header & Footer)
             setTimeout(function () {
@@ -393,18 +392,6 @@ define([
                 v.btnRibbonPin.setIconCls('toolbar__icon ' + (folded ? 'btn-elx-ribbon-pin' : 'btn-elx-ribbon-collapse'));
                 v.btnRibbonPin.updateHint(folded ? v.tipPinRibbon : v.tipCollapseRibbon);
             }, this), 0);
-        },
-
-        bindRibbonShortcuts: function () {
-            var me = this, keymap = {};
-            // Word: Ctrl+F1 shows or hides the ribbon
-            keymap['ctrl+f1'] = function (e) {
-                if (Common.Utils.ModalWindow && Common.Utils.ModalWindow.isVisible()) return true;
-                me.toggleRibbon();
-                e && e.preventDefault && e.preventDefault();
-                return false;
-            };
-            Common.util.Shortcuts.delegateShortcuts({shortcuts: keymap});
         },
 
         // ---- References -------------------------------------------------------------------
