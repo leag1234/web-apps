@@ -146,6 +146,7 @@ require([
             ,'Common.Controllers.ReviewChanges'
             ,'Common.Controllers.Protection'
             ,'Common.Controllers.Shortcuts'
+            ,'Common.Controllers.ElixirAI'
         ]
     });
 
@@ -190,6 +191,8 @@ require([
                 ,'common/main/lib/controller/ReviewChanges'
                 ,'common/main/lib/controller/Protection'
                 ,'common/main/lib/controller/Shortcuts'
+                ,'common/main/lib/elixir-ai/Controller'
+                ,'documenteditor/main/app/elixir-ai/WordTools'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 app.postLaunchScripts = [
