@@ -77,6 +77,9 @@ define([
             this.renderRight();
             this.bindSaveState();
             this.bindShortcut();
+            var me = this;
+            Common.NotificationCenter.on('window:resize', function () { me.fitName(); });
+            this.fitName();
         },
 
         hostConfig: function () {
@@ -120,6 +123,17 @@ define([
             var name = this.caption();
             this.$doc.find('.elx-docname-text').text(this.splitName(name).base);
             this.$doc.attr('title', name);
+            this.fitName();
+        },
+
+        // the file name and its state stop before the centred search box
+        fitName: function () {
+            if (!this.$doc || !this.$search) return;
+            var rtl = Common.UI.isRTL(), d = this.$doc[0].getBoundingClientRect(), s = this.$search[0].getBoundingClientRect();
+            var room = rtl ? d.right - s.right - 12 : s.left - d.left - 12;
+            // narrow windows keep the name and show the state as an icon only
+            this.$doc.toggleClass('elx-compact', room < 240);
+            this.$doc.css('max-width', Math.max(80, Math.floor(room)) + 'px');
         },
 
         bindSaveState: function () {

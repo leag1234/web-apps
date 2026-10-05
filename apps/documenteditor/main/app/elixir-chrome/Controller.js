@@ -13,7 +13,8 @@ define([
     'documenteditor/main/app/elixir-chrome/Icons',
     'documenteditor/main/app/elixir-chrome/CommandIndex',
     'documenteditor/main/app/elixir-chrome/Backstage',
-    'documenteditor/main/app/elixir-chrome/TitleBar'
+    'documenteditor/main/app/elixir-chrome/TitleBar',
+    'documenteditor/main/app/elixir-chrome/NavPane'
 ], function () {
     'use strict';
 
@@ -41,11 +42,14 @@ define([
             if (this.fileMenu)
                 this.backstage = new DE.Views.ElixirBackstage({ controller: this, menu: this.fileMenu });
             this.titleBar = new DE.Views.ElixirTitleBar({ controller: this });
+            this.navPane = new DE.Views.ElixirNavPane({ controller: this });
+            this.navPane.prepare();
         },
 
         onAppReady: function (mode) {
             this.mode = mode;
             this.titleBar.setup(mode);
+            this.navPane.setup(mode);
         },
 
         leftMenu: function () {
@@ -84,7 +88,7 @@ define([
         findInDocument: function (text, replace) {
             var lmc = this.getApplication().getController('LeftMenu');
             if (!lmc) return;
-            lmc.onShowHideSearch(true, text);
+            this.navPane && this.navPane.ready ? this.navPane.openTab('results', text) : lmc.onShowHideSearch(true, text);
             if (replace) {
                 var panel = lmc.leftMenu && lmc.leftMenu.panelSearch;
                 setTimeout(function () { panel && panel.focus && panel.focus('replace'); }, 100);

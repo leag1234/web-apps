@@ -568,7 +568,7 @@ body.elx-chrome {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        max-width: calc(50% - 250px);
+        max-width: 40vw;
         min-width: 0;
         height: 28px;
         padding: 0 6px 0 8px;
@@ -826,3 +826,224 @@ body.elx-chrome {
     .elx-search .elx-search-input { padding: 0 32px 0 10px; }
     .elx-docname .elx-docstate::before { margin-right: 0; margin-left: 4px; }
 }
+
+// ---------------------------------------------------------------------------
+// Side panels without the icon rail; Navigation pane (Headings/Pages/Results)
+// ---------------------------------------------------------------------------
+body.elx-norail {
+    --layout-padding-left-panel: 0px 3px 8px 8px;
+    --layout-padding-left-panel-rtl: 0px 8px 8px 3px;
+
+    #left-menu {
+        .tool-menu-btns {
+            width: 0 !important;
+            padding: 0 !important;
+            border: 0 none !important;
+            overflow: hidden;
+        }
+        .left-panel { border: 0 none; }
+        &.elx-left-collapsed {
+            width: 0 !important;
+            overflow: hidden;
+        }
+    }
+    .left-menu-full-ct {
+        left: 0;
+        padding-right: 0;
+    }
+    &.rtl .left-menu-full-ct { right: 0; padding-left: 0; }
+}
+
+#left-menu .left-panel .elx-navhead { display: none; }
+
+body.elx-nav-on #left-menu .left-panel {
+    display: flex;
+    flex-direction: column;
+
+    > .content-box { flex: 1 1 auto; min-height: 0; }
+    > .content-box:not([style*="display: none"]) { border-radius: 0 0 8px 8px; }
+
+    .elx-navhead {
+        display: block;
+        flex: 0 0 auto;
+        padding: 10px 12px 0;
+        background: var(--background-toolbar);
+        border-radius: 8px 8px 0 0;
+        box-shadow: var(--shadow-side-panel);
+        position: relative;
+        z-index: 1;
+        clip-path: inset(-10px -10px 0 -10px);
+    }
+    .elx-navhead-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 28px;
+    }
+    .elx-navhead-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-normal);
+    }
+    .elx-navhead-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: 0;
+        border-radius: 4px;
+        background: none;
+        color: var(--icon-normal);
+        cursor: pointer;
+        &:hover { background: var(--highlight-button-hover); }
+    }
+    .elx-navtabs {
+        display: flex;
+        gap: 16px;
+        margin-top: 8px;
+        border-bottom: 1px solid var(--border-divider);
+
+        button {
+            position: relative;
+            height: 32px;
+            padding: 0 2px;
+            border: 0;
+            background: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+
+            &:hover { color: var(--text-normal); }
+            &.active {
+                color: var(--text-normal);
+                font-weight: 600;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -1px;
+                    height: 3px;
+                    border-radius: 3px;
+                    background: @elx-accent;
+                }
+            }
+        }
+    }
+
+    // the upstream panel titles give way to the pane header
+    #navigation-header label { display: none; }
+    #navigation-header #navigation-btn-close { display: none; }
+    #search-header { display: none; }
+    &.elx-pages-mode #left-panel-navigation { display: none !important; }
+}
+
+.elx-pages {
+    overflow-y: auto !important;
+    height: 100%;
+
+    .elx-pages-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 8px 24px;
+    }
+    .elx-page-thumb {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 6px;
+        border: 0;
+        border-radius: 6px;
+        background: none;
+        color: var(--text-secondary);
+        font-size: 11px;
+        cursor: pointer;
+
+        canvas {
+            width: 150px;
+            height: auto;
+            min-height: 60px;
+            background: #fff;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 1px 3px rgba(0, 0, 0, .18);
+        }
+        &:hover { background: var(--highlight-button-hover); }
+        &.current {
+            background: var(--highlight-button-pressed);
+            color: var(--text-normal);
+            canvas { box-shadow: 0 0 0 2px @elx-accent; }
+        }
+    }
+}
+
+#elx-thumb-render {
+    position: fixed;
+    left: -10000px;
+    top: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+// Comments pane docked on the right of the page area, like Word
+@elx-comments-width: 340px;
+#editor-container.elx-comments-docked #editor_sdk {
+    width: calc(100% - @elx-comments-width);
+}
+.rtl #editor-container.elx-comments-docked #editor_sdk {
+    margin-right: @elx-comments-width;
+}
+.elx-comments-dock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: @elx-comments-width;
+    padding: 0 8px 8px 0;
+    z-index: 2;
+
+    .rtl & { right: auto; left: 0; padding: 0 0 8px 8px; }
+
+    #left-panel-comments {
+        height: 100%;
+    }
+}
+
+// Word-like comment cards in the docked pane
+.elx-comments-dock #comments-box {
+    .messages-ct .dataview-ct > .item {
+        padding: 0 10px;
+    }
+    .user-comment-item {
+        margin: 10px 0 0;
+        padding: 4px 12px 12px;
+        border: 1px solid var(--border-divider);
+        border-radius: 8px;
+        background-color: var(--background-normal);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+        color: var(--text-normal);
+
+        &.last-item { margin-bottom: 0; }
+        .user-name { font-weight: 600; color: var(--text-normal); }
+        .user-date { color: var(--text-secondary); }
+        .user-quote {
+            margin: 6px 0;
+            padding-left: 8px;
+            border-left: 3px solid var(--border-regular-control);
+            color: var(--text-secondary);
+            font-style: normal;
+        }
+        .user-message { color: var(--text-normal); line-height: 18px; }
+        .user-reply { color: var(--text-link); text-decoration: none; }
+    }
+    .item:hover .user-comment-item { background-color: var(--background-normal); border-color: var(--border-regular-control); }
+    .item.active .user-comment-item {
+        background-color: var(--background-normal);
+        border-color: @elx-accent;
+        box-shadow: 0 0 0 1px @elx-accent, 0 2px 6px rgba(0, 0, 0, .10);
+    }
+}
+
+body.elx-chrome .elx-docname.elx-compact .elx-docstate-txt { display: none; }
