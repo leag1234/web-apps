@@ -1,0 +1,85 @@
+// SPDX-FileCopyrightText: 2026 ElixirOffice contributors
+// SPDX-License-Identifier: AGPL-3.0-only
+//
+// Word-like ribbon additions of the document editor: contextual tabs
+// (DE.Views.ContextTabs), compact three-row groups, galleries.
+
+// --------------------------------------------------------------------------
+// Contextual tabs (Table Design, Layout, Picture Format, Shape Format,
+// Equation, Header & Footer): at the right of the tab row, label in the
+// accent colour, like Word.
+// --------------------------------------------------------------------------
+#toolbar .toolbar .box-tabs .ribtab.contextual {
+    > a {
+        color: var(--toolbar-contextual-tab-color, var(--highlight-toolbar-tab-underline-document, @text-normal));
+    }
+    &.active > a {
+        color: var(--toolbar-contextual-tab-color, var(--highlight-toolbar-tab-underline-document, @text-normal));
+    }
+}
+
+#toolbar .toolbar {
+    // three rows of small controls in the height of a two-row group
+    .elx-table-options .elset,
+    .elx-align-grid .elset {
+        height: 17px;
+        &:not(:first-child) {
+            margin-top: 0;
+        }
+    }
+    .elx-table-options .elset-column {
+        vertical-align: top;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+    .elx-table-options .checkbox-indeterminate,
+    .elx-table-options label {
+        font-size: 11px;
+    }
+
+    .elx-align-grid {
+        .elset {
+            height: 18px;
+        }
+        .btn-toolbar {
+            height: 18px;
+            min-width: 22px;
+            width: 22px;
+            padding: 0;
+            .icon {
+                margin-top: -1px;
+            }
+        }
+    }
+
+    // pen weight / pen colour column next to the large Borders button
+    .elx-borders .elset-column {
+        margin-left: 0;
+        margin-right: 6px;
+        .rtl & {
+            margin-left: 6px;
+            margin-right: 0;
+        }
+    }
+
+    // in-ribbon table styles gallery
+    .elx-tbl-styles {
+        min-width: 160px;
+        .combo-dataview .item,
+        .combo-dataview .style {
+            padding: 0;
+        }
+    }
+
+    // equation structure buttons: their icons come from the equation sprite (20px)
+    .elx-eq-structure .icon.svgicon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+// Position gallery menu
+.elx-position-menu .menu__icon {
+    vertical-align: middle;
+}
