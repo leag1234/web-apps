@@ -2662,6 +2662,7 @@
   "DE.Views.EditListItemDialog.textNameError": "Der Anzeigename darf nicht leer sein.",
   "DE.Views.EditListItemDialog.textValue": "Wert",
   "DE.Views.EditListItemDialog.textValueError": "Ein Element mit demselben Wert ist bereits vorhanden.",
+  "DE.Views.ElixirBackstage.txtAbout": "Info",
   "DE.Views.ElixirBackstage.txtAddSignature": "Digitale Signatur hinzufügen",
   "DE.Views.ElixirBackstage.txtBack": "Zurück",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Leeres Dokument",

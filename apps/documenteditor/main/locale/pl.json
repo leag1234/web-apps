@@ -2141,6 +2141,7 @@
   "DE.Views.EditListItemDialog.textNameError": "Wyświetlana nazwa nie może być pusta.",
   "DE.Views.EditListItemDialog.textValue": "Wartość",
   "DE.Views.EditListItemDialog.textValueError": "Element o tej samej wartości już istnieje.",
+  "DE.Views.ElixirBackstage.txtAbout": "Informacje",
   "DE.Views.ElixirBackstage.txtAddSignature": "Dodaj podpis cyfrowy",
   "DE.Views.ElixirBackstage.txtBack": "Wstecz",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Pusty dokument",

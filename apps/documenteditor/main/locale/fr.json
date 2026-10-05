@@ -2662,6 +2662,7 @@
   "DE.Views.EditListItemDialog.textNameError": "Veuillez renseigner le nom d'affichage.",
   "DE.Views.EditListItemDialog.textValue": "Valeur",
   "DE.Views.EditListItemDialog.textValueError": "Un élément avec la même valeur existe déjà.",
+  "DE.Views.ElixirBackstage.txtAbout": "À propos",
   "DE.Views.ElixirBackstage.txtAddSignature": "Ajouter une signature numérique",
   "DE.Views.ElixirBackstage.txtBack": "Retour",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Document vierge",

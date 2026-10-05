@@ -131,8 +131,10 @@ define([
             if (!this.$doc || !this.$search) return;
             var rtl = Common.UI.isRTL(), d = this.$doc[0].getBoundingClientRect(), s = this.$search[0].getBoundingClientRect();
             var room = rtl ? d.right - s.right - 12 : s.left - d.left - 12;
-            // narrow windows keep the name and show the state as an icon only
-            this.$doc.toggleClass('elx-compact', room < 240);
+            // when the name and its state do not fit, the state shows as an icon only
+            this.$doc.removeClass('elx-compact').css('max-width', 'none');
+            var need = this.$doc[0].scrollWidth;
+            this.$doc.toggleClass('elx-compact', need > room);
             this.$doc.css('max-width', Math.max(80, Math.floor(room)) + 'px');
         },
 
@@ -173,6 +175,7 @@ define([
                 $st.show().attr('data-state', key).attr('title', key === 'saved' ? me.txtSavedTip : txt);
                 $st.find('.elx-docstate-ic').html(me.icon(ic, 20));
                 $st.find('.elx-docstate-txt').text(txt);
+                me.fitName();
             };
             // "Saved" settles a moment after the last change, like Word
             if (key === 'saved' && $st.attr('data-state') === 'saving') this._stateTimer = setTimeout(apply, 700);

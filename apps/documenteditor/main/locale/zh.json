@@ -2662,6 +2662,7 @@
   "DE.Views.EditListItemDialog.textNameError": "显示名称不能为空。",
   "DE.Views.EditListItemDialog.textValue": "值",
   "DE.Views.EditListItemDialog.textValueError": "具有相同值的项已存在。",
+  "DE.Views.ElixirBackstage.txtAbout": "关于",
   "DE.Views.ElixirBackstage.txtAddSignature": "添加数字签名",
   "DE.Views.ElixirBackstage.txtBack": "返回",
   "DE.Views.ElixirBackstage.txtBlankDocument": "空白文档",

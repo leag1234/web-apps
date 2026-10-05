@@ -2662,6 +2662,7 @@
   "DE.Views.EditListItemDialog.textNameError": "El nombre para mostrar no debe estar vacío.",
   "DE.Views.EditListItemDialog.textValue": "Valor",
   "DE.Views.EditListItemDialog.textValueError": "Ya existe un elemento con el mismo valor.",
+  "DE.Views.ElixirBackstage.txtAbout": "Acerca de",
   "DE.Views.ElixirBackstage.txtAddSignature": "Agregar una firma digital",
   "DE.Views.ElixirBackstage.txtBack": "Atrás",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Documento en blanco",

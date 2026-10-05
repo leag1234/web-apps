@@ -1999,6 +1999,7 @@
   "DE.Views.EditListItemDialog.textNameError": "O nome de exibição não deve estar vazio.",
   "DE.Views.EditListItemDialog.textValue": "Valor",
   "DE.Views.EditListItemDialog.textValueError": "Já existe um item com este mesmo valor.",
+  "DE.Views.ElixirBackstage.txtAbout": "Acerca de",
   "DE.Views.ElixirBackstage.txtAddSignature": "Adicionar uma Assinatura Digital",
   "DE.Views.ElixirBackstage.txtBack": "Voltar",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Documento em branco",

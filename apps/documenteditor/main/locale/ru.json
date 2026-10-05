@@ -2662,6 +2662,7 @@
   "DE.Views.EditListItemDialog.textNameError": "Отображаемое имя не должно быть пустым.",
   "DE.Views.EditListItemDialog.textValue": "Значение",
   "DE.Views.EditListItemDialog.textValueError": "Элемент с таким значением уже существует.",
+  "DE.Views.ElixirBackstage.txtAbout": "О программе",
   "DE.Views.ElixirBackstage.txtAddSignature": "Добавить цифровую подпись",
   "DE.Views.ElixirBackstage.txtBack": "Назад",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Новый документ",

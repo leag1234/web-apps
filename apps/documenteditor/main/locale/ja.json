@@ -2646,6 +2646,7 @@
   "DE.Views.EditListItemDialog.textNameError": "表示名は空白にできません。",
   "DE.Views.EditListItemDialog.textValue": "値",
   "DE.Views.EditListItemDialog.textValueError": "同じ値の項目がすでに存在します。",
+  "DE.Views.ElixirBackstage.txtAbout": "バージョン情報",
   "DE.Views.ElixirBackstage.txtAddSignature": "デジタル署名の追加",
   "DE.Views.ElixirBackstage.txtBack": "戻る",
   "DE.Views.ElixirBackstage.txtBlankDocument": "白紙の文書",

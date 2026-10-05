@@ -1958,6 +1958,7 @@
   "DE.Views.EditListItemDialog.textNameError": "Weergaven naam mag niet leeg zijn",
   "DE.Views.EditListItemDialog.textValue": "Waarde",
   "DE.Views.EditListItemDialog.textValueError": "Er bestaat al een item met dezelfde waarde.",
+  "DE.Views.ElixirBackstage.txtAbout": "Over",
   "DE.Views.ElixirBackstage.txtAddSignature": "Een digitale handtekening toevoegen",
   "DE.Views.ElixirBackstage.txtBack": "Terug",
   "DE.Views.ElixirBackstage.txtBlankDocument": "Leeg document",

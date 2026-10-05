@@ -44,7 +44,7 @@ define([
     var STRINGS = {
         txtHome: 'Home', txtNew: 'New', txtOpen: 'Open', txtInfo: 'Info', txtSaveCopy: 'Save a Copy', txtSaveAs: 'Save As',
         txtDownload: 'Download', txtPrint: 'Print', txtShare: 'Share', txtExport: 'Export', txtClose: 'Close', txtOptions: 'Options',
-        txtHelp: 'Help', txtBack: 'Back',
+        txtHelp: 'Help', txtBack: 'Back', txtAbout: 'About',
         txtGoodMorning: 'Good morning', txtGoodAfternoon: 'Good afternoon', txtGoodEvening: 'Good evening',
         txtMoreTemplates: 'More templates', txtMoreDocuments: 'More documents', txtRecent: 'Recent', txtName: 'Name', txtModified: 'Date modified',
         txtNoRecent: 'Documents you open recently appear here.', txtNoMatch: 'No document matches your search.',
@@ -181,6 +181,9 @@ define([
             this.items['elx-export'] = addItem('fm-btn-elx-export', 'elx-export', this.txtExport, 'export', 'insertAfter', $menu.find('#fm-btn-elx-share'));
             this.items['elx-close'] = addItem('fm-btn-elx-close', 'elx-close', this.txtClose, 'close', 'insertAfter', $menu.find('#fm-btn-elx-export'));
             this.items['elx-close'].on('click', function () { me.onClose(); });
+            // About (legal notices) used to sit in the left icon rail, which the window no longer has
+            this.items['elx-about'] = addItem('fm-btn-elx-about', 'elx-about', this.txtAbout, 'info', 'insertBefore', $menu.find('#fm-btn-settings'));
+            this.items['elx-about'].on('click', function () { me.onAbout(); });
 
             // pages
             var addPage = function (action, cls) {
@@ -253,7 +256,7 @@ define([
                 'print': 'print', 'printpreview': 'print', 'elx-share': 'share', 'rights': 'people', 'elx-export': 'export',
                 'elx-close': 'close', 'opts': 'options', 'help': 'help', 'edit': 'edit', 'file:open': 'open',
                 'file:exit': 'close', 'close-editor': 'close', 'exit': 'folder', 'history': 'history',
-                'protect': 'lock', 'rename': 'rename', 'switch:mobile': 'window-new'
+                'protect': 'lock', 'rename': 'rename', 'switch:mobile': 'window-new', 'elx-about': 'info'
             })[action];
         },
 
@@ -268,6 +271,12 @@ define([
         },
 
         select: function (action) { this.fm.selectMenu(action); },
+
+        onAbout: function () {
+            var lm = DE.getController('LeftMenu').leftMenu;
+            this.fm.hide();
+            lm && lm.btnAbout && lm.btnAbout.toggle(true);
+        },
 
         onClose: function () {
             var mode = this.mode || {};
