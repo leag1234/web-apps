@@ -110,6 +110,14 @@ define([
                 e && e.preventDefault && e.preventDefault();
                 return false;
             };
+            // Word for Windows: Ctrl+Shift+S opens the Apply Styles box (Save As is F12;
+            // on macOS Cmd+Shift+S stays Save As)
+            !Common.Utils.isMac && (keymap['ctrl+shift+s'] = function (e) {
+                e && e.preventDefault && e.preventDefault();
+                if (!me.isEditingAllowed() || $('.asc-window.modal:visible').length) return false;
+                me.showApplyStyles();
+                return false;
+            });
             Common.util.Shortcuts.delegateShortcuts({shortcuts: keymap});
         },
 

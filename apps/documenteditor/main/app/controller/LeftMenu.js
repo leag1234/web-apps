@@ -135,7 +135,6 @@ define([
             };
 
             var keymap = {
-                'command+shift+s,ctrl+shift+s': _.bind(this.onShortcut, this, 'save'),
                 'command+f,ctrl+f': _.bind(this.onShortcut, this, 'search'),
                 'ctrl+h': _.bind(this.onShortcut, this, 'replace'),
                 'esc': _.bind(this.onShortcut, this, 'escape'),
@@ -145,6 +144,8 @@ define([
             };
             // F1 is Undo in Word for Mac
             !Common.Utils.isMac && (keymap['f1'] = _.bind(this.onShortcut, this, 'help'));
+            // Save As: Cmd+Shift+S on macOS; F12 elsewhere (WordShortcuts), where Ctrl+Shift+S is Apply Styles (WordFormatting)
+            Common.Utils.isMac && (keymap['command+shift+s'] = _.bind(this.onShortcut, this, 'save'));
             keymap[Common.Utils.isMac ? 'ctrl+alt+f' : 'alt+f'] = _.bind(this.onShortcut, this, 'file');
             keymap[Common.Utils.isMac ? 'ctrl+alt+q' : 'alt+q'] = _.bind(this.onShortcut, this, 'chat');
             Common.util.Shortcuts.delegateShortcuts({shortcuts:keymap});
