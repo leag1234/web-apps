@@ -70,31 +70,40 @@ define([
             ['tb.btnsDateTime.0', 'D'], ['tb.btnTextFromFile', 'J'], ['tb.btnsInsertField.0', 'Q'],
             ['tb.btnInsertEquation', 'E'], ['tb.btnInsertSymbol', 'U'],
             ['#tlbtn-insertimage-0', 'P'], ['#tlbtn-addcomment-0', 'L'], ['#tlbtn-headerfooter-0', 'H'],
-            ['#tlbtn-insertpagenum-0', 'NU'], ['#tlbtn-insertdatetime-0', 'D'], ['#tlbtn-insertfield-0', 'Q']
+            ['#tlbtn-insertpagenum-0', 'NU'], ['#tlbtn-insertdatetime-0', 'D'], ['#tlbtn-insertfield-0', 'Q'],
+            // buttons of the Word ribbon layout (RibbonTabs), which replace some of the above
+            ['ribbon.btnInsPageBreak', 'B'], ['ribbon.btnInsBookmark', 'K'], ['ribbon.btnInsCrossRef', 'RF'],
+            ['ribbon.btnInsHeader', 'H'], ['ribbon.btnInsFooter', 'O'], ['ribbon.btnInsQuickParts', 'Q'], ['ribbon.btnInsObject', 'J']
         ],
         design: [
-            ['tb.btnColorSchemas', 'TC'], ['tb.btnWatermark', 'PW'], ['tb.btnPageColor', 'PC']
+            ['tb.btnColorSchemas', 'TC'], ['tb.btnWatermark', 'PW'], ['tb.btnPageColor', 'PC'],
+            ['ribbon.btnDesignWatermark', 'PW']
         ],
         layout: [
             ['tb.btnPageMargins', 'M'], ['tb.btnPageOrient', 'O'], ['tb.btnPageSize', 'SZ'], ['tb.btnColumns', 'J'],
             ['tb.btnsPageBreak.1', 'B'], ['tb.btnLineNumbers', 'LN'], ['tb.btnHyphenation', 'H'],
             ['#slot-spin-ind-left', 'IL'], ['#slot-spin-ind-right', 'IR'], ['#slot-spin-space-before', 'SB'], ['#slot-spin-space-after', 'SA'],
             ['tb.btnImgWrapping', 'TW'], ['tb.btnImgForward', 'AF'], ['tb.btnImgBackward', 'AE'], ['tb.btnImgAlign', 'AA'], ['tb.btnImgGroup', 'G'],
-            ['.group-launcher[data-launcher="pagesetup"]', 'SP']
+            ['.group-launcher[data-launcher="pagesetup"]', 'SP'],
+            ['ribbon.btnLayMargins', 'M'], ['ribbon.btnLayBreaks', 'B'], ['ribbon.btnLayPosition', 'PO'], ['ribbon.btnLayRotate', 'AY']
         ],
         links: [
             ['links.btnsContents.0', 'T'], ['links.btnAddText', 'A'], ['links.btnContentsUpdate', 'U'], ['links.btnsNotes.0', 'F'],
             ['links.btnBookmarks', 'K'], ['links.btnCaption', 'P'], ['links.btnCrossRef', 'RF'], ['links.btnTableFigures', 'G'],
-            ['links.btnTableFiguresUpdate', 'V'], ['links.btnsHyperlink.1', 'I']
+            ['links.btnTableFiguresUpdate', 'V'], ['links.btnsHyperlink.1', 'I'],
+            ['ribbon.btnRefFootnote', 'F'], ['ribbon.btnRefEndnote', 'E'], ['ribbon.btnRefNextNote', 'O'], ['ribbon.btnRefCrossRef', 'RF']
         ],
         review: [
             ['review.btnsAddComment.0', 'C'], ['#tlbtn-addcomment-1', 'C'], ['review.btnCommentRemove', 'D'], ['review.btnTurnOn', 'G'],
             ['review.btnReviewView', 'TD'], ['review.btnAccept', 'A2'], ['review.btnReject', 'J'], ['review.btnCompare', 'M'],
-            ['review.btnHistory', 'HI']
+            ['review.btnHistory', 'HI'],
+            ['ribbon.btnRevSpelling', 'C1'], ['ribbon.btnRevWordCount', 'W'], ['ribbon.btnRevLanguage', 'U'],
+            ['ribbon.btnRevPrevComment', 'V'], ['ribbon.btnRevNextComment', 'N'], ['ribbon.btnRevTrack', 'G']
         ],
         view: [
             ['viewtab.btnNavigation', 'K'], ['viewtab.btnZoom100', 'J'], ['viewtab.btnMultiplePages', 'M'],
-            ['#slot-chk-rulers', 'R'], ['viewtab.btnMacros', 'H'], ['viewtab.btnInterfaceTheme', 'TH']
+            ['#slot-chk-rulers', 'R'], ['viewtab.btnMacros', 'H'], ['viewtab.btnInterfaceTheme', 'TH'],
+            ['ribbon.btnViewRead', 'F'], ['ribbon.btnViewPrint', 'P'], ['ribbon.btnViewZoom100', 'J']
         ]
     };
 
@@ -239,7 +248,8 @@ define([
                 links: function() { var c = app.getController('Links'); return c && c.view; },
                 review: function() { var c = app.getController('Common.Controllers.ReviewChanges'); return c && c.view; },
                 viewtab: function() { var c = app.getController('ViewTab'); return c && c.view; },
-                header: function() { var c = app.getController('Viewport'); return c && c.header; }
+                header: function() { var c = app.getController('Viewport'); return c && c.header; },
+                ribbon: function() { var c = app.getController('RibbonTabs'); return c && c.view; }
             };
             if (/^[#.\[]/.test(path))
                 return $('#toolbar').find(path).first();
