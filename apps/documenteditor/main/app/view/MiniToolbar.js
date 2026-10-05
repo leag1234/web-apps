@@ -52,7 +52,7 @@ define([
         render: function() {
             var me = this, tb = this.toolbar, T = DE.Views.Toolbar.prototype;
             var $el = $('<div id="mini-toolbar" class="mini-toolbar" role="toolbar" aria-label="' + me.textMiniToolbar + '">' +
-                '<div class="mini-row"><span class="mini-slot" id="mini-font-name"></span><span class="mini-slot" id="mini-font-size"></span>' +
+                '<div class="mini-row"><span class="mini-slot" id="mini-elixir"></span><span class="mini-slot" id="mini-font-name"></span><span class="mini-slot" id="mini-font-size"></span>' +
                 '<span class="mini-slot" id="mini-grow"></span><span class="mini-slot" id="mini-shrink"></span>' +
                 '<span class="mini-slot" id="mini-styles"></span><span class="mini-slot" id="mini-painter"></span></div>' +
                 '<div class="mini-row"><span class="mini-slot" id="mini-bold"></span><span class="mini-slot" id="mini-italic"></span>' +
@@ -129,6 +129,14 @@ define([
             this.btnBullets = button('mini-bullets', 'btn-setmarkers', T.tipMarkers, {enableToggle: true});
             this.btnNumbering = button('mini-numbering', 'btn-numbering', T.tipNumbers, {enableToggle: true});
             this.btnComment = button('mini-comment', 'btn-add-comment', me.textNewComment);
+            // Elixir AI: the "Ask Elixir" menu (suggestions for the selection and a free-text field)
+            var AI = window.Common && Common.ElixirAI;
+            this.btnElixir = new Common.UI.Button({
+                parentEl: $el.find('#mini-elixir'),
+                cls: 'btn-toolbar mini-elixir',
+                iconCls: 'elixir-ai-icon elixir-ai-icon-sparkle',
+                hint: AI && AI.t ? AI.t('menuAsk') : 'Ask Elixir'
+            });
 
             // colour pickers
             this.btnHighlight.menu.on('show:after', function() {

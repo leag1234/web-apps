@@ -127,6 +127,15 @@ define([
             v.btnFontColor.on('auto:select', function(btn, color) { tbc.onAutoFontColor && tbc.onAutoFontColor(btn, color); done(); });
             v.btnBullets.on('click', function(btn) { tbc.onMarkers(btn); done(); });
             v.btnNumbering.on('click', function(btn) { tbc.onNumbers(btn); done(); });
+            // Elixir AI: hidden when the AI layer is not available in this editor
+            var ai = me.getApplication().getController('Common.Controllers.ElixirAI');
+            v.btnElixir.setVisible(!!(ai && ai.isAvailable && ai.isAvailable()));
+            v.btnElixir.on('click', function() {
+                var ep = Common.ElixirAI && Common.ElixirAI.entryPoints && Common.ElixirAI.entryPoints.word;
+                var off = v.btnElixir.cmpEl.offset(), h = v.btnElixir.cmpEl.outerHeight();
+                me.hide(true);
+                ep && ep.openAskMenu && ep.openAskMenu(off.left, off.top + h + 4);
+            });
             v.btnComment.on('click', function() {
                 me.hide(true);
                 var dh = me.getApplication().getController('DocumentHolder');
