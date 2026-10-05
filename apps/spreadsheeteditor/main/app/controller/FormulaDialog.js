@@ -582,7 +582,7 @@ define([
         },
 
         sCategoryAll:                   'All',
-        sCategoryLast10:                '10 last used',
+        sCategoryLast10:                'Most Recently Used',
         sCategoryLogical:               'Logical',
         sCategoryCube:                  'Cube',
         sCategoryDatabase:              'Database',

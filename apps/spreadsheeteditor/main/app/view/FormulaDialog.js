@@ -67,7 +67,7 @@ define([
                         '<div id="formula-dlg-combo-group" class="input-group-nr" style=""></div>',
                         '<label class="header" style="margin-top: 10px">' + t.textListDescription + '</label>',
                         '<div id="formula-dlg-combo-functions" class="combo-functions"></div>',
-                        '<label id="formula-dlg-args" style="margin-top: 7px">' + '</label>',
+                        '<label id="formula-dlg-args" style="margin-top: 7px; font-weight: bold;">' + '</label>',
                         '<label id="formula-dlg-desc" style="margin-top: 4px; display: block;">' + '</label>',
                     '</div>',
                 '</div>',
@@ -424,11 +424,11 @@ define([
             }
         },
 
-        textGroupDescription:           'Select Function Group',
-        textListDescription:            'Select Function',
+        textGroupDescription:           'Or select a category:',
+        textListDescription:            'Select a function:',
         sDescription:                   'Description',
         txtTitle:                       'Insert Function',
-        txtSearch: 'Search',
+        txtSearch: 'Search for a function',
         txtRecommended: 'Recommended'
 
     }, SSE.Views.FormulaDialog || {}));
