@@ -148,22 +148,27 @@ define([
             _.each(this.state, function (list) { _.each(list, function (e) { e !== except && e.$pop.is(':visible') && me.hidePopup(e); }); });
         },
 
+        // expand, from left to right, every collapsed group that fits again
+        expandFitting: function (tab, $panel, avail) {
+            var me = this, changed = false,
+                order = _.sortBy((this.state[tab] || []).slice(), function (e) { return e.$ph.index(); });
+            _.each(order, function (e) {
+                var need = me.need($panel) - (e.$ph.outerWidth(true) + (e.$sep ? e.$sep.outerWidth(true) : 0)) + e.width;
+                if (need > avail) return;
+                me.expand(tab, e);
+                changed = true;
+            });
+            return changed;
+        },
+
         // one pass on the active panel: collapse from the right, expand from the left
         update: function ($panel) {
             if (!$panel || !$panel.length || !$panel.is(':visible') || this.busy) return false;
-            var tab = $panel.attr('data-tab'), list = this.state[tab] || [], changed = false, guard = 0;
+            var tab = $panel.attr('data-tab'), changed = false, guard = 0;
             this.busy = true;
             try {
                 var avail = this.available($panel);
-                // expand while there is room (the left-most collapsed group first)
-                while (list.length && guard++ < 50) {
-                    var first = _.min(list, function (e) { return e.$ph.index(); }),
-                        need = this.need($panel) - (first.$ph.outerWidth(true) + (first.$sep ? first.$sep.outerWidth(true) : 0)) + first.width;
-                    if (need > avail) break;
-                    this.expand(tab, first);
-                    list = this.state[tab] || [];
-                    changed = true;
-                }
+                changed = this.expandFitting(tab, $panel, avail) || changed;
                 // collapse while it does not fit (the right-most expanded group first)
                 guard = 0;
                 while (this.need($panel) > avail && guard++ < 50) {
@@ -172,6 +177,8 @@ define([
                     this.collapse(tab, $panel, segs[segs.length - 1]);
                     changed = true;
                 }
+                // a big group may have gone: smaller ones collapsed before it can come back
+                changed && this.expandFitting(tab, $panel, avail);
             } finally {
                 this.busy = false;
             }
