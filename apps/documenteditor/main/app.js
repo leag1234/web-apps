@@ -160,6 +160,7 @@ require([
             ,'WordShortcuts'
             ,'WordKeyTips'
             ,'MiniToolbar'
+            ,'WordContextMenus'
         ]
     });
 
@@ -209,6 +210,7 @@ require([
                 ,'documenteditor/main/app/controller/WordShortcuts'
                 ,'documenteditor/main/app/controller/WordKeyTips'
                 ,'documenteditor/main/app/controller/MiniToolbar'
+                ,'documenteditor/main/app/controller/WordContextMenus'
                 ,'common/main/lib/controller/Draw'
             ], function() {
                 const code_path = 'documenteditor/main/code';
