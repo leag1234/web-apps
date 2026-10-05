@@ -89,34 +89,51 @@ const EDITORS = [
     { name: 'draw',  dir: 'visioeditor'        },
 ];
 
+// Theme icon overrides. A theme may ship its own toolbar icons in
+//   theme/<THEME>/assets/icons/toolbar/<scope>/[big/|huge/]<id>.svg
+// where <scope> is "common" or an editor folder (e.g. "documenteditor").
+// A file with the same <id> as a stock icon replaces it in the sprite (the
+// symbol id stays the same, so no JS/template change is needed); extra files
+// add new symbols. Without such a folder in the theme nothing changes.
+const THEME       = process.env.THEME || 'euro-office';
+const THEME_ICONS = path.join(REPO_ROOT, 'theme', THEME, 'assets', 'icons', 'toolbar');
+
+function toolbarGlob(scope, sub) {
+    const stockDir = path.join(APPS, scope, 'main', 'resources', 'img', 'toolbar', 'v2', '2.5x', sub);
+    const themeDir = path.join(THEME_ICONS, scope, sub);
+    const stock    = globDir(stockDir);
+    const themed   = globDir(themeDir);
+    if (!themed.length) return stock;
+    const byName   = new Map(themed.map(f => [path.basename(f), f]));
+    const known    = new Set(stock.map(f => path.basename(f)));
+    return stock.map(f => byName.get(path.basename(f)) || f)
+        .concat(themed.filter(f => !known.has(path.basename(f))));
+}
+
 function toolbarSrcs(editorDir) {
-    const common = path.join(APPS, 'common', 'main', 'resources', 'img', 'toolbar', 'v2', '2.5x');
-    const editor = path.join(APPS, editorDir, 'main', 'resources', 'img', 'toolbar', 'v2', '2.5x');
+    // order matches Gruntfile: common small -> big -> huge, then editor small -> big -> huge
     return [
-        // order matches Gruntfile: common small → big → huge, then editor small → big → huge
-        ...globDir(common),
-        ...globDir(path.join(common, 'big')),
-        ...globDir(path.join(common, 'huge')),
-        ...globDir(editor),
-        ...globDir(path.join(editor, 'big')),
-        ...globDir(path.join(editor, 'huge')),
+        ...toolbarGlob('common', ''),
+        ...toolbarGlob('common', 'big'),
+        ...toolbarGlob('common', 'huge'),
+        ...toolbarGlob(editorDir, ''),
+        ...toolbarGlob(editorDir, 'big'),
+        ...toolbarGlob(editorDir, 'huge'),
     ];
 }
 
 function allEditorToolbarSrcs() {
     // "toolbar" all-editors sprite: same glob order as Gruntfile generate_svg_sprite_task
-    const common = path.join(APPS, 'common', 'main', 'resources', 'img', 'toolbar', 'v2', '2.5x');
-    const files  = [
-        ...globDir(common),
-        ...globDir(path.join(common, 'big')),
-        ...globDir(path.join(common, 'huge')),
+    const files = [
+        ...toolbarGlob('common', ''),
+        ...toolbarGlob('common', 'big'),
+        ...toolbarGlob('common', 'huge'),
     ];
     for (const { dir } of EDITORS) {
-        const e = path.join(APPS, dir, 'main', 'resources', 'img', 'toolbar', 'v2', '2.5x');
         files.push(
-            ...globDir(e),
-            ...globDir(path.join(e, 'big')),
-            ...globDir(path.join(e, 'huge')),
+            ...toolbarGlob(dir, ''),
+            ...toolbarGlob(dir, 'big'),
+            ...toolbarGlob(dir, 'huge'),
         );
     }
     return files;
