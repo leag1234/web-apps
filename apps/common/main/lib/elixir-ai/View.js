@@ -291,9 +291,11 @@ define([
         if (this.state === 'closed') this.reset();
         var configured = ElixirAI.Settings.isConfigured();
         if (!configured && !this.managedChecked) {
-            // the server-managed config may still be loading
+            // the server-managed config may still be loading: reopen once it is known, unless the
+            // bar was closed in the meantime (the keys typed since must not land in the bar)
             this.managedChecked = true;
-            ElixirAI.Settings.loadManaged().then(this.open.bind(this));
+            var me0 = this;
+            ElixirAI.Settings.loadManaged().then(function () { if (me0.isOpen()) me0.open(); });
             return;
         }
         var sel = '';
