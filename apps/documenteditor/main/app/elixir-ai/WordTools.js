@@ -1609,17 +1609,31 @@ define([], function () {
             'catch(e){return JSON.stringify({ok:false,error:{code:"exception",message:String(e&&e.message||e)}});}})()';
     }
 
+    // A command sent during a long action (e.g. fonts loading after inserted text) is skipped by the
+    // editor: wait until it is idle (at most 10 s) before sending it
+    function whenIdle(api) {
+        return new Promise(function (resolve) {
+            var t0 = Date.now();
+            var check = function () {
+                var busy = false;
+                try { busy = !!(api.isLongAction && api.isLongAction()); } catch (e) {}
+                if (!busy || Date.now() - t0 > 10000) resolve(); else setTimeout(check, 100);
+            };
+            check();
+        });
+    }
+
     function callCommand(api, cmdName, args) {
         return new Promise(function (resolve) {
             var attempt = function (n) {
-                api.callCommand(source(cmdName, args || {}), true, function (ret) {
+                whenIdle(api).then(function () { api.callCommand(source(cmdName, args || {}), true, function (ret) {
                     if (typeof ret === 'string') {
                         try { return resolve(JSON.parse(ret)); } catch (e) {}
                     }
                     // undefined: the editor skipped the command (long action in progress) or the sandbox threw
                     if (n > 0) return setTimeout(function () { attempt(n - 1); }, 300);
                     resolve({ ok: false, error: { code: 'editor_busy', message: 'The editor did not run the command.' } });
-                });
+                }); });
             };
             attempt(2);
         });
