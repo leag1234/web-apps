@@ -15,7 +15,12 @@
     .style {
         display: flex;
         flex-direction: column;
-        background-color: @canvas-content-background;
+        // the preview keeps the page colour, the name sits on the ribbon colour (dark themes)
+        background-color: transparent;
+
+        > div:first-child {
+            background-color: @canvas-content-background;
+        }
 
         > .style-label {
             width: @word-style-preview-width;
