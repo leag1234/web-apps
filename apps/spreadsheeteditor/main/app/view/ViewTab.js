@@ -396,7 +396,7 @@ define([
 
                 this.chStatusbar = new Common.UI.CheckBox({
                     labelText: this.textCombineSheetAndStatusBars,
-                    value       : Common.localStorage.getBool('sse-compact-statusbar', true),
+                    value       : Common.localStorage.getBool('sse-compact-statusbar', false),
                     lock        : [_set.lostConnect, _set.editCell],
                     dataHint    : '1',
                     dataHintDirection: 'left',

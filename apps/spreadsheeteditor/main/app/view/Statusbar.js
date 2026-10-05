@@ -72,7 +72,7 @@ define([
                 }));
 
                 this.cntStatusbar = $('.statusbar', this.el);
-                this.isCompact = Common.localStorage.getBool('sse-compact-statusbar', true);
+                this.isCompact = Common.localStorage.getBool('sse-compact-statusbar', false);
                 if (!this.isCompact) {
                     this.cntStatusbar.addClass('no-compact');
                 }

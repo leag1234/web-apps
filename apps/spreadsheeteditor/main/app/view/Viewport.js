@@ -93,7 +93,7 @@ define([
                     alias: 'statusbar',
                     height: (function () {
                         var h = parseInt(getComputedStyle(document.body).getPropertyValue('--statusbar-height') || 25);
-                        return Common.localStorage.getBool('sse-compact-statusbar', true) ? h : h * 2;
+                        return Common.localStorage.getBool('sse-compact-statusbar', false) ? h : h * 2;
                     })()
                 }]
             });
