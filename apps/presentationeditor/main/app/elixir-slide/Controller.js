@@ -4,7 +4,7 @@
  *
  * PE.Controllers.ElixirChrome: PowerPoint-like window chrome of the
  * presentation editor, built on the shared modules of
- * apps/common/main/lib/elixir-shared/ (title bar with Search (Alt+Q),
+ * apps/common/main/lib/elixir-chrome/ (title bar with Search (Alt+Q),
  * backstage File menu, side panels without the icon rail, comments docked on
  * the right). The upstream views are extended, not rewritten; the only hooks
  * are the controller declarations in app.js / app_dev.js and an @import in
@@ -12,48 +12,18 @@
  */
 define([
     'core',
-    'common/main/lib/elixir-shared/Shared',
-    'common/main/lib/elixir-shared/Icons',
-    'common/main/lib/elixir-shared/CommandIndex',
-    'common/main/lib/elixir-shared/Backstage',
-    'common/main/lib/elixir-shared/TitleBar',
-    'common/main/lib/elixir-shared/SidePanels'
+    'common/main/lib/elixir-chrome/Icons',
+    'common/main/lib/elixir-chrome/CommandIndex',
+    'common/main/lib/elixir-chrome/SidePanels',
+    'presentationeditor/main/app/elixir-slide/Backstage',
+    'presentationeditor/main/app/elixir-slide/TitleBar'
 ], function () {
     'use strict';
-
-    var formats = function () {
-        var T = Asc.c_oAscFileType;
-        return [
-            { type: T.PPTX, ext: '.pptx', icon: 'slides', name: 'txtFmtPptx', desc: 'txtFmtPptxDesc', group: 'doc' },
-            { type: T.PPTM, ext: '.pptm', icon: 'code', name: 'txtFmtPptm', desc: 'txtFmtPptmDesc', group: 'doc', onlyFor: 'pptm' },
-            { type: T.POTX, ext: '.potx', icon: 'template', name: 'txtFmtPotx', desc: 'txtFmtPotxDesc', group: 'doc' },
-            { type: T.PPSX, ext: '.ppsx', icon: 'slideshow', name: 'txtFmtPpsx', desc: 'txtFmtPpsxDesc', group: 'doc' },
-            { type: T.ODP, ext: '.odp', icon: 'slides', name: 'txtFmtOdp', desc: 'txtFmtOdpDesc', group: 'doc' },
-            { type: T.OTP, ext: '.otp', icon: 'template', name: 'txtFmtOtp', desc: 'txtFmtOtpDesc', group: 'doc' },
-            { type: T.PDF, ext: '.pdf', icon: 'pdf', name: 'txtFmtPdf', desc: 'txtFmtPdfDesc', group: 'pdf' },
-            { type: T.PDFA, ext: '.pdf', icon: 'pdf', name: 'txtFmtPdfa', desc: 'txtFmtPdfaDesc', group: 'pdf' },
-            { type: T.PNG, ext: '.zip', icon: 'image', name: 'txtFmtPng', desc: 'txtFmtImgSlideDesc', group: 'image' },
-            { type: T.JPG, ext: '.zip', icon: 'image', name: 'txtFmtJpg', desc: 'txtFmtImgSlideDesc', group: 'image' }
-        ];
-    };
 
     PE.Controllers.ElixirChrome = Backbone.Controller.extend({
 
         initialize: function () {
             var me = this;
-            ElixirShared.init(PE, 'pe', {
-                formats: formats,
-                defaultFormat: Asc.c_oAscFileType.PPTX,
-                defaultExt: 'pptx',
-                blankKey: 'txtBlankPresentation',
-                docTypesKey: 'txtPresentationTypes',
-                pdfBullet1Key: 'txtPdfSlideBullet1',
-                protectController: null,
-                suggestions: function (tb) {
-                    return [tb.btnAddSlide, tb.btnInsertTable, tb.btnsInsertImage && tb.btnsInsertImage[0],
-                            tb.btnsInsertText && tb.btnsInsertText[0], tb.btnInsertChart, tb.btnSlideSize];
-                }
-            });
             this.addListeners({
                 'FileMenu': {
                     'render:after': function () { me.backstage && me.backstage.onRender(); }
@@ -76,8 +46,8 @@ define([
             var lm = this.getApplication().getController('LeftMenu');
             this.fileMenu = lm && lm.leftMenu && lm.leftMenu.menuFile;
             if (this.fileMenu)
-                this.backstage = new Common.Views.ElixirBackstage({ controller: this, menu: this.fileMenu });
-            this.titleBar = new Common.Views.ElixirTitleBar({ controller: this });
+                this.backstage = new PE.Views.ElixirBackstage({ controller: this, menu: this.fileMenu });
+            this.titleBar = new PE.Views.ElixirTitleBar({ controller: this });
             ElixirSidePanels.prepare();
         },
 

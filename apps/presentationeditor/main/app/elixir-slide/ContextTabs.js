@@ -79,7 +79,7 @@ define([
                          tablelayout: s.txtTabTableLayout, chartdesign: s.txtTabChartDesign };
             _.each(TABS, function (t) {
                 var $panel = $('<section class="panel" data-tab="' + t + '" role="tabpanel" aria-labelledby="' + t + '"></section>');
-                tb.addTab({ action: t, caption: caps[t], extcls: 'canedit contextual', layoutname: 'toolbar-' + t, dataHintTitle: KEYTIPS[t] },
+                tb.addTab({ action: t, caption: caps[t], extcls: 'canedit contextual', layoutname: 'toolbar-' + t, dataHintTitle: KEYTIPS[t] },  // KeyTips: PE.Controllers.PowerPointKeyTips
                     $panel, tb.getLastTabIdx());
                 me['build_' + t]($panel);
                 tb.setVisible(t, false);
@@ -87,12 +87,8 @@ define([
             });
             Array.prototype.push.apply(tb.lockControls, this.controls);
             Common.Utils.lockControls(Common.enumLock.disableOnStart, true, { array: this.controls });
-            // labels of the new groups
-            if (tb.elxLabels) {
-                _.each(STRINGS, function (v, k) {
-                    if (/^txtGroup/.test(k)) tb.elxLabels[k.charAt(8).toLowerCase() + k.slice(9)] = s[k];
-                });
-            }
+            // labels of the new groups (Common.UI.RibbonGroupLabels reads tb.txtGroup<Key>)
+            _.each(STRINGS, function (v, k) { if (/^txtGroup/.test(k)) tb[k] = s[k]; });
             setTimeout(function () { me.arrangeTabs(); }, 0);
         },
 

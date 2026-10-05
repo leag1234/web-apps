@@ -15,7 +15,7 @@ define([
     'use strict';
 
     var STRINGS = {
-        // group labels (ElixirRibbonLabels keys)
+        // group labels (Common.UI.RibbonGroupLabels: txtGroup<Key> for data-group="<key>")
         txtGroupUndo: 'Undo', txtGroupClipboard: 'Clipboard', txtGroupSlides: 'Slides', txtGroupFont: 'Font',
         txtGroupParagraph: 'Paragraph', txtGroupDrawing: 'Drawing', txtGroupEditing: 'Editing',
         txtGroupTables: 'Tables', txtGroupImages: 'Images', txtGroupIllustrations: 'Illustrations',

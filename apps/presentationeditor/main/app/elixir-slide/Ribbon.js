@@ -5,7 +5,7 @@
  * PE.Controllers.SlideRibbon: PowerPoint-like ribbon of the presentation
  * editor. Tabs in PowerPoint's order (File, Home, Insert, Draw, Design,
  * Transitions, Animations, Slide Show, Review, View), PowerPoint's groups with
- * labels (ElixirRibbonLabels), Office-like collapse (Common.UI.RibbonCollapse).
+ * labels (Common.UI.RibbonGroupLabels), Office-like collapse (Common.UI.RibbonCollapse).
  *
  * Toolbar 'render:before': the template (toolbar.$layout) is rearranged and
  * the stock controls get their PowerPoint captions before they are injected.
@@ -16,16 +16,12 @@
 define([
     'core',
     'presentationeditor/main/app/elixir-slide/RibbonView',
-    'common/main/lib/elixir-shared/RibbonLabels',
+    'common/main/lib/component/RibbonGroupLabels',
     'common/main/lib/component/RibbonCollapse'
 ], function () {
     'use strict';
 
     var TAB_ORDER = ['file', 'home', 'ins', 'draw', 'design', 'transit', 'animate', 'slideshow', 'review', 'view'];
-    // PowerPoint's KeyTips for the tabs (Alt, then the letter)
-    var TAB_KEYTIPS = { file: 'F', home: 'H', ins: 'N', draw: 'JI', design: 'G', transit: 'K', animate: 'A',
-                        slideshow: 'S', review: 'R', view: 'W', slideMaster: 'M', plugins: 'X' };
-
     PE.Controllers.SlideRibbon = Backbone.Controller.extend({
         views: ['SlideRibbon'],
 
@@ -34,7 +30,8 @@ define([
             this.addListeners({
                 'Toolbar': {
                     'render:before': function (toolbar) { me.onToolbarBeforeRender(toolbar); },
-                    'render:after': function (toolbar) { me.onToolbarAfterRender(toolbar); }
+                    'render:after': function (toolbar) { me.onToolbarAfterRender(toolbar); },
+                    'group:launcher': function (key) { me.onLauncher(key); }
                 }
             });
             Common.NotificationCenter.on('app:ready', this.onAppReady.bind(this));
@@ -59,7 +56,13 @@ define([
             var mode = this.appOptions();
             if (!mode.isEdit || this.view) return;
             this.toolbar = tb;
-            this.view = this.createView('SlideRibbon', { toolbar: tb, mode: mode });
+            var v = this.view = this.createView('SlideRibbon', { toolbar: tb, mode: mode });
+            // group labels and launchers (Common.UI.RibbonGroupLabels, as in the other editors)
+            _.extend(tb, Common.UI.RibbonGroupLabels);
+            tb.groupTags = this.groupTags();
+            _.each(_.keys(PE.Views.SlideRibbon.STRINGS), function (k) {
+                if (/^txtGroup/.test(k) || k === 'tipGroupLauncher') tb[k] = v[k];
+            });
             this.captions(tb);
             this.layoutHome(tb.$layout);
             this.layoutInsert(tb.$layout);
@@ -262,12 +265,6 @@ define([
             Array.prototype.push.apply(tb.lockControls, v.lockedControls);
             Common.Utils.lockControls(Common.enumLock.disableOnStart, true, { array: v.lockedControls });
 
-            ElixirRibbonLabels.install(tb, {
-                labels: this.labels(),
-                groupTags: this.groupTags(),
-                launcherTip: v.tipGroupLauncher,
-                onLauncher: function (key) { me.onLauncher(key); }
-            });
             Common.UI.RibbonCollapse.install(tb, { labelOf: function (key) { return tb.groupLabelText(key); } });
             this.createSlideShowTab(tb);
             this.setupRibbonPin(tb);
@@ -412,14 +409,12 @@ define([
                 $prev = $t;
             });
             tb.$tabs = $ul.find('> li');
-            _.each(TAB_KEYTIPS, function (k, t) { $li(t).find('> a').attr('data-hint-title', k); });
             // PowerPoint's names
             var cap = function (t, text) { var $a = $li(t).find('> a'); $a.length && text && $a.text(text).attr('data-title', text); };
             cap('review', v.txtTabReview);
             cap('animate', v.txtTabAnimations);
             tb.setVisible('slideshow', true);
             this.renameControls();
-            this.setKeyTips();
             // View: Presentation Views (Normal) | Master Views (Slide Master)
             var $sm = tb.$el.find('.panel[data-tab=view] #slot-btn-slide-master');
             if ($sm.length && !$sm.parent().is('[data-group=masterViews]')) {
@@ -436,33 +431,6 @@ define([
             });
             tb.$panels && tb.$panels.each(function () { tb.tagPanelGroups && tb.tagPanelGroups($(this)); });
             tb.processPanelVisible && tb.processPanelVisible(null, true);
-        },
-
-        // PowerPoint's KeyTips (Alt, tab letter, then these) on the main commands
-        setKeyTips: function () {
-            var tb = this.toolbar, v = this.view;
-            var tip = function (b, k) {
-                if (!b || !b.cmpEl) return;
-                var $b = b.cmpEl.is('button') ? b.cmpEl : b.cmpEl.find('button').first();
-                $b.attr('data-hint-title', k);
-            };
-            var first = function (a) { return a && a[0]; };
-            _.each([
-                [tb.btnPaste, 'V'], [tb.btnCut, 'X'], [tb.btnCopy, 'C'], [tb.btnCopyStyle, 'FP'],
-                [tb.btnAddSlide, 'I'], [tb.btnChangeSlide, 'L'], [v.btnResetSlide, 'RE'],
-                [tb.cmbFontName, 'FF'], [tb.cmbFontSize, 'FS'], [tb.btnIncFontSize, 'FG'], [tb.btnDecFontSize, 'FK'],
-                [tb.btnClearStyle, 'E'], [tb.btnBold, '1'], [tb.btnItalic, '2'], [tb.btnUnderline, '3'], [tb.btnStrikeout, '4'],
-                [tb.btnChangeCase, '7'], [tb.btnFontColor, 'FC'], [tb.btnMarkers, 'U'], [tb.btnNumbers, 'N'],
-                [tb.btnDecLeftOffset, 'AO'], [tb.btnIncLeftOffset, 'AI'], [tb.btnLineSpace, 'K'], [tb.btnColumns, 'AC'],
-                [tb.btnTextDir, 'AD'], [tb.btnShapeArrange, 'G'], [tb.btnShapeAlign, 'AA'],
-                [v.btnFind, 'FD'], [tb.btnReplace, 'R'], [tb.btnSelectAll, 'SL'],
-                [v.btnInsNewSlide, 'I'], [tb.btnInsertTable, 'T'], [first(tb.btnsInsertImage), 'P'], [tb.btnInsertSmartArt, 'M'],
-                [tb.btnInsertChart, 'C'], [tb.btnInsertHyperlink, 'IK'], [first(tb.btnsInsertText), 'X'], [tb.btnEditHeader, 'H'],
-                [tb.btnInsertTextArt, 'W'], [tb.btnInsDateTime, 'D'], [tb.btnInsSlideNum, 'SN'], [tb.btnInsertEquation, 'E'],
-                [tb.btnInsertSymbol, 'U'], [tb.btnInsVideo, 'V'], [tb.btnInsAudio, 'O'],
-                [tb.btnSlideSize, 'S'], [v.btnFormatBg, 'G'], [tb.btnColorSchemas, 'C'],
-                [v.btnShowBegin, 'B'], [v.btnShowCurrent, 'C'], [v.btnShowPresenter, 'PR'], [v.btnShowSetup, 'S'], [v.btnHideSlide, 'H']
-            ], function (p) { tip(p[0], p[1]); });
         },
 
         // PowerPoint's words on stock controls that are already rendered (they have a caption node)
@@ -531,14 +499,6 @@ define([
             _.each(api ? api.getSelectedElements() : [], function (e) { if (e.get_ObjectType() === type) el = e; });
             var rm = this.getApplication().getController('RightMenu');
             rm && el && rm.onDoubleClickOnObject(el);
-        },
-
-        labels: function () {
-            var v = this.view, out = {};
-            _.each(PE.Views.SlideRibbon.STRINGS, function (val, k) {
-                if (/^txtGroup/.test(k)) out[k.charAt(8).toLowerCase() + k.slice(9)] = v[k];
-            });
-            return out;
         },
 
         // labels of the panels built by the other controllers (Draw, Review, View, Slide Master)
