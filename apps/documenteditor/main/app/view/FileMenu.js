@@ -377,7 +377,9 @@ define([
             if ( !this.rendered )
                 this.render();
 
-            var defPanel = (this.mode.canDownload && (!this.mode.isDesktopApp || !this.mode.isOffline)) ? 'saveas' : 'info';
+            // like Word's backstage, open on Info (document properties) when it is available
+            var defPanel = Common.UI.LayoutManager.isElementVisible('toolbar-file-info') && this.panels && this.panels['info'] ? 'info' :
+                            (this.mode.canDownload && (!this.mode.isDesktopApp || !this.mode.isOffline)) ? 'saveas' : 'info';
             if (!panel)
                 panel = this.active || defPanel;
             this.$el.show();
