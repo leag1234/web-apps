@@ -325,7 +325,7 @@ define([], function () {
                 outcome: 'running'
             };
             var ctx = null, messages = [], changed = false, untracked = [], groupStarted = false, finalText = '';
-            var done = [], executed = {}, userNotes = [], answerText = '', nudged = false, verifyAsked = false, repairRounds = 0;
+            var done = [], executed = {}, userNotes = [], answerText = '', laterText = '', nudged = false, verifyAsked = false, repairRounds = 0;
 
             var finish = function (outcome, err) {
                 entry.outcome = outcome;
@@ -414,6 +414,7 @@ define([], function () {
                         if (res.message.content) finalText = res.message.content;
                         var calls = res.message.tool_calls || [];
                         if (!calls.length && res.message.content) answerText = res.message.content;
+                        if (n > 1 && res.message.content) laterText = res.message.content;
                         if (calls.length && n >= maxRounds) {
                             rec.capped = true;
                             throw new Error('Stopped after ' + maxRounds + ' tool rounds.');
@@ -479,7 +480,7 @@ define([], function () {
                     return finish(changed ? 'applied' : (ctx.cannotDo ? 'cannot-do' : (ctx.question ? 'question' : 'no-change')));
                 }).then(function () {
                     var res = {
-                        ok: true, ctx: ctx, summary: finalText, answer: answerText || (ctx.verification && ctx.verification.message) || '', userNotes: userNotes, done: done, untracked: untracked, changed: changed,
+                        ok: true, ctx: ctx, summary: finalText, answer: answerText || (ctx.verification && ctx.verification.message) || laterText, userNotes: userNotes, done: done, untracked: untracked, changed: changed,
                         plan: ctx.plan || null, verification: ctx.verification || null, cannotDo: ctx.cannotDo || null, question: ctx.question || null, entry: entry
                     };
                     emit('done', res);

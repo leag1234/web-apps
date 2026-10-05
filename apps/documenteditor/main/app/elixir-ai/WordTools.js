@@ -304,13 +304,36 @@ define([], function () {
                     for (var j = 0; j < ds.length; j++) if (ds[j].w > colW + 0.5) out.push({ block: i, drawing: j, width_mm: ds[j].w, column_mm: H.round(colW, 1) });
                 } else if (k === 'table') {
                     try {
+                        // laid-out width (the layout of the last command); the grid if there is no layout yet
                         var tw = 0, b = el.Table.GetPageBounds ? el.Table.GetPageBounds(0) : null;
                         if (b) tw = b.Right - b.Left;
+                        if (!tw) { var g = el.Table.TableGrid || []; for (var gi = 0; gi < g.length; gi++) tw += g[gi]; }
                         if (tw > colW + 1) out.push({ block: i, table: true, width_mm: H.round(tw, 1), column_mm: H.round(colW, 1) });
                     } catch (e) {}
                 }
             }
             return out;
+        };
+        // Shrinks the drawings and tables wider than their text column
+        H.fit = function () {
+            var list = H.overflow(), n = 0;
+            for (var i = 0; i < list.length; i++) {
+                var o = list[i], el = H.el(o.block);
+                if (o.table) {
+                    el.SetWidth('twips', Math.round((o.column_mm - 1) * H.MM_TW));
+                    for (var r = 0; r < el.GetRowsCount(); r++) {
+                        var row = el.GetRow(r), nc = row.GetCellsCount();
+                        for (var c = 0; c < nc; c++) row.GetCell(c).SetWidth('twips', Math.floor((o.column_mm - 1) * H.MM_TW / nc));
+                    }
+                    n++; continue;
+                }
+                var d = el.GetAllDrawingObjects()[o.drawing];
+                if (!d) continue;
+                var k = (o.column_mm - 1) / o.width_mm;
+                d.SetSize(Math.round(d.GetWidth() * k), Math.round(d.GetHeight() * k));
+                n++;
+            }
+            return { n: n, list: list };
         };
         return H;
     }
@@ -1106,26 +1129,9 @@ define([], function () {
 
     // Shrinks the drawings and tables wider than their text column (after a page size change)
     CMD.fit_content = function (a, H) {
-        var list = H.overflow(), n = 0;
-        for (var i = 0; i < list.length; i++) {
-            var o = list[i], el = H.el(o.block);
-            if (o.table) {
-                el.SetWidth('twips', Math.round((o.column_mm - 1) * H.MM_TW));
-                for (var r = 0; r < el.GetRowsCount(); r++) {
-                    var row = el.GetRow(r), nc = row.GetCellsCount();
-                    for (var c = 0; c < nc; c++) row.GetCell(c).SetWidth('twips', Math.floor((o.column_mm - 1) * H.MM_TW / nc));
-                }
-                n++; continue;
-            }
-            var d = el.GetAllDrawingObjects()[o.drawing];
-            if (!d) continue;
-            var k = (o.column_mm - 1) / o.width_mm;
-            d.SetSize(Math.round(d.GetWidth() * k), Math.round(d.GetHeight() * k));
-            n++;
-        }
-        return { ok: true, fitted: n, details: list, tracked: false, done: { n: n } };
+        var r = H.fit();
+        return { ok: true, fitted: r.n, details: r.list, tracked: false, done: { n: r.n } };
     };
-
     // ---- page layout ----
 
     CMD.set_page_setup = function (a, H) {
@@ -1150,7 +1156,9 @@ define([], function () {
                 s.SetPageMargins(tw(L), tw(T), tw(R), tw(B));
             }
         }
-        return { ok: true, sections: H.sections(), overflowing: H.overflow(), tracked: false, done: {} };
+        // what no longer fits the new text column is shrunk at once (unless fit_content: false)
+        var fitted = a.fit_content === false ? { n: 0, list: [] } : H.fit();
+        return { ok: true, sections: H.sections(), fitted: fitted.list, overflowing: a.fit_content === false ? H.overflow() : [], tracked: false, done: {} };
     };
 
     CMD.set_columns = function (a, H) {
@@ -1408,11 +1416,12 @@ define([], function () {
         }, ['block']),
         tool('fit_content', 'Shrink every picture and table wider than its text column so it fits (use after reducing the page size or margins, then verify with document_info). Not trackable.', {}),
         // page layout
-        tool('set_page_setup', 'Page setup of all sections (default) or one section: paper size, orientation, margins in mm. Returns the new setup and the elements that no longer fit. Not trackable.', {
+        tool('set_page_setup', 'Page setup of all sections (default) or one section: paper size, orientation, margins in mm; pictures and tables that no longer fit the text column are shrunk. Not trackable.', {
             section: { type: 'integer', minimum: 0 }, paper: { type: 'string', 'enum': ['A3', 'A4', 'A5', 'A6', 'Letter', 'Legal'] },
             orientation: { type: 'string', 'enum': ['portrait', 'landscape'] },
             all_margins_mm: { type: 'number', minimum: 0, maximum: 100 },
-            margins_mm: { type: 'object', additionalProperties: false, properties: { top: { type: 'number', minimum: 0, maximum: 100 }, bottom: { type: 'number', minimum: 0, maximum: 100 }, left: { type: 'number', minimum: 0, maximum: 100 }, right: { type: 'number', minimum: 0, maximum: 100 } } }
+            margins_mm: { type: 'object', additionalProperties: false, properties: { top: { type: 'number', minimum: 0, maximum: 100 }, bottom: { type: 'number', minimum: 0, maximum: 100 }, left: { type: 'number', minimum: 0, maximum: 100 }, right: { type: 'number', minimum: 0, maximum: 100 } } },
+            fit_content: { type: 'boolean', description: 'Shrink the pictures and tables that no longer fit the text column (default true).' }
         }),
         tool('set_columns', 'Lay out blocks from..to in `count` newspaper columns, with continuous section breaks around them. Not trackable in Word.', {
             from: FROM, to: TO,
