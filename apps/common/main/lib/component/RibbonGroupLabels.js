@@ -99,7 +99,7 @@ define([
                         $btn.on('click', function (e) {
                             me.fireEvent('group:launcher', [launcher]);
                         });
-                        $owner.prepend($btn);
+                        $owner.append($btn); // after the controls: .elset:first-child spacing stays
                     }
                     $btn.attr({'aria-label': text, 'data-launcher': launcher});
                     $btn.attr('title', me.tipGroupLauncher ? Common.Utils.String.format(me.tipGroupLauncher, text) : text);

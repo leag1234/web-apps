@@ -5175,7 +5175,7 @@
   "DE.Views.ViewTab.tipZoom100": "Zoom to 100%",
   "DE.Views.ElixirTitleBar.txtAccount": "Conta",
   "DE.Views.ElixirTitleBar.txtLocalProfile": "Perfil local neste navegador",
-  "DE.Views.ElixirTitleBar.txtConnect": "Ligar Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtConnect": "Ligar Murena Workspace / Nextcloud",
   "DE.Views.ElixirTitleBar.txtDisconnect": "Desligar…",
   "DE.Views.ElixirTitleBar.txtChangeName": "Alterar nome",
   "DE.Views.ElixirTitleBar.txtManageAccount": "Gerir a minha conta em {0}",

@@ -756,17 +756,39 @@ body.elx-chrome {
     }
 
     // avatar like Word: round, at the far right of the title bar
+    // (never squeezed or cut: fixed slot wider than the circle and its focus ring,
+    // clear of the window edge, full opacity for a photo)
     #box-document-title .btn-current-user,
     #box-document-title .slot-btn-user-name {
+        flex: none;
+        box-sizing: border-box;
+        width: 40px;
+        min-width: 40px;
+        height: 100%;
+        padding: 0 4px;
+        margin: 0 8px 0 4px;
+        overflow: visible;
+        justify-content: center;
         .color-user-name {
+            flex: none;
+            box-sizing: border-box;
             width: 28px;
             height: 28px;
+            min-width: 28px;
             line-height: 28px;
+            margin: 0;
             border-radius: 50%;
             font-size: 11px;
             background-size: cover;
+            background-position: center;
+            opacity: 1;
         }
     }
+    #box-document-title .hedset:has(> [data-layout-name="header-user"]) { flex: none; overflow: visible; }
+    &.rtl #box-document-title .btn-current-user,
+    &.rtl #box-document-title .slot-btn-user-name,
+    .rtl & #box-document-title .btn-current-user,
+    .rtl & #box-document-title .slot-btn-user-name { margin: 0 4px 0 8px; }
 }
 
 .elx-flyout {

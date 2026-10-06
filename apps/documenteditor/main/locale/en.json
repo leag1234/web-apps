@@ -5176,7 +5176,7 @@
   "DE.Views.WordTabsDialog.txtTitle": "Tabs",
   "DE.Views.ElixirTitleBar.txtAccount": "Account",
   "DE.Views.ElixirTitleBar.txtLocalProfile": "Local profile in this browser",
-  "DE.Views.ElixirTitleBar.txtConnect": "Connect Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtConnect": "Connect Murena Workspace / Nextcloud",
   "DE.Views.ElixirTitleBar.txtDisconnect": "Disconnect…",
   "DE.Views.ElixirTitleBar.txtChangeName": "Change name",
   "DE.Views.ElixirTitleBar.txtManageAccount": "Manage my account on {0}",

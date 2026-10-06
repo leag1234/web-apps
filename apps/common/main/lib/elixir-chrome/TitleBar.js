@@ -13,7 +13,7 @@
  *   command matches, Shift+Enter always);
  * - on the tab row: Comments, the Editing / Reviewing / Viewing mode, Share;
  * - account menu on the avatar (editorConfig.elixir.account from the host):
- *   name, e-mail / server, Connect Nextcloud / Murena or Disconnect, Change
+ *   name, e-mail / server, Connect Murena Workspace / Nextcloud or Disconnect, Change
  *   name, and in developer mode the test-user switcher. Account actions run on
  *   the host's start page (it owns the session), test users reload this page.
  *
@@ -60,7 +60,7 @@ define([
         txtShareTip: 'Share this document',
         txtAccount: 'Account',
         txtLocalProfile: 'Local profile in this browser',
-        txtConnect: 'Connect Nextcloud / Murena',
+        txtConnect: 'Connect Murena Workspace / Nextcloud',
         txtDisconnect: 'Disconnect…',
         txtChangeName: 'Change name',
         txtManageAccount: 'Manage my account on {0}',

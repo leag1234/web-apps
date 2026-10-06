@@ -2504,7 +2504,7 @@
   "PE.Controllers.PowerPointScreenTips.descPrint": "Uw presentatie afdrukken.",
   "PE.Views.ElixirTitleBar.txtAccount": "Account",
   "PE.Views.ElixirTitleBar.txtLocalProfile": "Lokaal profiel in deze browser",
-  "PE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena verbinden",
+  "PE.Views.ElixirTitleBar.txtConnect": "Murena Workspace / Nextcloud verbinden",
   "PE.Views.ElixirTitleBar.txtDisconnect": "Verbinding verbreken…",
   "PE.Views.ElixirTitleBar.txtChangeName": "Naam wijzigen",
   "PE.Views.ElixirTitleBar.txtManageAccount": "Mijn account op {0} beheren",

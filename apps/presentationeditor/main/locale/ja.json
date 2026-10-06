@@ -3624,7 +3624,7 @@
   "PE.Controllers.PowerPointScreenTips.descPrint": "プレゼンテーションを印刷します。",
   "PE.Views.ElixirTitleBar.txtAccount": "アカウント",
   "PE.Views.ElixirTitleBar.txtLocalProfile": "このブラウザーのローカル プロファイル",
-  "PE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena に接続",
+  "PE.Views.ElixirTitleBar.txtConnect": "Murena Workspace / Nextcloud に接続",
   "PE.Views.ElixirTitleBar.txtDisconnect": "切断…",
   "PE.Views.ElixirTitleBar.txtChangeName": "名前を変更",
   "PE.Views.ElixirTitleBar.txtManageAccount": "{0} のアカウントを管理",

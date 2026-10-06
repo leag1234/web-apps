@@ -5175,7 +5175,7 @@
   "DE.Views.Toolbar.tipSmartPicker": "Ask Nextcloud Assistant",
   "DE.Views.ElixirTitleBar.txtAccount": "アカウント",
   "DE.Views.ElixirTitleBar.txtLocalProfile": "このブラウザーのローカル プロファイル",
-  "DE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena に接続",
+  "DE.Views.ElixirTitleBar.txtConnect": "Murena Workspace / Nextcloud に接続",
   "DE.Views.ElixirTitleBar.txtDisconnect": "切断…",
   "DE.Views.ElixirTitleBar.txtChangeName": "名前を変更",
   "DE.Views.ElixirTitleBar.txtManageAccount": "{0} のアカウントを管理",

@@ -725,6 +725,8 @@ define([
                 var $col = $ftp.addClass('elx-rows3');
                 $col.append($('<div class="elset"></div>').append($mp));
                 $col.append($('<div class="elset"></div>').append($ftw));
+                // the row Page Width came from is left empty: three rows, not four
+                $col.children('.elset').filter(function () { return !$(this).children().length; }).remove();
                 $z100.closest('.group').addClass('elx-hidden-group');
                 this.hideSource($z100);
                 v.btnViewZoom100 = v.liveMirror($vp.find('#slot-elx-view-zoom100'), function () { return vv.btnZoom100; }, {

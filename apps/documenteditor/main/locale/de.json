@@ -5175,7 +5175,7 @@
   "DE.Views.Toolbar.tipSmartPicker": "Ask Nextcloud Assistant",
   "DE.Views.ElixirTitleBar.txtAccount": "Konto",
   "DE.Views.ElixirTitleBar.txtLocalProfile": "Lokales Profil in diesem Browser",
-  "DE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena verbinden",
+  "DE.Views.ElixirTitleBar.txtConnect": "Murena Workspace / Nextcloud verbinden",
   "DE.Views.ElixirTitleBar.txtDisconnect": "Trennen…",
   "DE.Views.ElixirTitleBar.txtChangeName": "Namen ändern",
   "DE.Views.ElixirTitleBar.txtManageAccount": "Mein Konto auf {0} verwalten",

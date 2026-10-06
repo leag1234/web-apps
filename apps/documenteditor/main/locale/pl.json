@@ -5175,7 +5175,7 @@
   "Common.Controllers.Shortcuts.txtDescriptionSpellingAndGrammar": "Zaznacz następny błędnie napisany wyraz i pokaż propozycje.",
   "DE.Views.ElixirTitleBar.txtAccount": "Konto",
   "DE.Views.ElixirTitleBar.txtLocalProfile": "Profil lokalny w tej przeglądarce",
-  "DE.Views.ElixirTitleBar.txtConnect": "Połącz Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtConnect": "Połącz Murena Workspace / Nextcloud",
   "DE.Views.ElixirTitleBar.txtDisconnect": "Rozłącz…",
   "DE.Views.ElixirTitleBar.txtChangeName": "Zmień nazwę",
   "DE.Views.ElixirTitleBar.txtManageAccount": "Zarządzaj moim kontem na {0}",

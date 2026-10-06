@@ -3929,7 +3929,7 @@
   "PE.Controllers.PowerPointScreenTips.descPrint": "打印演示文稿。",
   "PE.Views.ElixirTitleBar.txtAccount": "帐户",
   "PE.Views.ElixirTitleBar.txtLocalProfile": "此浏览器中的本地配置文件",
-  "PE.Views.ElixirTitleBar.txtConnect": "连接 Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtConnect": "连接 Murena Workspace / Nextcloud",
   "PE.Views.ElixirTitleBar.txtDisconnect": "断开连接…",
   "PE.Views.ElixirTitleBar.txtChangeName": "更改名称",
   "PE.Views.ElixirTitleBar.txtManageAccount": "在 {0} 上管理我的帐户",

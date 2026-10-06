@@ -5664,7 +5664,7 @@
   "SSE.Views.Toolbar.txtElxManageRules": "Manage Rules...",
   "SSE.Views.ElixirTitleBar.txtAccount": "Account",
   "SSE.Views.ElixirTitleBar.txtLocalProfile": "Local profile in this browser",
-  "SSE.Views.ElixirTitleBar.txtConnect": "Connect Nextcloud / Murena",
+  "SSE.Views.ElixirTitleBar.txtConnect": "Connect Murena Workspace / Nextcloud",
   "SSE.Views.ElixirTitleBar.txtDisconnect": "Disconnect…",
   "SSE.Views.ElixirTitleBar.txtChangeName": "Change name",
   "SSE.Views.ElixirTitleBar.txtManageAccount": "Manage my account on {0}",

@@ -3929,7 +3929,7 @@
   "PE.Controllers.PowerPointScreenTips.descPrint": "Imprimez votre présentation.",
   "PE.Views.ElixirTitleBar.txtAccount": "Compte",
   "PE.Views.ElixirTitleBar.txtLocalProfile": "Profil local dans ce navigateur",
-  "PE.Views.ElixirTitleBar.txtConnect": "Connecter Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtConnect": "Connecter Murena Workspace / Nextcloud",
   "PE.Views.ElixirTitleBar.txtDisconnect": "Se déconnecter…",
   "PE.Views.ElixirTitleBar.txtChangeName": "Changer de nom",
   "PE.Views.ElixirTitleBar.txtManageAccount": "Gérer mon compte sur {0}",

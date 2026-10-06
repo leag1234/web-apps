@@ -12,13 +12,19 @@
 //   --toolbar-group-label-display: block;
 //   --toolbar-group-label-space: <height reserved under the groups>;
 //   --toolbar-height-controls: <taller ribbon>;
+// and optionally, to place the label line like Office (baseline a few pixels
+// above the ribbon's bottom edge rather than centred in the reserved space):
+//   --toolbar-group-label-line: <line height of the label, at the bottom of the space>;
+//   --toolbar-ribbon-padding-bottom: <space between the label line and the ribbon edge>;
 // --------------------------------------------------------------------------
 @group-label-space: var(--toolbar-group-label-space, 0px);
+@group-label-line: var(--toolbar-group-label-line, @group-label-space);
+@ribbon-padding-bottom: var(--toolbar-ribbon-padding-bottom, calc((@toolbar-height-controls - @toolbar-group-height - @group-label-space) / 2));
 
 #toolbar .toolbar {
     .box-controls {
-        padding-top: calc((@toolbar-height-controls - @toolbar-group-height - @group-label-space) / 2);
-        padding-bottom: calc((@toolbar-height-controls - @toolbar-group-height - @group-label-space) / 2);
+        padding-top: calc(@toolbar-height-controls - @toolbar-group-height - @group-label-space - @ribbon-padding-bottom);
+        padding-bottom: @ribbon-padding-bottom;
     }
 
     .box-panels > .panel {
@@ -30,6 +36,13 @@
             height: calc(@toolbar-group-height + @group-label-space);
         }
 
+        // galleries centred by script (position: absolute; top: 50%; bottom: 50%;
+        // margin: auto) are centred on the controls, not on controls + label
+        > .group > .combo-dataview {
+            top: calc(50% - @group-label-space / 2) !important;
+            bottom: calc(50% + @group-label-space / 2) !important;
+        }
+
         > .group.group-label-owner::after {
             content: attr(data-label);
             display: var(--toolbar-group-label-display, none);
@@ -37,12 +50,12 @@
             left: 0;
             bottom: 0;
             width: var(--group-label-width, 100%);
-            height: @group-label-space;
-            line-height: @group-label-space;
+            height: @group-label-line;
+            line-height: @group-label-line;
             padding: 0 4px;
             box-sizing: border-box;
             text-align: center;
-            font-size: 11px;
+            font-size: var(--toolbar-group-label-font-size, 11px);
             color: @text-secondary-ie;
             color: @text-secondary;
             white-space: nowrap;
@@ -65,7 +78,7 @@
             position: absolute;
             z-index: 1;
             left: calc(var(--group-label-width, 100%) - 18px);
-            bottom: calc((@group-label-space - 16px) / 2);
+            bottom: calc((@group-label-line - 16px) / 2);
             width: 16px;
             height: 16px;
             padding: 0;
