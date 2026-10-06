@@ -5172,5 +5172,13 @@
   "DE.Views.ViewTab.tipRecMacro": "Record macro",
   "DE.Views.ViewTab.tipResumeMacro": "Resume recording",
   "DE.Views.ViewTab.tipStopMacro": "Stop recording",
-  "DE.Views.ViewTab.tipZoom100": "Zoom to 100%"
+  "DE.Views.ViewTab.tipZoom100": "Zoom to 100%",
+  "DE.Views.ElixirTitleBar.txtAccount": "Account",
+  "DE.Views.ElixirTitleBar.txtLocalProfile": "Lokaal profiel in deze browser",
+  "DE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena verbinden",
+  "DE.Views.ElixirTitleBar.txtDisconnect": "Verbinding verbreken…",
+  "DE.Views.ElixirTitleBar.txtChangeName": "Naam wijzigen",
+  "DE.Views.ElixirTitleBar.txtManageAccount": "Mijn account op {0} beheren",
+  "DE.Views.ElixirTitleBar.txtTestUser": "Testgebruiker (ontwikkelaarsmodus)",
+  "DE.Views.ElixirTitleBar.txtTestUserMe": "Ik ({0})"
 }

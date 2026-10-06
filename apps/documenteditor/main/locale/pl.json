@@ -5172,5 +5172,13 @@
   "Common.Controllers.Shortcuts.txtLabelNextSpellingError": "Następny błąd pisowni",
   "Common.Controllers.Shortcuts.txtDescriptionNextSpellingError": "Zaznacz następny błędnie napisany wyraz.",
   "Common.Controllers.Shortcuts.txtLabelSpellingAndGrammar": "Pisownia",
-  "Common.Controllers.Shortcuts.txtDescriptionSpellingAndGrammar": "Zaznacz następny błędnie napisany wyraz i pokaż propozycje."
+  "Common.Controllers.Shortcuts.txtDescriptionSpellingAndGrammar": "Zaznacz następny błędnie napisany wyraz i pokaż propozycje.",
+  "DE.Views.ElixirTitleBar.txtAccount": "Konto",
+  "DE.Views.ElixirTitleBar.txtLocalProfile": "Profil lokalny w tej przeglądarce",
+  "DE.Views.ElixirTitleBar.txtConnect": "Połącz Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtDisconnect": "Rozłącz…",
+  "DE.Views.ElixirTitleBar.txtChangeName": "Zmień nazwę",
+  "DE.Views.ElixirTitleBar.txtManageAccount": "Zarządzaj moim kontem na {0}",
+  "DE.Views.ElixirTitleBar.txtTestUser": "Użytkownik testowy (tryb dewelopera)",
+  "DE.Views.ElixirTitleBar.txtTestUserMe": "Ja ({0})"
 }

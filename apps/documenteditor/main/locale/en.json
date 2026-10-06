@@ -5173,5 +5173,13 @@
   "DE.Views.WordParagraphDialog.txtTabsBtn": "Tabs...",
   "DE.Views.WordParagraphDialog.txtTitle": "Paragraph",
   "DE.Views.WordParagraphDialog.txtWidow": "Widow/Orphan control",
-  "DE.Views.WordTabsDialog.txtTitle": "Tabs"
+  "DE.Views.WordTabsDialog.txtTitle": "Tabs",
+  "DE.Views.ElixirTitleBar.txtAccount": "Account",
+  "DE.Views.ElixirTitleBar.txtLocalProfile": "Local profile in this browser",
+  "DE.Views.ElixirTitleBar.txtConnect": "Connect Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtDisconnect": "Disconnect…",
+  "DE.Views.ElixirTitleBar.txtChangeName": "Change name",
+  "DE.Views.ElixirTitleBar.txtManageAccount": "Manage my account on {0}",
+  "DE.Views.ElixirTitleBar.txtTestUser": "Test user (developer mode)",
+  "DE.Views.ElixirTitleBar.txtTestUserMe": "Me ({0})"
 }

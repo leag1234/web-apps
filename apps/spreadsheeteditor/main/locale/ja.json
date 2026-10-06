@@ -5661,5 +5661,13 @@
   "SSE.Views.Toolbar.txtElxAboveAverage": "平均より上...",
   "SSE.Views.Toolbar.txtElxBelowAverage": "平均より下...",
   "SSE.Views.Toolbar.txtElxNewRule": "新しいルール...",
-  "SSE.Views.Toolbar.txtElxManageRules": "ルールの管理..."
+  "SSE.Views.Toolbar.txtElxManageRules": "ルールの管理...",
+  "SSE.Views.ElixirTitleBar.txtAccount": "アカウント",
+  "SSE.Views.ElixirTitleBar.txtLocalProfile": "このブラウザーのローカル プロファイル",
+  "SSE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena に接続",
+  "SSE.Views.ElixirTitleBar.txtDisconnect": "切断…",
+  "SSE.Views.ElixirTitleBar.txtChangeName": "名前を変更",
+  "SSE.Views.ElixirTitleBar.txtManageAccount": "{0} のアカウントを管理",
+  "SSE.Views.ElixirTitleBar.txtTestUser": "テスト ユーザー (開発者モード)",
+  "SSE.Views.ElixirTitleBar.txtTestUserMe": "自分 ({0})"
 }

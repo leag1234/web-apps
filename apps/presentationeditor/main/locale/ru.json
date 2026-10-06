@@ -3926,5 +3926,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "Отмените последнее действие.",
   "PE.Controllers.PowerPointScreenTips.descRedo": "Повторите отмененное действие.",
   "PE.Controllers.PowerPointScreenTips.descSave": "Сохраните презентацию.",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "Напечатайте презентацию."
+  "PE.Controllers.PowerPointScreenTips.descPrint": "Напечатайте презентацию.",
+  "PE.Views.ElixirTitleBar.txtAccount": "Учётная запись",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "Локальный профиль в этом браузере",
+  "PE.Views.ElixirTitleBar.txtConnect": "Подключить Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "Отключить…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "Изменить имя",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "Управлять учётной записью на {0}",
+  "PE.Views.ElixirTitleBar.txtTestUser": "Тестовый пользователь (режим разработчика)",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "Я ({0})"
 }
