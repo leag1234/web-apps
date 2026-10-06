@@ -2830,5 +2830,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "Cofnij ostatnią akcję.",
   "PE.Controllers.PowerPointScreenTips.descRedo": "Ponów cofniętą akcję.",
   "PE.Controllers.PowerPointScreenTips.descSave": "Zapisz prezentację.",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "Wydrukuj prezentację."
+  "PE.Controllers.PowerPointScreenTips.descPrint": "Wydrukuj prezentację.",
+  "PE.Views.ElixirTitleBar.txtAccount": "Konto",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "Profil lokalny w tej przeglądarce",
+  "PE.Views.ElixirTitleBar.txtConnect": "Połącz Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "Rozłącz…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "Zmień nazwę",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "Zarządzaj moim kontem na {0}",
+  "PE.Views.ElixirTitleBar.txtTestUser": "Użytkownik testowy (tryb dewelopera)",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "Ja ({0})"
 }

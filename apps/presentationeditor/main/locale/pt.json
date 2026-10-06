@@ -3926,5 +3926,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "Desfaça a última ação.",
   "PE.Controllers.PowerPointScreenTips.descRedo": "Refaça a ação desfeita.",
   "PE.Controllers.PowerPointScreenTips.descSave": "Salve sua apresentação.",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "Imprima sua apresentação."
+  "PE.Controllers.PowerPointScreenTips.descPrint": "Imprima sua apresentação.",
+  "PE.Views.ElixirTitleBar.txtAccount": "Conta",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "Perfil local neste navegador",
+  "PE.Views.ElixirTitleBar.txtConnect": "Conectar Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "Desconectar…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "Alterar nome",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "Gerenciar minha conta em {0}",
+  "PE.Views.ElixirTitleBar.txtTestUser": "Usuário de teste (modo desenvolvedor)",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "Eu ({0})"
 }

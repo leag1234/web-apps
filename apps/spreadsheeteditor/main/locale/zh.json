@@ -5661,5 +5661,13 @@
   "SSE.Views.Toolbar.txtElxAboveAverage": "高于平均值...",
   "SSE.Views.Toolbar.txtElxBelowAverage": "低于平均值...",
   "SSE.Views.Toolbar.txtElxNewRule": "新建规则...",
-  "SSE.Views.Toolbar.txtElxManageRules": "管理规则..."
+  "SSE.Views.Toolbar.txtElxManageRules": "管理规则...",
+  "SSE.Views.ElixirTitleBar.txtAccount": "帐户",
+  "SSE.Views.ElixirTitleBar.txtLocalProfile": "此浏览器中的本地配置文件",
+  "SSE.Views.ElixirTitleBar.txtConnect": "连接 Nextcloud / Murena",
+  "SSE.Views.ElixirTitleBar.txtDisconnect": "断开连接…",
+  "SSE.Views.ElixirTitleBar.txtChangeName": "更改名称",
+  "SSE.Views.ElixirTitleBar.txtManageAccount": "在 {0} 上管理我的帐户",
+  "SSE.Views.ElixirTitleBar.txtTestUser": "测试用户（开发者模式）",
+  "SSE.Views.ElixirTitleBar.txtTestUserMe": "我（{0}）"
 }

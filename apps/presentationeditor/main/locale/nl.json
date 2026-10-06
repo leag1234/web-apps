@@ -2501,5 +2501,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "Uw laatste actie ongedaan maken.",
   "PE.Controllers.PowerPointScreenTips.descRedo": "De ongedaan gemaakte actie opnieuw uitvoeren.",
   "PE.Controllers.PowerPointScreenTips.descSave": "Uw presentatie opslaan.",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "Uw presentatie afdrukken."
+  "PE.Controllers.PowerPointScreenTips.descPrint": "Uw presentatie afdrukken.",
+  "PE.Views.ElixirTitleBar.txtAccount": "Account",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "Lokaal profiel in deze browser",
+  "PE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena verbinden",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "Verbinding verbreken…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "Naam wijzigen",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "Mijn account op {0} beheren",
+  "PE.Views.ElixirTitleBar.txtTestUser": "Testgebruiker (ontwikkelaarsmodus)",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "Ik ({0})"
 }

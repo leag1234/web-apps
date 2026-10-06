@@ -5172,5 +5172,13 @@
   "DE.Controllers.Toolbar.helpSignatureHeader": "More signature options",
   "DE.Views.DocumentHolder.txtNcAssistant": "Ask Nextcloud Assistant",
   "DE.Views.Toolbar.capSmartPicker": "Smart Picker",
-  "DE.Views.Toolbar.tipSmartPicker": "Ask Nextcloud Assistant"
+  "DE.Views.Toolbar.tipSmartPicker": "Ask Nextcloud Assistant",
+  "DE.Views.ElixirTitleBar.txtAccount": "Cuenta",
+  "DE.Views.ElixirTitleBar.txtLocalProfile": "Perfil local en este navegador",
+  "DE.Views.ElixirTitleBar.txtConnect": "Conectar Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtDisconnect": "Desconectar…",
+  "DE.Views.ElixirTitleBar.txtChangeName": "Cambiar nombre",
+  "DE.Views.ElixirTitleBar.txtManageAccount": "Administrar mi cuenta en {0}",
+  "DE.Views.ElixirTitleBar.txtTestUser": "Usuario de prueba (modo desarrollador)",
+  "DE.Views.ElixirTitleBar.txtTestUserMe": "Yo ({0})"
 }

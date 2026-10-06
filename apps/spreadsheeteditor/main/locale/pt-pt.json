@@ -5661,5 +5661,13 @@
   "SSE.Views.Toolbar.txtElxAboveAverage": "Acima da Média...",
   "SSE.Views.Toolbar.txtElxBelowAverage": "Abaixo da Média...",
   "SSE.Views.Toolbar.txtElxNewRule": "Nova Regra...",
-  "SSE.Views.Toolbar.txtElxManageRules": "Gerir Regras..."
+  "SSE.Views.Toolbar.txtElxManageRules": "Gerir Regras...",
+  "SSE.Views.ElixirTitleBar.txtAccount": "Conta",
+  "SSE.Views.ElixirTitleBar.txtLocalProfile": "Perfil local neste navegador",
+  "SSE.Views.ElixirTitleBar.txtConnect": "Ligar Nextcloud / Murena",
+  "SSE.Views.ElixirTitleBar.txtDisconnect": "Desligar…",
+  "SSE.Views.ElixirTitleBar.txtChangeName": "Alterar nome",
+  "SSE.Views.ElixirTitleBar.txtManageAccount": "Gerir a minha conta em {0}",
+  "SSE.Views.ElixirTitleBar.txtTestUser": "Utilizador de teste (modo de programador)",
+  "SSE.Views.ElixirTitleBar.txtTestUserMe": "Eu ({0})"
 }

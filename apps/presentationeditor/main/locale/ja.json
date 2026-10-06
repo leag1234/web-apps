@@ -3621,5 +3621,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "直前の操作を元に戻します。",
   "PE.Controllers.PowerPointScreenTips.descRedo": "元に戻した操作をやり直します。",
   "PE.Controllers.PowerPointScreenTips.descSave": "プレゼンテーションを保存します。",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "プレゼンテーションを印刷します。"
+  "PE.Controllers.PowerPointScreenTips.descPrint": "プレゼンテーションを印刷します。",
+  "PE.Views.ElixirTitleBar.txtAccount": "アカウント",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "このブラウザーのローカル プロファイル",
+  "PE.Views.ElixirTitleBar.txtConnect": "Nextcloud / Murena に接続",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "切断…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "名前を変更",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "{0} のアカウントを管理",
+  "PE.Views.ElixirTitleBar.txtTestUser": "テスト ユーザー (開発者モード)",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "自分 ({0})"
 }

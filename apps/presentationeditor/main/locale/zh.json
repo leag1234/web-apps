@@ -3926,5 +3926,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "撤消上一个操作。",
   "PE.Controllers.PowerPointScreenTips.descRedo": "恢复撤消的操作。",
   "PE.Controllers.PowerPointScreenTips.descSave": "保存演示文稿。",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "打印演示文稿。"
+  "PE.Controllers.PowerPointScreenTips.descPrint": "打印演示文稿。",
+  "PE.Views.ElixirTitleBar.txtAccount": "帐户",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "此浏览器中的本地配置文件",
+  "PE.Views.ElixirTitleBar.txtConnect": "连接 Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "断开连接…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "更改名称",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "在 {0} 上管理我的帐户",
+  "PE.Views.ElixirTitleBar.txtTestUser": "测试用户（开发者模式）",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "我（{0}）"
 }

@@ -5172,5 +5172,13 @@
   "DE.Controllers.Toolbar.helpSignatureHeader": "More signature options",
   "DE.Views.DocumentHolder.txtNcAssistant": "Ask Nextcloud Assistant",
   "DE.Views.Toolbar.capSmartPicker": "Smart Picker",
-  "DE.Views.Toolbar.tipSmartPicker": "Ask Nextcloud Assistant"
+  "DE.Views.Toolbar.tipSmartPicker": "Ask Nextcloud Assistant",
+  "DE.Views.ElixirTitleBar.txtAccount": "帐户",
+  "DE.Views.ElixirTitleBar.txtLocalProfile": "此浏览器中的本地配置文件",
+  "DE.Views.ElixirTitleBar.txtConnect": "连接 Nextcloud / Murena",
+  "DE.Views.ElixirTitleBar.txtDisconnect": "断开连接…",
+  "DE.Views.ElixirTitleBar.txtChangeName": "更改名称",
+  "DE.Views.ElixirTitleBar.txtManageAccount": "在 {0} 上管理我的帐户",
+  "DE.Views.ElixirTitleBar.txtTestUser": "测试用户（开发者模式）",
+  "DE.Views.ElixirTitleBar.txtTestUserMe": "我（{0}）"
 }

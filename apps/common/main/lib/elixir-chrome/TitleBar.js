@@ -11,7 +11,11 @@
  *   (Common.Controllers.ElixirAI, Word only for now) it becomes "Search or ask
  *   Elixir (Alt+Q)" and sends the text to Elixir AI (last row; Enter when no
  *   command matches, Shift+Enter always);
- * - on the tab row: Comments, the Editing / Reviewing / Viewing mode, Share.
+ * - on the tab row: Comments, the Editing / Reviewing / Viewing mode, Share;
+ * - account menu on the avatar (editorConfig.elixir.account from the host):
+ *   name, e-mail / server, Connect Nextcloud / Murena or Disconnect, Change
+ *   name, and in developer mode the test-user switcher. Account actions run on
+ *   the host's start page (it owns the session), test users reload this page.
  *
  * Built on the upstream header (Common.Views.Header) instance, which keeps its
  * own buttons and events.
@@ -53,7 +57,15 @@ define([
         txtComments: 'Comments',
         txtCommentsTip: 'Show comments',
         txtShare: 'Share',
-        txtShareTip: 'Share this document'
+        txtShareTip: 'Share this document',
+        txtAccount: 'Account',
+        txtLocalProfile: 'Local profile in this browser',
+        txtConnect: 'Connect Nextcloud / Murena',
+        txtDisconnect: 'Disconnect…',
+        txtChangeName: 'Change name',
+        txtManageAccount: 'Manage my account on {0}',
+        txtTestUser: 'Test user (developer mode)',
+        txtTestUserMe: 'Me ({0})'
     };
 
     Common.Views = Common.Views || {};
@@ -94,6 +106,7 @@ define([
             this.renderRight();
             this.bindSaveState();
             this.bindShortcut();
+            this.renderAccount();
             var me = this;
             Common.NotificationCenter.on('window:resize', function () { me.fitName(); });
             this.fitName();
@@ -473,6 +486,101 @@ define([
             } else if (header.btnShare) {
                 header.btnShare.cmpEl.addClass('elx-btn-share');
             }
+        },
+
+        // ---- account menu on the avatar ---------------------------------------------------
+
+        renderAccount: function () {
+            var me = this, acc = this.hostConfig().account;
+            if (!acc) return;
+            var $av = $('#box-document-title .btn-current-user, #box-document-title .slot-btn-user-name').filter(':not(.hidden)').first();
+            if (!$av.length) return;
+            this.$avatar = $av;
+            $av.addClass('elx-account-btn').attr({ role: 'button', tabindex: 0, 'aria-haspopup': 'dialog', 'aria-expanded': 'false', 'aria-label': this.txtAccount + ': ' + (acc.name || '') });
+            if (acc.color && !acc.image) $av.find('.color-user-name').css('background-color', acc.color);
+            $av.on('click.elxacc', function (e) { e.stopPropagation(); me.toggleAccount(); });
+            $av.on('keydown.elxacc', function (e) {
+                if (e.keyCode === Common.UI.Keys.RETURN || e.keyCode === Common.UI.Keys.SPACE) { e.preventDefault(); me.toggleAccount(); }
+            });
+        },
+
+        toggleAccount: function () {
+            this.$account && this.$account.is(':visible') ? this.closeAccount(true) : this.openAccount();
+        },
+
+        // the start page in a new tab, with an account action (#connect, #profile, #account)
+        openHome: function (hash) {
+            var acc = this.hostConfig().account || {};
+            window.open((acc.homeUrl || this.hostConfig().homeUrl || '') + hash, '_blank');
+        },
+
+        openAccount: function () {
+            var me = this, acc = this.hostConfig().account || {};
+            Common.UI.Menu.Manager.hideAll();
+            this.closeSearch();
+            this.closeFlyout();
+            if (!this.$account) {
+                this.$account = $('<div class="elx-flyout elx-accflyout" role="dialog"></div>').appendTo(document.body);
+                $(document).on('mousedown.elxacc', function (e) {
+                    if (me.$account && me.$account.is(':visible') && !$(e.target).closest('.elx-accflyout, .elx-account-btn').length) me.closeAccount();
+                });
+            }
+            this.$account.attr('aria-label', this.txtAccount);
+            var nc = acc.source === 'nextcloud';
+            var avatar = acc.image
+                ? '<span class="elx-acc-avatar"><img src="' + esc(acc.image) + '" alt=""></span>'
+                : '<span class="elx-acc-avatar" style="background-color:' + esc(acc.color || '#0082c9') + '">' + esc(acc.initials || '') + '</span>';
+            var item = function (act, icon, text, extra) {
+                return '<button type="button" class="elx-fly-link" data-act="' + act + '"' + (extra || '') + '>' + me.icon(icon, 20) + '<span>' + esc(text) + '</span></button>';
+            };
+            var html = '<div class="elx-acc-head">' + avatar + '<div class="elx-acc-id"><div class="elx-acc-name">' + esc(acc.name) + '</div>' +
+                '<div class="elx-acc-sub">' + esc(nc ? (acc.email || acc.login || '') : this.txtLocalProfile) + '</div>' +
+                (nc ? '<div class="elx-acc-sub">' + esc(acc.serverHost) + '</div>' : '') + '</div></div>' +
+                '<div class="elx-fly-actions">' +
+                (nc ? item('manage', 'person', Common.Utils.String.format(this.txtManageAccount, acc.serverHost)) + item('disconnect', 'close', this.txtDisconnect)
+                    : item('connect', 'link', this.txtConnect) + item('rename', 'rename', this.txtChangeName)) +
+                '</div>';
+            if (acc.devMode && acc.testUsers && acc.testUsers.length && acc.reloadUrl) {
+                html += '<div class="elx-fly-label elx-acc-group">' + esc(this.txtTestUser) + '</div><div>' +
+                    item('test', acc.devUser ? 'person' : 'checkmark', Common.Utils.String.format(this.txtTestUserMe, acc.selfName || acc.name), ' data-user=""');
+                acc.testUsers.forEach(function (u) {
+                    html += item('test', acc.devUser === u.id ? 'checkmark' : 'person', u.name, ' data-user="' + esc(u.id) + '"');
+                });
+                html += '</div>';
+            }
+            this.$account.html(html);
+            var off = this.$avatar.offset(), w = 300;
+            var left = Common.UI.isRTL() ? Math.max(8, off.left) : Math.max(8, Math.min(off.left + this.$avatar.outerWidth() - w, $(window).width() - w - 8));
+            this.$account.css({ top: off.top + this.$avatar.outerHeight() + 6, left: left, width: w }).show();
+            this.$avatar.attr('aria-expanded', 'true');
+            this.api && this.api.asc_enableKeyEvents(false);
+            this.$account.find('[data-act]').on('click', function () {
+                var act = $(this).attr('data-act');
+                me.closeAccount(true);
+                if (act === 'manage') window.open(acc.server + '/index.php/settings/user/security', '_blank', 'noopener');
+                else if (act === 'disconnect') me.openHome('#account');
+                else if (act === 'connect') me.openHome('#connect');
+                else if (act === 'rename') me.openHome('#profile');
+                else if (act === 'test') {
+                    var id = $(this).attr('data-user'), url = acc.reloadUrl.replace(/([?&])userid=[^&]*&?/, '$1').replace(/[?&]$/, '');
+                    window.top.location.href = id ? url + (url.indexOf('?') < 0 ? '?' : '&') + 'userid=' + encodeURIComponent(id) : url;
+                }
+            });
+            this.$account.on('keydown', function (e) {
+                var $items = me.$account.find('.elx-fly-link'), i = $items.index(document.activeElement);
+                if (e.keyCode === Common.UI.Keys.ESC) { e.preventDefault(); me.closeAccount(true); me.$avatar.focus(); }
+                else if (e.keyCode === Common.UI.Keys.DOWN) { e.preventDefault(); $items.eq((i + 1) % $items.length).focus(); }
+                else if (e.keyCode === Common.UI.Keys.UP) { e.preventDefault(); $items.eq((i - 1 + $items.length) % $items.length).focus(); }
+            });
+            setTimeout(function () { me.$account.find('.elx-fly-link').first().focus(); }, 30);
+        },
+
+        closeAccount: function (focusDoc) {
+            if (!this.$account || !this.$account.is(':visible')) return;
+            this.$account.hide();
+            this.$avatar && this.$avatar.attr('aria-expanded', 'false');
+            this.api && this.api.asc_enableKeyEvents(true);
+            focusDoc && Common.NotificationCenter.trigger('edit:complete');
         },
 
         setCommentsPressed: function (pressed) {

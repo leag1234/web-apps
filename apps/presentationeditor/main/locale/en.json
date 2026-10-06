@@ -3933,5 +3933,13 @@
   "PE.Controllers.PowerPointScreenTips.descUndo": "Undo your last action.",
   "PE.Controllers.PowerPointScreenTips.descRedo": "Redo the action you undid.",
   "PE.Controllers.PowerPointScreenTips.descSave": "Save your presentation.",
-  "PE.Controllers.PowerPointScreenTips.descPrint": "Print your presentation."
+  "PE.Controllers.PowerPointScreenTips.descPrint": "Print your presentation.",
+  "PE.Views.ElixirTitleBar.txtAccount": "Account",
+  "PE.Views.ElixirTitleBar.txtLocalProfile": "Local profile in this browser",
+  "PE.Views.ElixirTitleBar.txtConnect": "Connect Nextcloud / Murena",
+  "PE.Views.ElixirTitleBar.txtDisconnect": "Disconnect…",
+  "PE.Views.ElixirTitleBar.txtChangeName": "Change name",
+  "PE.Views.ElixirTitleBar.txtManageAccount": "Manage my account on {0}",
+  "PE.Views.ElixirTitleBar.txtTestUser": "Test user (developer mode)",
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "Me ({0})"
 }
