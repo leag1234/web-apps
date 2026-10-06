@@ -40,6 +40,7 @@ define([], function () {
         mode: 'scaffold',   // "scaffold" (plan, analysis tools, playbooks, verification) or "direct" (plain tool loop)
         earlyStop: true,    // end without a closing model call when a round only made successful changes
         verify: 'always',   // scaffolded mode: verify every change ("always") or only compound ones ("compound")
+        sampling: 'deterministic', // "deterministic": temperature 0 where the model accepts it; "default": provider defaults
         prices: DEFAULT_PRICES
     };
 
@@ -181,6 +182,11 @@ define([], function () {
         return e;
     }
 
+    // Models that only accept the default temperature (OpenAI reasoning models)
+    var REASONING_MODEL = /^(o\d|gpt-5)/i;
+    // Models that refused a temperature in this session
+    var SAMPLING_REFUSED = {};
+
     ElixirAI.Connector = {
         /**
          * opts: {settings, messages, tools, signal, onDelta(text)}
@@ -198,6 +204,12 @@ define([], function () {
                 stream_options: { include_usage: true }
             };
             if (opts.tools && opts.tools.length) { body.tools = opts.tools; body.tool_choice = opts.toolChoice || 'auto'; }
+            // Deterministic sampling: the same request gives (nearly always) the same plan. Without it the
+            // provider samples at temperature 1 and a task that passes 3/3 can fail 4 times out of 9.
+            // Reasoning models refuse temperature: they are skipped, and a 400 naming it drops it for that
+            // model for the rest of the session. No `seed`: with it OpenAI answered some requests in 45-55 s
+            // instead of 1.5 s (docs/ai.md §6.6), for no gain over temperature 0.
+            if (s.sampling !== 'default' && !REASONING_MODEL.test(s.model) && !SAMPLING_REFUSED[s.model]) body.temperature = 0;
             if (s.extraParams) {
                 try { Object.assign(body, JSON.parse(s.extraParams)); } catch (e) {}
             }
@@ -208,16 +220,22 @@ define([], function () {
             var send = function (b) {
                 return fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: opts.signal, credentials: 'omit', referrerPolicy: 'no-referrer' });
             };
-            return send(body).then(function (resp) {
-                if (resp.status === 400 && body.stream_options) {
-                    // some compatible servers reject stream_options: retry once without it
-                    return resp.clone().text().then(function (t) {
-                        if (/stream_options/.test(t)) { delete body.stream_options; return send(body); }
-                        return resp;
+            var retried = false;
+            var retry400 = function (resp) {
+                if (resp.status !== 400 || retried) return resp;
+                return resp.clone().text().then(function (t) {
+                    // some compatible servers reject stream_options or a sampling parameter: retry once without it
+                    var drop = ['stream_options', 'temperature'].filter(function (k) { return body[k] !== undefined && new RegExp(k).test(t); });
+                    if (!drop.length) return resp;
+                    retried = true;
+                    drop.forEach(function (k) {
+                        delete body[k];
+                        if (k === 'temperature') SAMPLING_REFUSED[s.model] = true;
                     });
-                }
-                return resp;
-            }).then(function (resp) {
+                    return send(body);
+                });
+            };
+            return send(body).then(retry400).then(function (resp) {
                 if (!resp.ok) {
                     return resp.text().then(function (t) {
                         var msg = t;
@@ -321,7 +339,7 @@ define([], function () {
             var entry = {
                 ts: new Date().toISOString(), editor: ts.id, prompt: opts.instruction, mode: mode,
                 endpointHost: ElixirAI.Settings.publicView(s).endpointHost, model: s.model,
-                extraParams: s.extraParams || '', rounds: [], usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
+                extraParams: s.extraParams || '', sampling: s.sampling || 'deterministic', rounds: [], usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
                 outcome: 'running'
             };
             var ctx = null, messages = [], changed = false, untracked = [], groupStarted = false, finalText = '';
@@ -376,9 +394,12 @@ define([], function () {
                         verifyAsked = true;
                         emit('verify', {});
                         return ts.verifyState(ctx).then(function (state) {
+                            var auto = state && state.automatic_checks;
+                            if (auto) { entry.automaticChecks = auto; delete state.automatic_checks; }
                             messages.push({
                                 role: 'user', content: 'Verification. User request: ' + opts.instruction + (ctx.plan ? '\nYour goal: ' + ctx.plan.goal : '') +
                                     '\nDocument state now: ' + JSON.stringify(state) +
+                                    (auto ? '\nAutomatic checks found these problems (they are certain, fix them): ' + auto.join(' ') : '') +
                                     '\nCheck every part of the request against this state (text, styles, alignment, sizes, lists, tables, page setup, pages). If everything is done, call verify_result {goal_met:true}. Otherwise call verify_result {goal_met:false, problems} AND, in the same turn, the tools that fix the problems.'
                             });
                             return 'continue';

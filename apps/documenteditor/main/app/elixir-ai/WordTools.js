@@ -93,6 +93,32 @@ define([], function () {
             return o;
         };
         H.clip = function (t, max) { return (t.length > max) ? t.slice(0, max) + '…' : t; };
+        // Numbering written in a line: "1.", "1.1", "II.", "a)"
+        H.numbering = function (t) {
+            var m = /^\s*((\d+)((\.\d+)*))[.)]?\s+\S/.exec(t);
+            if (m) return { pattern: m[1], depth: m[1].split('.').filter(Boolean).length };
+            if (/^\s*[IVXLC]+[.)]\s+\S/.test(t)) return { pattern: 'roman', depth: 1 };
+            if (/^\s*[A-Za-z][.)]\s+\S/.test(t)) return { pattern: 'letter', depth: 2 };
+            return null;
+        };
+        // A line of body text, whatever its style: a sentence (ends with . ; ! …, at least 50 characters)
+        // or a long line (more than 140 characters), not numbered like a title
+        H.bodyLike = function (t) {
+            t = String(t || '').trim();
+            if (!t) return false;
+            if (t.length > 140) return true;
+            return t.length >= 50 && /[.;!…]$/.test(t) && !H.numbering(t) &&
+                !/^(exercice|exercise|ejercicio|übung|esercizio|partie|part|chapitre|chapter|section|question|problème|problem|étape|step|annexe|appendix|corrigé)\b/i.test(t);
+        };
+        // Paragraphs of blocks from..to that read as body text
+        H.bodyBlocks = function (from, to) {
+            var out = [], last = Math.min(to, H.count() - 1);
+            for (var i = from; i <= last; i++) {
+                var el = H.el(i);
+                if (H.kind(el) === 'paragraph' && H.bodyLike(H.text(el))) out.push(i);
+            }
+            return out;
+        };
         // List kind of a paragraph: null, "bullet" or "numbered" (internal numbering format, read only)
         H.listKind = function (p) {
             var lvl = p.GetNumbering();
@@ -369,8 +395,10 @@ define([], function () {
             var cp = H.doc.GetCurrentParagraph();
             if (cp) cursor = H.topIndex(cp);
         } catch (e) {}
+        // paragraphs of the scope that read as body text (for the plan checks: no heading style on them)
+        var body = H.bodyBlocks(from, to);
         return {
-            ok: true, scope: scope, from: from, to: to, total: total, styles: H.paragraphStyles(), tableStyles: H.tableStyles(),
+            ok: true, scope: scope, from: from, to: to, total: total, body: body, styles: H.paragraphStyles(), tableStyles: H.tableStyles(),
             revisions: H.revisions(), selectedText: selText.length <= 3000 ? selText : selText.slice(0, 3000), image: image, cursor: cursor,
             sections: H.sections()
         };
@@ -380,12 +408,32 @@ define([], function () {
         var blocks = [], last = Math.min(a.to, H.count() - 1), truncated = false;
         for (var i = a.from; i <= last; i++) {
             if (blocks.length >= a.maxBlocks) { truncated = true; break; }
-            blocks.push(H.block(i, a.maxText));
+            var bl = H.block(i, a.maxText);
+            // verification: say "left" too, or a missing alignment reads as "done"
+            if (a.explicitAlign && bl.type === 'paragraph' && !bl.align) bl.align = 'left';
+            blocks.push(bl);
         }
         var out = { ok: true, scope: a.scope, from: a.from, to: last, blocks: blocks };
         if (truncated) out.truncated = true;
         return out;
     };
+
+    // Deterministic checks of the result, given to the model with the verification state
+    CMD.lint = function (a, H) {
+        var issues = [], last = Math.min(a.to, H.count() - 1);
+        if (a.styles) {
+            for (var i = a.from; i <= last; i++) {
+                var el = H.el(i);
+                if (H.kind(el) !== 'paragraph') continue;
+                var st = H.styleName(el), t = H.text(el);
+                if (/^(Heading \d|Title)$/.test(st) && H.bodyLike(t))
+                    issues.push('Block ' + i + ' is body text ("' + H.clip(t.trim(), 50) + '") but has the style ' + st + ': set it to Normal.');
+            }
+        }
+        return { ok: true, issues: issues };
+    };
+
+    CMD.body_blocks = function (a, H) { return { ok: true, body: H.bodyBlocks(a.from, a.to) }; };
 
     CMD.begin = function (a, H) {
         H.doc.SetAssistantTrackRevisions(true, a.name);
@@ -507,10 +555,9 @@ define([], function () {
             var t = H.text(el).trim();
             if (!t) continue;
             var f = eff(el), x = { block: i, text: H.clip(t, 100), style: H.styleName(el), bold: f.bold, size: f.size, length: t.length };
-            var m = /^\s*((\d+)((\.\d+)*))[.)]?\s+\S/.exec(t);
-            if (m) x.numbering = { pattern: m[1], depth: m[1].split('.').filter(Boolean).length };
-            else if (/^\s*[IVXLC]+[.)]\s+\S/.test(t)) x.numbering = { pattern: 'roman', depth: 1 };
-            else if (/^\s*[A-Za-z][.)]\s+\S/.test(t)) x.numbering = { pattern: 'letter', depth: 2 };
+            var num = H.numbering(t);
+            if (num) x.numbering = num;
+            if (H.bodyLike(t)) x.body = true;
             var lk = H.listKind(el);
             if (lk) { x.list = lk; try { x.list_level = el.GetNumbering().GetLevelIndex(); } catch (e) {} }
             if (/[A-Za-zÀ-ɏ]/.test(t) && t === t.toUpperCase()) x.caps = true;
@@ -520,7 +567,11 @@ define([], function () {
         }
         var body = null, best = -1;
         for (var s in sizes) if (sizes[s] > best) { best = sizes[s]; body = +s; }
+        // body text wrongly styled as a heading: not a candidate, reported apart (to restyle as Normal)
+        var bodyInHeading = info.filter(function (x) { return x.body && /^Heading \d$|^Title$/.test(x.style); })
+            .map(function (x) { return { block: x.block, style: x.style, text: H.clip(x.text, 60) }; });
         var cands = info.filter(function (x) {
+            if (x.body) return false;
             if (/^Heading \d$|^Title$/.test(x.style)) return true;
             if (x.length > 120 || (x.ends_with_period && !x.numbering)) return false;
             var big = body && x.size && x.size > body + 0.5;
@@ -543,7 +594,14 @@ define([], function () {
             cands[0].note = 'document title (Title style, not in the outline)';
             for (var j = 1; j < cands.length; j++) if (!numbered && !/^Heading/.test(cands[j].style)) cands[j].suggested_level = Math.max(1, cands[j].suggested_level - 1);
         }
-        return { ok: true, body_size: body, numbered_titles: numbered, candidates: cands.slice(0, 120), hint: 'suggested_level: 0 = document title, 1 = Heading 1, 2 = Heading 2… Check it against the text before applying.', done: { n: cands.length } };
+        cands.forEach(function (x) { delete x.body; });
+        var out = { ok: true, body_size: body, numbered_titles: numbered, candidates: cands.slice(0, 120),
+            hint: 'suggested_level: 0 = document title (Title), 1 = Heading 1, 2 = Heading 2… Lines not listed are body text: Normal. Check against the text before applying.', done: { n: cands.length } };
+        if (bodyInHeading.length) {
+            out.body_text_in_heading_style = bodyInHeading;
+            out.hint += ' body_text_in_heading_style: sentences that carry a heading style; they are body text: set them to Normal when cleaning up or structuring.';
+        }
+        return out;
     };
 
     CMD.get_layout_summary = function (a, H) {
@@ -952,6 +1010,14 @@ define([], function () {
         if (H.kind(t) !== 'table') return H.fail('not_a_table', 'Block ' + a.table + ' is not a table.');
         var cols = t.GetRow(0).GetCellsCount();
         if (a.titles.length !== cols) return H.fail('invalid_argument', 'The table has ' + cols + ' columns: give ' + cols + ' titles.', { field: 'titles' });
+        // a second header row on top of an existing one is never wanted (list_to_table with `header` already made it)
+        var isHead = false;
+        try { isHead = !!t.GetRow(0).Row.IsHeader(); } catch (e) {}
+        if (isHead) {
+            var heads = [];
+            for (var hc = 0; hc < cols; hc++) heads.push(H.text(t.GetCell(0, hc).GetContent().GetElement(0)));
+            return H.fail('already_has_header', 'Table ' + a.table + ' already has a header row (' + heads.join(' | ') + '): nothing to add. To rename its titles use table_set_cells on row 0.', { header: heads });
+        }
         t.AddRows(t.GetCell(0, 0), 1, true);
         for (var c = 0; c < cols; c++) {
             var run = t.GetCell(0, c).GetContent().GetElement(0).AddText(String(a.titles[c]));
@@ -1479,18 +1545,19 @@ define([], function () {
 
     // Playbooks for common compound requests (scaffolded mode)
     var RECIPES = [
-        'Table of contents from unstyled titles: get_outline_candidates -> apply_styles (Heading 1/2/3 from the suggested levels, checked against the text; clear_direct_formatting: true; the document title gets Title) -> insert_table_of_contents (before the first heading, or after the title/cursor) -> verify the outline with document_info.',
+        'Table of contents from unstyled titles: get_outline_candidates FIRST -> apply_styles with one entry per title line (from = to = that block; Heading 1/2/3 from suggested_level, checked against the numbering; clear_direct_formatting: true; the document title gets Title; never a range that spans the body paragraphs between titles: they stay Normal) -> insert_table_of_contents before the first title line -> verify the outline with document_info.',
         'Change paper size (e.g. A4 -> A5) or make it "2xA5"/"2 per sheet": set_page_setup (paper A5, portrait, margins about 15 mm) -> fit_content -> get_layout_summary to verify (no overflowing element, plausible page count) -> in verify_result.message tell the user to print with "2 pages per sheet" in the print dialog to get two A5 pages on one A4 sheet. Never use columns for this. A booklet is the same A5 setup printed in booklet mode.',
         'Fit on one page: document_info (pages) -> reduce spacing (format_paragraphs space_after_pt 2-4, space_before_pt 0-6), then margins (set_page_setup all_margins_mm 15), then if still needed the body size by 1 pt only (format_text size_pt = current size from the context minus 1; never increase a size) -> document_info again until pages = 1.',
-        'Apply a style guide / charte (fonts, colours, sizes): modify_style on Title, Heading 1, Heading 2, Heading 3 and Normal (one call each, same turn); then format_text only on runs that still show other direct formatting.',
-        'Create a document (worksheet, letter…) on an empty page: one insert_paragraphs call (after -1, or replace the empty first block) whose items carry their styles: Title for the title, Heading 1 for each exercise / section title and for the answer key ("Corrigé"), Normal for the text; keep it to one page unless asked.',
-        'Clean up styles: get_outline_candidates -> one apply_styles call covering every block (titles to headings, body to Normal, clear_direct_formatting on fake titles).',
+        'Apply a style guide / charte (fonts, colours, sizes): modify_style on Title, Heading 1, Heading 2, Heading 3 and Normal (one call each, same turn, with only what the guide gives: font, colour, size). That is all in most documents: every paragraph follows its style. Use format_text only for a block that read_context still shows with another font or colour, one block at a time, never on a range that mixes titles and body text.',
+        'Create a document (worksheet, letter…) on an empty page: one insert_paragraphs call (after -1, or replace the empty first block) whose items carry their styles, one paragraph per item (no \\n in a text): Title for the title; for a worksheet at least 3 exercises, each a Heading 1 "Exercice 1 : …" followed by its Normal question lines; then a Heading 1 "Corrigé" followed by the answers, exercise by exercise ("Exercice 1 : …"); keep it to one page unless asked.',
+        'Clean up styles: get_outline_candidates -> one apply_styles call with one entry per block of the scope: each candidate title line to its heading (suggested_level; clear_direct_formatting on fake titles), every other paragraph to Normal, including those listed in body_text_in_heading_style.',
         'Number the exercises: find the exercise title lines (find_text / get_outline_candidates) -> set_list kind numbered on those lines only (if they already start with a number, keep the text) .',
-        'Turn lines into a table / list: list_to_table (header = column titles you write, when a header is wanted) or set_list on exactly the selected blocks.',
+        'Turn lines into a table / list: list_to_table (header = the column titles you write, when a header is wanted: it adds the header row itself, never call table_add_header_row after it) or set_list on exactly the selected blocks.',
         'Add a header row to an existing table: table_add_header_row with one title per column.',
         'Two levels / variants of a worksheet: keep the original; insert_paragraphs after the last block: a Heading 1 title naming the version (e.g. "Version facile"), then each exercise again (title line in the same style as the original exercise titles, then the simplified instruction).',
         'Correct mistakes / translate: replace_text per paragraph (whole text, or `find` for one word), never rewrite_blocks; one call per paragraph, all in the same turn.',
-        'Picture next to the text ("à droite du texte"): set_image_layout wrap square + align right.'
+        'Picture next to the text ("à droite du texte"): set_image_layout wrap square + align right.',
+        'Title big and centred: apply_style Title (clear_direct_formatting: true) AND format_paragraphs align center on that block AND, if its size is under 20 pt, format_text size_pt 24: a style alone does not centre.'
     ];
     var UNTRACKED = {
         set_columns: 'columns', set_page_setup: 'page', insert_break: 'section', set_header_footer: 'headerFooter',
@@ -1579,7 +1646,23 @@ define([], function () {
                 if (err) return err;
             }
         }
-        if (name === 'apply_style') return styleOk('style', args.style);
+        if (name === 'apply_style' && (err = styleOk('style', args.style))) return err;
+        // a heading (or Title) style on a sentence of body text is refused: the usual small-model slip
+        // when cleaning up or structuring a document (a range that runs over the paragraphs under a title)
+        var HEAD = /^(Heading \d|Title)$/;
+        var bodyHit = function (blocks, style, field) {
+            if (!HEAD.test(style) || !ctx.body || !ctx.body.length) return null;
+            // the user selected one or two paragraphs and asked for a style: that is their call
+            if (ctx.scope === 'selection' && ctx.to - ctx.from <= 1) return null;
+            var hit = blocks.filter(function (b) { return ctx.body.indexOf(b) >= 0; });
+            return hit.length ? invalid(field, 'Blocks ' + hit.join(', ') + ' are body text (sentences), not titles: "' + style + '" is refused on them. Apply heading styles only to the title lines (get_outline_candidates), and Normal to body text.', { body_blocks: hit }) : null;
+        };
+        var span = function (a, b) { var o = []; for (var q = a; q <= b; q++) o.push(q); return o; };
+        if (name === 'apply_style') return bodyHit(args.blocks || span(args.from, args.to), args.style, 'style');
+        if (name === 'apply_styles') {
+            for (var m2 = 0; m2 < args.changes.length; m2++)
+                if ((err = bodyHit(span(args.changes[m2].from, args.changes[m2].to), args.changes[m2].style, 'changes[' + m2 + '].style'))) return err;
+        }
         if (name === 'format_paragraphs' && args.paragraphs_only_style !== undefined) return styleOk('paragraphs_only_style', args.paragraphs_only_style);
         if (name === 'table_format' && args.style !== undefined && ctx.tableStyles.indexOf(args.style) < 0)
             return invalid('style', 'Unknown table style "' + args.style + '".', { available: ctx.tableStyles });
@@ -1587,6 +1670,20 @@ define([], function () {
             return invalid('style', 'Unknown style "' + args.style + '".', { available: ctx.styles });
         if (name === 'modify_style' && args.color !== undefined && !/^#?[0-9a-f]{6}$/i.test(args.color)) return invalid('color', '"color" must be a hex colour like "#1F3864".');
         if (name === 'format_text' && args.color !== undefined && !/^#?[0-9a-f]{6}$/i.test(args.color)) return invalid('color', '"color" must be a hex colour like "#1F3864".');
+        // direct formatting that contradicts a style changed in this action (e.g. Calibri over a range that
+        // also holds headings just set to Arial): the style guide slip; the style change already applies
+        if (name === 'format_text' && !args.find && ctx.styleMods && !ctx.grown) {
+            var hex = function (c) { return String(c || '').replace('#', '').toUpperCase(); };
+            var clash = [];
+            for (var bk = args.from; bk <= args.to; bk++) {
+                var blk = (ctx.context.blocks || []).filter(function (b) { return b.i === bk; })[0], mod = blk && ctx.styleMods[blk.style];
+                if (!mod) continue;
+                if ((args.font && mod.font && args.font !== mod.font) || (args.color && mod.color && hex(args.color) !== hex(mod.color)) ||
+                    (args.size_pt && mod.size_pt && args.size_pt !== mod.size_pt))
+                    clash.push(bk + ' (' + blk.style + ')');
+            }
+            if (clash.length) return invalid('from', 'This would override the style you just changed on blocks ' + clash.join(', ') + '. Their style already gives them its font, colour and size: leave them out (format only the blocks that still differ from their style, with read_context to check).', { blocks: clash });
+        }
         if (name === 'insert_image' && !/^(https?:\/\/|data:image\/)/i.test(args.url)) return invalid('url', 'The picture must be an http(s) URL or a data:image URI given by the user.');
         if (name === 'insert_image' && ctx.instruction !== undefined && ctx.instruction.indexOf(args.url) < 0)
             return invalid('url', 'Only a picture URL written by the user can be inserted; you cannot generate, draw or search for pictures. Call cannot_do with the closest action instead.');
@@ -1596,6 +1693,19 @@ define([], function () {
         if (name === 'set_page_setup' && args.paper === undefined && args.orientation === undefined && args.margins_mm === undefined && args.all_margins_mm === undefined)
             return invalid(null, 'Give at least one of paper, orientation, margins_mm, all_margins_mm.');
         return null;
+    }
+
+    // Plan checks beyond the tool names: step combinations that are known slips of small models
+    function checkPlan(plan, ctx) {
+        var tools = plan.steps.map(function (st) { return st.tool; });
+        var has = function (n) { return tools.indexOf(n) >= 0; };
+        var problems = [];
+        if (has('list_to_table') && has('table_add_header_row'))
+            problems.push('list_to_table makes the header row itself when you give `header` (the column titles): remove the table_add_header_row step.');
+        if (has('insert_table_of_contents') && !has('get_outline_candidates') && !(ctx.context && ctx.context.blocks.some(function (b) { return /^Heading \d$/.test(b.style); })))
+            problems.push('No heading style exists yet: start with get_outline_candidates, then apply_styles on the title lines only, then insert_table_of_contents.');
+        if (!problems.length) return null;
+        return { ok: false, error: { code: 'invalid_plan', message: problems.join(' ') + ' Submit the corrected plan.' } };
     }
 
     // Embed the arguments as JSON. The macro sanitizer of safePluginEval rejects any source matching
@@ -1655,6 +1765,23 @@ define([], function () {
         });
     }
 
+    function fetchDataUrl(url) {
+        if (!/^https?:\/\//i.test(url) || !window.fetch || !window.FileReader) return Promise.resolve(null);
+        var ctl = window.AbortController ? new AbortController() : null, timer = ctl && setTimeout(function () { ctl.abort(); }, 8000);
+        return fetch(url, { mode: 'cors', credentials: 'omit', referrerPolicy: 'no-referrer', signal: ctl ? ctl.signal : undefined }).then(function (r) {
+            if (!r.ok) return null;
+            return r.blob().then(function (b) {
+                if (!/^image\/(png|jpeg|gif|bmp|webp|svg\+xml)$/.test(b.type) || b.size > 8 * 1024 * 1024) return null;
+                return new Promise(function (resolve) {
+                    var fr = new FileReader();
+                    fr.onload = function () { resolve(typeof fr.result === 'string' ? fr.result : null); };
+                    fr.onerror = function () { resolve(null); };
+                    fr.readAsDataURL(b);
+                });
+            });
+        }).catch(function () { return null; }).then(function (d) { if (timer) clearTimeout(timer); return d; });
+    }
+
     function today(lang) {
         var d = new Date();
         try { return d.toLocaleDateString(lang || undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + ' (' + d.toISOString().slice(0, 10) + ')'; }
@@ -1679,12 +1806,18 @@ define([], function () {
             toolNames: TOOLS.map(function (t) { return t['function'].name; }),
             // Document state given to the model for the verification step
             verifyState: function (ctx) {
+                var ran = ctx.ran || {}, state;
                 return callCommand(api, 'document_info', { selectedText: '' }).then(function (info) {
                     var t = ctx.touched && ctx.touched.to >= 0 ? ctx.touched : { from: ctx.from, to: ctx.to };
                     var from = Math.max(0, t.from - 1), to = Math.min(ctx.total - 1, t.to + 1);
-                    return callCommand(api, 'read_context', { scope: ctx.scope, from: from, to: to, maxBlocks: 120, maxText: 160 }).then(function (c) {
+                    return callCommand(api, 'read_context', { scope: ctx.scope, from: from, to: to, maxBlocks: 120, maxText: 160, explicitAlign: true }).then(function (c) {
                         delete info.ok;
-                        return { document: info, blocks: c.blocks };
+                        state = { document: info, blocks: c.blocks };
+                        var styles = !!(ran.apply_style || ran.apply_styles || ran.change_heading_level || ran.insert_table_of_contents);
+                        return styles ? callCommand(api, 'lint', { from: ctx.from, to: ctx.to, styles: true }) : null;
+                    }).then(function (l) {
+                        if (l && l.ok && l.issues.length) state.automatic_checks = l.issues;
+                        return state;
                     });
                 });
             },
@@ -1703,7 +1836,7 @@ define([], function () {
                 return callCommand(api, 'init').then(function (r) {
                     if (!r.ok) throw new Error(r.error && r.error.message || 'cannot read the document');
                     var ctx = {
-                        scope: r.scope, from: r.from, to: r.to, total: r.total, styles: r.styles, tableStyles: r.tableStyles || [],
+                        scope: r.scope, from: r.from, to: r.to, total: r.total, body: r.body || [], styles: r.styles, tableStyles: r.tableStyles || [],
                         revisionsBefore: r.revisions, selectedText: r.selectedText || '', image: r.image, cursor: r.cursor, sections: r.sections
                     };
                     return callCommand(api, 'read_context', { scope: ctx.scope, from: ctx.from, to: ctx.to, maxBlocks: MAX_BLOCKS, maxText: MAX_TEXT })
@@ -1777,6 +1910,8 @@ define([], function () {
                     var names = TOOLS.map(function (t) { return t['function'].name; });
                     var bad = args.steps.filter(function (st) { return names.indexOf(st.tool) < 0 || st.tool === 'submit_plan' || st.tool === 'verify_result'; });
                     if (bad.length) return Promise.resolve({ ok: false, error: { code: 'invalid_plan', message: 'Unknown or invalid tool in steps: ' + bad.map(function (b) { return b.tool; }).join(', ') + '.', available: names.filter(function (n) { return !HOST_ONLY[n]; }) } });
+                    var planErr = checkPlan(args, ctx);
+                    if (planErr) return Promise.resolve(planErr);
                     ctx.plan = args;
                     return Promise.resolve({ ok: true, steps: args.steps.length, note: 'Plan accepted: execute every step, then the document state will be shown for verification.' });
                 }
@@ -1802,7 +1937,10 @@ define([], function () {
                 if (name === 'insert_paragraphs') a.items = a.items.map(function (it) { return Object.assign({}, it, { text: dateText(it.text) }); });
                 var pre = Promise.resolve();
                 if (name === 'insert_image') {
-                    pre = imageSize(a.url).then(function (sz) {
+                    // the browser fetches the picture and inserts it as data: so the document server does not
+                    // download it again (an image host rate-limits or blocks the server: the picture came out
+                    // broken, "error"); without CORS the URL is passed on as before
+                    pre = fetchDataUrl(a.url).then(function (d) { if (d) a.url = d; return imageSize(a.url); }).then(function (sz) {
                         var ratio = sz ? sz.h / sz.w : 0.75;
                         if (!a.width_mm && !a.height_mm) a.width_mm = Math.min(120, sz ? sz.w * 25.4 / 96 : 80);
                         if (!a.width_mm) a.width_mm = a.height_mm / ratio;
@@ -1811,6 +1949,11 @@ define([], function () {
                 }
                 return pre.then(function () { return callCommand(api, name, a); }).then(function (r) {
                     if (r && r.ok) {
+                        (ctx.ran = ctx.ran || {})[name] = (ctx.ran[name] || 0) + 1;
+                        if (name === 'modify_style') {
+                            var sm = (ctx.styleMods = ctx.styleMods || {})[args.style] = ctx.styleMods[args.style] || {};
+                            ['font', 'color', 'size_pt'].forEach(function (k) { if (args[k] !== undefined) sm[k] = args[k]; });
+                        }
                         // keep the working scope in sync with inserted blocks
                         var grow = 0;
                         if (name === 'insert_paragraphs' || name === 'rewrite_blocks') grow = args.items.length;
@@ -1819,6 +1962,13 @@ define([], function () {
                         if (name === 'insert_table_of_contents') grow = 1;
                         ctx.to += grow;
                         ctx.total += grow;
+                        if (grow) ctx.grown = true;
+                        if (grow && ctx.body) {
+                            // keep the body-text blocks in step with the insertion (re-read below: new paragraphs)
+                            var at = name === 'insert_table_of_contents' ? args.before : name === 'list_to_table' ? args.from :
+                                name === 'rewrite_blocks' ? args.to + 1 : args.after + 1;
+                            ctx.body = ctx.body.map(function (b) { return b >= at ? b + grow : b; });
+                        }
                         ctx.touched = ctx.touched || { from: Infinity, to: -1 };
                         var lo = Infinity, hi = -1, push = function (x, y) { if (x === undefined) return; lo = Math.min(lo, x); hi = Math.max(hi, y === undefined ? x : y); };
                         if (name === 'apply_styles') args.changes.forEach(function (c) { push(c.from, c.to); });
@@ -1833,6 +1983,9 @@ define([], function () {
                             ctx.touched.to = Math.max(ctx.touched.to, hi);
                         }
                     }
+                    // new paragraphs: re-read which blocks of the scope are body text
+                    if (r && r.ok && (name === 'insert_paragraphs' || name === 'rewrite_blocks'))
+                        return callCommand(api, 'body_blocks', { from: ctx.from, to: ctx.to }).then(function (b) { if (b && b.ok) ctx.body = b.body; return r; });
                     return r;
                 });
             },
