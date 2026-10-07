@@ -138,10 +138,13 @@ define([
             var wrap = function (name, kind, ttl, cond) {
                 var orig = api[name];
                 if (!_.isFunction(orig) || orig._elxWrapped) return;
+                // the engine method is looked up at call time: the engine can wrap its methods after
+                // this controller was set up (the Repeat command records the insertions)
+                var proto = Object.getPrototypeOf(api);
                 var fn = function () {
                     if (!cond || cond.apply(this, arguments))
                         me._state.pending = {kind: kind, until: Date.now() + (ttl || 3000)};
-                    return orig.apply(this, arguments);
+                    return (_.isFunction(proto[name]) ? proto[name] : orig).apply(this, arguments);
                 };
                 fn._elxWrapped = true;
                 api[name] = fn;

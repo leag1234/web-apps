@@ -102,6 +102,7 @@ define([
         descSelectAll: 'Select all the content of the document.',
         descUndo: 'Undo your last action.',
         descRedo: 'Redo the action you undid.',
+        descRepeat: 'Repeat the last command or action.',
         descSave: 'Save your document.',
         descPrint: 'Print your document.',
         descTable: 'Add a table to organize information.',

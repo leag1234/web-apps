@@ -472,6 +472,7 @@ define([
                 this.api.asc_registerCallback('asc_onVerticalAlign', _.bind(this.onApiVerticalAlign, this));
                 this.api.asc_registerCallback('asc_onCanUndo', _.bind(this.onApiCanRevert, this, 'undo'));
                 this.api.asc_registerCallback('asc_onCanRedo', _.bind(this.onApiCanRevert, this, 'redo'));
+                this.api.asc_registerCallback('asc_onCanRepeat', _.bind(this.onApiCanRepeat, this));
                 this.api.asc_registerCallback('asc_onPrAlign', _.bind(this.onApiParagraphAlign, this));
                 this.api.asc_registerCallback('asc_onTextColor', _.bind(this.onApiTextColor, this));
                 this.api.asc_registerCallback('asc_onParaSpacingLine', _.bind(this.onApiLineSpacing, this));
@@ -518,6 +519,7 @@ define([
                 if (this.mode.isPDFForm && this.mode.canFillForms) {
                     this.api.asc_registerCallback('asc_onCanUndo', _.bind(this.onApiCanRevert, this, 'undo'));
                     this.api.asc_registerCallback('asc_onCanRedo', _.bind(this.onApiCanRevert, this, 'redo'));
+                    this.api.asc_registerCallback('asc_onCanRepeat', _.bind(this.onApiCanRepeat, this));
                     this.api.asc_registerCallback('asc_onCanCopyCut', _.bind(this.onApiCanCopyCut, this));
                     this.api.asc_registerCallback('asc_onChangeViewerTargetType', _.bind(this.onChangeViewerTargetType, this));
                     Common.NotificationCenter.on('storage:image-load', _.bind(this.openImageFromStorage, this));
@@ -622,10 +624,49 @@ define([
                 }
             } else {
                 if (this._state.can_redo !== can) {
-                    this.toolbar.btnRedo ? this.toolbar.lockToolbar(Common.enumLock.redoLock, !can, {array: [this.toolbar.btnRedo]}) : this.onBtnChangeState('redo:disabled', null, !can);
                     this._state.can_redo = can;
+                    this.updateRedoRepeat();
                 }
             }
+        },
+
+        // The Redo button of the quick access toolbar is also Word's Repeat: when there is nothing to redo
+        // it repeats the last command (F4, Ctrl+Y)
+        onApiCanRepeat: function(can) {
+            if (this._state.can_repeat !== can) {
+                this._state.can_repeat = can;
+                this.updateRedoRepeat();
+            }
+        },
+
+        updateRedoRepeat: function() {
+            var canRedo = this._state.can_redo === true,
+                canRepeat = this._state.can_repeat === true,
+                repeat = !canRedo && canRepeat,
+                btns = [this.toolbar.btnRedo],
+                viewport = this.getApplication().getController('Viewport'),
+                screenTips = this.getApplication().getController('ScreenTips');
+            viewport && viewport.header && btns.push(viewport.header.btnRedo);
+
+            this.toolbar.btnRedo ? this.toolbar.lockToolbar(Common.enumLock.redoLock, !(canRedo || canRepeat), {array: [this.toolbar.btnRedo]}) : this.onBtnChangeState('redo:disabled', null, !(canRedo || canRepeat));
+            if (this._state.repeat_mode === repeat) return;
+
+            this._state.repeat_mode = repeat;
+            _.each(btns, function(btn) {
+                if (!btn) return;
+                var tip = btn.btnEl && btn.btnEl.length ? btn.btnEl : null;
+                if (repeat) {
+                    btn._redoHint = btn.options.hint;
+                    tip && (btn._redoTip = tip.attr('data-screentip'));
+                    btn.changeIcon({curr: 'btn-redo', next: 'btn-repeat'});
+                    btn.updateHint((this.toolbar.tipRepeat || 'Repeat') + ' (F4)');
+                    tip && tip.attr('data-screentip', screenTips && screenTips.descRepeat || 'Repeat the last command or action.');
+                } else {
+                    btn.changeIcon({curr: 'btn-repeat', next: 'btn-redo'});
+                    btn._redoHint && btn.updateHint(btn._redoHint);
+                    tip && btn._redoTip && tip.attr('data-screentip', btn._redoTip);
+                }
+            }, this);
         },
 
         onApiCanCopyCut: function(can) {
@@ -1255,8 +1296,12 @@ define([
         },
 
         onRedo: function(btn, e) {
-            if (this.api)
-                this.api.Redo();
+            if (this.api) {
+                if (this._state.repeat_mode && !this._state.can_redo && this.api.asc_Repeat)
+                    this.api.asc_Repeat();
+                else
+                    this.api.Redo();
+            }
 
             Common.NotificationCenter.trigger('edit:complete', this.toolbar);
 
@@ -3615,7 +3660,7 @@ define([
         activateControls: function() {
             this.toolbar.lockToolbar(Common.enumLock.disableOnStart, false);
             this.toolbar.lockToolbar(Common.enumLock.undoLock, this._state.can_undo!==true, {array: [this.toolbar.btnUndo]});
-            this.toolbar.lockToolbar(Common.enumLock.redoLock, this._state.can_redo!==true, {array: [this.toolbar.btnRedo]});
+            this.toolbar.lockToolbar(Common.enumLock.redoLock, this._state.can_redo!==true && this._state.can_repeat!==true, {array: [this.toolbar.btnRedo]});
             this.toolbar.lockToolbar(Common.enumLock.copyLock, this._state.can_copycut!==true, {array: [this.toolbar.btnCopy, this.toolbar.btnCut]});
             this._state.activated = true;
 
