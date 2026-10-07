@@ -516,6 +516,9 @@ define([
                     return img != null ? img[0].src : undefined;
                 }
 
+                var lf = window.Common.ElixirLocalFonts;
+                if (lf && lf.isLocal && lf.isLocal(opts.name))   // font of this computer: no sprite cell, see elixir-localfonts
+                    return lf.thumbnail(opts.name, this.spriteThumbs.width, this.spriteThumbs.heightOne, iconWidth, iconHeight).toDataURL();
                 var index = Math.floor(opts.imgidx/spriteCols);
                 return this.spriteThumbs.getImage(index, thumbCanvas, thumbContext).toDataURL();
             },
@@ -786,7 +789,10 @@ define([
                     if (visible ? visible[j] : (from <= j && j < to)) {
                         if (null === me.tiles[j]) {
                             index = Math.floor(me.store.at(j).get('imgidx')/spriteCols);
-                            var fontImage = me.spriteThumbs.getImage(index);
+                            var lf = window.Common.ElixirLocalFonts, fname = me.store.at(j).get('name'),
+                                fontImage = (lf && lf.isLocal && lf.isLocal(fname))   // font of this computer: see elixir-localfonts
+                                    ? lf.thumbnail(fname, me.spriteThumbs.width, me.spriteThumbs.heightOne, iconWidth, iconHeight)
+                                    : me.spriteThumbs.getImage(index);
 
                             me.tiles[j] = fontImage;
                             $(listItems[j]).get(0).appendChild(fontImage);
