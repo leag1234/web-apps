@@ -38,7 +38,7 @@ define([
 ], function () {
     'use strict';
 
-    DE.Controllers.WordEditKeys = Backbone.Controller.extend({
+    DE.Controllers.WordEditKeys = Backbone.Controller.extend(_.extend({
         initialize: function() {
             Common.NotificationCenter.on('app:ready', _.bind(this.onAppReady, this));
         },
@@ -51,6 +51,7 @@ define([
             this.api.asc_registerCallback('asc_onMoveCopyMode', function(m) { me.onMoveCopyMode(m); });
             this.api.asc_registerCallback('asc_onSpikeChanged', function(count, added) { me.onSpikeChanged(count, added); });
             this.api.asc_registerCallback('asc_onPasteSpecialDialog', function() { me.openPasteSpecial(); });
+            this.api.asc_registerCallback('asc_onDefineAutoText', function(text, data) { me.openDefineAutoText(text, data); });
             // Alt, H, V, then K, M, T or S: the letters of the Paste menu (the KeyTips of Word)
             document.addEventListener('keydown', _.bind(this.onPasteMenuKey, this), true);
             // keyboard in the print preview of the backstage (Print panel)
@@ -174,9 +175,51 @@ define([
             })).show();
         },
 
+        // ---------------------------------------------------------------- AutoText (Alt+F3, name + Enter)
+        // The blocks are kept per user in this browser (localStorage); the engine inserts a block when Enter is
+        // pressed right after its name (sdkjs word/Editor/word-edit-keys.js).
+        openDefineAutoText: function(text, data) {
+            var me = this;
+            if (Common.Utils.ModalWindow.isVisible() || !this.mode || !this.mode.isEdit) return;
+            (new Common.Views.TextInputDialog({
+                width: 400,
+                title: this.textAutoTextTitle,
+                label: this.textAutoTextName,
+                description: this.textAutoTextHelp,
+                value: (text || '').trim().split(/\s+/)[0].substr(0, 24),
+                inputConfig: {
+                    allowBlank: false,
+                    validation: function(value) { return /\s/.test(value) ? me.textAutoTextNoSpace : true; }
+                },
+                handler: function(result, value) {
+                    result === 'ok' && me.saveAutoText(value, text, data);
+                    me.api.asc_enableKeyEvents(true);
+                    Common.NotificationCenter.trigger('edit:complete');
+                }
+            })).show();
+        },
+
+        saveAutoText: function(name, text, data) {
+            try {
+                var names = JSON.parse(window.localStorage.getItem('eo-autotext-index') || '[]');
+                window.localStorage.setItem('eo-autotext:' + name, JSON.stringify({data: data, text: text}));
+                names.indexOf(name) < 0 && names.push(name);
+                window.localStorage.setItem('eo-autotext-index', JSON.stringify(names));
+                this.showHint(Common.Utils.String.format(this.textAutoTextSaved, name), 5000);
+            } catch (e) {
+                this.showHint(this.textAutoTextFailed, 5000);
+            }
+        },
+
         textMoveTo: 'Move to where? Press Enter',
         textCopyTo: 'Copy to where? Press Enter',
         textSpike: 'Spike: {0}',
-        textSpikeEmpty: 'The Spike is empty'
-    });
+        textSpikeEmpty: 'The Spike is empty',
+        textAutoTextTitle: 'Create AutoText',
+        textAutoTextName: 'Name:',
+        textAutoTextHelp: 'To insert it, type the name and press Enter.',
+        textAutoTextNoSpace: 'The name cannot contain spaces',
+        textAutoTextSaved: 'AutoText "{0}" saved. Type its name and press Enter to insert it',
+        textAutoTextFailed: 'The AutoText could not be saved in this browser'
+    }, DE.Controllers.WordEditKeys || {}));
 });
