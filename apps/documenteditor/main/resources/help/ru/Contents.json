@@ -72,7 +72,7 @@
     {"src":"UsageInstructions/SavePrintDownload.htm", "name": "Сохранение/скачивание/печать документа" },
     {"src":"HelpfulHints/AdvancedSettings.htm", "name": "Дополнительные параметры редактора документов" },
     {"src": "HelpfulHints/Navigation.htm", "name": "Параметры представления и инструменты навигации" },
-    {"src": "HelpfulHints/Viewer.htm", "name": "Просмотрщик документов ONLYOFFICE"},
+    {"src": "HelpfulHints/Viewer.htm", "name": "Просмотрщик документов ElixirOffice"},
     {"src":"HelpfulHints/Search.htm", "name": "Функция поиска и замены"},
     { "src": "HelpfulHints/SpellChecking.htm", "name": "Проверка орфографии" },    
     {"src": "UsageInstructions/MathAutoCorrect.htm", "name": "Функции автозамены" },

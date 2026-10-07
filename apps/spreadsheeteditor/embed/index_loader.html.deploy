@@ -194,7 +194,7 @@
                     '<div id="id-error-mask" class="errormask">',
                         '<div class="error-body" align="center">',
                             '<div id="id-error-mask-title" class="title">Your browser is not supported.</div>',
-                            '<div id="id-error-mask-text">Sorry, ONLYOFFICE Document is currently only supported in the latest versions of the Chrome, Firefox, Safari or Internet Explorer web browsers.</div>',
+                            '<div id="id-error-mask-text">Sorry, ElixirOffice Document is currently only supported in the latest versions of the Chrome, Firefox, Safari or Internet Explorer web browsers.</div>',
                         '</div>',
                     '</div>'
                 );
@@ -337,7 +337,7 @@
                   '<div id="id-error-mask" class="errormask">',
                       '<div class="error-body" align="center">',
                           '<div id="id-error-mask-title" class="title">Your browser is not supported.</div>',
-                          '<div id="id-error-mask-text">Sorry, ONLYOFFICE Document is currently only supported in the latest versions of the Chrome, Firefox, Safari or Internet Explorer web browsers.</div>',
+                          '<div id="id-error-mask-text">Sorry, ElixirOffice Document is currently only supported in the latest versions of the Chrome, Firefox, Safari or Internet Explorer web browsers.</div>',
                       '</div>',
                   '</div>'
               );

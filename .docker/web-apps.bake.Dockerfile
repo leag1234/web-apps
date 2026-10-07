@@ -22,7 +22,7 @@ FROM web-base AS web-apps
     ARG BUILD_ROOT=/package
     # Theme directory under theme/; a brand can provide its own through the
     # brand-icons context (/web-apps/theme/<THEME>).
-    ARG THEME=euro-office
+    ARG THEME=elixiroffice
 
     COPY web-apps/build/package*.json /app/build/
 

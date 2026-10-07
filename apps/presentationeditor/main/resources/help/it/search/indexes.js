@@ -43,7 +43,7 @@ var indexes =
    {
         "id": "HelpfulHints/UsingChat.htm", 
         "title": "Using the Chat Tool", 
-        "body": "ONLYOFFICE Presentation Editor offers you the possibility to chat with other users to share ideas concerning particular presentation parts. To access the chat and leave a message for other users, click the icon at the left sidebar, enter your text into the corresponding field below, press the Send button. All the messages left by users will be displayed on the panel on the left. If there are new messages you haven't read yet, the chat icon will look like this - . To close the panel with chat messages, click the icon once again."
+        "body": "ElixirOffice Presentation Editor offers you the possibility to chat with other users to share ideas concerning particular presentation parts. To access the chat and leave a message for other users, click the icon at the left sidebar, enter your text into the corresponding field below, press the Send button. All the messages left by users will be displayed on the panel on the left. If there are new messages you haven't read yet, the chat icon will look like this - . To close the panel with chat messages, click the icon once again."
     },
    {
         "id": "ProgramInterface/CollaborationTab.htm", 

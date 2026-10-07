@@ -91,7 +91,7 @@
     {"src": "UsageInstructions/SavePrintDownload.htm", "name": "Salve, baixe, imprima seu documento"},
     {"src": "HelpfulHints/AdvancedSettings.htm", "name": "Configurações Avançadas do Editor de Documentos"},
     {"src": "HelpfulHints/Navigation.htm", "name": "Exibir configurações e ferramentas de navegação"},
-    {"src": "HelpfulHints/Viewer.htm", "name": "Visualizador de documentos do ONLYOFFICE"},
+    {"src": "HelpfulHints/Viewer.htm", "name": "Visualizador de documentos do ElixirOffice"},
     {"src": "HelpfulHints/Search.htm", "name": "Função Pesquisar e Substituir"},
     {"src": "HelpfulHints/SpellChecking.htm", "name": "Verificação ortográfica"},
 	{"src": "UsageInstructions/MathAutoCorrect.htm", "name": "Recursos de Autocorreção"},

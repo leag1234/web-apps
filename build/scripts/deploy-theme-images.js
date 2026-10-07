@@ -20,7 +20,7 @@
 // Copies theme images into BUILD_ROOT, overwriting stock versions.
 //
 // Run after grunt (and after inline-svgs.js):
-//   THEME=euro-office node scripts/deploy-theme-images.js
+//   THEME=elixiroffice node scripts/deploy-theme-images.js
 //
 // Soft-skips (exit 0) if the theme img directory does not exist — supports
 // local dev where the theme repo may be absent.
@@ -32,7 +32,7 @@ const REPO_ROOT  = path.resolve(__dirname, '..', '..');
 const BUILD_ROOT = process.env.BUILD_ROOT
     ? path.resolve(process.env.BUILD_ROOT)
     : path.resolve(REPO_ROOT, 'deploy');
-const THEME      = process.env.THEME || 'euro-office';
+const THEME      = process.env.THEME || 'elixiroffice';
 
 const IMG_SRC = path.join(REPO_ROOT, 'theme', THEME, 'assets', 'img');
 

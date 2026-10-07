@@ -84,7 +84,7 @@
     {"src": "UsageInstructions/SavePrintDownload.htm", "name": "Belgenizi kaydedin, indirin, yazdırın"},
     {"src": "HelpfulHints/AdvancedSettings.htm", "name": "Belge Düzenleyicisinin Gelişmiş Ayarları"},
     {"src": "HelpfulHints/Navigation.htm", "name": "Görünüm Ayarları ve Gezinme Araçları"},
-    {"src": "HelpfulHints/Viewer.htm", "name": "ONLYOFFICE Belge Görüntüleyicisi"},
+    {"src": "HelpfulHints/Viewer.htm", "name": "ElixirOffice Belge Görüntüleyicisi"},
     {"src": "HelpfulHints/Search.htm", "name": "Arama ve Değiştirme İşlevi"},
     {"src": "HelpfulHints/SpellChecking.htm", "name": "Yazım denetimi"},
 	{"src": "UsageInstructions/MathAutoCorrect.htm", "name": "Otomatik Düzeltme Özellikleri"},

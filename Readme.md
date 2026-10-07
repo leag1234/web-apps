@@ -2,7 +2,7 @@
 
 ## web-apps
 
-The frontend for [Euro-Office Document Server][2] and [Euro-Office Desktop Editors](https://github.com/Euro-Office/DesktopEditors). Builds the program interface and allows the user create, edit, save and export text documents, spreadsheets, and presentations.
+The frontend for [ElixirOffice Document Server][2] and [ElixirOffice Desktop Editors](https://github.com/elixiroffice/DesktopEditors). Builds the program interface and allows the user create, edit, save and export text documents, spreadsheets, and presentations.
 
 ## Previous versions
 
@@ -10,20 +10,20 @@ Until 2019-10-23 the repository was called web-apps-pro.
 
 ## Project information
 
-Official website: [https://github.com/Euro-Office](https://github.com/Euro-Office "https://github.com/Euro-Office")
+Official website: [https://github.com/elixiroffice](https://github.com/elixiroffice "https://github.com/elixiroffice")
 
-Code repository: [https://github.com/Euro-Office/web-apps](https://github.com/Euro-Office/web-apps "https://github.com/Euro-Office/web-apps")
+Code repository: [https://github.com/elixiroffice/web-apps](https://github.com/elixiroffice/web-apps "https://github.com/elixiroffice/web-apps")
 
 ## User feedback and support
 
-If you have any problems with or questions about [Euro-Office Document Server][2], please visit our official forum: [github.com/euro-office][1] or you can ask and answer Euro-Office development questions on [Stack Overflow][3].
+If you have any problems with or questions about [ElixirOffice Document Server][2], please visit our official forum: [github.com/elixiroffice][1] or you can ask and answer ElixirOffice development questions on [Stack Overflow][3].
 
-  [1]: https://github.com/Euro-Office
-  [2]: https://github.com/Euro-Office/DocumentServer
+  [1]: https://github.com/elixiroffice
+  [2]: https://github.com/elixiroffice/DocumentServer
 
 ## Styling
 
-Styling is accomplished via LESS, there is the content set by Euro-Office. Before you do anything, please read the section under this about modifications.
+Styling is accomplished via LESS, there is the content set by ElixirOffice. Before you do anything, please read the section under this about modifications.
 
 There are several hundred LESS files, organised in several folders:
 
@@ -98,14 +98,14 @@ Run `docker compose` from the `euro-office/fork/build` directory:
 docker compose exec eo bash
 
 # Then inside the container:
-export BUILD_NUMBER=0 PRODUCT_VERSION=9.3.2 THEME=euro-office && cd /var/www/onlyoffice/web-apps-develop/build && node scripts/build-pipeline.js
+export BUILD_NUMBER=0 PRODUCT_VERSION=9.3.2 THEME=elixiroffice && cd /var/www/onlyoffice/web-apps-develop/build && node scripts/build-pipeline.js
 ```
 
 ### Environment Variables
 
 | Variable | Description |
 |----------|-------------|
-| `THEME` | Theme name to use (e.g., `euro-office`, `default`) |
+| `THEME` | Theme name to use (e.g., `elixiroffice`, `default`) |
 | `BUILD_NUMBER` | Build number for versioning |
 | `PRODUCT_VERSION` | Must match the SDK version (e.g., `9.3.2`) — mismatches cause a blank editor |
 | `BUILD_ROOT` | Output directory (default: `../deploy`) |
@@ -118,7 +118,7 @@ To build this project execute the following commands
 ```shell
 cd build
 npm install
-PRODUCT_VERSION=9.3.2 BUILD_ROOT=/path/to/output THEME=euro-office node scripts/build-pipeline.js
+PRODUCT_VERSION=9.3.2 BUILD_ROOT=/path/to/output THEME=elixiroffice node scripts/build-pipeline.js
 ```
 
 ### Building to specified directory
@@ -126,7 +126,7 @@ PRODUCT_VERSION=9.3.2 BUILD_ROOT=/path/to/output THEME=euro-office node scripts/
 A build directory can be specified via `BUILD_ROOT`:
 
 ```shell
-BUILD_ROOT=/path/to/build PRODUCT_VERSION=9.3.2 THEME=euro-office node scripts/build-pipeline.js
+BUILD_ROOT=/path/to/build PRODUCT_VERSION=9.3.2 THEME=elixiroffice node scripts/build-pipeline.js
 ```
 
 
@@ -169,7 +169,7 @@ We want to make upstream updates as painless as possible. From the perspective o
 Each theme is a self-contained folder under `theme/` at the web-apps root:
 
 ```
-theme/euro-office/
+theme/elixiroffice/
   meta/
     config.json           # Brand values (company name, URLs, logo filenames)
   assets/
@@ -188,16 +188,16 @@ Resolution priority for every field is: **environment variable > config.json > h
 
 ```json
 {
-  "company_name": "Euro Office",
-  "publisher_name": "Euro Office",
-  "publisher_url": "https://github.com/Euro-Office",
+  "company_name": "ElixirOffice",
+  "publisher_name": "ElixirOffice",
+  "publisher_url": "https://github.com/elixiroffice",
   "publisher_address": "",
   "publisher_phone": "",
   "sales_email": "",
   "support_email": "",
-  "support_url": "https://github.com/Euro-Office",
-  "help_url": "https://github.com/Euro-Office",
-  "app_title": "Euro Office",
+  "support_url": "https://github.com/elixiroffice",
+  "help_url": "https://github.com/elixiroffice",
+  "app_title": "ElixirOffice",
   "attribution": "Euro-Office was based on ONLYOFFICE by Ascensio System SIA",
   "mobile_logo_light": "eo_logo_light.svg",
   "mobile_logo_dark": "eo_logo_dark.svg",
@@ -211,7 +211,7 @@ To add a new field: add the key here, wire it in `build/theme.config.mjs` (`them
 #### Build
 
 ```shell
-THEME=euro-office PRODUCT_VERSION=9.3.2 BUILD_ROOT=/path/to/output node scripts/build-pipeline.js
+THEME=elixiroffice PRODUCT_VERSION=9.3.2 BUILD_ROOT=/path/to/output node scripts/build-pipeline.js
 ```
 
 The pipeline's `deploy-theme-images` step:
@@ -223,7 +223,7 @@ Token substitution (`{{PUBLISHER_NAME}}` etc.) and webpack `DefinePlugin` consta
 
 #### Creating a new theme
 
-1. Copy `theme/euro-office/` to `theme/yourtheme/`
+1. Copy `theme/elixiroffice/` to `theme/yourtheme/`
 2. Edit `meta/config.json` with your brand values
 3. Replace logo SVGs in `assets/img/header/`
 4. Adjust LESS variables in `assets/less/theme.less`

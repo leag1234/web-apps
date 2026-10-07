@@ -1,10 +1,10 @@
 # Themes & branding
 
-Each subdirectory here is a theme (e.g. `euro-office`, the default). A theme supplies brand
+Each subdirectory here is a theme (e.g. `elixiroffice`, the default). A theme supplies brand
 assets and a `meta/config.json`; branding is applied at build time, so there is no
 hard-coded brand text or logo in the editor templates.
 
-Select a theme with the `THEME` environment variable (defaults to `euro-office`).
+Select a theme with the `THEME` environment variable (defaults to `elixiroffice`).
 
 ## How branding is applied
 
@@ -18,7 +18,7 @@ the active theme's brand.
 
 | Token | Resolves to | Config key (fallback) |
 |-------|-------------|-----------------------|
-| `{{APP_TITLE_TEXT}}` | `<title>` brand prefix, e.g. "Euro Office Document Editor" | `app_title` |
+| `{{APP_TITLE_TEXT}}` | `<title>` brand prefix, e.g. "ElixirOffice Document Editor" | `app_title` |
 | `{{LOADER_LOGO}}` | Splash logo on a light background | `loader_logo` (`dark-logo_s.svg`) |
 | `{{LOADER_LOGO_DARK}}` | Splash logo on a dark background | `loader_logo_dark` (`header-logo_s.svg`) |
 

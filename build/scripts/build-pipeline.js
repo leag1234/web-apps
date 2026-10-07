@@ -16,10 +16,10 @@
 
 'use strict';
 
-// Full grunt-free build pipeline for Euro Office web-apps.
+// Full grunt-free build pipeline for ElixirOffice web-apps.
 //
 // Usage (from web-apps/build/):
-//   PRODUCT_VERSION=9.2.1 BUILD_ROOT=/var/www/... THEME=euro-office node scripts/build-pipeline.js
+//   PRODUCT_VERSION=9.2.1 BUILD_ROOT=/var/www/... THEME=elixiroffice node scripts/build-pipeline.js
 //
 // Options (env vars):
 //   PRODUCT_VERSION  required; rejected if major < 6
@@ -230,7 +230,7 @@ async function main() {
     const wallStart = Date.now();
 
     process.stdout.write([
-        BOLD('Euro Office web-apps build pipeline'),
+        BOLD('ElixirOffice web-apps build pipeline'),
         `  BUILD_ROOT       ${BUILD_ROOT}`,
         `  PRODUCT_VERSION  ${PRODUCT_VERSION}`,
         `  BUILD_NUMBER     ${BUILD_NUMBER}`,

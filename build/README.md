@@ -1,4 +1,4 @@
-# Euro Office — build system
+# ElixirOffice — build system
 
 > **For AI assistants:** This document is the authoritative source for the build pipeline.
 > Read it in full before modifying any file under `build/`. Cross-reference
@@ -15,7 +15,7 @@ the webpack 5 build system.
 ```bash
 # In the eo container (or any machine with Node 20 + BUILD_ROOT set):
 cd /develop/web-apps/build
-PRODUCT_VERSION=9.2.1 BUILD_ROOT=/var/www/onlyoffice/documentserver THEME=euro-office \
+PRODUCT_VERSION=9.2.1 BUILD_ROOT=/var/www/onlyoffice/documentserver THEME=elixiroffice \
   node scripts/build-pipeline.js
 ```
 
@@ -65,10 +65,10 @@ Phase 5 — gates (fail the build loudly)
 
 | Variable | Required | Default | Notes |
 |---|---|---|---|
-| `PRODUCT_VERSION` | **yes** | — | e.g. `9.2.1`. Rejected if major < 6 (EuroOffice ≥ 6 gate). |
+| `PRODUCT_VERSION` | **yes** | — | e.g. `9.2.1`. Rejected if major < 6 (ElixirOffice ≥ 6 gate). |
 | `BUILD_ROOT` | **yes** | `../deploy` | Absolute path to DocumentServer output root. |
 | `BUILD_NUMBER` | no | `GITHUB_RUN_NUMBER` → `common.json.build` | Appended to version string in JS bundles. Auto-increments in CI via `GITHUB_RUN_NUMBER`. |
-| `THEME` | no | `default` | Theme directory name under `theme/`. EuroOffice uses `euro-office`. |
+| `THEME` | no | `default` | Theme directory name under `theme/`. ElixirOffice uses `elixiroffice`. |
 | `NODE_ENV` | no | `production` | Build mode, forced onto every child. `development` = unminified, `console` kept, esbuild minifier off for mobile (so the ES target + `drop_console` do NOT run — never validate a fix on a dev build). The pipeline echoes the resolved mode in its banner (green prod / red DEV warning). |
 | `WATCH` | no | `0` | `1` = mobile webpack watch mode (live rebuild). Decoupled from `NODE_ENV`; for direct `build.js` runs only — the pipeline would hang on a watching child. |
 | `APP_COPYRIGHT` | no | auto | Copyright line in JS preamble. |
@@ -95,7 +95,7 @@ Copies SDK assets (sdkjs), api.js (with
 and vendor scripts (jQuery, socket.io, xregexp, underscore, iscroll, fetch,
 es6-promise, requirejs-terser, common-embed, monaco).
 
-**Requires `PRODUCT_VERSION`** — used in api.js which EuroOffice checks at load time.
+**Requires `PRODUCT_VERSION`** — used in api.js which ElixirOffice checks at load time.
 
 ### `deploy-html.js`
 Copies `*.html.deploy` → `*.html` for all 6 editor dirs (5 editors/main +
@@ -265,7 +265,7 @@ directly; env-var validation lives in the orchestrator.
 
 ### 3. Makefile update (DocumentServer repo) ✓ done
 `develop/setup/Makefile` calls `build-pipeline.js`. Follow-up tracked in
-Euro-Office/DocumentServer#259: split into explicit `web-apps` / `web-apps-prod` /
+ElixirOffice/DocumentServer#259: split into explicit `web-apps` / `web-apps-prod` /
 `web-apps-dev` (mode-in-recipe) targets so the build mode can't be flipped silently
 by the shell environment.
 

@@ -1,7 +1,7 @@
 name: E2E (overlay on nightly)
 
 # Builds web-apps, overlays the fresh build onto the published
-# ghcr.io/euro-office/documentserver:nightly image, and runs the DocumentServer
+# ghcr.io/elixiroffice/documentserver:nightly image, and runs the DocumentServer
 # Playwright e2e suite against it. Fast feedback on a web-apps change against
 # the full stack without rebuilding core/server/sdkjs.
 on:
@@ -19,8 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NIGHTLY_IMAGE: ghcr.io/euro-office/documentserver:nightly
-  OVERLAY_IMAGE: euro-office/documentserver:e2e-web-apps
+  NIGHTLY_IMAGE: ghcr.io/elixiroffice/documentserver:nightly
+  OVERLAY_IMAGE: elixiroffice/documentserver:e2e-web-apps
 
 jobs:
   e2e:
@@ -40,14 +40,14 @@ jobs:
         uses: actions/checkout@v4
         continue-on-error: true
         with:
-          repository: Euro-Office/DocumentServer
+          repository: ElixirOffice/DocumentServer
           path: documentserver
           ref: ${{ github.head_ref || github.ref_name }}
       - name: Check out DocumentServer e2e (main)
         if: steps.docserver.outcome != 'success'
         uses: actions/checkout@v4
         with:
-          repository: Euro-Office/DocumentServer
+          repository: ElixirOffice/DocumentServer
           path: documentserver
           ref: main
 
@@ -90,7 +90,7 @@ jobs:
         working-directory: web-apps/build
         env:
           BUILD_ROOT: ${{ github.workspace }}/web-apps/deploy
-          THEME: euro-office
+          THEME: elixiroffice
           PRODUCT_VERSION: ${{ steps.ver.outputs.product_version }}
         run: |
           npm install

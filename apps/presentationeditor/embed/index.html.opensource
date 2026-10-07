@@ -74,7 +74,7 @@
               </div>
           </div>
           <div class="group center">
-              <span><a id="header-logo" class="brand-logo" href="http://www.onlyoffice.com/" target="_blank"></a></span>
+              <span><a id="header-logo" class="brand-logo" href="https://github.com/elixiroffice" target="_blank"></a></span>
           </div>
           <div class="group right">
               <div class="item"><input id="page-number" class="form-control input-xs masked" type="text" value="0"><span class="text" id="pages" tabindex="-1">of 0</span></div>
@@ -216,7 +216,7 @@
                   '<div id="id-error-mask" class="errormask">',
                       '<div class="error-body" align="center">',
                           '<div id="id-error-mask-title" class="title">Your browser is not supported.</div>',
-                          '<div id="id-error-mask-text">Sorry, ONLYOFFICE Document is currently only supported in the latest versions of the Chrome, Firefox, Safari or Internet Explorer web browsers.</div>',
+                          '<div id="id-error-mask-text">Sorry, ElixirOffice Document is currently only supported in the latest versions of the Chrome, Firefox, Safari or Internet Explorer web browsers.</div>',
                       '</div>',
                   '</div>'
               );

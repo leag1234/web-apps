@@ -16,14 +16,14 @@ jobs:
           - name: Checkout web-apps
             uses: actions/checkout@v3
             with:
-                repository: euro-office/web-apps
+                repository: elixiroffice/web-apps
                 ref: ${{github.ref}}
                 path: 'web-apps'
 
           - name: Checkout SDKJS
             uses: actions/checkout@v3
             with:
-                repository: euro-office/sdkjs
+                repository: elixiroffice/sdkjs
                 ref: ${{env.REF}}
                 path: 'sdkjs'
                 fetch-depth: '1'
@@ -47,5 +47,5 @@ jobs:
             working-directory: web-apps/build
             env:
                 BUILD_ROOT: ${{ github.workspace }}/web-apps/deploy
-                THEME: euro-office
+                THEME: elixiroffice
             run: node scripts/build-pipeline.js

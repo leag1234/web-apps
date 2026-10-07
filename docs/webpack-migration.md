@@ -21,7 +21,7 @@ Branch: `build/webpack-migration`. Merged: 2026-06-15.
 
 ```bash
 # In the eo container, from web-apps/build/
-PRODUCT_VERSION=9.2.1 BUILD_ROOT=/var/www/onlyoffice/documentserver THEME=euro-office node scripts/build-pipeline.js
+PRODUCT_VERSION=9.2.1 BUILD_ROOT=/var/www/onlyoffice/documentserver THEME=elixiroffice node scripts/build-pipeline.js
 
 # Or via Makefile — invoke inside the eo container from the host:
 docker exec eo make web-apps
@@ -58,12 +58,12 @@ The ordering invariant: `deploy-html` must complete before `inline-svgs` runs. N
 
 ## Theme overrides
 
-Theme-specific LESS lives entirely in `theme/euro-office/assets/less/`. The build compiles it into each editor's CSS bundle automatically — no build changes are needed when adding new overrides.
+Theme-specific LESS lives entirely in `theme/elixiroffice/assets/less/`. The build compiles it into each editor's CSS bundle automatically — no build changes are needed when adding new overrides.
 
 ### How it works
 
 ```
-theme/euro-office/assets/less/
+theme/elixiroffice/assets/less/
   theme.less          ← entry: brand variables + @import "overrides.less"
   overrides.less      ← @import each override file
   overrides/
@@ -75,7 +75,7 @@ At build time, `theme.config.mjs` writes a one-line redirector stub:
 
 ```
 apps/common/main/resources/less/_theme-main.less
-  → @import "../../../../../theme/euro-office/assets/less/theme.less";
+  → @import "../../../../../theme/elixiroffice/assets/less/theme.less";
 ```
 
 Each editor's `app.less` ends with `@import "../../../../common/main/resources/less/_theme-main.less";`. This pulls theme variables and overrides into the same LESS compilation scope, so theme variables get last-write-wins precedence over upstream defaults.
@@ -84,8 +84,8 @@ The stub is a redirector (not a copy) so that `theme.less`'s own relative `@impo
 
 ### Adding a new theme override
 
-1. Create `theme/euro-office/assets/less/overrides/<name>.less`
-2. Add `@import "overrides/<name>";` to `theme/euro-office/assets/less/overrides.less`
+1. Create `theme/elixiroffice/assets/less/overrides/<name>.less`
+2. Add `@import "overrides/<name>";` to `theme/elixiroffice/assets/less/overrides.less`
 3. Done — no changes to `build/` or `apps/` required
 
 ### CSS output path
@@ -100,7 +100,7 @@ These took significant debugging to find. Read before touching the build.
 
 ### 1. `PRODUCT_VERSION` must be ≥ 6
 
-EuroOffice rejects editors reporting a version below 6. The fallback in `common.json` is `4.3.0`. Always set `PRODUCT_VERSION` explicitly. The pipeline will fail fast if it's missing or too low.
+ElixirOffice rejects editors reporting a version below 6. The fallback in `common.json` is `4.3.0`. Always set `PRODUCT_VERSION` explicitly. The pipeline will fail fast if it's missing or too low.
 
 ### 2. `mangle: false` is not optional
 
@@ -250,7 +250,7 @@ The Tier-1 gates (verify-replacements preflight + verify-bundles/verify-deploy/v
 ## Tracked follow-ups
 
 - [#106](https://github.com/Euro-Office/web-apps/issues/106) — Replace grunt-inline SVG/script embedding with cached external assets (duplicate copyright headers, no independent caching)
-- [#107](https://github.com/Euro-Office/web-apps/issues/107) — Evaluate esbuild as TerserPlugin replacement for mobile builds ✅ resolved 2026-06-17
+- [#107](https://github.com/elixiroffice/web-apps/issues/107) — Evaluate esbuild as TerserPlugin replacement for mobile builds ✅ resolved 2026-06-17
 
 ---
 

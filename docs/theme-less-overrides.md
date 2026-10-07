@@ -7,7 +7,7 @@ How brand/theme CSS is compiled into each editor bundle.
 ## File layout
 
 ```
-theme/euro-office/assets/less/
+theme/elixiroffice/assets/less/
   theme.less          ← entry: brand variables (@nc-primary etc.) + @import "overrides.less"
   overrides.less      ← @import each override file
   overrides/
@@ -27,7 +27,7 @@ adding a file and one `@import` line — nothing in `build/` or `apps/` changes.
 
 ```
 apps/common/main/resources/less/_theme-main.less
-  → @import "../../../../../theme/euro-office/assets/less/theme.less";
+  → @import "../../../../../theme/elixiroffice/assets/less/theme.less";
 ```
 
 Each editor's `app.less` imports the stub at the end:
@@ -57,8 +57,8 @@ in its original location, so all of its relative imports resolve correctly.
 
 ## Adding a new override
 
-1. Create `theme/euro-office/assets/less/overrides/<name>.less`
-2. Add `@import "overrides/<name>";` to `theme/euro-office/assets/less/overrides.less`
+1. Create `theme/elixiroffice/assets/less/overrides/<name>.less`
+2. Add `@import "overrides/<name>";` to `theme/elixiroffice/assets/less/overrides.less`
 3. Rebuild — the new rules appear in every editor's `app.css`
 
 No changes to `build/` or `apps/` are needed.
@@ -69,7 +69,7 @@ No changes to `build/` or `apps/` are needed.
 
 `url()` references in override LESS (e.g. `icon-document.svg`) are relative to
 the compiled CSS output file, which sits at `apps/<editor>/main/app.css`. Theme
-images are deployed from `theme/euro-office/assets/img/` to `BUILD_ROOT` by
+images are deployed from `theme/elixiroffice/assets/img/` to `BUILD_ROOT` by
 `deploy-theme-images.js` (Phase 2 of the build pipeline). The path convention in
 `overrides/header.less` uses `@{common-image-const-path}/header/…`, which expands
 to `../../../../common/main/resources/img/header/…` relative to the CSS file.

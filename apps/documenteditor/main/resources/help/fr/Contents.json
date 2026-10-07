@@ -251,7 +251,7 @@
         "src": "HelpfulHints/Navigation.htm",
         "name": "Paramètres d'affichage et outils de navigation"
     },
-    {"src": "HelpfulHints/Viewer.htm", "name": "Lecteur de documents ONLYOFFICE"},
+    {"src": "HelpfulHints/Viewer.htm", "name": "Lecteur de documents ElixirOffice"},
   {
     "src": "HelpfulHints/Search.htm",
     "name": "Fonctions de recherche et remplacement"

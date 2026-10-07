@@ -92,7 +92,7 @@
   { "src": "UsageInstructions/SavePrintDownload.htm", "name": "Dokument speichern/runterladen/drucken" },
   { "src": "HelpfulHints/AdvancedSettings.htm", "name": "Erweiterte Einstellungen des Dokumenteneditors" },
   { "src": "HelpfulHints/Navigation.htm", "name": "Ansichtseinstellungen und Navigationswerkzeuge" },
-  {"src": "HelpfulHints/Viewer.htm", "name": "ONLYOFFICE Document Viewer"},
+  {"src": "HelpfulHints/Viewer.htm", "name": "ElixirOffice Document Viewer"},
   { "src": "HelpfulHints/Search.htm", "name": "Suchen und Ersetzen" },
   { "src": "HelpfulHints/SpellChecking.htm", "name": "Rechtschreibprüfung" },
   { "src": "UsageInstructions/MathAutoCorrect.htm", "name": "AutoKorrekturfunktionen" },

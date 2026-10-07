@@ -95,7 +95,7 @@ const EDITORS = [
 // A file with the same <id> as a stock icon replaces it in the sprite (the
 // symbol id stays the same, so no JS/template change is needed); extra files
 // add new symbols. Without such a folder in the theme nothing changes.
-const THEME       = process.env.THEME || 'euro-office';
+const THEME       = process.env.THEME || 'elixiroffice';
 const THEME_ICONS = path.join(REPO_ROOT, 'theme', THEME, 'assets', 'icons', 'toolbar');
 
 function toolbarGlob(scope, sub) {

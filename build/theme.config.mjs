@@ -12,7 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // __dirname = web-apps/build/, so '..' reaches web-apps root
 const rootDir = path.join(__dirname, '..');
 
-const theme = process.env.THEME || 'euro-office';
+const theme = process.env.THEME || 'elixiroffice';
 const configPath = path.join(rootDir, 'theme', theme, 'meta', 'config.json');
 
 let meta = {};
