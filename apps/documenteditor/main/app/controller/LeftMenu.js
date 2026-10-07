@@ -139,7 +139,8 @@ define([
                 'ctrl+h': _.bind(this.onShortcut, this, 'replace'),
                 'esc': _.bind(this.onShortcut, this, 'escape'),
                 /** coauthoring begin **/
-                'command+shift+h,ctrl+shift+h': _.bind(this.onShortcut, this, 'comments')
+                // Ctrl+Shift+H is Hidden text in Word (WordEditKeys)
+                'command+shift+h': _.bind(this.onShortcut, this, 'comments')
                 /** coauthoring end **/
             };
             // F1 is Undo in Word for Mac

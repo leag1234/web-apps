@@ -10,7 +10,7 @@
  * Values come from and go to api.asc_GetFontDialogProps / asc_SetFontDialogProps (one undo step);
  * only the values the user changed are applied, so a mixed selection keeps its other formatting.
  * In styleMode (Modify Style > Format > Font...) the values are returned to the handler instead.
- * The engine has no underline styles other than single, no underline colour, character scale or
+ * The engine has no underline styles other than single, double and words only, no underline colour, character scale or
  * kerning: those controls show the Word layout but are disabled.
  */
 
@@ -173,9 +173,10 @@ define([
 
             this.cmbUnderline = new Common.UI.ComboBox({
                 el: $w.find('.wf-underline'), cls: 'input-group-nr', editable: false, menuStyle: 'min-width: 100%;',
-                data: [{value: 0, displayValue: t.txtNone}, {value: 1, displayValue: t.txtUnderlineSingle}]
+                data: [{value: 0, displayValue: t.txtNone}, {value: 1, displayValue: t.txtUnderlineSingle},
+                    {value: 10, displayValue: t.txtUnderlineDouble}, {value: 17, displayValue: t.txtUnderlineWords}]
             });
-            this.cmbUnderline.on('selected', function (c, r) { me.change('Underline', r.value === 1); });
+            this.cmbUnderline.on('selected', function (c, r) { me.change('Underline', r.value > 1 ? r.value : r.value === 1); });
             this.btnUnderlineColor = new Common.UI.Button({
                 parentEl: $w.find('.wf-underline-color'), cls: 'btn-text-menu-default word-font-ucolor', caption: t.txtAutomatic, disabled: true,
                 hint: t.txtNotSupported
@@ -303,7 +304,7 @@ define([
             }
             var srec = p.FontSize ? this.listSize.store.findWhere({size: p.FontSize}) : null;
             srec && this.listSize.selectRecord(srec, true);
-            this.cmbUnderline.setValue(p.Underline ? 1 : 0);
+            this.cmbUnderline.setValue(p.Underline > 1 ? p.Underline : (p.Underline ? 1 : 0));
             var set = function (c, v) { c.setValue(v === undefined ? 'indeterminate' : !!v, true); };
             set(this.chStrike, p.Strikeout);
             set(this.chDStrike, p.DStrikeout);
@@ -421,6 +422,8 @@ define([
         txtUnderlineColor: 'Underline color:',
         txtNone: '(none)',
         txtUnderlineSingle: 'Single',
+        txtUnderlineDouble: 'Double',
+        txtUnderlineWords: 'Words only',
         txtAutomatic: 'Automatic',
         txtNotSupported: 'Not available in this version',
         txtEffects: 'Effects',

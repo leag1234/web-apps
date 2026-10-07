@@ -53,6 +53,62 @@ define([
             this.api.asc_registerCallback('asc_onPasteSpecialDialog', function() { me.openPasteSpecial(); });
             // Alt, H, V, then K, M, T or S: the letters of the Paste menu (the KeyTips of Word)
             document.addEventListener('keydown', _.bind(this.onPasteMenuKey, this), true);
+            // keyboard in the print preview of the backstage (Print panel)
+            document.addEventListener('keydown', _.bind(this.onPreviewKey, this), true);
+            // Alt+F6, Home and End in the Comments pane
+            document.addEventListener('keydown', _.bind(this.onWindowKey, this), true);
+        },
+
+        // ---------------------------------------------------------------- Alt+F6, comments list
+        onWindowKey: function(e) {
+            var K = Common.UI.Keys;
+            if (e.keyCode === K.F6 && e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
+                // back to the document from a pane or dialog that does not take the whole window
+                // (a modal dialog keeps the focus until it is closed)
+                if (Common.Utils.ModalWindow.isVisible()) return;
+                e.preventDefault();
+                e.stopPropagation();
+                var a = document.activeElement;
+                a && a !== document.body && a.blur && a.blur();
+                this.api.asc_enableKeyEvents(true);
+                Common.NotificationCenter.trigger('edit:complete');
+                return;
+            }
+            // first and last comment of the Comments pane: Cmd+Home / Cmd+End (Ctrl elsewhere)
+            if ((e.keyCode === K.HOME || e.keyCode === K.END) && (Common.Utils.isMac ? e.metaKey && !e.ctrlKey : e.ctrlKey && !e.metaKey) && !e.altKey && !e.shiftKey &&
+                    $(document.activeElement).closest('#left-panel-comments').length && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) {
+                var cc = this.getApplication().getController('Common.Controllers.Comments');
+                if (!cc || !cc.collection) return;
+                var list = _.sortBy(cc.collection.filter(function(m) { return !m.get('hide') && !m.get('removed') && m.get('position') >= 0; }), function(m) { return m.get('position'); });
+                if (!list.length) return;
+                e.preventDefault();
+                e.stopPropagation();
+                var id = (e.keyCode === K.HOME ? list[0] : list[list.length - 1]).get('uid');
+                this.api.asc_selectComment(id);
+                this.api.asc_showComment(id);
+            }
+        },
+
+        // ---------------------------------------------------------------- print preview
+        // The preview shows one page fitted in the window, so the arrow keys, Page Up and Page Down move
+        // between pages; Ctrl+Home and Ctrl+End go to the first and the last page.
+        onPreviewKey: function(e) {
+            var print = this.getApplication().getController('Print');
+            if (!print || !print._isPreviewVisible || !print._navigationPreview || !$('#print-preview-box:visible').length) return;
+            var K = Common.UI.Keys, nav = print._navigationPreview, active = document.activeElement,
+                current = nav.currentPreviewPage, last = Math.max(0, nav.pageCount - 1), target;
+            if (e.altKey || e.metaKey || e.shiftKey) return;
+            // text boxes, combo lists and menus keep their keys
+            if (active && ((/^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName) && active.id !== 'area_id') || $(active).closest('.dropdown-menu, .combo-dataview, .menu-picker-container').length) || $('.dropdown-menu:visible').length) return;
+            if (e.ctrlKey) {
+                if (e.keyCode === K.HOME) target = 0;
+                else if (e.keyCode === K.END) target = last;
+            } else if (e.keyCode === K.PAGEDOWN || e.keyCode === K.RIGHT || e.keyCode === K.DOWN) target = Math.min(current + 1, last);
+            else if (e.keyCode === K.PAGEUP || e.keyCode === K.LEFT || e.keyCode === K.UP) target = Math.max(current - 1, 0);
+            if (target === undefined) return;
+            e.preventDefault();
+            e.stopPropagation();
+            target !== current && this.api.goToPage(target);
         },
 
         onPasteMenuKey: function(e) {

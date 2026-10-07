@@ -596,7 +596,7 @@ define([
 
         onApiUnderline: function(on) {
             if (this._state.underline !== on) {
-                this.toolbar.btnUnderline.toggle(on === true, true);
+                this.toolbar.btnUnderline.toggle(on === true || on > 1, true);
                 this._state.underline = on;
             }
         },

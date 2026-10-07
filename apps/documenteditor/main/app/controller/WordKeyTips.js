@@ -100,7 +100,8 @@ define([
             ['review.btnReviewView', 'TD'], ['review.btnAccept', 'A2'], ['review.btnReject', 'J'], ['review.btnCompare', 'M'],
             ['review.btnHistory', 'HI'],
             ['ribbon.btnRevSpelling', 'C1'], ['ribbon.btnRevWordCount', 'W'], ['ribbon.btnRevLanguage', 'U'],
-            ['ribbon.btnRevPrevComment', 'V'], ['ribbon.btnRevNextComment', 'N'], ['ribbon.btnRevTrack', 'G']
+            ['ribbon.btnRevPrevComment', 'V'], ['ribbon.btnRevNextComment', 'N'], ['ribbon.btnRevTrack', 'G'],
+            ['ribbon.btnRevShowComments', 'P']
         ],
         view: [
             ['viewtab.btnNavigation', 'K'], ['viewtab.btnZoom100', 'J'], ['viewtab.btnMultiplePages', 'M'],
