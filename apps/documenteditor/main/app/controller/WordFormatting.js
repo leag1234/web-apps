@@ -258,10 +258,13 @@ define([
                 var i = me.pasteOptionInfo(v);
                 items.push({caption: i.caption + ' (' + i.key + ')', iconCls: 'menu__icon ' + i.icon, value: v});
             });
+            // Alt, H, V, S: the Paste Special dialog
+            items.push({caption: this.textPasteSpecial + ' (S)', value: 'special'});
             var menu = new Common.UI.Menu({cls: 'word-paste-menu', items: items});
             btn.setMenu(menu);
             menu.on('item:click', function (m, item) {
-                item.value !== undefined && me.pasteWithOption(item.value);
+                if (item.value === 'special') me.getApplication().getController('WordEditKeys').openPasteSpecial();
+                else item.value !== undefined && me.pasteWithOption(item.value);
             });
             // the main part pastes too; replaces the handler of the Toolbar controller, which warns
             // that the clipboard is not reachable even when the asynchronous Clipboard API pastes
@@ -733,6 +736,7 @@ define([
         textLineSpacingOptions: 'Line Spacing Options...',
         textBordersShading: 'Borders and Shading...',
         textPasteOptions: 'Paste Options:',
+        textPasteSpecial: 'Paste Special...',
         textKeepSource: 'Keep Source Formatting',
         textMergeFormatting: 'Merge Formatting',
         textDestinationStyles: 'Use Destination Styles',
