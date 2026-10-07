@@ -29,134 +29,208 @@
  *  Created on 04/25/2017
  *
  */
-
 if (Common === undefined)
     var Common = {};
 
 define([], function () { 'use strict';
 
+    // Word-like Language dialog: the language of the cursor (or selection) on top, the recently used
+    // languages, a search field, then the whole list (native name, English name below, a check on
+    // the current one). The footer has "Set As Default" (document default language) and, below the
+    // list, "Do not check spelling" (the editor switch for spell checking, see Review > Spelling).
+    // handler(result, value, extra): result 'ok' | 'default' | 'cancel', value = language name
+    // (e.g. "en-US"), extra = {code, noSpell}.
     Common.Views.LanguageDialog = Common.UI.Window.extend(_.extend({
 
     options: {
-        header: false,
-        width: 350,
-        cls: 'modal-dlg',
-        buttons: ['ok', 'cancel']
+        header: true,
+        width: 400,
+        cls: 'modal-dlg lang-dlg',
+        id: 'window-language'
     },
 
-    template:   '<div class="box">' +
-        '<div class="input-row">' +
-        '<label><%= label %></label>' +
-        '</div>' +
-        '<div class="input-row" id="id-document-language">' +
-        '</div>' +
-        '</div>',
-
     initialize : function(options) {
-        _.extend(this.options, options || {}, {
-            label: this.labelSelect
-        });
-        this.options.tpl = _.template(this.template)(this.options);
-
-        Common.UI.Window.prototype.initialize.call(this, this.options);
+        var opts = _.extend({}, this.options, options || {});
+        var buttons = [];
+        opts.showDefault && buttons.push({value: 'default', caption: this.txtSetDefault, cls: 'lang-dlg-default'});
+        buttons.push('ok', 'cancel');
+        opts.buttons = buttons;
+        opts.title = opts.title || this.txtTitle;
+        opts.footerCls = 'center';
+        opts.tpl = _.template([
+            '<div class="box">',
+                '<label class="input-label lang-dlg-label"><%= label %></label>',
+                '<div id="lang-dlg-search"></div>',
+                '<div class="lang-dlg-list" id="lang-dlg-list" role="listbox" tabindex="-1"></div>',
+                '<% if (showNoSpell) { %><div id="lang-dlg-nospell"></div><% } %>',
+            '</div>'
+        ].join(''))({label: this.labelMark, showNoSpell: opts.showNoSpell !== false});
+        this.options = opts;
+        Common.UI.Window.prototype.initialize.call(this, opts);
     },
 
     render: function() {
         Common.UI.Window.prototype.render.call(this);
 
-        var $window = this.getChild();
+        var me = this, $window = this.getChild();
         $window.find('.dlg-btn').on('click', _.bind(this.onBtnClick, this));
 
-        var lckey = "app-settings-recent-langs";
-        this.cmbLanguage = new Common.UI.ComboBoxRecent({
-            el: $window.find('#id-document-language'),
-            cls: 'input-group-nr',
-            menuCls: 'shifted-right',
-            menuStyle: 'min-width: 318px; max-height: 285px;',
-            editable: false,
-            recent: {
-                count: Common.Utils.InternalSettings.get(lckey + "-count") || 5,
-                offset: Common.Utils.InternalSettings.get(lckey + "-offset") || 0,
-                key: lckey,
-                valueField: 'value'
-            },
-            template: _.template([
-                '<span class="input-group combobox <%= cls %> combo-langs" id="<%= id %>" style="<%= style %>">',
-                    '<input type="text" class="form-control">',
-                    '<svg class="icon uni-scale input-icon spellcheck-lang"><use href="#btn-ic-docspell"></use></svg>',
-                    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
-                        '<span class="caret" />',
-                    '</button>',
-                    '<ul class="dropdown-menu <%= menuCls %>" style="<%= menuStyle %>" role="menu">',
-                    '</ul>',
-                '</span>'
-            ].join('')),
-            itemTemplate: _.template([
-                '<li id="<%= id %>" data-value="<%= value %>">',
-                    '<a tabindex="-1" type="menuitem" langval="<%= value %>">',
-                        '<div>',
-                            '<svg class="icon uni-scale<% if (spellcheck) { %> spellcheck-lang<% } %>"><% if (spellcheck) { %><use href="#btn-ic-docspell"></use><% } %></svg>',
-                            '<%= displayValue %>',
-                        '</div>',
-                        '<label style="opacity: 0.6"><%= displayValueEn %></label>',
-                    '</a>',
-                '</li>'].join('')),
-            data: this.options.languages,
-            takeFocusOnClose: true,
-            search: true,
-            searchFields: ['displayValue', 'displayValueEn'],
-            scrollAlwaysVisible: true
+        this.languages = this.options.languages || [];
+        this.current = _.findWhere(this.languages, {code: parseInt(this.options.current)});
+        this.selected = this.current || this.languages[0];
+        this.selKey = this.selected ? (this.current ? 'current:' : 'all:') + this.selected.code : null;
+        this.$list = $window.find('#lang-dlg-list');
+
+        this.inputSearch = new Common.UI.InputField({
+            el: $window.find('#lang-dlg-search'),
+            allowBlank: true,
+            placeHolder: this.txtSearch,
+            validateOnChange: true,
+            style: 'width: 100%;',
+            value: ''
         });
+        this.inputSearch.on('changing', function(input, value) { me.filter = $.trim(value || '').toLowerCase(); me.fillList(); });
+        this.inputSearch.cmpEl && this.inputSearch.cmpEl.find('input').attr({'aria-label': this.txtSearch, role: 'searchbox'}).on('keydown', _.bind(this.onSearchKey, this));
 
-        if (this.cmbLanguage.scroller) this.cmbLanguage.scroller.update({alwaysVisibleY: true});
-        this.cmbLanguage.on('selected', _.bind(this.onLangSelect, this));
-        var langname = Common.util.LanguageInfo.getLocalLanguageName(this.options.current);
-        this.cmbLanguage.setValue(langname[0], langname[1]);
-        this.onLangSelect(this.cmbLanguage, this.cmbLanguage.getSelectedRecord());
+        this.chNoSpell = null;
+        if (this.options.showNoSpell !== false) {
+            this.chNoSpell = new Common.UI.CheckBox({
+                el: $window.find('#lang-dlg-nospell'),
+                labelText: this.txtNoSpell
+            });
+            this.chNoSpell.setValue(!!this.options.noSpell, true);
+        }
 
-        var me = this;
-        setTimeout(function(){
-            me.cmbLanguage.focus();
-        }, 100);
+        this.$list.on('click', '.lang-item', function(e) { me.select($(e.currentTarget).attr('data-key')); });
+        this.$list.on('dblclick', '.lang-item', function(e) { me.select($(e.currentTarget).attr('data-key')); me.finish('ok'); });
+        this.fillList();
+        setTimeout(function() { me.inputSearch && me.inputSearch.focus(); }, 100);
+        return this;
+    },
+
+    getRecent: function() {
+        var key = 'app-settings-recent-langs',
+            count = Common.Utils.InternalSettings.get(key + '-count') || 5,
+            arr = Common.localStorage.getItem(key);
+        arr = arr ? arr.split(';') : [];
+        var langs = this.languages;
+        return _.compact(_.map(arr.slice(0, count), function(v) { return _.findWhere(langs, {value: v}); }));
+    },
+
+    rememberRecent: function(value) {
+        var key = 'app-settings-recent-langs',
+            count = Common.Utils.InternalSettings.get(key + '-count') || 5,
+            arr = Common.localStorage.getItem(key);
+        arr = arr ? arr.split(';') : [];
+        arr = _.without(arr, value);
+        arr.unshift(value);
+        arr.splice(count);
+        Common.localStorage.setItem(key, arr.join(';'));
+    },
+
+    itemHtml: function(rec, section) {
+        var isCur = this.current && rec.code === this.current.code,
+            key = section + ':' + rec.code,
+            isSel = key === this.selKey,
+            en = (rec.displayValueEn && rec.displayValueEn !== rec.displayValue) ? rec.displayValueEn : '';
+        return '<div class="lang-item' + (isSel ? ' selected' : '') + (isCur ? ' current' : '') + '" role="option" aria-selected="' + (isSel ? 'true' : 'false') + '" data-key="' + key + '">' +
+                '<svg class="lang-check" viewBox="0 0 16 16" aria-hidden="true"' + (isCur ? '' : ' style="visibility:hidden"') + '><polyline points="3,8.5 6.5,12 13,4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '<span class="lang-name">' + _.escape(rec.displayValue) + (en ? '<span class="lang-en">' + _.escape(en) + '</span>' : '') + '</span>' +
+                (rec.spellcheck ? '<svg class="icon uni-scale spellcheck-lang" aria-hidden="true"><use href="#btn-ic-docspell"></use></svg>' : '') +
+            '</div>';
+    },
+
+    fillList: function() {
+        var me = this, html = '', f = this.filter,
+            head = function(t) { return '<div class="lang-head" role="presentation">' + _.escape(t) + '</div>'; };
+        if (f) {
+            var found = _.filter(this.languages, function(r) { return (r.displayValue || '').toLowerCase().indexOf(f) > -1 || (r.displayValueEn || '').toLowerCase().indexOf(f) > -1 || (r.value || '').toLowerCase().indexOf(f) > -1; });
+            if (found.length && !_.some(found, function(r) { return 'found:' + r.code === me.selKey; })) {
+                this.selKey = 'found:' + found[0].code;
+                this.selected = found[0];
+            }
+            html = found.length ? _.map(found, function(r) { return me.itemHtml(r, 'found'); }).join('') : '<div class="lang-empty">' + _.escape(this.txtNoResult) + '</div>';
+        } else {
+            if (this.selected && this.selKey.indexOf('found:') === 0)
+                this.selKey = (this.current && this.current.code === this.selected.code ? 'current:' : 'all:') + this.selected.code;
+            if (this.current) html += head(this.txtCurrent) + this.itemHtml(this.current, 'current');
+            var recent = this.getRecent();
+            if (recent.length) html += head(this.txtRecent) + _.map(recent, function(r) { return me.itemHtml(r, 'recent'); }).join('');
+            html += head(this.txtAll) + _.map(this.languages, function(r) { return me.itemHtml(r, 'all'); }).join('');
+        }
+        this.$list.html(html);
+        this.$list.scrollTop(0);
+    },
+
+    visibleKeys: function() {
+        return this.$list.find('.lang-item').map(function() { return $(this).attr('data-key'); }).get();
+    },
+
+    select: function(key) {
+        var rec = _.findWhere(this.languages, {code: parseInt(String(key).split(':')[1])});
+        if (!rec) return;
+        this.selected = rec;
+        this.selKey = key;
+        this.$list.find('.lang-item').removeClass('selected').attr('aria-selected', 'false')
+            .filter(function() { return $(this).attr('data-key') === key; }).addClass('selected').attr('aria-selected', 'true');
+        this.scrollToSelected();
+    },
+
+    scrollToSelected: function() {
+        var $s = this.$list.find('.lang-item.selected').first();
+        if (!$s.length) return;
+        var $l = this.$list, top = $s.position().top + $l.scrollTop(), h = $l.height(), ih = $s.outerHeight();
+        if (top < $l.scrollTop() + 28) $l.scrollTop(Math.max(0, top - 28));
+        else if (top + ih > $l.scrollTop() + h) $l.scrollTop(top + ih - h);
+    },
+
+    onSearchKey: function(e) {
+        var d = e.keyCode === Common.UI.Keys.DOWN ? 1 : (e.keyCode === Common.UI.Keys.UP ? -1 : 0);
+        if (!d) return;
+        var keys = this.visibleKeys(), i = _.indexOf(keys, this.selKey);
+        i = Math.min(keys.length - 1, Math.max(0, i + d));
+        keys.length && this.select(keys[i]);
+        e.preventDefault();
+        e.stopPropagation();
     },
 
     getFocusedComponents: function() {
-        return [this.cmbLanguage].concat(this.getFooterButtons());
+        var arr = [this.inputSearch];
+        this.chNoSpell && arr.push(this.chNoSpell);
+        return arr.concat(this.getFooterButtons());
     },
 
     getDefaultFocusableComponent: function () {
-        return this.cmbLanguage;
-    },
-
-    close: function(suppressevent) {
-        var $window = this.getChild();
-        if (!$window.find('.combobox.open').length) {
-            Common.UI.Window.prototype.close.call(this, arguments);
-        }
+        return this.inputSearch;
     },
 
     onBtnClick: function(event) {
-        if (this.options.handler) {
-            this.options.handler.call(this, event.currentTarget.attributes['result'].value, this.cmbLanguage.getValue());
-        }
-
-        this.close();
-    },
-
-    onLangSelect: function(cmb, rec, e) {
-        cmb.$el.find('.input-icon').toggleClass('spellcheck-lang', rec && rec.spellcheck);
-        cmb._input.css(Common.UI.isRTL() ? 'padding-right' : 'padding-left', rec && rec.spellcheck ? 25 : 3);
+        this.finish(event.currentTarget.attributes['result'].value);
     },
 
     onPrimary: function() {
-        if (this.options.handler) {
-            this.options.handler.call(this, 'ok', this.cmbLanguage.getValue());
-        }
-
-        this.close();
+        this.finish('ok');
         return false;
     },
 
-    labelSelect     : 'Select document language'
+    finish: function(result) {
+        var rec = this.selected;
+        if (result !== 'cancel' && rec) {
+            this.rememberRecent(rec.value);
+        }
+        this.options.handler && this.options.handler.call(this, result, rec && rec.value, {code: rec && rec.code, noSpell: !!(this.chNoSpell && this.chNoSpell.isChecked())});
+        this.close();
+    },
+
+    txtTitle        : 'Language',
+    labelMark       : 'Mark selected text as:',
+    labelSelect     : 'Select document language',
+    txtSearch       : 'Search languages',
+    txtCurrent      : 'Current language',
+    txtRecent       : 'Recently used',
+    txtAll          : 'All languages',
+    txtNoResult     : 'No language found',
+    txtSetDefault   : 'Set As Default',
+    txtNoSpell      : 'Do not check spelling or grammar'
     }, Common.Views.LanguageDialog || {}))
 });

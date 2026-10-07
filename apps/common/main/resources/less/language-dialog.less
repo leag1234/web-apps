@@ -26,6 +26,12 @@ li {
 }
 
 .dropdown-menu.lang-menu {
+  // the item template always emits the indicator svg, empty when the language has no dictionary: an
+  // svg without a size is 300 x 150 (rows 180 px high, menu 650 px wide), so hide it
+  > li a svg.icon:not(.spellcheck-lang) {
+    display: none;
+  }
+
   > li {
     a.checked {
       &:before {
@@ -122,4 +128,116 @@ li {
   &.ja, &.ja-JP                     {background-position: 0          -192px;}
   &.es-MX                           {background-position: -16px      -192px;}
   &.zh-TW                           {background-position: -32px      -192px;}
+}
+
+// Language dialog (Word-like): search field, then a compact list in sections
+.lang-dlg {
+  .lang-dlg-label {
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  #lang-dlg-search {
+    margin-bottom: 8px;
+  }
+
+  .lang-dlg-list {
+    height: 264px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: @scaled-one-px-value-ie solid @border-regular-control-ie;
+    border: @scaled-one-px-value solid @border-regular-control;
+    border-radius: 4px;
+    background-color: @background-normal-ie;
+    background-color: @background-normal;
+    margin-bottom: 10px;
+    outline: none;
+
+    .lang-head {
+      padding: 6px 8px 3px;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      color: @text-secondary-ie;
+      color: @text-secondary;
+      position: sticky;
+      top: 0;
+      background-color: @background-normal-ie;
+      background-color: @background-normal;
+    }
+
+    .lang-empty {
+      padding: 12px 8px;
+      color: @text-secondary-ie;
+      color: @text-secondary;
+    }
+
+    .lang-item {
+      display: flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 8px;
+      cursor: pointer;
+      color: @text-normal-ie;
+      color: @text-normal;
+
+      &:hover {
+        background-color: @highlight-button-hover-ie;
+        background-color: @highlight-button-hover;
+      }
+
+      &.selected {
+        background-color: @highlight-button-pressed-ie;
+        background-color: @highlight-button-pressed;
+
+        &, .lang-en {
+          color: @text-normal-pressed-ie;
+          color: @text-normal-pressed;
+        }
+      }
+
+      .lang-check {
+        flex: none;
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        .rtl & {
+          margin-right: 0;
+          margin-left: 6px;
+        }
+      }
+
+      .lang-name {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        .lang-en {
+          margin-left: 8px;
+          opacity: .65;
+          font-size: 11px;
+          .rtl & {
+            margin-left: 0;
+            margin-right: 8px;
+          }
+        }
+      }
+
+      .icon.spellcheck-lang {
+        position: static;
+        flex: none;
+        margin: 0 0 0 6px;
+        .rtl & {
+          margin: 0 6px 0 0;
+        }
+      }
+    }
+  }
+
+  #lang-dlg-nospell {
+    margin-bottom: 4px;
+  }
 }

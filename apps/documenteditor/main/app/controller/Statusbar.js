@@ -104,6 +104,14 @@ define([
                     me.btnSpelling.render( me.statusbar.$layout.find('#btn-doc-spell') );
                     me.btnDocLang = review.getButton('doclang', 'statusbar');
                     me.btnDocLang.render( me.statusbar.$layout.find('#btn-doc-lang') );
+                    // Like Word, the language shown in the status bar opens the Language dialog (current language,
+                    // recently used, search, full list) instead of a 250 entries menu
+                    var rc = me.getApplication().getController('Common.Controllers.ReviewChanges');
+                    me.statusbar.btnLanguage.$el.on('click', 'button', function (e) {
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        !me.statusbar.btnLanguage.isDisabled() && rc.onDocLanguage();
+                    });
 
                     var isVisible = (Common.UI.LayoutManager.isElementVisible('statusBar-textLang') || Common.UI.LayoutManager.isElementVisible('statusBar-docLang'))
                                     && Common.UI.FeaturesManager.canChange('spellcheck');

@@ -518,9 +518,33 @@ define([
                 caption: v.txtLanguage, iconCls: 'toolbar__icon btn-elx-language', split: false,
                 menu: new Common.UI.Menu({items: [{caption: v.txtSetProofingLanguage, value: 'lang'}]})
             });
-            v.btnRevLanguage.menu.on('item:click', function () {
-                var src = v.btnRevLanguage.mirrorSource();
-                src && !src.isDisabled() && src.trigger('click', src);
+            // Dropdown: the language at the cursor and the recently used ones (one click), then the full dialog
+            var langMenu = v.btnRevLanguage.menu, recentKey = 'app-settings-recent-langs',
+                recentCount = function () { return Common.Utils.InternalSettings.get(recentKey + '-count') || 5; };
+            langMenu.on('show:before', function () {
+                var langs = rc.langs || [], cur = rc._textLang,
+                    names = (Common.localStorage.getItem(recentKey) || '').split(';').slice(0, recentCount()),
+                    list = _.compact(_.map(names, function (n) { return _.findWhere(langs, {value: n}); })),
+                    curRec = _.findWhere(langs, {code: parseInt(cur)});
+                curRec && !_.findWhere(list, {code: curRec.code}) && list.unshift(curRec);
+                langMenu.removeAll();
+                _.each(list.slice(0, 6), function (r) {
+                    langMenu.addItem(new Common.UI.MenuItem({caption: r.displayValue, value: r.code, langName: r.value, checkable: true, checked: !!curRec && r.code === curRec.code, toggleGroup: 'elx-rev-lang'}));
+                });
+                list.length && langMenu.addItem(new Common.UI.MenuItem({caption: '--'}));
+                langMenu.addItem(new Common.UI.MenuItem({caption: v.txtSetProofingLanguage, value: 'lang'}));
+            });
+            langMenu.on('item:click', function (menu, item) {
+                if (item.value === 'lang') {
+                    var src = v.btnRevLanguage.mirrorSource();
+                    src && !src.isDisabled() && src.trigger('click', src);
+                } else if (rc.api && rc.api.put_TextPrLang) {
+                    var arr = _.without((Common.localStorage.getItem(recentKey) || '').split(';'), item.langName);
+                    arr.unshift(item.langName);
+                    Common.localStorage.setItem(recentKey, arr.slice(0, recentCount()).join(';'));
+                    rc.api.put_TextPrLang(item.value);
+                    Common.NotificationCenter.trigger('edit:complete', tb);
+                }
             });
 
             // Comments: + Previous, Next, Show Comments

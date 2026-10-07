@@ -138,6 +138,7 @@ define([
         setApi: function (api) {
             if (api) {
                 this.api = api;
+                this.api.asc_registerCallback('asc_onTextLanguage', _.bind(this.onApiTextLanguage, this));
 
                 if (this.appConfig.canReview || this.appConfig.canViewReview) {
                     this.api.asc_registerCallback('asc_onShowRevisionsChange', _.bind(this.onApiShowChange, this));
@@ -1038,17 +1039,36 @@ define([
         },
 
         onDocLanguage: function() {
-            var me = this;
+            var me = this, api = this.api,
+                defLang = api.asc_getDefaultLanguage(),
+                spellKey = this.appPrefix + "settings-spellcheck",
+                isSpellOn = function() {
+                    var v = Common.Utils.InternalSettings.get(spellKey);
+                    return v === undefined ? Common.localStorage.getBool(spellKey, true) : !!v;
+                };
             (new Common.Views.LanguageDialog({
                 languages: me.langs,
-                current: me.api.asc_getDefaultLanguage(),
-                handler: function(result, value) {
-                    if (result=='ok') {
-                        var record = _.findWhere(me.langs, {'value':value});
-                        record && me.api.asc_setDefaultLanguage(record.code);
+                // the language at the cursor (what the status bar shows), else the document default
+                current: (me._textLang !== undefined && me._textLang !== null) ? me._textLang : defLang,
+                showDefault: !!(api.asc_setDefaultLanguage && api.put_TextPrLang),
+                showNoSpell: Common.UI.FeaturesManager.canChange('spellcheck'),
+                noSpell: !isSpellOn(),
+                handler: function(result, value, extra) {
+                    if (result !== 'ok' && result !== 'default') return;
+                    var record = _.findWhere(me.langs, {'value': value});
+                    if (record) {
+                        // "Set As Default": the document default language, then the selection like OK
+                        (result === 'default') && api.asc_setDefaultLanguage(record.code);
+                        api.put_TextPrLang ? api.put_TextPrLang(record.code) : api.asc_setDefaultLanguage(record.code);
                     }
+                    // the engine has no per-run "no proofing" flag: the option is the spell checking switch
+                    (extra && extra.noSpell === isSpellOn()) && me.onTurnSpelling(extra.noSpell ? 'off' : 'on');
                 }
             })).show();
+        },
+
+        onApiTextLanguage: function(langId) {
+            this._textLang = langId;
         },
 
         onLostEditRights: function() {
