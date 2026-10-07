@@ -539,9 +539,7 @@ define([
                     var src = v.btnRevLanguage.mirrorSource();
                     src && !src.isDisabled() && src.trigger('click', src);
                 } else if (rc.api && rc.api.put_TextPrLang) {
-                    var arr = _.without((Common.localStorage.getItem(recentKey) || '').split(';'), item.langName);
-                    arr.unshift(item.langName);
-                    Common.localStorage.setItem(recentKey, arr.slice(0, recentCount()).join(';'));
+                    Common.Utils.rememberProofingLanguage(item.options.langName);
                     rc.api.put_TextPrLang(item.value);
                     Common.NotificationCenter.trigger('edit:complete', tb);
                 }

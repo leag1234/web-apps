@@ -114,15 +114,14 @@ define([
 
             var moreMenu  = (isParagraph) ? me.menuSpellMorePara : me.menuSpellMoreTable;
             var spellMenu = (isParagraph) ? me.menuSpellPara : me.menuSpellTable;
-            var arr = [],
-                arrMore = [];
+            var menu = (isParagraph) ? me.textMenu : me.tableMenu;
             var variants = me._currentSpellObj.get_Variants();
 
+            // as in Word: the best suggestions at the top of the menu (no sub-menu for the others), the menu has no
+            // "No Spelling Suggestions" entry when there are some
+            moreMenu.setVisible(false);
             if (variants.length > 0) {
-                moreMenu.setVisible(variants.length > 3);
-                moreMenu.setDisabled(me._currentParaObjDisabled);
-
-                _.each(variants, function(variant, index) {
+                _.each(variants.slice(0, me.maxSpellVariants), function(variant, index) {
                     var mnu = new Common.UI.MenuItem({
                         caption     : variant,
                         spellword   : true,
@@ -133,39 +132,21 @@ define([
                             me.fireEvent('editcomplete', me);
                         }
                     });
-
-                    (index < 3) ? arr.push(mnu) : arrMore.push(mnu);
+                    menu.insertItem(index, mnu);
                 });
-
-                if (arr.length > 0) {
-                    if (isParagraph) {
-                        _.each(arr, function(variant, index){
-                            me.textMenu.insertItem(index, variant);
-                        })
-                    } else {
-                        _.each(arr, function(variant, index){
-                            me.menuSpellCheckTable.menu.insertItem(index, variant);
-                        })
-                    }
-                }
-
-                if (arrMore.length > 0) {
-                    _.each(arrMore, function(variant, index){
-                        moreMenu.menu.addItem(variant);
-                    });
-                }
-
                 spellMenu.setVisible(false);
             } else {
-                moreMenu.setVisible(false);
                 spellMenu.setVisible(true);
                 spellMenu.setCaption(me.noSpellVariantsText);
+                spellMenu.setDisabled(true);
             }
         },
 
+        maxSpellVariants: 5,
+
         clearWordVariants: function(isParagraph) {
             var me = this;
-            var spellMenu = (isParagraph) ? me.textMenu : me.menuSpellCheckTable.menu;
+            var spellMenu = (isParagraph) ? me.textMenu : me.tableMenu;
 
             for (var i = 0; i < spellMenu.items.length; i++) {
                 if (spellMenu.items[i].options.spellword) {
@@ -186,54 +167,19 @@ define([
             me.menuSpellMoreTable.menu.activeItem   = undefined;
         },
 
+        // the Language sub-menus of the spelling menus are filled when they open (language at the cursor, recently
+        // used ones, "Set Proofing Language..."): the list of languages is only kept here
         setLanguages: function(langs){
-            var me = this;
-            if (!langs) langs = me._langs;
-            if (langs && langs.length > 0) {
-                if (!me.langParaMenu || !me.langTableMenu) {
-                    me._langs = langs;
-                    return;
-                }
-                me._langs = null;
-                var arrPara = [], arrTable = [];
-                _.each(langs, function(lang) {
-                    var item = {
-                        caption     : lang.displayValue,
-                        captionEn   : lang.displayValueEn,
-                        value       : lang.value,
-                        checkable   : true,
-                        langid      : lang.code,
-                        spellcheck   : lang.spellcheck
-                    };
-                    arrPara.push(item);
-                    arrTable.push(_.clone(item));
-                });
-                var lckey = 'app-settings-recent-langs';
-                me.langParaMenu.menu.setRecent({
-                    count: Common.Utils.InternalSettings.get(lckey + "-count") || 5,
-                    offset: Common.Utils.InternalSettings.get(lckey + "-offset") || 0,
-                    key: lckey,
-                    valueField: 'value'
-                });
-                me.langTableMenu.menu.setRecent({
-                    count: Common.Utils.InternalSettings.get(lckey + "-count") || 5,
-                    offset: Common.Utils.InternalSettings.get(lckey + "-offset") || 0,
-                    key: lckey,
-                    valueField: 'value'
-                });
-                me.langParaMenu.menu.resetItems(arrPara);
-                me.langTableMenu.menu.resetItems(arrTable);
-            }
+            if (langs && langs.length > 0) this._langs = langs;
         },
 
-        changeLanguageMenu: function(menu) {
-            if (this._currLang.id===null || this._currLang.id===undefined) {
-                menu.clearAll();
-            } else {
-                var index = _.findIndex(menu.items, {langid: this._currLang.id});
-                (index>-1) && !menu.items[index].checked && menu.setChecked(index, true);
-            }
+        fillLanguageMenu: function(menu) {
+            Common.Utils.fillProofingLanguageMenu(menu, this._langs || [], this._currLang.id, this.textSetProofingLanguage);
         },
+
+        changeLanguageMenu: function(menu) {},
+
+        textSetProofingLanguage: 'Set Proofing Language...',
 
         getControlLabel: function(props) {
             var type = props ? props.get_SpecificType() : Asc.c_oAscContentControlSpecificType.None;

@@ -1367,6 +1367,36 @@ define([], function () {
         }
     };
 
+    // Language sub-menu of the spelling context menus (Word's design): the language at the cursor and the recently used
+    // ones, then "Set Proofing Language..." that opens the Language dialog. `langs` are the editor's language records.
+    Common.Utils.fillProofingLanguageMenu = function (menu, langs, current, setCaption) {
+        var key = 'app-settings-recent-langs',
+            count = Common.Utils.InternalSettings.get(key + '-count') || 5,
+            names = (Common.localStorage.getItem(key) || '').split(';').slice(0, count),
+            list = _.compact(_.map(names, function (n) { return _.findWhere(langs, {value: n}); })),
+            cur = _.findWhere(langs, {code: parseInt(current)});
+        cur && !_.findWhere(list, {code: cur.code}) && list.unshift(cur);
+        menu.removeAll();
+        menu.checkeditem = undefined;
+        menu.activeItem = undefined;
+        _.each(list.slice(0, 6), function (r) {
+            menu.addItem(new Common.UI.MenuItem({
+                caption: r.displayValue, langid: r.code, langName: r.value, value: r.code,
+                checkable: true, checked: !!cur && r.code === cur.code, toggleGroup: 'elx-spell-lang'
+            }));
+        });
+        list.length && menu.addItem(new Common.UI.MenuItem({caption: '--'}));
+        menu.addItem(new Common.UI.MenuItem({caption: setCaption, value: 'lang'}));
+    };
+
+    Common.Utils.rememberProofingLanguage = function (name) {
+        if (!name) return;
+        var key = 'app-settings-recent-langs',
+            arr = _.without((Common.localStorage.getItem(key) || '').split(';'), name);
+        arr.unshift(name);
+        Common.localStorage.setItem(key, arr.slice(0, Common.Utils.InternalSettings.get(key + '-count') || 5).join(';'));
+    };
+
     Common.Utils.checkComponentLoaded = function (cmp) {
         return typeof cmp === 'function';
     }

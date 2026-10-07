@@ -60,7 +60,8 @@ define([
             ['@style', 'menuParaPrint', 'menuParaAssistant']
         ],
         tableMenu: [
-            ['menuSpellCheckTable'],
+            ['menuSpellTable', 'menuSpellMoreTable'],
+            ['menuIgnoreAllSpellTable', 'menuToDictionaryTable', 'langTableMenu'],
             ['menuTableCut', 'menuTableCopy', 'menuTablePaste'],
             ['@elixir'],
             ['menuTableAccept', 'menuTableReject'],
@@ -166,7 +167,7 @@ define([
             var addWordVariants = view.addWordVariants;
             view.addWordVariants = function() {
                 var r = addWordVariants.apply(this, arguments);
-                _.each([view.textMenu, view.menuSpellCheckTable && view.menuSpellCheckTable.menu], function(menu) {
+                _.each([view.textMenu, view.tableMenu], function(menu) {
                     menu && _.each(menu.items, function(it) {
                         it.options && it.options.spellword && it.cmpEl && it.cmpEl.addClass('spell-suggestion');
                     });

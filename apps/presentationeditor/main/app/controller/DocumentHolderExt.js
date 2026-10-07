@@ -1895,10 +1895,16 @@ define([], function () {
         dh.onLangMenu = function(type, menu, item){
             var me = this;
             if (me.api){
-                if (!_.isUndefined(item.langid))
-                    me.api.put_TextPrLang(item.langid);
-
-                (type==='para') ? (me.documentHolder._currLang.paraid = item.langid) : (me.documentHolder._currLang.tableid = item.langid);
+                if (item.value === 'lang') {
+                    // "Set Proofing Language...": the Language dialog of Review > Language
+                    var rc = me.getApplication().getController('Common.Controllers.ReviewChanges');
+                    rc && rc.onDocLanguage && rc.onDocLanguage();
+                    return;
+                }
+                if (item.options && !_.isUndefined(item.options.langid)) {
+                    Common.Utils.rememberProofingLanguage(item.options.langName);
+                    me.api.put_TextPrLang(item.options.langid);
+                }
                 me.editComplete();
             }
         };

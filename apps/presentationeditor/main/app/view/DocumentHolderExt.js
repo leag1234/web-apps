@@ -770,30 +770,16 @@ define([], function () {
                 })
             });
 
-            var langTemplate = _.template([
-                '<a id="<%= id %>" tabindex="-1" type="menuitem" langval="<%= value %>" class="<% if (checked) { %> checked <% } %>">',
-                    '<div>',
-                        '<i class="icon <% if (spellcheck) { %> toolbar__icon btn-ic-docspell spellcheck-lang <% } %>"></i>',
-                        '<%= caption %>',
-                    '</div>',
-                    '<label style="opacity: 0.6"><%= captionEn %></label>',
-                '</a>'
-            ].join(''));
-
             me.langTableMenu = new Common.UI.MenuItem({
                 iconCls: 'menu__icon btn-ic-doclang',
                 caption     : me.langText,
-                menu        : new Common.UI.MenuSimple({
-                    cls: 'lang-menu shifted-right',
+                menu        : new Common.UI.Menu({
+                    cls: 'shifted-right',
                     menuAlign: 'tl-tr',
-                    restoreHeight: 285,
-                    items   : [],
-                    itemTemplate: langTemplate,
-                    search: true,
-                    searchFields: ['caption', 'captionEn'],
-                    focusToCheckedItem: true
+                    items   : []
                 })
             });
+            me.langTableMenu.menu.on('show:before', function(menu) { me.fillLanguageMenu(menu); });
 
             me.menuIgnoreSpellTable = new Common.UI.MenuItem({
                 caption     : me.ignoreSpellText,
@@ -854,17 +840,13 @@ define([], function () {
             me.langParaMenu = new Common.UI.MenuItem({
                 iconCls: 'menu__icon btn-ic-doclang',
                 caption     : me.langText,
-                menu        : new Common.UI.MenuSimple({
-                    cls: 'lang-menu shifted-right',
+                menu        : new Common.UI.Menu({
+                    cls: 'shifted-right',
                     menuAlign: 'tl-tr',
-                    restoreHeight: 285,
-                    items   : [],
-                    itemTemplate: langTemplate,
-                    search: true,
-                    searchFields: ['caption', 'captionEn'],
-                    focusToCheckedItem: true
+                    items   : []
                 })
             });
+            me.langParaMenu.menu.on('show:before', function(menu) { me.fillLanguageMenu(menu); });
 
             me.menuIgnoreSpellPara = new Common.UI.MenuItem({
                 caption     : me.ignoreSpellText,
@@ -1939,9 +1921,9 @@ define([], function () {
                     var spell = (value.spellProps!==undefined && value.spellProps.value.get_Checked()===false);
                     me.menuSpellPara.setVisible(spell);
                     menuSpellcheckParaSeparator.setVisible(spell);
-                    me.menuIgnoreSpellPara.setVisible(spell);
+                    me.menuIgnoreSpellPara.setVisible(false);   // Word: Ignore All only
                     me.menuIgnoreAllSpellPara.setVisible(spell);
-                    me.menuToDictionaryPara.setVisible(spell && me.mode.isDesktopApp);
+                    me.menuToDictionaryPara.setVisible(spell);
                     me.langParaMenu.setVisible(spell);
                     me.langParaMenu.setDisabled(disabled);
                     menuIgnoreSpellParaSeparator.setVisible(spell);
@@ -1952,10 +1934,6 @@ define([], function () {
                         me.menuSpellPara.setCaption(me.loadSpellText);
                         me.clearWordVariants(true);
                         me.menuSpellMorePara.setVisible(false);
-                    }
-                    if (me.langParaMenu.isVisible() && me._currLang.id !== me._currLang.paraid) {
-                        me.changeLanguageMenu(me.langParaMenu.menu);
-                        me._currLang.paraid = me._currLang.id;
                     }
 
                     //equation menu
@@ -2124,7 +2102,8 @@ define([], function () {
                     /** coauthoring end **/
 
                     me.menuSpellCheckTable.setVisible(value.spellProps!==undefined && value.spellProps.value.get_Checked()===false);
-                    me.menuToDictionaryTable.setVisible(me.mode.isDesktopApp);
+                    me.menuIgnoreSpellTable.setVisible(false);   // Word: Ignore All only
+                    me.menuToDictionaryTable.setVisible(true);
                     menuSpellcheckTableSeparator.setVisible(value.spellProps!==undefined && value.spellProps.value.get_Checked()===false);
 
                     me.langTableMenu.setDisabled(disabled);
@@ -2134,11 +2113,6 @@ define([], function () {
                         me.menuSpellTable.setCaption(me.loadSpellText);
                         me.clearWordVariants(false);
                         me.menuSpellMoreTable.setVisible(false);
-                    }
-
-                    if (me.menuSpellCheckTable.isVisible() && me._currLang.id !== me._currLang.tableid) {
-                        me.changeLanguageMenu(me.langTableMenu.menu);
-                        me._currLang.tableid = me._currLang.id;
                     }
 
                     //equation menu
