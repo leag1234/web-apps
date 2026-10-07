@@ -80,9 +80,17 @@ define([
                 var it = view[name];
                 if (it && me[key]) { it.caption = me[key]; it.options && (it.options.caption = me[key]); it.rendered && it.setCaption(me[key]); }
             });
-            menu.on('show:before', function () {
-                try { me.arrange(menu, groups, placed, CELL_KEYS); } catch (e) { console.warn('ExcelContextMenus', e); }
+            menu.on('show:before', function (m, e) {
+                // 'show.bs.dropdown' bubbles up from a submenu item that opens: arranging then moves the item
+                // under the pointer, which opens it again (endless loop; clicks on submenu items are lost)
+                if (me.fromSubmenu(e)) return;
+                try { me.arrange(menu, groups, placed, CELL_KEYS); } catch (err) { console.warn('ExcelContextMenus', err); }
             });
+        },
+
+        // is this show:before event the one of a submenu item rather than of the menu itself?
+        fromSubmenu: function (e) {
+            return !!(e && e.target && e.target.tagName === 'LI');
         },
 
         visible: function (it) {
@@ -150,7 +158,10 @@ define([
                 // Excel's words
                 byValue['@unhide'] && byValue['@unhide'].setCaption(me.textUnhideSheet);
             };
-            menu.on('show:before', function () { try { reorder(); } catch (e) { console.warn('ExcelContextMenus', e); } });
+            menu.on('show:before', function (m, e) {
+                if (me.fromSubmenu(e)) return;    // see setupCellMenu
+                try { reorder(); } catch (err) { console.warn('ExcelContextMenus', err); }
+            });
         },
 
         textFormatCells: 'Format Cells...',
