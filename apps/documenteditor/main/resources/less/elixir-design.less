@@ -1,0 +1,58 @@
+// ElixirOffice Design tab (apps/documenteditor/main/app/elixir-design), like Word's.
+.elx-dsg-theme-list {
+  display: grid;
+  grid-template-columns: repeat(4, 92px);
+  gap: 6px;
+  padding: 4px 8px 8px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.elx-dsg-theme {
+  box-sizing: border-box;
+  height: 86px;
+  padding: 6px;
+  border: 1px solid var(--border-regular-control, #d1d1d1);
+  border-radius: 4px;
+  background: var(--background-normal, #fff);
+  cursor: pointer;
+  text-align: center;
+  &:hover { border-color: var(--border-control-focus, #848484); }
+  &.selected { border: 2px solid var(--elx-accent, #2b579a); padding: 5px; }
+  .aa { font-size: 22px; line-height: 30px; color: var(--text-normal, #242424); white-space: nowrap; overflow: hidden; }
+  .sw { display: flex; height: 8px; margin: 4px 0; span { flex: 1; } }
+  .nm { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-normal, #242424); }
+}
+.elx-combo-stylesets .elx-styleset, .elx-dsg-stylesets .elx-styleset {
+  box-sizing: border-box;
+  width: 86px; height: 58px;
+  padding: 5px 7px;
+  background: #fff;
+  overflow: hidden;
+  font-family: Calibri, Carlito, Arial, sans-serif;
+  .t { font-size: 13px; line-height: 15px; color: #262626; white-space: nowrap; }
+  .h { font-size: 8px; line-height: 11px; margin-top: 2px; color: #2f5496; white-space: nowrap; }
+  .b { height: 2px; margin-top: 4px; background: #c8c8c8; &.short { width: 60%; } }
+}
+.elx-styleset-elegant { .t { text-transform: uppercase; text-align: center; border-bottom: 1px solid #404040; } .h { text-transform: uppercase; color: #262626; } }
+.elx-styleset-stylish { .t { font-weight: bold; color: #2f5496; } .h { font-weight: bold; } }
+.elx-styleset-casual .t { font-size: 15px; color: #2f5496; }
+.elx-styleset-centered { .t, .h { text-align: center; text-transform: uppercase; } .t { color: #2f5496; } }
+.elx-styleset-lines { .t { border-bottom: 1px solid #2f5496; } .h { border-bottom: 1px solid #2f5496; } }
+.elx-styleset-distinctive { .t { font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #262626; } .h { font-weight: bold; color: #262626; } }
+.elx-styleset-shaded { .t { background: #2f5496; color: #fff; padding: 0 2px; } .h { background: #2f5496; color: #fff; } }
+.elx-styleset-minimalist { .t { font-size: 11px; color: #595959; text-transform: uppercase; } .h { color: #404040; font-weight: bold; } }
+.elx-dsg-fonts-menu {
+  max-height: 520px;
+  overflow-y: auto;
+  .elx-dsg-menu-header { padding: 4px 12px; font-weight: 600; color: var(--text-secondary, #616161); }
+  a.elx-dsg-fontpair {
+    display: flex !important;
+    flex-direction: column;
+    padding: 4px 12px 4px 28px !important;
+    line-height: 18px;
+    .nm { font-size: 11px; color: var(--text-secondary, #616161); }
+    .mj { font-size: 15px; }
+    .mn { font-size: 12px; }
+  }
+}
+.elx-dsg-borders-dlg .elx-dsg-setting .btn.active { border-color: var(--elx-accent, #2b579a); box-shadow: inset 0 0 0 1px var(--elx-accent, #2b579a); }
