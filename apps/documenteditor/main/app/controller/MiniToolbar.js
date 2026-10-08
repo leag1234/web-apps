@@ -85,6 +85,15 @@ define([
             $sdk.on('wheel', function() { me.hide(); });
             Common.NotificationCenter.on('window:resize', function() { me.hide(); });
             this.api.asc_registerCallback('asc_onContextMenu', _.bind(this.onContextMenu, this));
+            // the font of the selection arrives from the engine (after it has loaded the font): the ribbon
+            // combos update first (own timer of 100 ms), then the mini toolbar shows the same
+            var timer = null, later = function() {
+                if (!me.isVisible()) return;
+                clearTimeout(timer);
+                timer = setTimeout(function() { me.isVisible() && me.syncState(); }, 160);
+            };
+            Common.NotificationCenter.on('fonts:change', later);
+            this.api.asc_registerCallback('asc_onFontSize', later);
         },
 
         isOwnMenu: function(el) {
@@ -164,8 +173,13 @@ define([
         syncState: function() {
             var tb = this.tbc.toolbar, v = this.view;
             try {
-                v.cmbFontName.setValue(tb.cmbFontName.getValue());
-                v.cmbFontSize.setValue(tb.cmbFontSize.getValue());
+                // the ribbon fills its size list after the mini toolbar was created: copy it (an empty list opens as a thin empty box)
+                var sizes = tb.cmbFontSize.store;
+                if (sizes.length && v.cmbFontSize.store.length !== sizes.length && !v.cmbFontSize.isMenuOpen())
+                    v.cmbFontSize.setData(sizes.toJSON());
+                // what the ribbon shows (its getValue() keeps the last record picked in the ribbon, not the font of the selection)
+                v.cmbFontName.setValue(tb.cmbFontName.getRawValue());
+                v.cmbFontSize.setValue(tb.cmbFontSize.getRawValue());
                 v.btnBold.toggle(!!tb.btnBold.pressed, true);
                 v.btnItalic.toggle(!!tb.btnItalic.pressed, true);
                 v.btnUnderline.toggle(!!tb.btnUnderline.pressed, true);

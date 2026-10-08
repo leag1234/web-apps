@@ -83,6 +83,7 @@ define([
                 store: tb && tb.cmbFontName ? tb.cmbFontName.store : new Common.Collections.Fonts(),
                 recent: 0
             });
+            this.cmbFontName.shareSprite(tb && tb.cmbFontName);
             this.cmbFontSize = new Common.UI.ComboBox({
                 el: $el.find('#mini-font-size'),
                 cls: 'input-group-nr',

@@ -510,6 +510,15 @@ define([
                 this.trigger('changed:after', this, record, e);
             },
 
+            // Use the font preview sprite of another font combo (one that was created after the
+            // font list had loaded never gets the fonts:load event, so it would have none)
+            shareSprite: function(other) {
+                if (!other || !other.spriteThumbs || this.spriteThumbs) return;
+                this.spriteThumbs = other.spriteThumbs;
+                this.tiles = [];
+                this.updateVisibleFontsTiles(null, 0);
+            },
+
             getImageUri: function(opts) {
                 if (opts.cloneid) {
                     var img = $(this.el).find('ul > li#'+opts.cloneid + ' img');
@@ -751,6 +760,9 @@ define([
             },
 
             updateVisibleFontsTiles: function(e, scrollY) {
+                // a combo that was created after the font list had loaded (the mini toolbar) has no
+                // sprite until it is given one: nothing to draw, but never an exception
+                if (!this.spriteThumbs) return;
                 var me = this, j = 0, storeCount = me.store.length, index = 0;
 
                 if (!me.tiles) me.tiles = [];
