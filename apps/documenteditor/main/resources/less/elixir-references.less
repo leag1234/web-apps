@@ -1,0 +1,10 @@
+// References: citations, sources and index dialogs (apps/documenteditor/main/app/elixir-references)
+.elx-ref-source-dlg { .elx-ref-hint { font-size: 11px; color: var(--text-secondary, #616161); padding-bottom: 4px; } input.form-control { height: 22px; } }
+.elx-ref-manager-dlg {
+  .elx-ref-list { height: 200px; overflow-y: auto; border: 1px solid var(--border-regular-control, #d1d1d1); }
+  .elx-ref-item { padding: 3px 8px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; &:hover { background: var(--highlight-button-hover, #f0f0f0); } &.selected { background: var(--highlight-button-pressed, #e0e0e0); } }
+  .elx-ref-empty { padding: 8px; color: var(--text-secondary, #616161); }
+  .elx-ref-preview { min-height: 48px; margin-top: 8px; padding: 6px 8px; border: 1px solid var(--border-divider, #ebebeb); padding-left: 28px; text-indent: -20px; }
+  .elx-ref-actions { display: flex; gap: 6px; margin-top: 8px; .btn { min-width: 70px; } }
+}
+.elx-ref-mark-dlg input.form-control { height: 22px; }
