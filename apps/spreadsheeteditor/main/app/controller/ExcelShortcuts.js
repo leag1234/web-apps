@@ -35,6 +35,7 @@ define([
             this.mac = Common.Utils.isMac;
             this.keys = this.table();
             window.addEventListener('keydown', _.bind(this.onKeyDown, this), true);
+            this.mode.isEdit && this.api.asc_registerCallback('asc_onQuickAnalysis', _.bind(this.onQuickAnalysis, this));
         },
 
         // [key, ctrl/cmd, alt/option, shift, handler, opts]; on macOS "ctrl" is Cmd unless opts.macCtrl
@@ -87,7 +88,11 @@ define([
                 add('F7', 0, 0, 0, function () { return me.spelling(); });
                 add('F2', 0, 0, 1, function () { return me.comment(); });
                 add('F2', 1, 0, 1, function () { return me.comment(); });
+                mac && add('Enter', 1, 0, 0, function () { return me.comment(); });
+                add('F10', 0, 1, 1, function () { return me.pasteOptionsMenu(); });
                 add('Minus', 1, 0, 0, function () { return me.deleteCells(); });
+                !mac && add('KeyQ', 1, 0, 0, function () { return me.quickAnalysis(); });
+                mac && add('KeyQ', 1, 0, 0, function () { return me.quickAnalysis(); }, {macCtrl: true});
                 mac && add('Minus', 1, 0, 0, function () { return me.deleteCells(); }, {macCtrl: true});
                 // Format
                 !mac && add('Digit2', 1, 0, 0, function () { return me.click('btnBold', true); });
@@ -139,6 +144,7 @@ define([
         onKeyDown: function (e) {
             if (!this.api) return;
             if (this.pasteSpecialKey(e)) return;
+            if (this.pasteSpecialShortcut(e)) return;
             var mac = this.mac, me = this;
             var entry = _.find(this.keys, function (k) {
                 if (k.key !== e.code) return false;
@@ -364,6 +370,36 @@ define([
             this.tbc.onSelectChart('bar', Asc.c_oAscChartTypeSettings.barNormal);
         },
 
+        // Ctrl+Alt+V (macOS: Cmd+Ctrl+V, Ctrl+Option+V, Cmd+Option+V): the Paste Special dialog for the copied cells
+        pasteSpecialShortcut: function (e) {
+            if (e.code !== 'KeyV' || e.shiftKey || !this.mode.isEdit || this.api.isCellEdited) return;
+            var mods = (e.ctrlKey ? 1 : 0) + (e.metaKey ? 1 : 0) + (e.altKey ? 1 : 0);
+            if (mods !== 2 || (!this.mac && (e.metaKey || !e.ctrlKey))) return;
+            if (Common.Utils.ModalWindow.isVisible()) return;
+            var me = this;
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.api.asc_getPasteOptions(function (options) {
+                var items = options && options.asc_getOptions();
+                if (!items || !items.length) return;
+                (new SSE.Views.SpecialPasteDialog({
+                    props: items,
+                    isTable: !!options.asc_getContainTables(),
+                    handler: function (result, settings) {
+                        result === 'ok' && me.api && me.api.asc_SpecialPaste(settings, true);
+                    }
+                })).show();
+            });
+            return true;
+        },
+
+        // Alt+Shift+F10: open the menu of the Paste Options button next to the pasted range
+        pasteOptionsMenu: function () {
+            var btn = $('#special-paste-container').find('button:visible, .btn:visible').first();
+            if (!btn.length) return true;
+            btn.click();
+        },
+
         // Paste Special: Excel's access keys for the options (A, F, V, T, C, X, W, R, U)
         pasteSpecialKey: function (e) {
             if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1) return;
@@ -381,6 +417,128 @@ define([
             e.stopImmediatePropagation();
             return true;
         },
+
+        // ---- Quick Analysis: button at the bottom-right corner of a range with data, and Ctrl+Q
+        onQuickAnalysis: function (info) {
+            this.qaInfo = info;
+            var $c = this.qaContainer();
+            if (!$c) return;
+            if (!info) {
+                $c.hide();
+                return;
+            }
+            $c.css({left: info.x + info.w + 2, top: info.y + info.h + 2}).show();
+        },
+
+        qaContainer: function () {
+            if (this.$qa) return this.$qa;
+            var outer = $('#ws-canvas-outer');
+            if (!outer.length) return null;
+            this.$qa = $('<div id="quick-analysis-container" style="position: absolute; z-index: 1; display: none;"><div id="id-btn-quick-analysis"></div></div>');
+            outer.append(this.$qa);
+            this.btnQuickAnalysis = new Common.UI.Button({
+                parentEl: $('#id-btn-quick-analysis'),
+                cls: 'btn-toolbar',
+                iconCls: 'toolbar__icon btn-cond-format',
+                hint: this.textQuickAnalysis + ' (' + (this.mac ? '\u2303Q' : 'Ctrl+Q') + ')',
+                menu: this.qaMenu()
+            });
+            return this.$qa;
+        },
+
+        qaMenu: function () {
+            var me = this, CF = Asc.c_oAscCFRuleTypeSettings, CT = Asc.c_oAscChartTypeSettings;
+            var item = function (caption, fn, value) {
+                return new Common.UI.MenuItem({caption: caption, value: value}).on('click', function () {
+                    try { fn(); } catch (err) { console.warn('QuickAnalysis', err); }
+                    Common.NotificationCenter.trigger('edit:complete', me.tb);
+                });
+            };
+            var sub = function (caption, value, items) {
+                return new Common.UI.MenuItem({caption: caption, value: value, menu: new Common.UI.Menu({menuAlign: 'tl-tr', items: items})});
+            };
+            var cf = function (type, value, percent) {
+                return function () { me.tbc.onCondFormatMenu(null, {value: value, options: {type: type, percent: percent}}); };
+            };
+            var chart = function (type, group) {
+                return function () { me.tbc.onSelectChart(group, type); };
+            };
+            var totals = function (func, byRow) {
+                return function () {
+                    me.api.asc_QuickAnalysisTotals(func, byRow) || Common.UI.warning({msg: me.textQaTargetNotEmpty});
+                };
+            };
+            this.qaMenuCmp = new Common.UI.Menu({
+                cls: 'shifted-right',
+                items: [
+                    sub(this.textQaFormatting, 'formatting', [
+                        item(this.textQaDataBar, function () { me.api.asc_setCF([], [], [CF.dataBar, 0]); }, 'databar'),
+                        item(this.textQaColorScale, function () { me.api.asc_setCF([], [], [CF.colorScale, 0]); }, 'colorscale'),
+                        item(this.textQaIconSet, function () { me.api.asc_setCF([], [], [CF.icons, 0]); }, 'iconset'),
+                        item(this.textQaGreaterThan, cf(Asc.c_oAscCFType.cellIs, Asc.c_oAscCFOperator.greaterThan), 'greater'),
+                        item(this.textQaTop10, cf(Asc.c_oAscCFType.top10, 0, true), 'top10'),
+                        item(this.textQaClearFormat, function () { me.api.asc_clearCF(Asc.c_oAscSelectionForCFType.selection); }, 'clear')
+                    ]),
+                    sub(this.textQaCharts, 'charts', [
+                        item(this.textQaColumn, chart(CT.barNormal, 'bar'), 'column'),
+                        item(this.textQaStackedColumn, chart(CT.barStacked, 'bar'), 'stacked'),
+                        item(this.textQaBar, chart(CT.hBarNormal, 'hbar'), 'bar'),
+                        item(this.textQaLine, chart(CT.lineNormal, 'line'), 'line'),
+                        item(this.textQaPie, chart(CT.pie, 'pie'), 'pie'),
+                        item(this.textQaArea, chart(CT.areaNormal, 'area'), 'area')
+                    ]),
+                    sub(this.textQaTotals, 'totals', [
+                        item(this.textQaSum, totals('SUM', false), 'sum'),
+                        item(this.textQaAverage, totals('AVERAGE', false), 'average'),
+                        item(this.textQaCount, totals('COUNT', false), 'count'),
+                        item(this.textQaSumRight, totals('SUM', true), 'sum-right'),
+                        item(this.textQaAverageRight, totals('AVERAGE', true), 'average-right')
+                    ]),
+                    sub(this.textQaTables, 'tables', [
+                        item(this.textQaTable, function () { me.table_(); }, 'table')
+                    ])
+                ]
+            });
+            return this.qaMenuCmp;
+        },
+
+        quickAnalysis: function () {
+            var info = this.api.asc_getQuickAnalysisInfo();
+            if (!info) return true;
+            this.onQuickAnalysis(info);
+            var btn = this.btnQuickAnalysis;
+            if (!btn || !btn.menu) return true;
+            var me = this;
+            _.defer(function () {
+                btn.menu.isVisible() || btn.cmpEl.find('button').first().click();
+                _.defer(function () { btn.menu.cmpEl && btn.menu.cmpEl.find('a').first().focus(); });
+            });
+        },
+
+        textQuickAnalysis: 'Quick Analysis',
+        textQaFormatting: 'Formatting',
+        textQaCharts: 'Charts',
+        textQaTotals: 'Totals',
+        textQaTables: 'Tables',
+        textQaDataBar: 'Data Bar',
+        textQaColorScale: 'Color Scale',
+        textQaIconSet: 'Icon Set',
+        textQaGreaterThan: 'Greater Than...',
+        textQaTop10: 'Top 10%',
+        textQaClearFormat: 'Clear Format',
+        textQaColumn: 'Clustered Column',
+        textQaStackedColumn: 'Stacked Column',
+        textQaBar: 'Clustered Bar',
+        textQaLine: 'Line',
+        textQaPie: 'Pie',
+        textQaArea: 'Area',
+        textQaSum: 'Sum (row below)',
+        textQaAverage: 'Average (row below)',
+        textQaCount: 'Count (row below)',
+        textQaSumRight: 'Sum (column to the right)',
+        textQaAverageRight: 'Average (column to the right)',
+        textQaTable: 'Table',
+        textQaTargetNotEmpty: 'The row below (or the column to the right of) the selection is not empty: the totals were not added.',
 
         toggleRibbon: function () {
             var rt = this.ctrl('RibbonTabs');
