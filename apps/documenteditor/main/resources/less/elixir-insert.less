@@ -58,3 +58,6 @@
   .row { display: flex; border-bottom: 1px dashed rgba(43, 87, 154, .55); box-sizing: border-box; &:last-child { border-bottom: 0; } }
   .cell { flex: 1; border-right: 1px dashed rgba(43, 87, 154, .55); &:last-child { border-right: 0; } }
 }
+
+// Cross-reference wraps at its hyphen (Insert tab of Word shows it on two lines), which keeps the whole tab on one row at 1440 px
+#slot-elx-ins-crossref .caption { white-space: normal; max-width: 60px; text-align: center; line-height: 12px; }

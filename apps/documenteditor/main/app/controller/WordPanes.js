@@ -274,6 +274,10 @@ define([
             var info = Common.util.LanguageInfo.getLocalLanguageName(lcid), code = info && info[0] ? info[0].replace('-', '_') : 'en_US',
                 dirs = [code];
             /^en_/.test(code) && code !== 'en_US' && dirs.push('en_US');
+            // the language alone (ar_SA: ar) and then the main variant of the language (de_AT: de_DE)
+            var lang = code.split('_')[0], main = {de: 'de_DE', fr: 'fr_FR', es: 'es_ES', it: 'it_IT', pt: 'pt_BR', pl: 'pl_PL', ru: 'ru_RU', ca: 'ca_ES', da: 'da_DK', gl: 'gl_ES', ro: 'ro_RO', sk: 'sk_SK', sl: 'sl_SI', sv: 'sv_SE', uk: 'uk_UA'};
+            lang !== code && dirs.push(lang);
+            main[lang] && main[lang] !== code && dirs.push(main[lang]);
             var list = [];
             _.each(dirs, function (d) { list.push(d + '/' + d + '_thes', d + '/th_' + d + '_v2', d + '/th_' + d); });
             return list;
