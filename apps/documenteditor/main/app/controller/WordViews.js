@@ -54,6 +54,7 @@ define([
                 '<div class="group" data-group="outline-show">' +
                     '<div class="elset"><span class="btn-slot text font-size-normal margin-right-6" id="elx-outl-show-label"></span><span class="btn-slot" id="elx-outl-show" style="width:110px;"></span></div>' +
                     '<div class="elset">' + slot('elx-outl-formatting', 'text') + '</div>' +
+                    '<div class="elset">' + slot('elx-outl-firstline', 'text') + '</div>' +
                 '</div>' +
                 '<div class="separator long"></div>' +
                 '<div class="group" data-group="outline-close">' + big('elx-outl-close') + '</div>' +
@@ -102,6 +103,14 @@ define([
             });
             this.controls.push(this.chkFormatting);
 
+            this.chkFirstLine = new Common.UI.CheckBox({labelText: this.txtShowFirstLine, value: false, lock: lock, dataHint: '1', dataHintDirection: 'left', dataHintOffset: 'small'});
+            this.chkFirstLine.render($panel.find('#elx-outl-firstline'));
+            this.chkFirstLine.on('change', function (field, value) {
+                var st = me.api && me.api.asc_GetOutlineState();
+                if (st && !!st.firstLineOnly !== (value === 'checked' || value === true)) me.command('firstline');
+            });
+            this.controls.push(this.chkFirstLine);
+
             this.btnClose = new Common.UI.Button({cls: 'btn-toolbar x-huge icon-top', iconCls: 'toolbar__icon btn-close', caption: this.txtCloseOutline, lock: [Common.enumLock.lostConnect, Common.enumLock.disableOnStart], dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: 'small'});
             this.btnClose.render($panel.find('#elx-outl-close'));
             this.btnClose.on('click', function () { me.setView('print'); });
@@ -123,15 +132,18 @@ define([
             this.api.asc_registerCallback('asc_onFocusObject', function () { me._state.view === 'outline' && me.updateOutlineControls(); });
             Common.NotificationCenter.on('doc:mode-changed', _.bind(this.onDocModeChanged, this));
             document.addEventListener('keydown', _.bind(this.onReadKey, this), true);
+            document.addEventListener('keydown', _.bind(this.onSplitKey, this), true);
+            this.api.asc_registerCallback('asc_onElxRecalculated', _.debounce(function () { me._state.split && me.renderSplitPages(true); }, 250));
+            $(window).on('resize', _.debounce(function () { me._state.split && me.layoutSplit(); }, 100));
             $(window).on('resize', _.debounce(function () { me._state.read && me.applyReadLayout(); }, 300));
             // the KeyTips of the new controls (WordKeyTips reads these tables when Alt is pressed)
             var kt = this.getApplication().getController('WordKeyTips');
             if (kt && kt.commands && kt.tabs) {
                 kt.tabs.outlining = 'U';
-                kt.commands.view = (kt.commands.view || []).concat([['#slot-elx-view-outline', 'U'], ['#slot-elx-view-draft', 'E']]);
+                kt.commands.view = (kt.commands.view || []).concat([['#slot-elx-view-outline', 'U'], ['#slot-elx-view-draft', 'E'], ['#slot-elx-view-split', 'S']]);
                 kt.commands.outlining = [['#elx-outl-h1', 'U'], ['#elx-outl-promote', 'P'], ['#elx-outl-level', 'L'], ['#elx-outl-demote', 'D'],
                     ['#elx-outl-body', 'B'], ['#elx-outl-up', 'M'], ['#elx-outl-down', 'O'], ['#elx-outl-expand', 'E'], ['#elx-outl-collapse', 'C'],
-                    ['#elx-outl-show', 'S'], ['#elx-outl-formatting', 'T'], ['#elx-outl-close', 'C2']];
+                    ['#elx-outl-show', 'S'], ['#elx-outl-formatting', 'T'], ['#elx-outl-firstline', 'F'], ['#elx-outl-close', 'C2']];
             }
             setTimeout(function () { me.arrangeViewTab(mode); }, 0);
         },
@@ -155,6 +167,12 @@ define([
                 this.btnViewDraft.on('click', function () { me.setView('draft'); });
                 v.lockedControls && v.lockedControls.push(this.btnViewOutline, this.btnViewDraft);
             }
+            // Window group: Split
+            $group.after('<div class="separator long"></div><div class="group" data-group="elx-window"><span class="btn-slot text x-huge" id="slot-elx-view-split"></span></div>');
+            this.btnSplit = new Common.UI.Button({cls: 'btn-toolbar x-huge icon-top', caption: this.txtSplit, iconCls: 'toolbar__icon btn-big-sheet-view', hint: this.tipSplit,
+                enableToggle: true, lock: [Common.enumLock.disableOnStart], dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: 'small'});
+            this.btnSplit.render($('#slot-elx-view-split'));
+            this.btnSplit.on('click', function () { me.toggleSplit(); });
             v.btnViewPrint.on('click', function () { me.setView('print'); });
             v.btnViewRead.on('click', function () { me.enterReadMode(); });
         },
@@ -201,6 +219,7 @@ define([
             this.cmbLevel.setValue(st.level);
             this.cmbShow.setValue(st.showLevel || 0);
             this.chkFormatting.setValue(!!st.showFormatting, true);
+            this.chkFirstLine && this.chkFirstLine.setValue(!!st.firstLineOnly, true);
         },
 
         // ---- Read Mode ---------------------------------------------------------------------
@@ -304,6 +323,130 @@ define([
             e.stopPropagation();
         },
 
+        // ---- split window (Ctrl+Alt+S, View > Split) --------------------------------------------
+        // The second pane shows the same document with its own scroll; it is drawn by the engine
+        // (asc_DrawPageToCanvas) and follows each change. A click in it puts the cursor there.
+        onSplitKey: function (e) {
+            if (!this.api || this._state.read || Common.Utils.ModalWindow.isVisible()) return;
+            var mac = Common.Utils.isMac, code = e.keyCode;
+            var split = code === 83 && e.altKey && !e.shiftKey && (mac ? e.metaKey && !e.ctrlKey : e.ctrlKey && !e.metaKey);
+            var remove = code === 67 && e.altKey && e.shiftKey && !e.ctrlKey && !e.metaKey && this._state.split;
+            if (!split && !remove) return;
+            this.stop(e);
+            this.toggleSplit(remove ? false : undefined);
+        },
+
+        toggleSplit: function (on) {
+            on = on === undefined ? !this._state.split : !!on;
+            if (on === !!this._state.split) { this.btnSplit && this.btnSplit.toggle(on, true); return; }
+            on ? this.openSplit() : this.closeSplit();
+            this.btnSplit && this.btnSplit.toggle(on, true);
+            this.btnSplit && this.btnSplit.setCaption && this.btnSplit.setCaption(on ? this.txtRemoveSplit : this.txtSplit);
+            Common.NotificationCenter.trigger('edit:complete');
+        },
+
+        openSplit: function () {
+            var me = this, $ct = $('#editor-container');
+            if (!$ct.length) return;
+            this.api.asc_WatchRecalculation && this.api.asc_WatchRecalculation();
+            this._state.split = {ratio: 0.5};
+            $ct.css('position', 'relative');
+            this.$splitBar = $('<div id="elx-split-bar" title="' + this.tipSplitBar + '" style="position:absolute;left:0;height:6px;cursor:row-resize;z-index:5;' +
+                'background:var(--background-toolbar, #f1f1f1);border-top:1px solid var(--border-toolbar, #cbcbcb);border-bottom:1px solid var(--border-toolbar, #cbcbcb);box-sizing:border-box;"></div>');
+            this.$splitPane = $('<div id="elx-split-pane" tabindex="-1" style="position:absolute;left:0;bottom:0;overflow:auto;z-index:4;background:var(--canvas-background, #e2e2e2);">' +
+                '<div class="elx-split-pages" style="position:relative;"></div></div>');
+            $ct.append(this.$splitBar, this.$splitPane);
+            this.$splitPane.on('scroll', _.throttle(function () { me.renderSplitPages(false); }, 60));
+            this.$splitPane.on('mousedown', '.elx-split-page', function (e) { me.onSplitPageClick(e, $(this)); });
+            this.$splitBar.on('dblclick', function () { me.toggleSplit(false); });
+            this.$splitBar.on('mousedown', function (e) {
+                e.preventDefault();
+                var top = $ct.offset().top, h = $ct.height();
+                var move = function (ev) { me._state.split.ratio = Math.max(0.05, Math.min(0.95, (ev.pageY - top) / h)); me.layoutSplit(true); };
+                var up = function () {
+                    $(document).off('mousemove', move).off('mouseup', up);
+                    var r = me._state.split && me._state.split.ratio;
+                    if (r !== undefined && (r <= 0.06 || r >= 0.94)) me.toggleSplit(false);
+                    else me.layoutSplit();
+                };
+                $(document).on('mousemove', move).on('mouseup', up);
+            });
+            this.layoutSplit();
+            // both panes start at the same place
+            var sizes = this.splitGeometry(), page = this.api.getCurrentPage();
+            if (sizes[page]) this.$splitPane.scrollTop(sizes[page].top - 10);
+            this.renderSplitPages(true);
+        },
+
+        closeSplit: function () {
+            this.$splitBar && this.$splitBar.remove();
+            this.$splitPane && this.$splitPane.remove();
+            this.$splitBar = this.$splitPane = null;
+            this._state.split = null;
+            $('#editor_sdk').css('height', '');
+            this.api && this.api.Resize();
+        },
+
+        layoutSplit: function (live) {
+            if (!this._state.split) return;
+            var $ct = $('#editor-container'), $sdk = $('#editor_sdk');
+            var h = $ct.height(), top = Math.round(h * this._state.split.ratio), w = $sdk.outerWidth();
+            $sdk.css('height', top + 'px');
+            this.$splitBar.css({top: top + 'px', width: w + 'px'});
+            this.$splitPane.css({top: (top + 6) + 'px', width: w + 'px'});
+            if (!live) {
+                this.api.Resize();
+                this.renderSplitPages(true);
+            }
+        },
+
+        // page boxes of the second pane, at the zoom of the document
+        splitGeometry: function () {
+            var sizes = this.api.asc_GetPagesSizes ? this.api.asc_GetPagesSizes() : [];
+            var zoom = (this.api.asc_GetZoomValue ? this.api.asc_GetZoomValue() : 100) / 100, k = 96 / 25.4 * zoom;
+            var y = 10, paneW = this.$splitPane ? this.$splitPane[0].clientWidth : 0;
+            return sizes.map(function (s) {
+                var w = Math.round(s.w * k), h = Math.round(s.h * k), box = {w: w, h: h, top: y, left: Math.max(10, Math.round((paneW - w) / 2)), mmW: s.w, mmH: s.h};
+                y += h + 10;
+                return box;
+            });
+        },
+
+        renderSplitPages: function (redraw) {
+            if (!this._state.split || !this.$splitPane) return;
+            var me = this, boxes = this.splitGeometry(), $pages = this.$splitPane.find('.elx-split-pages');
+            var last = boxes[boxes.length - 1];
+            $pages.css('height', (last ? last.top + last.h + 10 : 0) + 'px');
+            var $existing = $pages.children('.elx-split-page');
+            $existing.each(function () { var i = +$(this).attr('data-page'); if (!boxes[i]) $(this).remove(); });
+            var viewTop = this.$splitPane.scrollTop(), viewBottom = viewTop + this.$splitPane.height(), ratio = window.devicePixelRatio || 1;
+            boxes.forEach(function (b, i) {
+                var visible = b.top + b.h >= viewTop - 200 && b.top <= viewBottom + 200;
+                var $p = $pages.children('.elx-split-page[data-page=' + i + ']');
+                if (!visible) { $p.length && $p.remove(); return; }
+                if (!$p.length) {
+                    $p = $('<canvas class="elx-split-page" data-page="' + i + '" style="position:absolute;box-shadow:0 0 0 1px var(--border-toolbar, #cbcbcb);cursor:text;"></canvas>');
+                    $pages.append($p);
+                    $p.data('drawn', false);
+                }
+                $p.css({left: b.left + 'px', top: b.top + 'px', width: b.w + 'px', height: b.h + 'px'});
+                if (redraw || !$p.data('drawn')) {
+                    $p.data('drawn', me.api.asc_DrawPageToCanvas(i, $p[0], b.w * ratio));
+                }
+            });
+        },
+
+        onSplitPageClick: function (e, $p) {
+            var i = +$p.attr('data-page'), b = this.splitGeometry()[i];
+            if (!b) return;
+            var off = $p.offset(), x = (e.pageX - off.left) / b.w * b.mmW, y = (e.pageY - off.top) / b.h * b.mmH;
+            e.preventDefault();
+            this.api.asc_ClickInPage(i, x, y);
+            this.api.asc_enableKeyEvents(true);
+            var area = document.getElementById('area_id');
+            area && area.focus();
+        },
+
         // ---- field hints -------------------------------------------------------------------
         onFieldHint: function (kind, count) {
             var keys = this.getApplication().getController('WordEditKeys'),
@@ -330,6 +473,11 @@ define([
         txtAllLevels: 'All Levels',
         txtShowLevel: 'Show Level:',
         txtShowFormatting: 'Show Text Formatting',
+        txtShowFirstLine: 'Show First Line Only',
+        txtSplit: 'Split',
+        txtRemoveSplit: 'Remove Split',
+        tipSplit: 'Split the window into two parts to see two places of the document at the same time (Ctrl+Alt+S)',
+        tipSplitBar: 'Drag to resize the panes, double-click to remove the split',
         txtCloseOutline: 'Close Outline View',
         txtFieldLocked: 'Field locked: {0}',
         txtFieldUnlocked: 'Field unlocked: {0}',
