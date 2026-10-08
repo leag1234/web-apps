@@ -8,8 +8,9 @@
  *              Font, Paragraph and Page Setup dialogs
  *   Alt+F10    Selection: the objects of the document (front first), click to select, eye to show / hide,
  *              double click to rename, Show All / Hide All, Bring Forward / Send Backward
- *   Shift+F7   Thesaurus: meanings and synonyms of the word at the cursor, from the offline MyThes thesaurus files
- *              of the dictionaries folder (read with HTTP range requests, nothing leaves the server); click a
+ *   Shift+F7   Thesaurus: meanings and synonyms of the word at the cursor, in the language of the text, from the offline
+ *              MyThes thesaurus files of the dictionaries folder (17 languages, see docs/thesaurus.md; loaded when
+ *              needed, read with HTTP range requests, nothing leaves the server); click a
  *              synonym to look it up, Insert replaces the word
  * One pane at a time; Esc in the pane or its close button closes it.
  */
@@ -270,14 +271,14 @@ define([
 
         // ---- Thesaurus ----------------------------------------------------------------------
         // MyThes files: <dir>.idx is "word|offset" per line, <dir>.dat holds "word|n" then n lines "(pos)|syn|syn..."
+        // the thesaurus of the language of the text, else the one of its main variant (de-AT, de-CH: de-DE)
+        THESAURUS_DEFAULT: {ar: 'ar', ca: 'ca_ES', da: 'da_DK', de: 'de_DE', en: 'en_US', es: 'es_ES', fr: 'fr_FR', gl: 'gl_ES',
+            it: 'it_IT', pl: 'pl_PL', ro: 'ro_RO', ru: 'ru_RU', sk: 'sk_SK', sl: 'sl_SI', sv: 'sv_SE', uk: 'uk_UA'},
+
         thesaurusFiles: function (lcid) {
-            var info = Common.util.LanguageInfo.getLocalLanguageName(lcid), code = info && info[0] ? info[0].replace('-', '_') : 'en_US',
-                dirs = [code];
-            /^en_/.test(code) && code !== 'en_US' && dirs.push('en_US');
-            // the language alone (ar_SA: ar) and then the main variant of the language (de_AT: de_DE)
-            var lang = code.split('_')[0], main = {de: 'de_DE', fr: 'fr_FR', es: 'es_ES', it: 'it_IT', pt: 'pt_BR', pl: 'pl_PL', ru: 'ru_RU', ca: 'ca_ES', da: 'da_DK', gl: 'gl_ES', ro: 'ro_RO', sk: 'sk_SK', sl: 'sl_SI', sv: 'sv_SE', uk: 'uk_UA'};
-            lang !== code && dirs.push(lang);
-            main[lang] && main[lang] !== code && dirs.push(main[lang]);
+            var info = Common.util.LanguageInfo.getLocalLanguageName(lcid), code = info && info[0] ? info[0].replace(/-/g, '_') : 'en_US',
+                dirs = [code], main = this.THESAURUS_DEFAULT[code.split('_')[0].toLowerCase()];
+            main && main !== code && dirs.push(main);
             var list = [];
             _.each(dirs, function (d) { list.push(d + '/' + d + '_thes', d + '/th_' + d + '_v2', d + '/th_' + d); });
             return list;

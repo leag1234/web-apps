@@ -494,6 +494,11 @@ Common.UI.HintManager = new(function() {
         $(document).on('mousedown', function () {
             _clearHints();
         });
+        // Alt+click or Alt+drag (block selection) is no Alt key press; capture, and pointerdown: the editor area
+        // cancels its pointer events, so that no mousedown follows
+        var _cancelAltShow = function () { _needShow = false; };
+        document.addEventListener('pointerdown', _cancelAltShow, true);
+        document.addEventListener('mousedown', _cancelAltShow, true);
         var _toggleHints = function () {
             if (!_hintVisible) {
                 $('input:focus').blur(); // to change value in inputField
