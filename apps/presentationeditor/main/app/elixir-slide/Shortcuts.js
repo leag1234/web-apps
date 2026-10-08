@@ -39,6 +39,30 @@ define([
             window.addEventListener('keydown', function (e) { me.onKeyDown(e); }, true);
         },
 
+        // F6 / Shift+F6: slide -> thumbnails -> ribbon -> status bar -> slide, like PowerPoint
+        cyclePanes: function (dir) {
+            var api = this.api, a = document.activeElement, cur = 0;
+            if (a && $(a).closest('#toolbar').length) cur = 2;
+            else if (a && $(a).closest('#statusbar').length) cur = 3;
+            else if (api.asc_GetPaneFocus() === 'thumbnails') cur = 1;
+            var next = (cur + dir + 4) % 4;
+            // the active ribbon tab (the first tab when the ribbon is collapsed), or the first status bar control
+            var $tabs = $('#toolbar .ribtab > a').filter(':visible'),
+                $active = $tabs.filter(function () { return $(this).parent().hasClass('active'); }),
+                $el = next === 2 ? ($active.length ? $active : $tabs).first()
+                    : next === 3 ? $('#statusbar').find('button, .btn, a').filter(':visible').first() : $();
+            if ((next === 2 || next === 3) && !$el.length) next = dir > 0 ? 0 : 1;
+            if (next < 2) {
+                a && a !== document.body && a.blur && a.blur();
+                api.asc_SetPaneFocus(next === 1 ? 'thumbnails' : 'slide');
+                Common.NotificationCenter.trigger('edit:complete');
+                return;
+            }
+            api.asc_enableKeyEvents(false);
+            $el.attr('tabindex') === undefined && $el.attr('tabindex', '-1');
+            $el[0].focus();
+        },
+
         // where the key goes: no shortcut while a dialog, a menu or a form field has the focus
         inEditor: function (e) {
             var t = e.target;
@@ -53,8 +77,9 @@ define([
         onKeyDown: function (e) {
             var ctrl = isMac ? e.metaKey : e.ctrlKey, k = e.keyCode, sh = e.shiftKey, alt = e.altKey,
                 otherCtrl = isMac ? e.ctrlKey : e.metaKey;
+            // slide show: on macOS the pointer keys also work with Control (Cmd+H is kept by macOS)
+            if (this.previewOpen()) { this.onShowKey(e, isMac ? e.metaKey || e.ctrlKey : ctrl, sh, alt, otherCtrl && !isMac); return; }
             if (otherCtrl) return;
-            if (this.previewOpen()) { this.onShowKey(e, ctrl, sh, alt); return; }
             if (!this.inEditor(e)) return;
             var act = this.match(k, ctrl, sh, alt, e);
             if (!act) return;
@@ -68,6 +93,7 @@ define([
             // ---- slide show (F5, Shift+F5, Alt+F5)
             if (k === K.F5 && !ctrl && !alt) return function () { me.show(sh); };
             if (k === K.F5 && alt && !ctrl && !sh) return function () { me.presenter(); };
+            if (k === 117 && !ctrl && !alt) return function () { me.cyclePanes(sh ? -1 : 1); };     // F6, Shift+F6
             // ---- format text
             // Ctrl+= subscript, Ctrl+Shift++ superscript while editing text; zoom in otherwise, as in PowerPoint
             var inText = this.tb.btnSubscript && !this.tb.btnSubscript.isDisabled();
@@ -107,9 +133,24 @@ define([
         },
 
         // ---- delivering a presentation (PowerPoint keys the slide show did not have) ------------
-        onShowKey: function (e, ctrl, sh, alt) {
+        onShowKey: function (e, ctrl, sh, alt, other) {
             var k = e.keyCode, api = this.api, me = this, handled = true;
+            if (other) return;
+            // pointer: Ctrl+P pen, Ctrl+E eraser, Ctrl+A arrow, Ctrl+L laser pointer, Ctrl+H hide (Cmd on macOS)
+            var pointer = ctrl && !alt && !sh && {80: 'pen', 69: 'eraser', 65: 'arrow', 76: 'laser', 72: 'hidden'}[k];
+            if (pointer) {
+                this.setPointer(pointer);
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                return;
+            }
             if (ctrl || alt) return;
+            if (k === 69 && !sh) {                                              // E: erase the drawings of the slide
+                api.asc_EraseAllInksOnSlide();
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                return;
+            }
             var blank = $('#elx-show-blank');
             if (blank.length && k !== 66 && k !== 87 && k !== 190 && k !== 188) { blank.remove(); }
             if (k >= 48 && k <= 57 || k >= 96 && k <= 105) {               // slide number, then Enter
@@ -125,6 +166,32 @@ define([
             if (!(k >= 48 && k <= 57 || k >= 96 && k <= 105) && k !== 13) this._goto = '';
             if (handled) { e.preventDefault(); e.stopImmediatePropagation(); }
             void me;
+        },
+
+        setPointer: function (mode) {
+            var api = this.api, $p = $('#pe-preview');
+            if (!$('#elx-pointer-style').length) {
+                var dot = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="6" fill="#ff1a1a" stroke="#ffb3b3" stroke-width="3"/></svg>');
+                $('<style id="elx-pointer-style">#pe-preview.elx-pointer-laser, #pe-preview.elx-pointer-laser * { cursor: url("' + dot + '") 10 10, crosshair !important; }' +
+                  '#pe-preview.elx-pointer-hidden, #pe-preview.elx-pointer-hidden * { cursor: none !important; }</style>').appendTo('head');
+            }
+            $p.removeClass('elx-pointer-laser elx-pointer-hidden');
+            this.pointer = mode;
+            if (mode === 'pen') {
+                var stroke = new Asc.asc_CStroke();
+                stroke.put_type(Asc.c_oAscStrokeType.STROKE_COLOR);
+                stroke.put_color(Common.Utils.ThemeColor.getRgbColor('FF0000'));
+                stroke.asc_putPrstDash(Asc.c_oDashType.solid);
+                stroke.put_width(1);
+                stroke.put_transparent(255);
+                api.asc_StartDrawInk(stroke, 0);
+            } else if (mode === 'eraser') {
+                api.asc_StartInkEraser();
+            } else {
+                api.asc_StopInkDrawer();
+                mode === 'laser' && $p.addClass('elx-pointer-laser');
+                mode === 'hidden' && $p.addClass('elx-pointer-hidden');
+            }
         },
 
         blank: function (color) {
