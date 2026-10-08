@@ -92,6 +92,17 @@ define([
                     big('elx-btn-shp-backward') + big('elx-btn-shp-align') + big('elx-btn-shp-group') + big('elx-btn-shp-rotate')) + SEP +
                 group('size', 'shpsize', spinRow('elx-lbl-shp-height', 'elx-spin-shp-height') + spinRow('elx-lbl-shp-width', 'elx-spin-shp-width'), 'small')
             ),
+            chartdesign: panel('chartdesign',
+                '<div class="group small flex elx-cht-styles" id="elx-cht-styles" data-group="chartstyles" data-launcher="chartstyles" style="width: 420px; min-width: 140px;" data-group-width="420px"></div>' + SEP +
+                group('chartdata', null, big('elx-btn-cht-editdata')) + SEP +
+                group('charttype', null, big('elx-btn-cht-type'))
+            ),
+            chartformat: panel('chartformat',
+                group('accessibility', null, big('elx-btn-cht-alttext')) + SEP +
+                group('arrange', null, big('elx-btn-cht-position') + big('elx-btn-cht-wrap') + big('elx-btn-cht-forward') +
+                    big('elx-btn-cht-backward') + big('elx-btn-cht-align') + big('elx-btn-cht-group')) + SEP +
+                group('size', 'chtsize', spinRow('elx-lbl-cht-height', 'elx-spin-cht-height') + spinRow('elx-lbl-cht-width', 'elx-spin-cht-width'), 'small')
+            ),
             equation: panel('equation',
                 group('tools', null, big('elx-btn-eq-new') + big('elx-btn-eq-convert') + big('elx-btn-eq-display')) + SEP +
                 group('structures', null, '<span class="elx-eq-structures"></span>')
@@ -112,7 +123,7 @@ define([
                 Common.UI.BaseView.prototype.initialize.call(this);
                 this.toolbar = options.toolbar;
                 this.mode = options.mode;
-                this.controls = {tabledesign: [], tablelayout: [], pictureformat: [], shapeformat: [], equation: []};
+                this.controls = {tabledesign: [], tablelayout: [], pictureformat: [], shapeformat: [], chartdesign: [], chartformat: [], equation: []};
                 this.lockedControls = [];
                 this.spinners = [];
                 this.panels = {};
@@ -181,6 +192,7 @@ define([
                 this.createTableLayout();
                 this.createPictureFormat();
                 this.createShapeFormat();
+                this.createChart();
                 this.createEquation();
                 return this.panels;
             },
@@ -380,6 +392,7 @@ define([
                 res.backward = this._mirror(t, 'elx-btn-' + prefix + '-backward', function () { return tb.btnImgBackward; });
                 res.align = this._mirror(t, 'elx-btn-' + prefix + '-align', function () { return tb.btnImgAlign; });
                 res.group = this._mirror(t, 'elx-btn-' + prefix + '-group', function () { return tb.btnImgGroup; });
+                    if (prefix === 'cht') return res;   // a chart does not rotate
                 res.rotate = this._btn(t, 'elx-btn-' + prefix + '-rotate', {
                     iconCls: 'toolbar__icon btn-elx-rotate', caption: this.txtRotate,
                     menu: new Common.UI.Menu({items: [
@@ -515,6 +528,38 @@ define([
                 this.spnShpWidth = this._spinner(t, 'elx-lbl-shp-width', 'elx-spin-shp-width', this.txtWidth);
             },
 
+            // ---- Chart Design / Format (Word's two chart tabs; the rest stays in More Options) ----
+            createChart: function () {
+                var t = 'chartdesign';
+                this.chartStyles = new Common.UI.ComboDataView({
+                    cls: 'combo-chart-style elx-combo-chart-styles',
+                    itemWidth: 50,
+                    itemHeight: 50,
+                    style: 'min-width: 140px; max-width: 400px;',
+                    menuMaxHeight: 300,
+                    lock: this._baseLock(),
+                    enableKeyEvents: true,
+                    autoWidth: true,
+                    delayRenderTips: true,
+                    fillOnChangeVisibility: true,
+                    ariaLabel: this.txtChartStyles,
+                    dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: '-16, 0'
+                });
+                this._register(t, 'elx-cht-styles', this.chartStyles);
+                this.btnChtEditData = this._btn(t, 'elx-btn-cht-editdata', {iconCls: 'toolbar__icon btn-elx-edit-data', caption: this.txtEditData});
+                this.btnChtType = this._btn(t, 'elx-btn-cht-type', {
+                    iconCls: 'toolbar__icon btn-elx-chart-type', caption: this.txtChangeChartType,
+                    menu: new Common.UI.Menu({style: 'width: 364px; padding-top: 12px;', items: [
+                        {template: _.template('<div id="elx-cht-type-menu" class="menu-insertchart"></div>')}
+                    ]})
+                });
+                t = 'chartformat';
+                this.btnChtAltText = this._btn(t, 'elx-btn-cht-alttext', {iconCls: 'toolbar__icon btn-elx-alt-text', caption: this.txtAltText});
+                this.chtArrange = this._createArrange(t, 'cht');
+                this.spnChtHeight = this._spinner(t, 'elx-lbl-cht-height', 'elx-spin-cht-height', this.txtHeight);
+                this.spnChtWidth = this._spinner(t, 'elx-lbl-cht-width', 'elx-spin-cht-width', this.txtWidth);
+            },
+
             // ---- Equation -----------------------------------------------------------------
             createEquation: function () {
                 var t = 'equation', tb = this.toolbar;
@@ -606,6 +651,14 @@ define([
             txtTabPictureFormat: 'Picture Format',
             txtTabShapeFormat: 'Shape Format',
             txtTabEquation: 'Equation',
+            txtTabChartDesign: 'Chart Design',
+            txtTabChartFormat: 'Format',
+            txtGroupChartstyles: 'Chart Styles',
+            txtGroupChartdata: 'Data',
+            txtGroupCharttype: 'Type',
+            txtChartStyles: 'Chart Styles',
+            txtEditData: 'Edit Data',
+            txtChangeChartType: 'Change Chart Type',
             txtGroupTablestyleoptions: 'Table Style Options',
             txtGroupTablestyles: 'Table Styles',
             txtGroupBorders: 'Borders',

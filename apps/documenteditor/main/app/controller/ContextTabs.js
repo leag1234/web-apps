@@ -8,6 +8,7 @@
  *   tabledesign, tablelayout   cursor in a table
  *   pictureformat              a picture is selected
  *   shapeformat                a shape or text box is selected (or its text is edited)
+ *   chartdesign, chartformat   a chart is selected
  *   equation                   cursor in an equation
  *   headerfooter               (existing HeaderFooterTab) header or footer being edited
  * A tab appears with its context and goes away with it; when the active tab goes
@@ -23,8 +24,8 @@ define([
 ], function () {
     'use strict';
 
-    var CONTEXT_TABS = ['headerfooter', 'tabledesign', 'tablelayout', 'pictureformat', 'shapeformat', 'equation'];
-    var INSERT_TAB = {table: 'tabledesign', picture: 'pictureformat', shape: 'shapeformat', equation: 'equation'};
+    var CONTEXT_TABS = ['headerfooter', 'tabledesign', 'tablelayout', 'pictureformat', 'shapeformat', 'chartdesign', 'chartformat', 'equation'];
+    var INSERT_TAB = {table: 'tabledesign', picture: 'pictureformat', shape: 'shapeformat', chart: 'chartdesign', equation: 'equation'};
 
     DE.Controllers.ContextTabs = Backbone.Controller.extend(_.extend({
         models: [],
@@ -72,6 +73,8 @@ define([
                 {action: 'tablelayout', caption: v.txtTabTableLayout, dataHintTitle: 'JL'},
                 {action: 'pictureformat', caption: v.txtTabPictureFormat, dataHintTitle: 'JP'},
                 {action: 'shapeformat', caption: v.txtTabShapeFormat, dataHintTitle: 'JD'},
+                {action: 'chartdesign', caption: v.txtTabChartDesign, dataHintTitle: 'JC'},
+                {action: 'chartformat', caption: v.txtTabChartFormat, dataHintTitle: 'JO'},
                 {action: 'equation', caption: v.txtTabEquation, dataHintTitle: 'JE'}
             ];
             _.each(tabs, function (tab) {
@@ -155,6 +158,7 @@ define([
             wrap('AddImageUrl', 'picture', 60000);
             wrap('StartAddShape', 'shape', 120000, function (type, start) { return !!start; });
             wrap('AddTextArt', 'shape');
+            wrap('asc_addChartDrawingObject', 'chart', 60000);
             wrap('asc_AddMath', 'equation');
             wrap('asc_AddMath2', 'equation');
         },
@@ -162,14 +166,14 @@ define([
         // ---- context detection -----------------------------------------------------------
         onApiFocusObject: function (selected) {
             if (!this.view || !this.toolbar || !this.toolbar.$tabs) return;
-            var ctx = {table: null, picture: null, shape: null, equation: false, para: null, locked: {}};
+            var ctx = {table: null, picture: null, shape: null, chart: null, equation: false, para: null, locked: {}};
             for (var i = 0; i < selected.length; i++) {
                 var type = selected[i].get_ObjectType(), value = selected[i].get_ObjectValue();
                 if (type === Asc.c_oAscTypeSelectElement.Table) {
                     ctx.table = value;
                     ctx.locked.table = value.get_Locked();
                 } else if (type === Asc.c_oAscTypeSelectElement.Image) {
-                    if (value.get_ChartProperties()) continue;
+                    if (value.get_ChartProperties()) { ctx.chart = value; ctx.locked.image = value.get_Locked(); continue; }
                     var shp = value.get_ShapeProperties();
                     if (shp) {
                         if (shp.asc_getFromSmartArt && shp.asc_getFromSmartArt()) continue;
@@ -188,7 +192,8 @@ define([
             this._ctx = ctx;
             var vis = {
                 tabledesign: !!ctx.table, tablelayout: !!ctx.table,
-                pictureformat: !!ctx.picture, shapeformat: !!ctx.shape, equation: !!ctx.equation
+                pictureformat: !!ctx.picture, shapeformat: !!ctx.shape, equation: !!ctx.equation,
+                chartdesign: !!ctx.chart, chartformat: !!ctx.chart
             };
             var me = this, active = this.activeTab();
             _.each(vis, function (v, tab) { me.setTabVisible(tab, v); });
@@ -196,6 +201,7 @@ define([
             if (ctx.table) this.updateTable(ctx.table);
             if (ctx.picture) this.updatePicture(ctx.picture);
             if (ctx.shape) this.updateShape(ctx.shape);
+            if (ctx.chart) this.updateChart(ctx.chart);
             if (ctx.equation) this.updateEquation();
 
             // the active contextual tab went away: back to the tab used before it
@@ -207,7 +213,7 @@ define([
                 if (Date.now() > p.until) this._state.pending = null;
                 else {
                     var hit = (p.kind === 'table' && ctx.table) || (p.kind === 'picture' && ctx.picture) ||
-                              (p.kind === 'shape' && ctx.shape) || (p.kind === 'equation' && ctx.equation);
+                              (p.kind === 'shape' && ctx.shape) || (p.kind === 'equation' && ctx.equation) || (p.kind === 'chart' && ctx.chart);
                     if (hit) {
                         this._state.pending = null;
                         if (!this.toolbar.isCompact()) this.toolbar.setTab(INSERT_TAB[p.kind]);
@@ -230,7 +236,7 @@ define([
 
         hideAll: function () {
             var me = this;
-            _.each(['tabledesign', 'tablelayout', 'pictureformat', 'shapeformat', 'equation'], function (t) { me.setTabVisible(t, false); });
+            _.each(['tabledesign', 'tablelayout', 'pictureformat', 'shapeformat', 'chartdesign', 'chartformat', 'equation'], function (t) { me.setTabVisible(t, false); });
         },
 
         onTabActive: function (tab) {
@@ -323,10 +329,142 @@ define([
             this.updateArrange(v.shpArrange, props);
         },
 
+        updateChart: function (props) {
+            var v = this.view, chart = props.get_ChartProperties();
+            this.lockFor('chartdesign', props.get_Locked());
+            this.lockFor('chartformat', props.get_Locked());
+            this._imgProps = props;
+            this._chartProps = chart;
+            v.spnChtHeight.setValue(Common.Utils.Metric.fnRecalcFromMM(props.get_Height()).toFixed(2), true);
+            v.spnChtWidth.setValue(Common.Utils.Metric.fnRecalcFromMM(props.get_Width()).toFixed(2), true);
+            var type = chart ? chart.getType() : null, style = chart ? chart.getStyle() : null;
+            if (type !== this._state.chartType) {
+                this._state.chartType = type;
+                this._state.chartStyle = style;
+                this.updateChartStyles();
+            } else if (style !== this._state.chartStyle) {
+                this._state.chartStyle = style;
+                this.selectChartStyle();
+            }
+            if (this._chartTypePicker) this.selectChartType();
+            var ext = chart && chart.getExternalReference && chart.getExternalReference();
+            v.btnChtEditData.setDisabled(props.get_Locked() || !!props.get_SeveralCharts && props.get_SeveralCharts());
+            v.btnChtEditData.setCaption(ext ? v.txtSelectData || v.txtEditData : v.txtEditData);
+            this.updateArrange(v.chtArrange, props);
+        },
+
+        isComboChart: function (type) {
+            var t = Asc.c_oAscChartTypeSettings;
+            return type === t.comboBarLine || type === t.comboBarLineSecondary || type === t.comboAreaBar || type === t.comboCustom;
+        },
+
+        // previews of the chart styles of the current chart type (same engine calls as the right panel)
+        updateChartStyles: function () {
+            var v = this.view, type = this._state.chartType, picker = v.chartStyles.menuPicker;
+            if (!this.api || type === null || type === undefined || type < 0 || this.isComboChart(type)) {
+                picker.store.reset();
+                v.chartStyles.clearComboView();
+                v.chartStyles.setDisabled(true);
+                return;
+            }
+            var styles = this.api.asc_getChartPreviews(type, undefined, true) || [];
+            picker.store.reset(_.map(styles, function (st) {
+                return {imageUrl: st.asc_getImage(), data: st.asc_getName(), tip: v.txtChartStyles + ' ' + st.asc_getName()};
+            }));
+            v.chartStyles.setDisabled(!styles.length || !!(this._imgProps && this._imgProps.get_Locked()));
+            var shown = this.selectChartStyle();
+            shown && shown.length && this.api.asc_generateChartPreviews(type, shown);
+        },
+
+        selectChartStyle: function () {
+            var combo = this.view.chartStyles, store = combo.menuPicker.store;
+            if (!store.length) return null;
+            combo.suspendEvents();
+            var rec = store.findWhere({data: this._state.chartStyle});
+            rec ? combo.menuPicker.selectRecord(rec, true) : combo.menuPicker.deselectAll && combo.menuPicker.deselectAll(true);
+            combo.resumeEvents();
+            var recs = combo.fillComboView(rec || store.at(0), true);
+            return _.map(recs || [], function (r) { return r.get('data'); });
+        },
+
+        onAddChartStylesPreview: function (styles) {
+            var store = this.view && this.view.chartStyles.menuPicker.store;
+            if (!store || !styles) return;
+            _.each(styles, function (st) {
+                var rec = store.findWhere({data: st.asc_getName()});
+                rec && rec.set('imageUrl', st.asc_getImage());
+            });
+        },
+
+        ensureChartTypePicker: function () {
+            if (this._chartTypePicker || !Common.define.chartData) return;
+            var me = this, v = this.view;
+            this._chartTypePicker = new Common.UI.DataView({
+                el: $('#elx-cht-type-menu'),
+                parentMenu: v.btnChtType.menu,
+                restoreHeight: 535,
+                groups: new Common.UI.DataViewGroupStore(Common.define.chartData.getChartGroupData()),
+                store: new Common.UI.DataViewStore(Common.define.chartData.getChartData()),
+                itemTemplate: _.template('<div id="<%= id %>" class="item-chartlist"><svg width="40" height="40" class="icon uni-scale"><use xlink:href="#chart-<%= iconCls %>"></use></svg></div>'),
+                delayRenderTips: true
+            });
+            this._chartTypePicker.on('item:click', function (picker, item, record) { me.onChartTypeClick(record); });
+            this.selectChartType();
+        },
+
+        selectChartType: function () {
+            var rec = this._chartTypePicker.store.findWhere({type: this._state.chartType});
+            rec ? this._chartTypePicker.selectRecord(rec, true) : this._chartTypePicker.deselectAll(true);
+        },
+
+        onChartTypeClick: function (record) {
+            var chart = this._chartProps;
+            if (!this.api || !chart || !record) return;
+            var type = record.get('type');
+            if (this.isComboChart(type) && chart.getSeries().length < 2) {
+                Common.NotificationCenter.trigger('showerror', Asc.c_oAscError.ID.ComboSeriesError, Asc.c_oAscError.Level.NoCritical);
+                this.selectChartType();
+            } else {
+                this._state.chartType = -1;
+                chart.changeType(type);
+            }
+            this.view.btnChtType.menu.hide();
+            Common.NotificationCenter.trigger('edit:complete', this.toolbar);
+        },
+
+        onChartStyleClick: function (record) {
+            var chart = this._chartProps;
+            if (!this.api || !chart || !record) return;
+            var p = new Asc.asc_CImgProperty();
+            chart.putStyle(record.get('data'));
+            p.put_ChartProperties(chart);
+            this.api.ImgApply(p);
+            Common.NotificationCenter.trigger('edit:complete', this.toolbar);
+        },
+
+        bindChart: function () {
+            var me = this, v = this.view;
+            v.chartStyles.on('click', function (combo, record) { me.onChartStyleClick(record); });
+            v.chartStyles.openButton.menu.on('show:after', function () {
+                v.chartStyles.menuPicker.scroller && v.chartStyles.menuPicker.scroller.update({alwaysVisibleY: true});
+            });
+            v.btnChtType.menu.on('show:before', function () { me.ensureChartTypePicker(); });
+            v.btnChtEditData.on('click', function () {
+                if (!me.api) return;
+                var ext = me._chartProps && me._chartProps.getExternalReference && me._chartProps.getExternalReference();
+                ext ? Common.NotificationCenter.trigger('data:externallinks') : me.api.asc_editChartInFrameEditor();
+            });
+            v.btnChtAltText.on('click', function () { me.openImageAdvanced(12); });
+            this.bindSize(v.spnChtWidth, v.spnChtHeight, false);
+            this.bindArrange(v.chtArrange);
+            this.api && this.api.asc_registerCallback('asc_onAddChartStylesPreview', _.bind(this.onAddChartStylesPreview, this));
+            this.api && this.api.asc_registerCallback('asc_onUpdateChartStyles', function () { me._state.chartType = null; me._imgProps && me.updateChart(me._imgProps); });
+        },
+
         updateArrange: function (arr, props) {
             var wrap = props.get_WrappingStyle(), notflow = !props.get_CanBeFlow(), locked = props.get_Locked();
             arr.position.setDisabled(locked || notflow || props.get_FromGroup());
-            _.each(arr.rotate.menu.items, function (it) { it.value !== 'more' && it.setDisabled && it.setDisabled(locked); });
+            arr.rotate && _.each(arr.rotate.menu.items, function (it) { it.value !== 'more' && it.setDisabled && it.setDisabled(locked); });
         },
 
         updateEquation: function () {
@@ -640,6 +778,9 @@ define([
             this.bindSize(v.spnPicWidth, v.spnPicHeight, true);
             this.bindArrange(v.picArrange);
 
+            // Chart Design, Format
+            this.bindChart();
+
             // Shape Format
             this.bindShapePicker();
             v.btnShpEdit.menu.on('item:click', function (menu, item) {
@@ -793,7 +934,7 @@ define([
         bindArrange: function (arr) {
             var me = this;
             arr.position.menu.on('item:click', function (menu, item) { me.onPositionClick(item); });
-            arr.rotate.menu.on('item:click', function (menu, item) { me.onRotateClick(item); });
+            arr.rotate && arr.rotate.menu.on('item:click', function (menu, item) { me.onRotateClick(item); });
         },
 
         // also used by the Layout tab (DE.Controllers.RibbonTabs)
@@ -953,6 +1094,12 @@ define([
             case 'borders': this.openTableAdvanced(2); break;
             case 'picsize': this.openImageAdvanced(5); break;
             case 'shpsize': this.openImageAdvanced(6); break;
+            case 'chtsize': this.openImageAdvanced(5); break;
+            case 'chartstyles':
+                // More Options: the chart settings of the right panel (3-D rotation, linked data)
+                var rmc = this.getApplication().getController('RightMenu');
+                rmc && rmc.onRightMenuOpen(Common.Utils.documentSettingsType.Chart);
+                break;
             case 'picturestyles':
             case 'shapestyles':
                 var rm = this.getApplication().getController('RightMenu');
