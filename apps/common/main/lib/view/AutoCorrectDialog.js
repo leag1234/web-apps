@@ -59,6 +59,8 @@ define([
             if (this.appPrefix=='de-' || this.appPrefix=='pe-') {
                 items.push({panelId: 'id-autocorrect-dialog-settings-de-autoformat',  panelCaption: this.textAutoFormat});
                 items.push({panelId: 'id-autocorrect-dialog-settings-exceptions',  panelCaption: this.textAutoCorrect});
+                // ElixirOffice: Word's "Replace text as you type" (documenteditor/main/app/elixir-autocorrect)
+                this.appPrefix=='de-' && window.ElixirTextAutoCorrect && items.push({panelId: 'id-autocorrect-dialog-settings-elx-replace',  panelCaption: this.textElxReplaceText});
 
             } else if (this.appPrefix=='sse-')
                 items.push({panelId: 'id-autocorrect-dialog-settings-sse-autoformat',  panelCaption: this.textAutoFormat});
@@ -67,7 +69,8 @@ define([
                 title: this.textTitle,
                 storageName: this.appPrefix + 'autocorrect-dialog-category',
                 items: items,
-                contentTemplate: _.template(contentTemplate)({scope: this})
+                contentTemplate: _.template(contentTemplate)({scope: this}) +
+                    (this.appPrefix=='de-' && window.ElixirTextAutoCorrect ? '<div id="id-autocorrect-dialog-settings-elx-replace" class="settings-panel"><div class="inner-content"></div></div>' : '')
             }, options || {});
 
             this.api = this.options.api;
@@ -96,6 +99,8 @@ define([
             var $window = this.getChild();
             var me = this;
             var panelAutoFormat = $window.find('#id-autocorrect-dialog-settings-' + (this.appPrefix=='pe-' ? 'de-' : this.appPrefix) + 'autoformat');
+            if (this.appPrefix=='de-' && window.ElixirTextAutoCorrect)
+                window.ElixirTextAutoCorrect.renderPanel($window.find('#id-autocorrect-dialog-settings-elx-replace .inner-content'), this);
 
             // Math correct
             this.chReplaceType = new Common.UI.CheckBox({
@@ -1133,6 +1138,14 @@ define([
         },
 
         textTitle: 'AutoCorrect',
+        textElxReplaceText: 'Replace Text',
+        textElxReplaceAsYouType: 'Replace text as you type',
+        textElxLanguage: 'Language',
+        textElxReplace: 'Replace:',
+        textElxWith: 'With:',
+        textElxAdd: 'Add',
+        textElxDelete: 'Delete',
+        textElxReset: 'Reset',
         textMathCorrect: 'Math AutoCorrect',
         textReplace: 'Replace',
         textBy: 'By',
