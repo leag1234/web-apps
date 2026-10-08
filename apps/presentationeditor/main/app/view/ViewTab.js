@@ -41,6 +41,7 @@ define([
             '<section class="panel" data-tab="view" role="tabpanel" aria-labelledby="view">' +
                 '<div class="group">' +
                     '<span class="btn-slot text x-huge" id="slot-btn-normal"></span>' +
+                    '<span class="btn-slot text x-huge" id="slot-btn-slide-sorter"></span>' +
                     '<span class="btn-slot text x-huge" id="slot-btn-slide-master"></span>' +
                 '</div>' +
                 '<div class="separator long"></div>' +
@@ -119,6 +120,9 @@ define([
                 var me = this;
                 me.btnNormal && me.btnNormal.on('toggle', _.bind(function(btn, state) {
                     me.fireEvent('mode:normal', [state]);
+                }, me));
+                me.btnSlideSorter && me.btnSlideSorter.on('toggle', _.bind(function(btn, state) {
+                    me.fireEvent('mode:sorter', [state]);
                 }, me));
                 me.btnSlideMaster && me.btnSlideMaster.on('toggle', _.bind(function(btn, state) {
                     me.fireEvent('mode:master', [state]);
@@ -234,6 +238,20 @@ define([
                         dataHintOffset: 'small'
                     });
                     this.lockedControls.push(this.btnNormal);
+
+                    this.btnSlideSorter = new Common.UI.Button({
+                        cls: 'btn-toolbar x-huge icon-top',
+                        iconCls: 'toolbar__icon btn-slide-sorter',
+                        caption: this.textSlideSorter,
+                        lock: [_set.disableOnStart],
+                        enableToggle: true,
+                        allowDepress: true,
+                        pressed: false,
+                        dataHint: '1',
+                        dataHintDirection: 'bottom',
+                        dataHintOffset: 'small'
+                    });
+                    this.lockedControls.push(this.btnSlideSorter);
 
                     this.btnSlideMaster = new Common.UI.Button({
                         cls: 'btn-toolbar x-huge icon-top',
@@ -487,6 +505,7 @@ define([
                 var $host = this.$el;
 
                 this.btnNormal && this.btnNormal.render($host.find('#slot-btn-normal'));
+                this.btnSlideSorter && this.btnSlideSorter.render($host.find('#slot-btn-slide-sorter'));
                 this.btnSlideMaster && this.btnSlideMaster.render($host.find('#slot-btn-slide-master'));
                 this.cmbZoom.render($host.find('#slot-field-zoom'));
                 $host.find('#slot-lbl-zoom').text(this.textZoom);
@@ -516,6 +535,7 @@ define([
                     accept();
                 })).then(function () {
                     me.btnNormal && me.btnNormal.updateHint(me.tipNormal);
+                    me.btnSlideSorter && me.btnSlideSorter.updateHint(me.tipSlideSorter);
                     me.btnSlideMaster && me.btnSlideMaster.updateHint(me.tipSlideMaster);
                     me.btnFitToSlide.updateHint(me.tipFitToSlide);
                     me.btnFitToWidth.updateHint(me.tipFitToWidth);
@@ -725,6 +745,8 @@ define([
             textRightMenu: 'Right panel',
             textNormal: 'Normal',
             textSlideMaster: 'Slide Master',
+            textSlideSorter: 'Slide Sorter',
+            tipSlideSorter: 'Slide sorter: all the slides as thumbnails, drag to reorder',
             tipNormal: 'Normal',
             tipSlideMaster: 'Slide master',
             textTabStyle: 'Tab style',

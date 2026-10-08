@@ -89,10 +89,16 @@ define([
                 mode: mode,
                 compactToolbar: this.toolbar.toolbar.isCompactView
             });
+            Common.NotificationCenter.on('slidesorter:changed', _.bind(function (on) {
+                this.view.btnSlideSorter && this.view.btnSlideSorter.toggle(!!on, true);
+                if (on && this.view.btnNormal) this.view.btnNormal.toggle(false, true);
+                else if (!on && this.view.btnNormal && !this._state.slideMasterMode) this.view.btnNormal.toggle(true, true);
+            }, this));
             this.addListeners({
                 'ViewTab': {
                     'mode:normal': _.bind(this.onChangeViewMode, this, 'normal'),
                     'mode:master': _.bind(this.onChangeViewMode, this, 'master'),
+                    'mode:sorter': _.bind(this.onSlideSorter, this),
                     'zoom:selected': _.bind(this.onSelectedZoomValue, this),
                     'zoom:changedbefore': _.bind(this.onZoomChanged, this),
                     'zoom:changedafter': _.bind(this.onZoomChanged, this),
@@ -461,7 +467,13 @@ define([
             this.changeViewMode(isMaster ? 'master' : 'normal');
         },
 
+        onSlideSorter: function (state) {
+            if (state && this._state.slideMasterMode) this.changeViewMode('normal');
+            PE.SlideSorter && PE.SlideSorter.toggle(!!state);
+        },
+
         onChangeViewMode: function (mode) {
+            PE.SlideSorter && PE.SlideSorter.isOpen && PE.SlideSorter.close();
             this.changeViewMode(mode);
         },
 

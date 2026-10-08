@@ -18,7 +18,7 @@ define([
     var STRINGS = {
         txtNotes: 'Notes', tipNotes: 'Notes: enter speaker notes below the slide',
         txtComments: 'Comments', tipComments: 'Show the Comments pane',
-        tipNormal: 'Normal', tipReadingView: 'Reading View', tipSlideShow: 'Slide Show (Shift+F5)',
+        tipNormal: 'Normal', tipSlideSorter: 'Slide Sorter', tipReadingView: 'Reading View', tipSlideShow: 'Slide Show (Shift+F5)',
         tipFit: 'Fit slide to current window', tipZoom: 'Zoom', textZoomPercent: '{0}%'
     };
 
@@ -65,7 +65,7 @@ define([
             var slot = function (id) { return $('<span class="elx-sb-slot" id="' + id + '"></span>'); };
             var $views = $('<span class="elx-sb-views"></span>').append(
                 slot('elx-sb-notes'), slot('elx-sb-comments'), $('<span class="separator short elx-sb-sep"></span>'),
-                slot('elx-sb-normal'), slot('elx-sb-reading'), slot('elx-sb-show'), $('<span class="separator short elx-sb-sep"></span>'));
+                slot('elx-sb-normal'), slot('elx-sb-sorter'), slot('elx-sb-reading'), slot('elx-sb-show'), $('<span class="separator short elx-sb-sep"></span>'));
             $group.find('#btn-zoom-down').before($views);
 
             this.btnNotes = this.btn($views.find('#elx-sb-notes'), 'btn-elx-sb-notes', { caption: s.txtNotes, hint: s.tipNotes, enableToggle: true });
@@ -87,6 +87,10 @@ define([
             }
             this.btnNormal = this.btn($views.find('#elx-sb-normal'), 'btn-elx-sb-normal', { hint: s.tipNormal, enableToggle: true, allowDepress: false, toggleGroup: 'elx-sb-views' });
             this.btnNormal.toggle(true, true);
+            this.btnSorter = this.btn($views.find('#elx-sb-sorter'), 'btn-elx-sb-sorter', { hint: s.tipSlideSorter, enableToggle: true, allowDepress: false, toggleGroup: 'elx-sb-views' });
+            this.btnSorter.on('click', function () { PE.SlideSorter && PE.SlideSorter.open(); });
+            this.btnNormal.on('click', function () { PE.SlideSorter && PE.SlideSorter.close(); });
+            Common.NotificationCenter.on('slidesorter:changed', function (on) { (on ? me.btnSorter : me.btnNormal).toggle(true, true); });
             this.btnReading = this.btn($views.find('#elx-sb-reading'), 'btn-elx-sb-reading', { hint: s.tipReadingView, enableToggle: true, allowDepress: false, toggleGroup: 'elx-sb-views' });
             this.btnShow = this.btn($views.find('#elx-sb-show'), 'btn-elx-sb-show', { hint: s.tipSlideShow });
             this.btnNormal.on('click', function () { me.syncViews(); });
