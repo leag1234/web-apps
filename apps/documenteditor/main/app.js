@@ -145,6 +145,7 @@ require([
             'Print',
             'Common.Controllers.Fonts',
             'Common.Controllers.ElixirLocalFonts',
+            'Common.Controllers.ElixirClientPdf',
             'Common.Controllers.History'
             /** coauthoring begin **/
             ,'Common.Controllers.Chat'
@@ -203,6 +204,7 @@ require([
                 'common/main/lib/util/utils',
                 'common/main/lib/controller/Fonts',
                 'common/main/lib/elixir-localfonts/Controller',
+                'common/main/lib/elixir-clientpdf/Controller',
                 'common/main/lib/controller/History'
                 /** coauthoring begin **/
                 ,'common/main/lib/controller/Comments'
