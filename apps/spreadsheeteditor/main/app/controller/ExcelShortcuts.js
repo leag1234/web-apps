@@ -36,6 +36,8 @@ define([
             this.keys = this.table();
             window.addEventListener('keydown', _.bind(this.onKeyDown, this), true);
             this.mode.isEdit && this.api.asc_registerCallback('asc_onQuickAnalysis', _.bind(this.onQuickAnalysis, this));
+            this.mode.isEdit && this.api.asc_registerCallback('asc_onAutoFillOptions', _.bind(this.onAutoFillOptions, this));
+            this.mode.isEdit && this.api.asc_registerCallback('asc_onFlashFill', _.bind(this.onFlashFillResult, this));
         },
 
         // [key, ctrl/cmd, alt/option, shift, handler, opts]; on macOS "ctrl" is Cmd unless opts.macCtrl
@@ -447,6 +449,71 @@ define([
             e.stopImmediatePropagation();
             return true;
         },
+
+        // ---- Auto Fill Options: button at the bottom-right corner of the range a fill just filled
+        onAutoFillOptions: function (info) {
+            var $c = this.afContainer();
+            if (!$c) return;
+            if (!info) {
+                this.afMenu && this.afMenu.isVisible() && this.afMenu.hide();
+                $c.hide();
+                return;
+            }
+            var me = this;
+            this.afMenu.items.forEach(function (it) {
+                it.setChecked(it.options.value === info.selected, true);
+                if (it.options.value === Asc.c_oAscFillType.flashFill) it.setDisabled(!info.flash);
+            });
+            $c.css({left: info.x + info.w + 3, top: info.y + info.h + 3}).show();
+        },
+
+        afContainer: function () {
+            if (this.$af) return this.$af;
+            var outer = $('#ws-canvas-outer');
+            if (!outer.length) return null;
+            var me = this, FT = Asc.c_oAscFillType;
+            this.$af = $('<div id="autofill-options-container" style="position: absolute; z-index: 1; display: none;"><div id="id-btn-autofill-options"></div></div>');
+            outer.append(this.$af);
+            var item = function (caption, value) {
+                return new Common.UI.MenuItem({caption: caption, value: value, checkable: true, toggleGroup: 'autofill-options'}).on('click', function () {
+                    me.api.asc_ApplyAutoFillOption(value);
+                    Common.NotificationCenter.trigger('edit:complete', me.tb);
+                });
+            };
+            this.afMenu = new Common.UI.Menu({
+                menuAlign: 'tl-bl',
+                items: [
+                    item(this.textAfCopy, FT.copyCells),
+                    item(this.textAfSeries, FT.fillSeries),
+                    item(this.textAfFormatOnly, FT.fillFormattingOnly),
+                    item(this.textAfNoFormat, FT.fillWithoutFormatting),
+                    item(this.textAfFlash, FT.flashFill)
+                ]
+            });
+            this.btnAutoFill = new Common.UI.Button({
+                parentEl: $('#id-btn-autofill-options'),
+                cls: 'btn-toolbar',
+                hint: this.textAutoFillOptions,
+                menu: this.afMenu
+            });
+            // a clipboard-and-arrow glyph (currentColor, follows the theme)
+            this.btnAutoFill.cmpEl.find('button').first().prepend('<svg class="autofill-options-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="vertical-align: middle; fill: currentColor"><path d="M3 2h6v1H3v10h4v1H2V2h1zm5 3h6v9H8V5zm1 1v7h4V6H9zm1 1h2v1h-2V7zm0 2h2v1h-2V9z"/></svg>');
+            return this.$af;
+        },
+
+        onFlashFillResult: function (count) {
+            if (count < 0 && this.afMenu && this.afMenu.isVisible && this.$af && this.$af.is(':visible')) {
+                Common.UI.warning({msg: this.textAfNoPattern});
+            }
+        },
+
+        textAutoFillOptions: 'Auto Fill Options',
+        textAfCopy: 'Copy Cells',
+        textAfSeries: 'Fill Series',
+        textAfFormatOnly: 'Fill Formatting Only',
+        textAfNoFormat: 'Fill Without Formatting',
+        textAfFlash: 'Flash Fill',
+        textAfNoPattern: 'Flash Fill could not find a pattern in the neighbouring columns, the previous option was kept.',
 
         // ---- Quick Analysis: button at the bottom-right corner of a range with data, and Ctrl+Q
         onQuickAnalysis: function (info) {
