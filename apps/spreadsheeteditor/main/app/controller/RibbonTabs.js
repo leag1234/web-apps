@@ -231,6 +231,35 @@ define([
             });
 
             v.btnFindSelect.menu.on('item:click', function (menu, item) { me.onFindSelect(item.value); });
+            _.each(v.btnsCharts, function (b) { me.bindChartGallery(b); });
+        },
+
+        // Insert > Charts: the gallery of one family of chart types (DataView with the previews), plus All Charts
+        bindChartGallery: function (b) {
+            var me = this, tbc = this.ctrl('Toolbar'), built = false;
+            b.menu.on('show:before', function (menu) {
+                if (built) return;
+                built = true;
+                var picker = new Common.UI.DataView({
+                    el: $('#id-elx-chart-gallery-' + b.elxKey),
+                    parentMenu: menu,
+                    outerMenu: {menu: menu, index: 0},
+                    showLast: false,
+                    restoreHeight: 535,
+                    groups: new Common.UI.DataViewGroupStore(_.filter(Common.define.chartData.getChartGroupData(), function (g) { return _.contains(b.elxGroups, g.id); })),
+                    store: new Common.UI.DataViewStore(_.filter(Common.define.chartData.getChartData(), function (d) { return _.contains(b.elxGroups, d.group); })),
+                    itemTemplate: _.template('<div id="<%= id %>" class="item-chartlist"><svg width="40" height="40" class="icon uni-scale"><use xlink:href="#chart-<%= iconCls %>"></use></svg></div>')
+                });
+                picker.on('item:click', function (picker, item, record, e) {
+                    if (record) tbc.onSelectChart(record.get('group'), record.get('type'));
+                    if (e.type !== 'click') menu.hide();
+                });
+                menu.setInnerMenu([{menu: picker, index: 0}]);
+                b.elxPicker = picker;
+            });
+            b.menu.on('item:click', function (menu, item) {
+                if (item.value === 'all-charts') tbc.onChartRecommendedClick();
+            });
         },
 
         changeIndent: function (delta) {

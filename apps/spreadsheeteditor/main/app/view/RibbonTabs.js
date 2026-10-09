@@ -108,6 +108,31 @@ define([
                     ]
                 })
             });
+            // Insert > Charts: one gallery per family of chart types, as in Excel
+            var chartLock = [_set.editCell, _set.lostConnect, _set.coAuth, _set.coAuthText, _set['Objects'], _set.disableOnStart];
+            var gallery = function (key, hint, icon, groups) {
+                var b = me.btn({
+                    id: 'id-toolbar-btn-elx-chart-' + key, iconCls: 'toolbar__icon btn-insertchart', hint: hint, lock: chartLock,
+                    menu: new Common.UI.Menu({
+                        style: 'width: 364px; padding-top: 12px;',
+                        items: [
+                            {template: _.template('<div id="id-elx-chart-gallery-' + key + '" class="menu-insertchart"></div>')},
+                            {caption: '--'},
+                            {caption: me.txtAllCharts, value: 'all-charts'}
+                        ]
+                    })
+                });
+                b.elxKey = key; b.elxIcon = icon; b.elxGroups = groups;
+                return b;
+            };
+            this.btnsCharts = [
+                gallery('column', this.tipChartColumn, 'column-normal', ['menu-chart-group-bar', 'menu-chart-group-hbar']),
+                gallery('line', this.tipChartLine, 'line-normal', ['menu-chart-group-line', 'menu-chart-group-area']),
+                gallery('pie', this.tipChartPie, 'pie-normal', ['menu-chart-group-pie']),
+                gallery('scatter', this.tipChartScatter, 'point-normal', ['menu-chart-group-scatter']),
+                gallery('stock', this.tipChartStock, 'stock-normal', ['menu-chart-group-stock', 'menu-chart-group-radar']),
+                gallery('combo', this.tipChartCombo, 'column-normal', ['menu-chart-group-combo'])
+            ];
             this.btnFindSelect = this.btn({
                 id: 'id-toolbar-btn-elx-find-select', cls: 'btn-toolbar x-huge icon-top', iconCls: 'toolbar__icon btn-big-elx-find-select',
                 caption: this.txtFindSelect, hint: this.tipFindSelect, lock: [_set.disableOnStart],
@@ -132,6 +157,12 @@ define([
             put('#slot-elx-indent-inc', this.btnIndentInc);
             put('#slot-elx-sort-filter', this.btnSortFilter);
             put('#slot-elx-find-select', this.btnFindSelect);
+            _.each(this.btnsCharts, function (b) {
+                put('#slot-elx-chart-' + b.elxKey, b);
+                // the colourful preview of the first type of the family as the icon
+                b.cmpEl && b.cmpEl.find('button').first().find('.icon, .btn-icon').first().replaceWith(
+                    '<svg class="elx-chart-icon" width="18" height="18" aria-hidden="true"><use xlink:href="#chart-' + b.elxIcon + '"></use></svg>');
+            });
         },
 
         // ---- strings ----------------------------------------------------------------
@@ -234,6 +265,13 @@ define([
         txtSelectAll: 'Select All',
         tipDecIndent: 'Decrease Indent',
         tipIncIndent: 'Increase Indent',
+        txtAllCharts: 'All Charts...',
+        tipChartColumn: 'Insert Column or Bar Chart',
+        tipChartLine: 'Insert Line or Area Chart',
+        tipChartPie: 'Insert Pie or Doughnut Chart',
+        tipChartScatter: 'Insert Scatter (X, Y) Chart',
+        tipChartStock: 'Insert Stock or Radar Chart',
+        tipChartCombo: 'Insert Combo Chart',
         txtCollapseRibbon: 'Collapse the Ribbon',
         txtPinRibbon: 'Pin the ribbon'
 

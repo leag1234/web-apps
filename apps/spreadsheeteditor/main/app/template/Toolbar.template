@@ -154,6 +154,16 @@
                 <div class="separator long"></div>
                 <div class="group" data-group="charts" data-launcher="charts">
                     <span class="btn-slot text x-huge" id="slot-btn-insrecommend"></span>
+                    <div class="elset-column elx-rows3 elx-chart-gallery-col">
+                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-column"></span></div>
+                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-line"></span></div>
+                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-pie"></span></div>
+                    </div>
+                    <div class="elset-column elx-rows3 elx-chart-gallery-col">
+                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-scatter"></span></div>
+                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-stock"></span></div>
+                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-combo"></span></div>
+                    </div>
                     <span class="btn-slot text x-huge" id="slot-btn-inschart"></span>
                 </div>
                 <div class="separator long"></div>
