@@ -44,6 +44,7 @@ define(['core'], function () {
             this.$el.focus();
             this.countHandler = function () { if (me.isOpen) me.scheduleRender(); };
             api.asc_registerCallback('asc_onCountPages', this.countHandler);
+            api.asc_registerCallback('asc_onSectionsChanged', this.countHandler);
             Common.NotificationCenter.trigger('slidesorter:changed', true);
         },
 
@@ -52,6 +53,7 @@ define(['core'], function () {
             var api = this.api();
             this.isOpen = false;
             api.asc_unregisterCallback && api.asc_unregisterCallback('asc_onCountPages', this.countHandler);
+            api.asc_unregisterCallback && api.asc_unregisterCallback('asc_onSectionsChanged', this.countHandler);
             this.$el.remove();
             this.$el = null;
             api.asc_enableKeyEvents(true);
@@ -82,7 +84,15 @@ define(['core'], function () {
             this.$grid.empty();
             var first = 1;
             try { first = api.asc_getFirstSlideNumber ? api.asc_getFirstSlideNumber() : 1; } catch (e) { /* default */ }
+            // sections: a header row above the first slide of each, the slides of a collapsed one are not shown
+            var sections = api.asc_GetSections ? (api.asc_GetSections() || []) : [], byFirst = {}, hidden = {};
+            _.each(sections, function (sec) {
+                byFirst[sec.first] = sec;
+                if (sec.collapsed) for (var k = sec.first; k < sec.first + sec.count; k++) hidden[k] = true;
+            });
             for (i = 0; i < n; i++) {
+                if (byFirst[i]) me.$grid.append(me.sectionHeader(byFirst[i]));
+                if (hidden[i]) continue;
                 (function (idx) {
                     var $card = $('<div class="elx-sorter-card" role="option"></div>').attr('data-idx', idx);
                     $('<span class="elx-sorter-num"></span>').text(idx + (first || 1)).appendTo($card);
@@ -101,6 +111,26 @@ define(['core'], function () {
                 })(i);
             }
             this.paintSelection();
+        },
+
+        sectionHeader: function (sec) {
+            var me = this, api = this.api();
+            var $h = $('<div class="elx-sorter-section" role="heading" aria-level="2"></div>').attr('data-id', sec.id).toggleClass('collapsed', !!sec.collapsed);
+            $('<span class="elx-sorter-arrow"></span>').text(sec.collapsed ? '\u25B8' : '\u25BE').appendTo($h);
+            $('<span class="elx-sorter-secname"></span>').text(sec.name).appendTo($h);
+            $('<span class="elx-sorter-seccount"></span>').text('(' + sec.count + ')').appendTo($h);
+            $h.on('click', function (e) {
+                if ($(e.target).closest('.elx-sorter-arrow').length) api.asc_SetSectionCollapsed(sec.id, !sec.collapsed);
+                else me.select(_.range(sec.first, sec.first + sec.count), sec.first);
+                me.$el.focus();
+                e.stopPropagation();
+            });
+            $h.on('contextmenu', function (e) {
+                e.preventDefault();
+                var c = window.PE.SlideSections;
+                c && c.showHeaderMenu(sec.id, e.clientX, e.clientY);
+            });
+            return $h;
         },
 
         paintSelection: function () {

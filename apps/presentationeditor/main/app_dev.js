@@ -208,6 +208,7 @@ require([
             ,'presentationeditor/main/app/elixir-slide/Shortcuts'
             ,'presentationeditor/main/app/elixir-slide/Sorter'
             ,'presentationeditor/main/app/elixir-slide/Panes'
+            ,'presentationeditor/main/app/elixir-slide/Sections'
             ,'presentationeditor/main/app/elixir-slide/KeyTips'
             ,'presentationeditor/main/app/elixir-slide/ScreenTips'
         ], function() {
