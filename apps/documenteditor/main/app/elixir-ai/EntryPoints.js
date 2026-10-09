@@ -313,7 +313,7 @@ define([
                 return;
             }
             if (e.key !== '/' || e.ctrlKey || e.metaKey || (e.altKey && !e.getModifierState('AltGraph')) || e.isComposing) return;
-            if (!ctrl.isAvailable() || !docFocused() || modal() || !emptyCaretParagraph()) return;
+            if (!ctrl.isActive() || !docFocused() || modal() || !emptyCaretParagraph()) return;
             // the "/" is typed by the editor; the menu opens once it is in the paragraph
             setTimeout(function () {
                 var d = ld(), p = d && d.GetCurrentParagraph(false, false);
@@ -333,7 +333,7 @@ define([
         var updateHint = ep.updateHint = function () {
             clearTimeout(timer);
             timer = setTimeout(function () {
-                if (slash || ask || !ctrl.isAvailable() || modal() || !docFocused() || !emptyCaretParagraph()) return hideHint();
+                if (slash || ask || !ctrl.isActive() || modal() || !docFocused() || !emptyCaretParagraph()) return hideHint();
                 var r = caretRect();
                 if (!r) return hideHint();
                 hint.style.fontSize = Math.max(11, Math.min(20, Math.round(r.height * 0.72))) + 'px';

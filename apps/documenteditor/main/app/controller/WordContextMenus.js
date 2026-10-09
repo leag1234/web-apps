@@ -266,7 +266,7 @@ define([
                 font.setVisible(!!(anchor && anchor.el && anchor.el.style.display !== 'none') && !!this.mode.isEdit);
             }
             _.each(menu.items, function(it) { it._wordHidden && it.setVisible(false); });
-            var ai = this.getApplication().getController('Common.Controllers.ElixirAI'), aiOn = !!(ai && ai.isAvailable && ai.isAvailable());
+            var ai = this.getApplication().getController('Common.Controllers.ElixirAI'), aiOn = !!(ai && ai.isActive && ai.isActive());
             _.each(this.elixirItems || [], function(it) { it.setVisible(aiOn); });
             this.updateSeparators(menu);
         },

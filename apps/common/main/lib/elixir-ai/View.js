@@ -95,6 +95,9 @@ define([
     // ---------------------------------------------------------------------------------------------
 
     var CSS = [
+        '.elixir-ai-cfg .lead{margin:0 0 10px;color:var(--text-secondary,#555)}.elixir-ai-cfg select{width:100%;box-sizing:border-box;padding:6px 8px}.elixir-ai-cfg .elixir-ai-managed{margin:0 0 10px;padding:6px 10px;border-radius:6px;background:var(--highlight-button-hover,#eef3fb)}',
+        '.elixir-ai-notice{margin:10px 0 4px;padding:8px 10px;border-left:3px solid var(--border-preview-select,#4a7fd1);background:var(--background-toolbar,#f4f4f4);font-weight:600}.elixir-ai-adv{margin-top:8px}.elixir-ai-adv summary{cursor:pointer;color:var(--text-secondary,#555)}',
+        '.elx-page .elixir-ai-cfg{max-width:560px}.elx-page .elixir-ai-cfg label{display:block;margin:10px 0 3px}.elx-page .elixir-ai-cfg input,.elx-page .elixir-ai-cfg select{width:100%;box-sizing:border-box;padding:6px 8px}',
         '.elixir-ai-icon{background:none!important;background-color:var(--text-normal,#333)!important;-webkit-mask:var(--elixir-mask) center/24px 24px no-repeat;mask:var(--elixir-mask) center/24px 24px no-repeat;}',
         '.elixir-ai-bar{position:fixed;z-index:1001;width:640px;max-width:calc(100vw - 32px);box-sizing:border-box;background:var(--background-normal,#fff);color:var(--text-normal,#222);',
         '  border:1px solid var(--border-regular-control,#c0c0c0);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.22);font:13px/1.4 var(--font-family-base-custom,"Segoe UI",Arial,sans-serif);padding:10px 12px;}',
@@ -581,12 +584,139 @@ define([
     // Settings and journal dialog
     // ---------------------------------------------------------------------------------------------
 
+    // ---------------------------------------------------------------------------------------------
+    // AI connection form (File > AI page and the settings dialog): provider presets, endpoint, model,
+    // key kept in this browser, where-the-data-goes notice, Test connection.
+    // ---------------------------------------------------------------------------------------------
+
+    var PRESETS = {
+        custom: { url: '', model: '' },
+        openai: { url: 'https://api.openai.com/v1', model: 'gpt-4.1-mini' },
+        mistral: { url: 'https://api.mistral.ai/v1', model: 'mistral-small-latest' },
+        ollama: { url: 'http://localhost:11434/v1', model: 'llama3.1', cors: true }
+    };
+
+    function hostOf(url) { try { return new URL(url).host; } catch (e) { return ''; } }
+
+    function presetOf(url) {
+        for (var k in PRESETS) if (k !== 'custom' && PRESETS[k].url === String(url || '').replace(/\/+$/, '')) return k;
+        return 'custom';
+    }
+
+    // The sentence that says where the text goes
+    ElixirAI.dataNotice = function (endpoint) {
+        var S = ElixirAI.Settings;
+        if (endpoint) {
+            var h = hostOf(endpoint);
+            return h ? ElixirAI.tf('noticeUser', { host: h }) : '';
+        }
+        if (S.managed) return S.managed.host ? ElixirAI.tf('noticeServer', { host: S.managed.host }) : t('noticeServerNoHost');
+        return t('noticeOff');
+    };
+
+    ElixirAI.ConfigForm = {
+        // container: DOM element; host: {api, onSettingsChanged}; the form lives in container
+        render: function (container, host) {
+            injectStyles();
+            var s = ElixirAI.Settings.get(), saved = ElixirAI.Settings.hasUserConfig(), managedOn = !!ElixirAI.Settings.managed && !saved;
+            var preset = presetOf(saved ? s.endpoint : '');
+            container.innerHTML =
+                '<div class="elixir-ai-cfg">' +
+                '<p class="lead">' + esc(t('aiLead')) + '</p>' +
+                (ElixirAI.Settings.managed ? '<p class="elixir-ai-managed">' + esc(saved ? t('managedOverridden') : t('managedNote')) + '</p>' : '') +
+                '<label for="elixir-ai-preset">' + esc(t('provider')) + '</label>' +
+                '<select id="elixir-ai-preset">' + ['custom', 'openai', 'mistral', 'ollama'].map(function (k) {
+                    return '<option value="' + k + '"' + (k === preset ? ' selected' : '') + '>' + esc(t('preset_' + k)) + '</option>';
+                }).join('') + '</select>' +
+                '<label for="elixir-ai-endpoint">' + esc(t('endpoint')) + '</label>' +
+                '<input id="elixir-ai-endpoint" type="url" placeholder="https://api.openai.com/v1" value="' + esc(saved ? s.endpoint : '') + '">' +
+                '<label for="elixir-ai-model">' + esc(t('model')) + '</label>' +
+                '<input id="elixir-ai-model" list="elixir-ai-models" value="' + esc(saved || !managedOn ? s.model : '') + '">' +
+                '<datalist id="elixir-ai-models"><option value="gpt-4.1-mini"><option value="gpt-5.4-mini"><option value="gpt-5.4"><option value="mistral-small-latest"><option value="llama3.1"></datalist>' +
+                '<label for="elixir-ai-key">' + esc(t('keyLabel')) + '</label>' +
+                '<input id="elixir-ai-key" type="password" autocomplete="off" value="' + esc(s.apiKey) + '">' +
+                '<div class="hint elixir-ai-cors" style="display:none">' + esc(t('corsNote')) + '</div>' +
+                '<details class="elixir-ai-adv"><summary>' + esc(t('advanced')) + '</summary>' +
+                '<label for="elixir-ai-extra">' + esc(t('extra')) + '</label>' +
+                '<input id="elixir-ai-extra" placeholder=\'{"reasoning_effort":"low"}\' value="' + esc(s.extraParams) + '">' +
+                '<label for="elixir-ai-rounds">' + esc(t('rounds')) + '</label>' +
+                '<input id="elixir-ai-rounds" type="number" min="1" max="20" value="' + esc(s.maxRounds) + '" style="width:90px"></details>' +
+                '<div class="elixir-ai-notice" id="elixir-ai-notice" role="status"></div>' +
+                '<div class="hint">' + esc(t('privacy')) + '</div>' +
+                '<div class="elixir-ai-actions" style="justify-content:flex-start">' +
+                    '<button class="elixir-ai-btn primary" data-act="save">' + esc(t('save')) + '</button>' +
+                    '<button class="elixir-ai-btn" data-act="test">' + esc(t('test')) + '</button>' +
+                    '<button class="elixir-ai-btn" data-act="clear">' + esc(t('clear')) + '</button>' +
+                    '<span class="msg" role="status"></span>' +
+                '</div></div>';
+            var $ = function (sel) { return container.querySelector(sel); };
+            var msg = function (text, err) { var m = $('.msg'); m.textContent = text; m.classList.toggle('error', !!err); };
+            var ep = $('#elixir-ai-endpoint'), mod = $('#elixir-ai-model');
+            var refresh = function () {
+                $('#elixir-ai-notice').textContent = ElixirAI.dataNotice(ep.value.trim());
+                $('.elixir-ai-cors').style.display = (/^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(ep.value.trim()) || presetOf(ep.value.trim()) === 'ollama') ? '' : 'none';
+            };
+            $('#elixir-ai-preset').addEventListener('change', function () {
+                var p = PRESETS[this.value] || PRESETS.custom;
+                var known = Object.keys(PRESETS).map(function (k) { return PRESETS[k].model; });
+                ep.value = p.url;
+                if (!mod.value.trim() || known.indexOf(mod.value.trim()) >= 0) mod.value = p.model;
+                refresh(); ep.focus();
+            });
+            ep.addEventListener('input', function () { $('#elixir-ai-preset').value = presetOf(ep.value.trim()); refresh(); });
+            refresh();
+            var read = function () {
+                var n = {
+                    endpoint: ep.value.trim(), apiKey: $('#elixir-ai-key').value.trim(),
+                    model: mod.value.trim(), extraParams: $('#elixir-ai-extra').value.trim(),
+                    maxRounds: Math.max(1, Math.min(20, parseInt($('#elixir-ai-rounds').value, 10) || 8)),
+                    prices: ElixirAI.Settings.get().prices,
+                    mode: ElixirAI.Settings.get().mode, earlyStop: ElixirAI.Settings.get().earlyStop
+                };
+                if (n.endpoint && !/^https?:\/\//i.test(n.endpoint)) { msg(t('invalidUrl'), true); return null; }
+                if (n.endpoint && !n.model) { msg(t('modelRequired'), true); return null; }
+                if (n.extraParams) {
+                    try { var j = JSON.parse(n.extraParams); if (!j || typeof j !== 'object' || Array.isArray(j)) throw 0; }
+                    catch (e) { msg(t('invalidJson'), true); return null; }
+                }
+                return n;
+            };
+            var changed = function () { host && host.onSettingsChanged && host.onSettingsChanged(); };
+            $('[data-act=save]').addEventListener('click', function () {
+                var n = read();
+                if (!n) return;
+                if (!n.endpoint) { ElixirAI.Settings.clear(); } else if (!ElixirAI.Settings.save(n)) { msg(t('invalidUrl'), true); return; }
+                msg(t('saved'));
+                changed();
+            });
+            $('[data-act=test]').addEventListener('click', function () {
+                var n = read();
+                if (!n) return;
+                if (!n.endpoint && ElixirAI.Settings.managed) n = ElixirAI.Settings.get();
+                if (!ElixirAI.Settings.isConfigured(n)) { msg(t('notConfigured'), true); return; }
+                msg(t('testing'));
+                ElixirAI.Connector.chat({ settings: n, messages: [{ role: 'user', content: 'Reply with: ok' }] }).then(function (r) {
+                    msg(t('testOk') + ' (' + Math.round(r.ms) + ' ms)');
+                }, function (e) {
+                    var m = String((e && e.message) || e);
+                    if (!(e && e.status) && /failed to fetch|networkerror|load failed|network request/i.test(m))
+                        m = ElixirAI.tf('netError', { host: hostOf(n.endpoint) || n.endpoint });
+                    msg(m, true);
+                });
+            });
+            $('[data-act=clear]').addEventListener('click', function () {
+                ElixirAI.Settings.clear();
+                ElixirAI.Settings.loadManaged(true).then(function () { ElixirAI.ConfigForm.render(container, host); changed(); });
+            });
+        }
+    };
+
     function SettingsDialog(host) { this.host = host; }
 
     SettingsDialog.prototype.open = function (focusJournal) {
         injectStyles();
         this.close();
-        var me = this, s = ElixirAI.Settings.get();
+        var me = this;
         if (this.host.api) this.host.api.asc_enableKeyEvents(false);
         var mask = this.mask = document.createElement('div');
         mask.className = 'elixir-ai-modal-mask';
@@ -596,24 +726,7 @@ define([
         dlg.setAttribute('role', 'dialog');
         dlg.innerHTML =
             '<h2>' + esc(t('dlgTitle')) + '</h2>' +
-            '<label for="elixir-ai-endpoint">' + esc(t('endpoint')) + '</label>' +
-            '<input id="elixir-ai-endpoint" type="url" placeholder="https://api.openai.com/v1" value="' + esc(s.endpoint) + '">' +
-            '<label for="elixir-ai-key">' + esc(t('apiKey')) + '</label>' +
-            '<input id="elixir-ai-key" type="password" autocomplete="off" value="' + esc(s.apiKey) + '">' +
-            '<label for="elixir-ai-model">' + esc(t('model')) + '</label>' +
-            '<input id="elixir-ai-model" list="elixir-ai-models" value="' + esc(s.model) + '">' +
-            '<datalist id="elixir-ai-models"><option value="gpt-4.1-mini"><option value="gpt-5.4-mini"><option value="gpt-5.4"></datalist>' +
-            '<label for="elixir-ai-extra">' + esc(t('extra')) + '</label>' +
-            '<input id="elixir-ai-extra" placeholder=\'{"reasoning_effort":"low"}\' value="' + esc(s.extraParams) + '">' +
-            '<label for="elixir-ai-rounds">' + esc(t('rounds')) + '</label>' +
-            '<input id="elixir-ai-rounds" type="number" min="1" max="20" value="' + esc(s.maxRounds) + '" style="width:90px">' +
-            '<div class="hint">' + esc(t('privacy')) + '</div>' +
-            '<div class="elixir-ai-actions" style="justify-content:flex-start">' +
-                '<button class="elixir-ai-btn primary" data-act="save">' + esc(t('save')) + '</button>' +
-                '<button class="elixir-ai-btn" data-act="test">' + esc(t('test')) + '</button>' +
-                '<button class="elixir-ai-btn" data-act="clear">' + esc(t('clear')) + '</button>' +
-                '<span class="msg"></span>' +
-            '</div>' +
+            '<div class="cfg-slot"></div>' +
             '<h3 id="elixir-ai-journal">' + esc(t('journalTitle')) + '</h3>' +
             '<div class="elixir-ai-actions" style="justify-content:flex-start;margin-top:0">' +
                 '<button class="elixir-ai-btn" data-act="export">' + esc(t('exportJ')) + '</button>' +
@@ -628,39 +741,7 @@ define([
         dlg.addEventListener('keyup', function (e) { e.stopPropagation(); });
         dlg.addEventListener('keypress', function (e) { e.stopPropagation(); });
         var $ = function (sel) { return dlg.querySelector(sel); };
-        var msg = function (text, err) { var m = $('.msg'); m.textContent = text; m.classList.toggle('error', !!err); };
-        var read = function () {
-            var n = {
-                endpoint: $('#elixir-ai-endpoint').value.trim(), apiKey: $('#elixir-ai-key').value.trim(),
-                model: $('#elixir-ai-model').value.trim(), extraParams: $('#elixir-ai-extra').value.trim(),
-                maxRounds: Math.max(1, Math.min(20, parseInt($('#elixir-ai-rounds').value, 10) || 8)),
-                prices: ElixirAI.Settings.get().prices,
-                mode: ElixirAI.Settings.get().mode, earlyStop: ElixirAI.Settings.get().earlyStop
-            };
-            if (n.endpoint && !/^https?:\/\//i.test(n.endpoint)) { msg(t('invalidUrl'), true); return null; }
-            if (n.extraParams) {
-                try { var j = JSON.parse(n.extraParams); if (!j || typeof j !== 'object' || Array.isArray(j)) throw 0; }
-                catch (e) { msg(t('invalidJson'), true); return null; }
-            }
-            return n;
-        };
-        $('[data-act=save]').addEventListener('click', function () {
-            var n = read();
-            if (n && ElixirAI.Settings.save(n)) { msg(t('saved')); me.host.onSettingsChanged && me.host.onSettingsChanged(); }
-        });
-        $('[data-act=test]').addEventListener('click', function () {
-            var n = read();
-            if (!n) return;
-            msg(t('testing'));
-            ElixirAI.Connector.chat({ settings: n, messages: [{ role: 'user', content: 'Reply with: ok' }] }).then(function (r) {
-                msg(t('testOk') + ' (' + Math.round(r.ms) + ' ms)');
-            }, function (e) { msg(String(e.message || e), true); });
-        });
-        $('[data-act=clear]').addEventListener('click', function () {
-            ElixirAI.Settings.clear();
-            me.open();
-            me.host.onSettingsChanged && me.host.onSettingsChanged();
-        });
+        ElixirAI.ConfigForm.render($('.cfg-slot'), this.host);
         $('[data-act=export]').addEventListener('click', function () {
             ElixirAI.Journal.exportJSON().then(function (json) {
                 var a = document.createElement('a');

@@ -296,13 +296,18 @@ define([
 
             this.$input.on('focus', function () { me.openSearch(); });
             // Elixir AI: "Search or ask Elixir" once the AI layer is available in this editor
+            // me.aiCapable: this editor has the AI layer; me.ai: and a model is configured (otherwise only a
+            // discreet "Set up AI…" row is offered)
+            var plain = this.$input.attr('placeholder');
             var aiReady = function (ctrl) {
                 if (!ctrl || !ctrl.isAvailable || !ctrl.isAvailable() || !Common.ElixirAI || !Common.ElixirAI.tf) return;
-                me.ai = ctrl;
-                var aph = Common.ElixirAI.tf('searchPlaceholder', [me.shortcut()]);
+                me.aiCapable = ctrl;
+                me.ai = ctrl.isActive && ctrl.isActive() ? ctrl : null;
+                var aph = me.ai ? Common.ElixirAI.tf('searchPlaceholder', [me.shortcut()]) : plain;
                 me.$input.attr('placeholder', aph).attr('aria-label', aph);
             };
             Common.NotificationCenter.on('elixir:ready', aiReady);
+            Common.NotificationCenter.on('elixir:ai-state', function (active, ctrl) { aiReady(ctrl || me.aiCapable); });
             try { var aic = this.ctrl('Common.Controllers.ElixirAI'); aic && aic.api && aiReady(aic); } catch (e) {}
             this.$input.on('input', function () { me.renderResults(); });
             this.$input.on('keydown', function (e) { me.onSearchKey(e); });
@@ -395,6 +400,11 @@ define([
                     html += '<div class="elx-sg">' + esc(AI.t('searchAskGroup')) + '</div>' +
                         '<div class="elx-sr elx-sr-ask" role="option" id="elx-sr-' + (this.results.length - 1) + '"><span class="elx-sr-ic">' + AI.Icons.svg('sparkle', 20) + '</span>' +
                         '<span class="elx-sr-label">' + esc(AI.tf('searchAsk', [q])) + '</span><span class="elx-sr-where">' + esc(AI.t('searchAskHint')) + '</span></div>';
+                } else if (this.aiCapable && Common.ElixirAI) {
+                    // AI is off: one discreet link, no AI call
+                    this.results.push({ type: 'setup' });
+                    html += '<div class="elx-sr elx-sr-setup" role="option" id="elx-sr-' + (this.results.length - 1) + '" style="opacity:.75"><span class="elx-sr-ic">' + Common.ElixirAI.Icons.svg('sparkle', 20) + '</span>' +
+                        '<span class="elx-sr-label">' + esc(Common.ElixirAI.t('configure')) + '</span></div>';
                 }
             }
             this.$pop.html(html).toggle(!!html);
@@ -454,6 +464,9 @@ define([
             } else if (r.type === 'ask') {
                 var ai = this.ai;
                 _.defer(function () { ai.ask(r.q); });
+            } else if (r.type === 'setup') {
+                var cap = this.aiCapable;
+                _.defer(function () { cap.openSetup(); });
             } else {
                 this.controller.findInDocument(r.q, r.type === 'replace');
             }

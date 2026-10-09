@@ -55,19 +55,31 @@ define([], function () {
         // browser with an endpoint take precedence.
         managed: null,
         managedReady: null,
-        loadManaged: function () {
+        managedLoaded: false,
+        // a configuration saved in this browser (own service, own key)
+        hasUserConfig: function () { var u = readJSON(SETTINGS_KEY); return !!(u && u.endpoint); },
+        // /elixir-ai/config.json: {"enabled":false} (or no file) = AI off on the server; otherwise the
+        // same-origin endpoint, the model and, for information, the host the server forwards to.
+        // Not requested at all when the user has their own configuration, which takes precedence.
+        loadManaged: function (force) {
             var me = this;
+            if (force) me.managedReady = null;
             if (!me.managedReady) {
+                if (me.hasUserConfig()) { me.managedLoaded = true; return Promise.resolve(null); }
                 me.managedReady = (window.fetch ? fetch('/elixir-ai/config.json', { cache: 'no-store', credentials: 'omit' }) : Promise.reject())
                     .then(function (r) { return r.ok ? r.json() : null; })
-                    .then(function (c) { if (c && typeof c.endpoint === 'string' && c.endpoint.charAt(0) === '/') me.managed = c; return me.managed; })
-                    .catch(function () { return null; });
+                    .then(function (c) {
+                        me.managed = (c && c.enabled !== false && typeof c.endpoint === 'string' && c.endpoint.charAt(0) === '/') ? c : null;
+                        me.managedLoaded = true;
+                        return me.managed;
+                    })
+                    .catch(function () { me.managedLoaded = true; return null; });
             }
             return me.managedReady;
         },
         get: function () {
             var s = readJSON(SETTINGS_KEY) || {};
-            if (!s.endpoint && this.managed) {
+            if (!s.endpoint && this.managed && !this.hasUserConfig()) {
                 s = Object.assign({}, s, { endpoint: this.managed.endpoint, apiKey: '', managed: true });
                 if (!s.model && this.managed.model) s.model = this.managed.model;
             }

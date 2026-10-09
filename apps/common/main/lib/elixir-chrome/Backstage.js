@@ -206,6 +206,8 @@ define([
             // About (legal notices) used to sit in the left icon rail, which the window no longer has
             this.items['elx-about'] = addItem('fm-btn-elx-about', 'elx-about', this.txtAbout, 'info', 'insertBefore', $menu.find('#fm-btn-settings'));
             this.items['elx-about'].on('click', function () { me.onAbout(); });
+            // AI connection page, listed with Options (only in editors that have the AI layer)
+            this.items['elx-ai'] = addItem('fm-btn-elx-ai', 'elx-ai', 'AI', 'options', 'insertBefore', $menu.find('#fm-btn-settings'));
 
             // pages
             var addPage = function (action, cls) {
@@ -220,6 +222,7 @@ define([
             this.pages['elx-open'] = this.renderOpen(addPage('elx-open', 'elx-open'));
             this.pages['elx-share'] = this.renderShare(addPage('elx-share', 'elx-share'));
             this.pages['elx-export'] = this.renderExport(addPage('elx-export', 'elx-export'));
+            this.pages['elx-ai'] = this.renderAI(addPage('elx-ai', 'elx-ai'));
 
             this.afterApplyMode();
         },
@@ -251,6 +254,12 @@ define([
             this.items['elx-open'][(mode.canOpenRecent || this.hostConfig().uploadUrl || this.hostConfig().openUrl) ? 'show' : 'hide']();
             this.items['elx-share'][this.canShare() ? 'show' : 'hide']();
             this.items['elx-export'][(mode.canDownload && !mode.isOffline) ? 'show' : 'hide']();
+            var aic = this.ctrl('Common.Controllers.ElixirAI'), aiCap = !!(aic && aic.isAvailable && aic.isAvailable());
+            this.items['elx-ai'][aiCap ? 'show' : 'hide']();
+            if (aiCap && Common.ElixirAI && Common.ElixirAI.setLang) {
+                Common.ElixirAI.setLang(mode.lang);
+                this.items['elx-ai'].setCaption(Common.ElixirAI.t('aiPage'));
+            }
             this.items['elx-close'][(mode.canCloseEditor || mode.canBack || Common.Controllers.Desktop.isActive()) ? 'show' : 'hide']();
             if (Common.Controllers.Desktop.isActive()) this.items['elx-close'].hide(); // the desktop app keeps its Exit
 
@@ -264,6 +273,11 @@ define([
                 $a.prepend(me.icon(name, 20, 'menu-item-icon uni-scale'));
             });
 
+            var $aiIcon = this.items['elx-ai'].$el.children('a');
+            if (!$aiIcon.find('.elx-icon').length && Common.ElixirAI && Common.ElixirAI.Icons) {
+                $aiIcon.find('.menu-item-icon, .menu__icon').remove();
+                $aiIcon.prepend('<span class="menu-item-icon elx-icon">' + Common.ElixirAI.Icons.svg('sparkle', 20) + '</span>');
+            }
             this.enhanceNew();
             this.enhanceSaveAs();
             this.enhanceInfo();
@@ -513,6 +527,21 @@ define([
         },
 
         // ---- Share ------------------------------------------------------------------------
+
+        // File > AI: connect a model (the form lives in the Elixir AI layer, loaded with the Word editor)
+        renderAI: function (page) {
+            var me = this;
+            page.refresh = function () {
+                var aic = me.ctrl('Common.Controllers.ElixirAI');
+                page.$el.html('<div class="elx-page-inner"><h1 class="header"></h1><div class="elx-ai-form"></div></div>');
+                if (!aic || !aic.renderSetup) return;
+                page.$el.find('h1').text(Common.ElixirAI.t('aiPage'));
+                aic.renderSetup(page.$el.find('.elx-ai-form')[0]);
+            };
+            var hide = page.hide;
+            page.hide = function () { hide.call(page); page.$el.empty(); };
+            return page;
+        },
 
         renderShare: function (page) {
             var me = this;

@@ -34,7 +34,7 @@ define([
                     'render:before': function (toolbar) { me.onToolbarRender(toolbar); },
                     // the tab strip exists only after Mixtbar.afterRender, which runs right after this event
                     'render:after': function () {
-                        me.hasTab && setTimeout(function () { Common.NotificationCenter.trigger('tab:visible', 'elixir', true); }, 0);
+                        me.hasTab && setTimeout(function () { Common.NotificationCenter.trigger('tab:visible', 'elixir', me.isActive()); }, 0);
                     }
                 }
             });
@@ -51,6 +51,32 @@ define([
         isAvailable: function () {
             var o = this.appOptions();
             return !!(o.isEdit && !o.isEditMailMerge && !o.isEditDiagram && !o.isEditOle && ElixirAI.toolsets && ElixirAI.toolsets[this.toolsetId]);
+        },
+
+        // AI is usable: the editor has the toolset and a model is configured (by the server or by this user).
+        // Without it every AI entry point is hidden; the only trace is a discreet "Set up AI…" link.
+        isActive: function () {
+            return this.isAvailable() && ElixirAI.Settings.isConfigured();
+        },
+
+        // Called when the configuration may have changed (server answer known, settings saved or removed)
+        refreshState: function () {
+            var active = this.isActive();
+            if (this.hasTab) Common.NotificationCenter.trigger('tab:visible', 'elixir', active);
+            Common.NotificationCenter.trigger('elixir:ai-state', active, this);
+        },
+
+        // File > AI page
+        openSetup: function () {
+            var chrome = this.getApplication().getController('ElixirChrome');
+            if (chrome && chrome.openBackstage) chrome.openBackstage('elx-ai');
+            else this.openSettings(false);
+        },
+
+        renderSetup: function (el) {
+            ElixirAI.setLang(this.appOptions().lang);
+            if (!this.api) this.api = this.getApplication().getController('Viewport').getApi();
+            ElixirAI.ConfigForm.render(el, this.host());
         },
 
         shortcutLabel: function () { return Common.Utils.isMac ? '⌃⌥I' : 'Alt+I'; },
@@ -96,7 +122,7 @@ define([
             ElixirAI.setLang(this.appOptions().lang);
             ElixirAI.injectStyles();
             // the server-managed configuration (/elixir-ai/config.json), read once, before the first request
-            ElixirAI.Settings.loadManaged();
+            ElixirAI.Settings.loadManaged().then(function () { me.refreshState(); });
             // the editor's other entry points (title bar search, Ask Elixir menu, "/" menu)
             var ep = ElixirAI.entryPoints && ElixirAI.entryPoints[this.toolsetId];
             ep && ep.setup(this);
@@ -120,8 +146,11 @@ define([
                     if (!me._toolset) me._toolset = ElixirAI.toolsets[me.toolsetId].create(me.api);
                     return me._toolset;
                 },
-                openSettings: function () { me.openSettings(false); },
-                onSettingsChanged: function () { if (me.bar && me.bar.isOpen()) me.bar.open(); },
+                openSettings: function () { me.openSetup(); },
+                onSettingsChanged: function () {
+                    me.refreshState();
+                    if (me.bar && me.bar.isOpen()) me.bar.open();
+                },
                 // History position, to know whether Discard can simply undo the AI step
                 historyIndex: function () { return (window.AscCommon && AscCommon.History) ? AscCommon.History.Index : null; },
                 onClosed: function () { Common.NotificationCenter.trigger('edit:complete'); }
