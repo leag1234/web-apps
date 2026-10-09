@@ -57,6 +57,15 @@ define([
                 add('F2', 0, 1, 0, function () { return me.backstage('saveas'); });
                 add('KeyU', 1, 0, 1, function () { return me.toggleFormulaBar(); }, {macCtrl: true, inEdit: true});
             }
+            // Sheets. Ctrl+Page Down / Up (and the Shift forms, Option+Right / Left on macOS) are handled by the engine, but the browser keeps
+            // them for its tabs outside an installed app or full screen; Ctrl+Alt+Page Down / Up (and Shift) always reach the editor.
+            // Ctrl+Shift+Page Down / Up select the sheets here (the engine had no such key)
+            [['PageDown', 1], ['PageUp', -1]].forEach(function (d) {
+                [0, 1].forEach(function (shift) {
+                    add(d[0], 1, 1, shift, function () { return me.sheetStep(d[1], !!shift); }, {macCtrl: true});
+                });
+                add(d[0], 1, 0, 1, function () { return me.sheetStep(d[1], true); }, {macCtrl: true});   // Ctrl+Shift+Page Down / Up: select (the engine only moves)
+            });
             !mac && add('Equal', 1, 1, 0, function () { return me.zoom(0.1); });
             !mac && add('Minus', 1, 1, 0, function () { return me.zoom(-0.1); });
             // Navigation
@@ -242,6 +251,27 @@ define([
                 type = info && info.asc_getSelectionType(), rows = type !== T.RangeCol;
             on ? this.api.asc_group(rows) : this.api.asc_ungroup(rows);
             Common.NotificationCenter.trigger('edit:complete', this.tb);
+        },
+
+        // next / previous sheet; extend: select it with the current one (like Ctrl+click on the tabs)
+        sheetStep: function (dir, extend) {
+            var sbc = this.ctrl('Statusbar'), bar = sbc && sbc.statusbar && sbc.statusbar.tabbar;
+            if (!bar || !bar.tabs || !bar.tabs.length || bar.isEditFormula) return true;
+            var tabs = bar.tabs, cur = -1, i;
+            for (i = 0; i < tabs.length; i++) if (tabs[i].isActive()) cur = i;
+            if (cur < 0) return true;
+            var edge = cur;
+            if (extend && bar.selectTabs && bar.selectTabs.length > 1) {
+                var sel = bar.selectTabs.map(function (t) { return tabs.indexOf(t); });
+                edge = dir > 0 ? Math.max.apply(null, sel) : Math.min.apply(null, sel);
+            }
+            var to = edge + dir;
+            if (to < 0 || to >= tabs.length) return;
+            var el = tabs[to].$el && tabs[to].$el[0];
+            if (!el) return true;
+            el.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, ctrlKey: !!extend}));
+            if (extend) { var t = tabs[to]; t.$el.hasClass('selected') || t.changeState && t.changeState(true); }
+            this.api.asc_enableKeyEvents && this.api.asc_enableKeyEvents(true);
         },
 
         newSheet: function () {

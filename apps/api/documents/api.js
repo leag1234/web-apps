@@ -1343,5 +1343,47 @@
         }
     })();
 
+    // ElixirOffice: Office keys that the browser keeps for itself (docs/shortcuts.md, "Browser-reserved keys").
+    // The top-level page owns what only a top-level page may do (the editor is in an iframe): Keyboard Lock (Chromium: effective in
+    // full screen and, where the browser allows it, in an installed app window), the install prompt and full screen. The editor
+    // (web-apps/apps/common/main/lib/elixir-browserkeys) asks with window.postMessage and gets a status back.
+    (function() {
+        if (window.top !== window) return;
+        var kb = navigator.keyboard, deferred = null, lockState = kb && kb.lock ? 'idle' : 'unsupported';
+        var KEYS = ['KeyW', 'KeyN', 'KeyT', 'Tab', 'PageUp', 'PageDown', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9'];
+
+        function standalone() {
+            try {
+                return ['standalone', 'window-controls-overlay', 'minimal-ui'].some(function(m) { return window.matchMedia('(display-mode: ' + m + ')').matches; }) || navigator.standalone === true;
+            } catch (e) { return false; }
+        }
+        function lock() {
+            if (!kb || !kb.lock) return;
+            // resolves at once, but the browser applies the lock only while the page is in full screen (or in an app window that allows it)
+            kb.lock(KEYS).then(function() { lockState = 'requested'; broadcast(); }, function() { lockState = 'refused'; broadcast(); });
+        }
+        function status() {
+            return {standalone: standalone(), fullscreen: !!document.fullscreenElement, canInstall: !!deferred, canFullscreen: !!document.documentElement.requestFullscreen,
+                lock: lockState, lockApi: !!(kb && kb.lock)};
+        }
+        function broadcast() {
+            var s = {elixirBrowserKeysStatus: status()};
+            Array.prototype.forEach.call(document.getElementsByTagName('iframe'), function(f) { try { f.contentWindow.postMessage(s, '*'); } catch (e) {} });
+        }
+
+        window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); deferred = e; broadcast(); });
+        window.addEventListener('appinstalled', function() { deferred = null; broadcast(); });
+        document.addEventListener('fullscreenchange', function() { lock(); broadcast(); });
+        window.addEventListener('message', function(e) {
+            var d = e.data && e.data.elixirBrowserKeys;
+            if (!d || !e.source) return;
+            if (d.ask === 'status') { try { e.source.postMessage({elixirBrowserKeysStatus: status()}, '*'); } catch (x) {} }
+            else if (d.do === 'install' && deferred) { var p = deferred; deferred = null; p.prompt(); broadcast(); }
+            else if (d.do === 'fullscreen' && document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().then(lock, function() {}); }
+        });
+        window.__elixirBrowserKeys = {status: status, lock: lock};
+        lock();
+    })();
+
 })(window.DocsAPI = window.DocsAPI || {}, window, document);
 

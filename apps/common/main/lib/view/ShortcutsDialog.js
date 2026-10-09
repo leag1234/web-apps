@@ -48,6 +48,7 @@ define([
                     '<div id="header-row">', 
                         '<input id="search-input" type="text" spellcheck="false" class="form-control" placeholder="<%= scope.txtSearch %>...">',
                         '<label id="reset-all-btn" class="link"><%= scope.txtRestoreAll %></label>',
+                        '<label id="browser-keys-btn" class="link" style="margin-left:12px"><%= scope.txtBrowserKeys %></label>',
                     '</div>',
                     '<div id="actions-list"></div>',
                     '<div id="action-description">',
@@ -122,6 +123,8 @@ define([
                 el: this.$window.find('#reset-all-btn')
             });
             this.resetAllBtn.on('click', _.bind(this.onResetAll, this));
+            // Elixir: Office keys the browser keeps (common/main/lib/elixir-browserkeys)
+            this.$window.find('#browser-keys-btn').on('click', function() { Common.NotificationCenter.trigger('elixir:browserkeys:help'); });
 
             Common.NotificationCenter.on('shortcuts:update', _.bind(function() {
                 this._setDefaults();
@@ -240,6 +243,7 @@ define([
             return false;
         },
 
+        txtBrowserKeys: 'Keys kept by the browser',
         txtTitle: 'Keyboard Shortcuts',
         txtDescription: 'Description',
         txtEmpty: 'No matches found. Adjust your search.',

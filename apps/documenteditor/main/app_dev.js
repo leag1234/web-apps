@@ -136,6 +136,7 @@ require([
             'Common.Controllers.Fonts',
             'Common.Controllers.ElixirLocalFonts',
             'Common.Controllers.ElixirClientPdf',
+            'Common.Controllers.ElixirBrowserKeys',
             'Common.Controllers.History'
             /** coauthoring begin **/
             ,'Common.Controllers.Chat'
@@ -203,6 +204,7 @@ require([
                 'common/main/lib/controller/Fonts',
                 'common/main/lib/elixir-localfonts/Controller',
                 'common/main/lib/elixir-clientpdf/Controller',
+                'common/main/lib/elixir-browserkeys/Controller',
                 'common/main/lib/controller/History'
                 /** coauthoring begin **/
                 ,'common/main/lib/controller/Comments'
