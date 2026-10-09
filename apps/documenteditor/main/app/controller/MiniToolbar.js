@@ -97,8 +97,8 @@ define([
         },
 
         isOwnMenu: function(el) {
-            var menus = [this.view.btnStyles.menu, this.view.btnHighlight.menu, this.view.btnFontColor.menu,
-                this.view.cmbFontName, this.view.cmbFontSize];
+            var vw = this.view, menus = [vw.btnStyles.menu, vw.btnHighlight.menu, vw.btnFontColor.menu,
+                vw.cmbFontName, vw.cmbFontSize, vw.btnBorders.menu, vw.btnShading.menu, vw.btnInsert.menu, vw.btnDelete.menu];
             return _.some(menus, function(m) { return m && m.cmpEl && m.cmpEl[0] && m.cmpEl[0].contains(el); });
         },
 
@@ -147,10 +147,41 @@ define([
                 me.hide(true);
                 ep && ep.openAskMenu && ep.openAskMenu(off.left, off.top + h + 4);
             });
-            v.btnComment.on('click', function() {
+            var comment = function() {
                 me.hide(true);
                 var dh = me.getApplication().getController('DocumentHolder');
                 dh && dh.addComment && dh.addComment();
+            };
+            v.btnComment.on('click', comment);
+            v.btnTableComment.on('click', comment);
+            // table mode: borders, shading, Insert, Delete (same commands as the Table Design and Layout tabs)
+            var ctx = function() { return me.getApplication().getController('ContextTabs'); };
+            var applyBorders = function(code) { var c = ctx(); c && c.applyCellBorders(code); done(); };
+            v.btnBorders.menu.on('item:click', function(menu, item) {
+                if (item.value === 'advanced') { me.hide(true); var c = ctx(); c && c.openTableAdvanced(2); return; }
+                v.btnBorders.options.lastBorder = item.value;
+                applyBorders(item.value);
+            });
+            v.btnBorders.on('click', function() { applyBorders(v.btnBorders.options.lastBorder); });
+            var shade = function(color) {
+                var p = new Asc.CTableProp(), bg = new Asc.CBackground();
+                if (color == 'transparent') bg.put_Value(1);
+                else { bg.put_Value(0); bg.put_Color(Common.Utils.ThemeColor.getRgbColor(color)); }
+                p.put_CellsBackground(bg);
+                p.put_CellSelect(true);
+                api.tblApply(p);
+                done();
+            };
+            v.btnShading.on('color:select', function(btn, color) { shade(color); });
+            v.btnShading.on('click', function() { shade(v.btnShading.color || 'transparent'); });
+            v.btnInsert.menu.on('item:click', function(menu, item) {
+                ({above: api.addRowAbove, below: api.addRowBelow, left: api.addColumnLeft, right: api.addColumnRight})[item.value].call(api);
+                me.hide(true);
+            });
+            v.btnDelete.menu.on('item:click', function(menu, item) {
+                me.hide(true);
+                if (item.value === 'cells') { var c = ctx(); c && c.dh().onCellsRemove(); }
+                else ({column: api.remColumn, row: api.remRow, table: api.remTable})[item.value].call(api);
             });
             v.btnStyles.menu.on('show:before', function(menu) { me.fillStyles(menu); });
             // (on a part of a paragraph, the linked character style is applied, as in Word)
@@ -234,6 +265,7 @@ define([
                 var $menu = menu.cmpEl.find('> .dropdown-menu').addBack('.dropdown-menu').first();
                 if (!$menu.length) $menu = menu.cmpEl;
                 var off = $menu.offset();
+                me.view.setTableMode(menu === view.tableMenu);
                 me.showAbove(off.left, off.top, $menu.outerWidth());
                 menu.once('hide:after', function() { _.defer(function() { if (!me.interacting) me.hide(true); }); });
             }, 20);
@@ -246,6 +278,7 @@ define([
         },
 
         showAt: function(x, y, opaque) {
+            this.view.setTableMode(false);
             this.syncState();
             var $el = this.view.$el.addClass('visible');
             var h = $el.outerHeight();
@@ -292,7 +325,8 @@ define([
             var v = this.view;
             return v.btnStyles.menu.isVisible() || (v.btnHighlight.menu && v.btnHighlight.menu.isVisible && v.btnHighlight.menu.isVisible()) ||
                 (v.btnFontColor.menu && v.btnFontColor.menu.isVisible && v.btnFontColor.menu.isVisible()) ||
-                v.cmbFontName.isMenuOpen() || v.cmbFontSize.isMenuOpen();
+                v.cmbFontName.isMenuOpen() || v.cmbFontSize.isMenuOpen() ||
+                _.some([v.btnBorders, v.btnShading, v.btnInsert, v.btnDelete], function(b) { return b.menu && b.menu.isVisible && b.menu.isVisible(); });
         },
 
         hide: function(force) {
