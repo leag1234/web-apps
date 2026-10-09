@@ -34,6 +34,9 @@ define([
     var isMac = Common.Utils.isMac;
 
     var STRINGS = {
+        txtAutosave: 'AutoSave',
+        txtAutosaveTip: 'AutoSave: save changes automatically',
+        txtAutosaveFixed: 'AutoSave is always on while several people edit the document',
         txtSaved: 'Saved',
         txtSaving: 'Saving…',
         txtNotSaved: 'Not saved',
@@ -101,6 +104,7 @@ define([
             $('body').addClass('elx-chrome');
             this.$title.addClass('elx-titlebar');
 
+            this.renderAutosave();
             this.renderDocName();
             this.renderSearch();
             this.renderRight();
@@ -115,6 +119,47 @@ define([
         hostConfig: function () {
             var main = this.ctrl('Main');
             return (main && main.editorConfig && main.editorConfig.elixir) || {};
+        },
+
+        // ---- AutoSave switch (Word's, left of the quick access toolbar) ---------------------
+
+        // option of the editor's subclass; the switch maps to the "AutoSave" setting of File > Options
+        autosaveToggle: false,
+
+        renderAutosave: function () {
+            var me = this, mode = this.mode || {};
+            if (!this.autosaveToggle || !mode.isEdit) return;
+            var $qat = this.$title.find('.hedset[role=menubar]').first();
+            if (!$qat.length) return;
+            var key = this.settingsPrefix + '-settings-autosave';
+            this.$autosave = $('<label class="elx-autosave"><span class="elx-autosave-label"></span>' +
+                '<button type="button" role="switch" class="elx-switch" aria-checked="false"><span class="elx-switch-knob"></span></button></label>');
+            this.$autosave.find('.elx-autosave-label').text(this.txtAutosave);
+            $qat.before(this.$autosave);
+            var $sw = this.$autosave.find('.elx-switch');
+            // the user can switch it only when the editor lets them (strict co-editing or a host without fast co-editing)
+            var fixed = function () { return !(mode.canChangeCoAuthoring || !Common.Utils.InternalSettings.get(me.settingsPrefix + '-settings-coauthmode')); };
+            var refresh = function () {
+                var on = Common.Utils.InternalSettings.get(key);
+                on = on === undefined || on === null ? true : parseInt(on) === 1 || on === true;
+                $sw.attr('aria-checked', on ? 'true' : 'false').toggleClass('on', on).prop('disabled', fixed());
+                me.$autosave.attr('title', fixed() ? me.txtAutosaveFixed : me.txtAutosaveTip);
+                me.updateState();
+            };
+            $sw.on('click', function (e) {
+                e.preventDefault();
+                if (fixed()) return;
+                var on = $sw.attr('aria-checked') !== 'true';
+                Common.localStorage.setItem(key, on ? 1 : 0);
+                Common.Utils.InternalSettings.set(key, on ? 1 : 0);
+                me.api && me.api.asc_setAutoSaveGap && me.api.asc_setAutoSaveGap(on ? 1 : 0);
+                refresh();
+                Common.NotificationCenter.trigger('edit:complete', me);
+            });
+            // File > Options changes the same setting
+            Common.NotificationCenter.on('settings:apply', refresh);
+            this.refreshAutosave = refresh;
+            refresh();
         },
 
         // ---- file name, save state, flyout ------------------------------------------------

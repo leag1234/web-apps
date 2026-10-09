@@ -16,6 +16,7 @@ define([
 
     DE.Views.ElixirTitleBar = Common.Views.ElixirTitleBar.extend(_.extend({
         settingsPrefix: 'de',
+        autosaveToggle: true,
 
         suggestionButtons: function () {
             var tb = this.toolbar || {};
