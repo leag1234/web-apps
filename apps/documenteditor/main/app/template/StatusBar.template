@@ -27,6 +27,8 @@
         <button id="status-btn-select-tool" type="button" class="btn small btn-toolbar hide-select-tools" data-hint="0" data-hint-direction="top" data-hint-offset="small"><svg class="icon uni-scale"><use href="#btn-select-tool"></use></svg></button>
         <button id="status-btn-hand-tool" type="button" class="btn small btn-toolbar hide-select-tools" data-hint="0" data-hint-direction="top" data-hint-offset="small"><svg class="icon uni-scale"><use href="#btn-hand-tool"></use></svg></button>
         <div class="separator short hide-select-tools"></div>
+        <div id="slot-status-btn-display" class="el-edit" style="display: inline-block;"></div>
+        <div class="separator short el-edit"></div>
         <button id="status-btn-multiple-pages" type="button" class="btn small btn-toolbar" aria-pressed="false" data-hint="0" data-hint-direction="top" data-hint-offset="small"><svg class="icon uni-scale"><use href="#btn-multiple-pages"></use></svg></button>
         <button id="btn-zoom-topage" type="button" class="btn small btn-toolbar" aria-pressed="false" data-hint="0" data-hint-direction="top" data-hint-offset="small"><svg class="icon uni-scale"><use href="#btn-ic-zoomtopage"></use></svg></button>
         <button id="btn-zoom-towidth" type="button" class="btn small btn-toolbar" aria-pressed="false" data-hint="0" data-hint-direction="top" data-hint-offset="small"><svg class="icon uni-scale"><use href="#btn-ic-zoomtowidth"></use></svg></button>

@@ -333,6 +333,40 @@ define([
                     })
                 });
 
+                // Word's "Display Settings": the ruler and the navigation pane, same commands as the View tab
+                this.btnDisplay = new Common.UI.Button({
+                    cls         : 'btn-toolbar no-caret',
+                    caption     : this.txtDisplaySettings,
+                    iconCls     : 'toolbar__icon btn-settings',
+                    hintAnchor  : 'top-left',
+                    menu: new Common.UI.Menu({
+                        style: 'margin-top:-5px;',
+                        menuAlign: 'bl-tl',
+                        items: [
+                            this.mnuDisplayRuler = new Common.UI.MenuItem({caption: this.txtRuler, checkable: true}),
+                            this.mnuDisplayNav = new Common.UI.MenuItem({caption: this.txtNavigation, checkable: true})
+                        ]
+                    })
+                });
+                this.btnDisplay.menu.on('show:before', function() {
+                    var vt = DE.getController('ViewTab').view;
+                    me.mnuDisplayRuler.setChecked(!!vt && vt.chRulers && vt.chRulers.getValue() === 'checked', true);
+                    me.mnuDisplayNav.setChecked(!!vt && !!vt.btnNavigation && !!vt.btnNavigation.pressed, true);
+                });
+                this.btnDisplay.menu.on('item:click', function(menu, item) {
+                    var vt = DE.getController('ViewTab').view;
+                    if (!vt) return;
+                    if (item === me.mnuDisplayRuler) {
+                        var box = vt.chRulers, state = box.getValue() !== 'checked';
+                        box.setValue(state, true);
+                        vt.fireEvent('rulers:change', [box, state]);
+                    } else {
+                        var on = !vt.btnNavigation.pressed;
+                        vt.btnNavigation.toggle(on, true);
+                        vt.fireEvent('viewtab:navigation', [on]);
+                    }
+                });
+
                 var promise = new Promise(function (accept, reject) {
                     accept();
                 });
@@ -366,6 +400,7 @@ define([
                     me.langMenu.prevTip = 'en';
                 }
                 me.btnDocInfo.render($('#slot-status-btn-info', me.$layout));
+                me.btnDisplay.render($('#slot-status-btn-display', me.$layout));
 
                 if (config.canUseSelectHandTools) {
                     _btn_render(me.btnSelectTool, $('#status-btn-select-tool', me.$layout));
@@ -395,6 +430,8 @@ define([
                     // document is idle (caret/selection moves follow every edit)
                     this.api.asc_registerCallback('asc_onDocumentContentReady', _.bind(this.scheduleWordCount, this, 0));
                     this.api.asc_registerCallback('asc_onFocusObject', _.bind(this.scheduleWordCount, this, 1500));
+                    // with a selection: "2 of 4,378 words", like Word
+                    this.api.asc_registerCallback('asc_onFocusObject', _.bind(this.scheduleSelectionCount, this));
                     this.api.asc_registerCallback('asc_onCoAuthoringDisconnect',_.bind(this.onApiCoAuthoringDisconnect, this));
                     Common.NotificationCenter.on('api:disconnect',      _.bind(this.onApiCoAuthoringDisconnect, this));
                     Common.NotificationCenter.on('protect:doclock', _.bind(this.onChangeProtectDocument, this));
@@ -507,12 +544,32 @@ define([
                 }, delay || 0);
             },
 
+            scheduleSelectionCount: function() {
+                var me = this;
+                if (!me.api || !me.btnDocInfo) return;
+                clearTimeout(me._selCountTimer);
+                me._selCountTimer = setTimeout(function() {
+                    var n = 0;
+                    try {
+                        var text = me.api.can_CopyCut() ? me.api.asc_GetSelectedText() : '';
+                        n = text ? (text.match(/\S+/g) || []).length : 0;
+                    } catch (e) {}
+                    if (n === me._selWords) return;
+                    me._selWords = n;
+                    me.updateWordCountCaption();
+                }, 200);
+            },
+
             updateWordCountCaption: function() {
                 if (this._liveWords === undefined || !this.btnDocInfo || !this.txtWordsLive) return;
                 var lang = (Common.Locale && Common.Locale.getCurrentLanguage && Common.Locale.getCurrentLanguage()) || undefined,
-                    n;
+                    n, s = this._selWords || 0;
                 try { n = this._liveWords.toLocaleString(lang); } catch (e) { n = String(this._liveWords); }
-                this.btnDocInfo.setCaption(Common.Utils.String.format(this.txtWordsLive, n));
+                if (s > 0 && this.txtWordsSelection) {
+                    try { s = s.toLocaleString(lang); } catch (e) {}
+                    this.btnDocInfo.setCaption(Common.Utils.String.format(this.txtWordsSelection, s, n));
+                } else
+                    this.btnDocInfo.setCaption(Common.Utils.String.format(this.txtWordsLive, n));
             },
 
             onGetDocInfoStart: function() {
@@ -580,6 +637,10 @@ define([
             tipHandTool         : 'Hand tool',
             txtWordCount: 'Word count',
             txtWordsLive: '{0} words',
+            txtWordsSelection: '{0} of {1} words',
+            txtDisplaySettings: 'Display Settings',
+            txtRuler: 'Ruler',
+            txtNavigation: 'Navigation Pane',
             txtPages: 'Pages',
             txtWords: 'Words',
             txtParagraphs: 'Paragraphs',
