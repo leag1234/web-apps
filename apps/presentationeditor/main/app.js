@@ -110,7 +110,8 @@ require([
     'core',
     'analytics',
     'gateway',
-    'locale'
+    'locale',
+    'common/main/lib/elixir-local/Controller'
 ], function (Sdk, Backbone, _, Core) {
     if (Backbone.History && Backbone.History.started)
         return;
