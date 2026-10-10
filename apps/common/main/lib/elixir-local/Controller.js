@@ -43,10 +43,12 @@
   };
  }
  function install(api,options){
-  options=options||{};var resources=[],urls=[],saving=null,pendingImage=Promise.resolve(),format=options.format;
+  options=options||{};var resources=[],urls=[],saving=null,pendingImage=Promise.resolve(),pendingImages=0,disposed=false,revision=0,format=options.format;
   var editorFormat={docx:'doct',odt:'doct',xlsx:'xlst',ods:'xlst',pptx:'pptt',odp:'pptt'}[format];
   if(!editorFormat)throw new Error('Unsupported local document format');
   if(!api.DocInfo||!api.DocInfo.get_OfflineApp())throw new Error('Local mode requires an offline editor');
+  function modified(){if(api.isDocumentModified())revision++;}
+  api.asc_registerCallback('asc_onDocumentModifiedChanged',modified);
   function signal(){return options.getSignal?options.getSignal():options.signal;}
   function serialize(){
    if(editorFormat==='doct')return new AscCommonWord.BinaryFileWriter(api.WordControl.m_oLogicDocument).Write(true);
@@ -58,9 +60,11 @@
    saving=(async function(){
     if(options.onBeforeSave)options.onBeforeSave();
     await pendingImage;
-    var bytes=serialize();
+    var saveRevision=revision,bytes=serialize();
     var output=await window.EOWasmConvert.convert(bytes,editorFormat,format,{resources:resources,onProgress:options.onProgress,signal:signal()});
     if(options.onSave)await options.onSave(output);
+    // Mark only the completed snapshot saved; edits made during conversion stay dirty.
+    if(revision===saveRevision){AscCommon.History.Reset_SavedIndex(true);api.SetDocumentModified(false);}
     return output;
    })().finally(function(){saving=null;if(options.onAfterSave)options.onAfterSave();});
    return saving;
@@ -83,15 +87,16 @@
    var extension={ 'image/png':'png','image/jpeg':'jpg' }[file.type];
    if(!extension)throw new Error('Local pictures must be PNG or JPEG');
    var bytes=new Uint8Array(await file.arrayBuffer()),name='local-'+crypto.randomUUID()+'.'+extension;
+   if(disposed)return;
    var url=URL.createObjectURL(new Blob([bytes],{type:file.type}));urls.push(url);
    resources.push({path:'media/'+name,bytes:bytes});imageUrls.set(name,url);
    add.call(docUrls,name,url);
    await new Promise(function(resolve){api.ImageLoader.LoadImagesWithCallback([url],resolve,[]);});
-   api._addImageUrl([url],imageOptions);
+   if(!disposed)api._addImageUrl([url],imageOptions);
   }
   api.asc_addImage=function(imageOptions){
    var picker=document.createElement('input');picker.type='file';picker.accept='image/png,image/jpeg';
-   picker.addEventListener('change',function(){if(picker.files[0])pendingImage=addImage(picker.files[0],imageOptions).catch(report);},{once:true});
+   picker.addEventListener('change',function(){if(picker.files[0]){var selected=picker.files[0];pendingImages++;pendingImage=pendingImage.then(function(){return addImage(selected,imageOptions);}).catch(report).finally(function(){pendingImages--;});}},{once:true});
    picker.click();
   };
   async function open(input){
@@ -113,7 +118,7 @@
    });
    return output.stats;
   }
-  return {open:open,save:save,serialize:serialize,addImage:addImage,dispose:function(){urls.forEach(URL.revokeObjectURL);docUrls.addImageUrl=add;}};
+  return {open:open,save:save,serialize:serialize,addImage:addImage,isModified:function(){return api.isDocumentModified();},hasPendingImages:function(){return pendingImages>0;},dispose:function(){disposed=true;api.asc_unregisterCallback('asc_onDocumentModifiedChanged',modified);urls.forEach(URL.revokeObjectURL);docUrls.addImageUrl=add;}};
  }
  window.Common=window.Common||{};window.Common.ElixirLocal={prepare:prepare,install:install};
  return window.Common.ElixirLocal;
