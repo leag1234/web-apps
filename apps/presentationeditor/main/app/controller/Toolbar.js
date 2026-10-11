@@ -1979,7 +1979,7 @@ define([
             // sdkjs/common/apiBase_plugins.js. Bracket-registered so it survives
             // the Closure Compiler advanced-mode minifier; internally wraps
             // asc_PasteData(Text, text, ...) with proper undo grouping. This is
-            // the same path OnlyOffice's AI plugin uses for text insertion.
+            // the same path the AI plugin uses for text insertion.
             if (typeof this.api["pluginMethod_PasteText"] === 'function') {
                 this.api["pluginMethod_PasteText"](data);
             }

@@ -106,7 +106,7 @@
                     customization   : {
                         goback: { url: "onlyoffice.com" }
                         , feedback: {
-                            url: "https://helpdesk.onlyoffice.com/?desktop=true"
+                            url: "https://github.com/elixiroffice"
                         }
                         , uiTheme: urlParams["uitheme"]
                     },
