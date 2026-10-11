@@ -74,7 +74,7 @@ define(['core'], function () {
         '.elx-bk-note{margin:10px 0 0;line-height:1.5;}.elx-bk-act{display:flex;gap:8px;margin-top:12px;}.elx-bk-act button{font:inherit;padding:5px 12px;cursor:pointer;}'
     ].join('');
 
-    Common.Controllers.ElixirBrowserKeys = Backbone.Controller.extend({
+    Common.Controllers.ElixirBrowserKeys = Backbone.Controller.extend(_.extend({
         status: {},
 
         initialize: function () {
@@ -243,5 +243,5 @@ define(['core'], function () {
         txtClose: 'Close',
         txtHint: 'The browser kept that shortcut (for example Ctrl+PageDown, Ctrl+N or Ctrl+W). ElixirOffice has alternatives, and the installed app or full screen receives most of them.',
         txtSee: 'Show shortcuts', txtDismiss: 'Dismiss'
-    });
+    }, Common.Controllers.ElixirBrowserKeys || {}));
 });
