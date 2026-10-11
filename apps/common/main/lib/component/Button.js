@@ -919,6 +919,7 @@ define([
         },
 
         updateHint: function(hint, isHtml) {
+            if (hint == null) hint = '';
             this.options.hint = hint;
             this.hint = hint;
             if (!this.rendered) return;
