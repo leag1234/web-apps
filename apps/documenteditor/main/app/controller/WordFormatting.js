@@ -190,9 +190,13 @@ define([
         setWordFontSizes: function () {
             var cmb = this.toolbar && this.toolbar.cmbFontSize;
             if (!cmb || this.toolbar._fontSizeChinese) return;
+            // setData empties the box, and the Toolbar controller does not report an unchanged size again:
+            // keep the size already shown (the default 11 pt would stay blank until the size changes)
+            var shown = cmb._selectedItem ? cmb._selectedItem.get(cmb.valueField) : parseFloat(cmb.getRawValue());
             cmb.setData(_.map([8, 9, 10, 10.5, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72], function (v) {
                 return {value: v, displayValue: String(v)};
             }));
+            if (shown !== undefined && !isNaN(shown)) cmb.setValue(shown);
         },
 
         decorateFontList: function (cmb) {
