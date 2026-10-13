@@ -483,7 +483,7 @@ define([
                     this.lockedControls.push(this.btnChat);
                 }
 
-                if ( this.appConfig.canCoAuthoring && this.appConfig.canComments ) {
+                if ( (this.appConfig.canCoAuthoring || this.appConfig.canLocalComments) && this.appConfig.canComments ) {
                     this.canComments = true; // fix for loading protected document
                     this.btnCommentRemove = new Common.UI.Button({
                         cls: 'btn-toolbar x-huge icon-top',

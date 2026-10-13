@@ -5188,5 +5188,7 @@
   "SSE.Views.WBProtection.txtSheetUnlockDescription": "Írjon be egy jelszót a munkalap zárolásának megszüntetéséhez",
   "SSE.Views.WBProtection.txtSheetUnlockTitle": "Munkalap védelmének megszüntetése",
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Írjon be egy jelszót a munkafüzet zárolásának megszüntetéséhez",
-  "SSE.Views.WBProtection.txtWBUnlockTitle": "Munkafüzet védelmének megszüntetése"
+  "SSE.Views.WBProtection.txtWBUnlockTitle": "Munkafüzet védelmének megszüntetése",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

@@ -5552,5 +5552,7 @@
   "DE.Controllers.WordViews.txtNoField": "There is no field here",
   "DE.Controllers.WordViews.txtLockedSkipped": "Locked fields are not updated: {0}",
   "DE.Views.Statusbar.textTrackChanges": "Track Changes",
-  "DE.Views.Statusbar.textChangesPanel": "Changes panel"
+  "DE.Views.Statusbar.textChangesPanel": "Changes panel",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

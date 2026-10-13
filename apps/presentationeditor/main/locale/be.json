@@ -2675,5 +2675,7 @@
   "PE.Views.ViewTab.tipFitToWidth": "Па шырыні",
   "PE.Views.ViewTab.tipGridlines": "Паказваць лініі сеткі",
   "PE.Views.ViewTab.tipGuides": "Паказваць накіравальныя",
-  "PE.Views.ViewTab.tipInterfaceTheme": "Тэма інтэрфейсу"
+  "PE.Views.ViewTab.tipInterfaceTheme": "Тэма інтэрфейсу",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

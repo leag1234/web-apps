@@ -27,10 +27,10 @@ define([
 
     var CSS = [
         '.elx-lf-bar{position:fixed;z-index:1001;left:50%;bottom:44px;transform:translateX(-50%);box-sizing:border-box;width:720px;max-width:calc(100vw - 32px);',
-        'display:flex;align-items:center;gap:12px;padding:10px 12px 10px 16px;background:var(--background-normal,#fff);color:var(--text-normal,#222);',
+        'display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:10px 12px 10px 16px;background:var(--background-normal,#fff);color:var(--text-normal,#222);',
         'border:1px solid var(--border-regular-control,#ccc);border-radius:6px;box-shadow:0 4px 18px rgba(0,0,0,.22);font:12px/1.4 var(--font-family-base-custom,Arial,sans-serif);}',
-        '.elx-lf-msg{flex:1 1 auto;min-width:0;}',
-        '.elx-lf-btns{display:flex;gap:8px;flex:0 0 auto;}',
+        '.elx-lf-msg{flex:1 1 360px;min-width:0;}',
+        '.elx-lf-btns{display:flex;flex-wrap:wrap;gap:8px;flex:0 0 auto;max-width:100%;}',
         '.elx-lf-btn{font:inherit;padding:5px 12px;border-radius:4px;cursor:pointer;border:1px solid var(--border-regular-control,#ccc);background:var(--background-normal,#fff);color:var(--text-normal,#222);}',
         '.elx-lf-btn:hover{background:var(--highlight-button-hover,#e0e0e0);}',
         '.elx-lf-btn.primary{background:var(--background-accent-button,#446995);border-color:var(--background-accent-button,#446995);color:var(--text-inverse,#fff);}',
@@ -82,7 +82,11 @@ define([
             };
             // consent given earlier and still valid: the fonts of this computer are already in use
             if (LF.hasConsent()) LF.permission().then(function (p) { if (p !== 'granted') offer(); });
-            else offer();
+            else {
+                var bridge=LF.desktopBridge();
+                if(bridge && typeof bridge.fontChoice==='function')bridge.fontChoice().then(function(choice){if(choice==='unset')offer();});
+                else offer();
+            }
         },
 
         showBar: function (text, buttons) {
@@ -104,6 +108,7 @@ define([
         },
 
         dismiss: function () {
+            var bridge=LF.desktopBridge();if(bridge && typeof bridge.fontDismiss==='function')bridge.fontDismiss().catch(function(){LF.setStatus('error');});
             ssSet(SS_BAR, '1');
             this.hideBar();
             Common.NotificationCenter.trigger('edit:complete');
@@ -114,6 +119,7 @@ define([
             var me = this;
             this.hideBar();
             this.enable().then(function (res) {
+                if(LF.desktopBridge())return;
                 var parts = [];
                 if (res.found.length) parts.push(LF.t('applied', me.namesText(res.found)));
                 if (res.missing.length) parts.push(LF.t('notFound', me.namesText(res.missing)));
@@ -124,6 +130,7 @@ define([
                 me.showBar(parts.join(' ') || LF.t('on', LF.count), buttons);
                 if (!reload) me.barTimer = setTimeout(function () { me.hideBar(); }, 7000);
             }, function (err) {
+                if(LF.desktopBridge() && err && err.code==='denied')return;
                 var m = LF.t(err && err.code === 'denied' ? 'denied' : (err && (err.code === 'insecure' || err.code === 'unsupported') ? err.code : 'failed'));
                 me.showBar(m, [{ text: LF.t('ok'), primary: true, click: function () { me.dismiss(); } }]);
             });

@@ -190,7 +190,7 @@ define([
                     dataHint    : '1',
                     dataHintDirection: 'bottom',
                     dataHintOffset: 'small',
-                    visible: !this.appConfig.isOffline
+                    visible: !this.appConfig.isOffline || this.appConfig.isElixirLocal
                 });
                 this.lockedControls.push(this.btnProtectRange);
                 Common.UI.LayoutManager.addControls(this.lockedControls);
@@ -211,7 +211,7 @@ define([
                     me.btnAllowRanges.updateHint(me.hintAllowRanges);
                     me.btnProtectRange.updateHint(me.hintProtectRange);
 
-                    config.isOffline && me.btnProtectRange.cmpEl.parents('.group').hide().prev('.separator').hide();
+                    config.isOffline && !config.isElixirLocal && me.btnProtectRange.cmpEl.parents('.group').hide().prev('.separator').hide();
 
                     setEvents.call(me);
                 });

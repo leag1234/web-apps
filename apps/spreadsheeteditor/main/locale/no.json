@@ -13,5 +13,7 @@
   "SSE.Views.Statusbar.textNewColor": "Legg til ny egendefinert farge",
   "SSE.Views.Toolbar.textNewColor": "Legg til ny egendefinert farge",
   "SSE.Views.Toolbar.txtDollar": "$ Dollar",
-  "SSE.Views.Toolbar.txtRouble": "₽ Rubel"
+  "SSE.Views.Toolbar.txtRouble": "₽ Rubel",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

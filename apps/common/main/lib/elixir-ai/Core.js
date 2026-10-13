@@ -57,12 +57,13 @@ define([], function () {
         managedReady: null,
         managedLoaded: false,
         // a configuration saved in this browser (own service, own key)
-        hasUserConfig: function () { var u = readJSON(SETTINGS_KEY); return !!(u && u.endpoint); },
+        hasUserConfig: function () { if (window.eoDesktopAI) return !!window.eoDesktopAI.get().endpoint; var u = readJSON(SETTINGS_KEY); return !!(u && u.endpoint); },
         // /elixir-ai/config.json: {"enabled":false} (or no file) = AI off on the server; otherwise the
         // same-origin endpoint, the model and, for information, the host the server forwards to.
         // Not requested at all when the user has their own configuration, which takes precedence.
         loadManaged: function (force) {
             var me = this;
+            if (window.eoDesktopAI) return window.eoDesktopAI.ready();
             if (force) me.managedReady = null;
             if (!me.managedReady) {
                 if (me.hasUserConfig()) { me.managedLoaded = true; return Promise.resolve(null); }
@@ -78,7 +79,7 @@ define([], function () {
             return me.managedReady;
         },
         get: function () {
-            var s = readJSON(SETTINGS_KEY) || {};
+            var s = window.eoDesktopAI ? window.eoDesktopAI.get() : readJSON(SETTINGS_KEY) || {};
             if (!s.endpoint && this.managed && !this.hasUserConfig()) {
                 s = Object.assign({}, s, { endpoint: this.managed.endpoint, apiKey: '', managed: true });
                 if (!s.model && this.managed.model) s.model = this.managed.model;
@@ -86,25 +87,28 @@ define([], function () {
             var out = {};
             for (var k in DEFAULTS) out[k] = (s[k] !== undefined && s[k] !== null) ? s[k] : DEFAULTS[k];
             out.managed = !!s.managed;
+            if (window.eoDesktopAI) out.hasKey = !!s.hasKey;
             out.prices = Object.assign({}, DEFAULT_PRICES, s.prices || {});
             return out;
         },
         save: function (s) {
+            if (window.eoDesktopAI) return window.eoDesktopAI.configure(s);
             try {
                 window.localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
                 return true;
             } catch (e) { return false; }
         },
-        clear: function () { try { window.localStorage.removeItem(SETTINGS_KEY); } catch (e) {} },
+        clear: function () { if (window.eoDesktopAI) return window.eoDesktopAI.clear(); try { window.localStorage.removeItem(SETTINGS_KEY); } catch (e) {} },
         isConfigured: function (s) {
             s = s || this.get();
+            if (window.eoDesktopAI) return window.eoDesktopAI.configured(s);
             return !!(s.endpoint && (/^https?:\/\//i.test(s.endpoint) || (s.managed && s.endpoint.charAt(0) === '/')) && s.model);
         },
         // What may be shown or journaled: never the key.
         publicView: function (s) {
             var host = '';
             try { host = s.managed ? 'server' : new URL(s.endpoint).host; } catch (e) {}
-            return { endpointHost: host, model: s.model, hasKey: !!s.apiKey };
+            return { endpointHost: host, model: s.model, hasKey: !!(s.apiKey || (window.eoDesktopAI && s.hasKey)) };
         },
         estimateCost: function (s, model, usage) {
             var p = (s.prices || {})[model];
@@ -223,14 +227,19 @@ define([], function () {
             // instead of 1.5 s (docs/ai.md §6.6), for no gain over temperature 0.
             if (s.sampling !== 'default' && !REASONING_MODEL.test(s.model) && !SAMPLING_REFUSED[s.model]) body.temperature = 0;
             if (s.extraParams) {
-                try { Object.assign(body, JSON.parse(s.extraParams)); } catch (e) {}
+                try {
+                    var extra = JSON.parse(s.extraParams);
+                    delete extra.model;
+                    delete extra.messages;
+                    Object.assign(body, extra);
+                } catch (e) {}
             }
             var headers = { 'Content-Type': 'application/json' };
             if (s.apiKey) headers.Authorization = 'Bearer ' + s.apiKey;
 
             var t0 = performance.now(), ttfb = null;
             var send = function (b) {
-                return fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: opts.signal, credentials: 'omit', referrerPolicy: 'no-referrer' });
+                return (window.eoDesktopAI ? window.eoDesktopAI.fetch : fetch)(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: opts.signal, credentials: 'omit', referrerPolicy: 'no-referrer' });
             };
             var retried = false;
             var retry400 = function (resp) {

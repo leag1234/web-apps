@@ -603,8 +603,10 @@ define([
 
         formatsFor: function (groups) {
             var ft = ((this.fm.document && this.fm.document.fileType) || this.defaultFileType).toLowerCase();
+            var supported = this.mode.localDownloadFormats;
             return this.formats().filter(function (f) {
-                return groups.indexOf(f.group) >= 0 && (!f.onlyFor || f.onlyFor === ft);
+                return (!supported || supported.indexOf(f.type) >= 0) &&
+                    groups.indexOf(f.group) >= 0 && (!f.onlyFor || f.onlyFor === ft);
             });
         },
 

@@ -2423,5 +2423,7 @@
   "PE.Views.ViewTab.tipFitToSlide": "Axustar á diapositiva",
   "PE.Views.ViewTab.tipFitToWidth": "Axustar á anchura",
   "PE.Views.ViewTab.tipGridlines": "Amosar liñas de cuadrícula",
-  "PE.Views.ViewTab.tipInterfaceTheme": "Tema da interface"
+  "PE.Views.ViewTab.tipInterfaceTheme": "Tema da interface",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

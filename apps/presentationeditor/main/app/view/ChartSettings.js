@@ -116,7 +116,7 @@ define([
                 this.ExternalOnlySettings.toggleClass('settings-hidden', !externalRef);
                 var text = externalRef ? (externalRef.asc_getSource() || '').replace(new RegExp("%20",'g')," ") : '';
                 this.linkExternalSrc.text(text);
-                this.OpenLinkSettings.toggleClass('settings-hidden', !text || !(this.mode.canRequestOpen || this.mode.isOffline));
+                this.OpenLinkSettings.toggleClass('settings-hidden', !text || this.mode.isElixirLocal || !(this.mode.canRequestOpen || this.mode.isOffline));
 
                 var value = props.get_SeveralCharts() || this._locked;
                 this.btnEditData.setDisabled(value || externalRef && this._state.isUpdatingReference);
@@ -634,6 +634,7 @@ define([
         },
 
         onEditLinks: function() {
+            if (this.mode.isElixirLocal) return;
             if (!Common.Controllers.LaunchController.isScriptLoaded()) return;
             Common.NotificationCenter.trigger('data:externallinks');
         },

@@ -4986,7 +4986,7 @@ define([
                 var $panel = me.getApplication().getController('Common.Controllers.ReviewChanges').createToolbarPanel();
                 if ($panel) {
                     me.toolbar.addTab(tab, $panel, 6);
-                    me.toolbar.setVisible('review', (config.isEdit || config.canViewReview || config.canCoAuthoring && config.canComments) && Common.UI.LayoutManager.isElementVisible('toolbar-collaboration'));
+                    me.toolbar.setVisible('review', (config.isEdit || config.canViewReview || (config.canCoAuthoring || config.canLocalComments) && config.canComments) && Common.UI.LayoutManager.isElementVisible('toolbar-collaboration'));
                 }
             }
 
@@ -5114,7 +5114,7 @@ define([
             me.appOptions = config;
 
             this.btnsComment = [];
-            if ( config.canCoAuthoring && config.canComments ) {
+            if ( (config.canCoAuthoring || config.canLocalComments) && config.canComments ) {
                 var _set = Common.enumLock;
                 this.btnsComment = Common.Utils.injectButtons(this.toolbar.$el.find('.slot-comment'), 'tlbtn-addcomment-', 'toolbar__icon btn-big-add-comment', this.toolbar.capBtnComment,
                                                             [_set.lostConnect, _set.commentLock, _set.editCell, _set['Objects']], undefined, undefined, undefined, '1', 'bottom', 'small');

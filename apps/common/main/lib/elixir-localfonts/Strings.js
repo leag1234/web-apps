@@ -255,6 +255,23 @@ define([], function () {
 
     // Translated string; {0}, {1}... are replaced by the extra arguments
     LF.t = function (key) {
+        var desktop = LF.desktopBridge && LF.desktopBridge();
+        if (desktop) {
+            var strings = window.EODesktopStrings || window.parent && window.parent.EODesktopStrings;
+            var map = { missing: 'fontMissing', ask: 'fontAsk', useMine: 'fontUse', hint: 'fontDetail',
+                denied: 'off', failed: 'fontFailed', insecure: 'fontFailed', unsupported: 'fontFailed',
+                off: 'off', loading: 'fontUse', on: 'fontUse', applied: 'fontUse', notFound: 'fontMissing',
+                reopen: 'open', reload: 'open', badge: 'fonts', group: 'fonts', option: 'fontAsk',
+                notNow: 'cancel', ok: 'ok', close: 'close' };
+            var value = strings && strings[map[key]];
+            if (value) {
+                if (['on', 'applied'].indexOf(key) >= 0) value += ': {0}';
+                for (var j = 1; j < arguments.length; j++) value = value.split('{' + (j - 1) + '}').join(arguments[j]);
+                return value;
+            }
+            // An incomplete shell must never offer nonexistent browser site settings.
+            if (['denied', 'failed', 'insecure', 'unsupported'].indexOf(key) >= 0) return 'Computer font access unavailable.';
+        }
         var s = (LF.Strings[lang] && LF.Strings[lang][key]) || LF.Strings.en[key] || key;
         for (var i = 1; i < arguments.length; i++) s = s.split('{' + (i - 1) + '}').join(arguments[i]);
         return s;

@@ -3565,5 +3565,7 @@
   "PE.Views.ViewTab.tipResumeMacro": "Reluare înregistrare",
   "PE.Views.ViewTab.tipSelectTool": "Instrumentul Selectare",
   "PE.Views.ViewTab.tipSlideMaster": "Coordonator de diapozitive",
-  "PE.Views.ViewTab.tipStopMacro": "Oprire înregistrare"
+  "PE.Views.ViewTab.tipStopMacro": "Oprire înregistrare",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

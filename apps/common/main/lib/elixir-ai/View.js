@@ -614,7 +614,11 @@ define([
         return t('noticeOff');
     };
 
+    // Preserve translations applied before this AMD module is loaded.
+    var desktopStrings = ElixirAI.ConfigForm || {};
     ElixirAI.ConfigForm = {
+        desktopKeyLabel: desktopStrings.desktopKeyLabel || 'API key (encrypted by your operating system)',
+        desktopPrivacy: desktopStrings.desktopPrivacy || 'Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.',
         // container: DOM element; host: {api, onSettingsChanged}; the form lives in container
         render: function (container, host) {
             injectStyles();
@@ -633,8 +637,8 @@ define([
                 '<label for="elixir-ai-model">' + esc(t('model')) + '</label>' +
                 '<input id="elixir-ai-model" list="elixir-ai-models" value="' + esc(saved || !managedOn ? s.model : '') + '">' +
                 '<datalist id="elixir-ai-models"><option value="gpt-4.1-mini"><option value="gpt-5.4-mini"><option value="gpt-5.4"><option value="mistral-small-latest"><option value="llama3.1"></datalist>' +
-                '<label for="elixir-ai-key">' + esc(t('keyLabel')) + '</label>' +
-                '<input id="elixir-ai-key" type="password" autocomplete="off" value="' + esc(s.apiKey) + '">' +
+                '<label for="elixir-ai-key">' + esc(window.eoDesktopAI ? ElixirAI.ConfigForm.desktopKeyLabel : t('keyLabel')) + '</label>' +
+                '<input id="elixir-ai-key" type="password" autocomplete="off" value="' + esc(s.apiKey) + '"' + (window.eoDesktopAI && s.hasKey ? ' placeholder="••••••••"' : '') + '>' +
                 '<div class="hint elixir-ai-cors" style="display:none">' + esc(t('corsNote')) + '</div>' +
                 '<details class="elixir-ai-adv"><summary>' + esc(t('advanced')) + '</summary>' +
                 '<label for="elixir-ai-extra">' + esc(t('extra')) + '</label>' +
@@ -642,7 +646,7 @@ define([
                 '<label for="elixir-ai-rounds">' + esc(t('rounds')) + '</label>' +
                 '<input id="elixir-ai-rounds" type="number" min="1" max="20" value="' + esc(s.maxRounds) + '" style="width:90px"></details>' +
                 '<div class="elixir-ai-notice" id="elixir-ai-notice" role="status"></div>' +
-                '<div class="hint">' + esc(t('privacy')) + '</div>' +
+                '<div class="hint">' + esc(window.eoDesktopAI ? ElixirAI.ConfigForm.desktopPrivacy : t('privacy')) + '</div>' +
                 '<div class="elixir-ai-actions" style="justify-content:flex-start">' +
                     '<button class="elixir-ai-btn primary" data-act="save">' + esc(t('save')) + '</button>' +
                     '<button class="elixir-ai-btn" data-act="test">' + esc(t('test')) + '</button>' +
@@ -654,7 +658,7 @@ define([
             var ep = $('#elixir-ai-endpoint'), mod = $('#elixir-ai-model');
             var refresh = function () {
                 $('#elixir-ai-notice').textContent = ElixirAI.dataNotice(ep.value.trim());
-                $('.elixir-ai-cors').style.display = (/^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(ep.value.trim()) || presetOf(ep.value.trim()) === 'ollama') ? '' : 'none';
+                $('.elixir-ai-cors').style.display = (!window.eoDesktopAI && (/^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(ep.value.trim()) || presetOf(ep.value.trim()) === 'ollama')) ? '' : 'none';
             };
             $('#elixir-ai-preset').addEventListener('change', function () {
                 var p = PRESETS[this.value] || PRESETS.custom;
@@ -685,9 +689,10 @@ define([
             $('[data-act=save]').addEventListener('click', function () {
                 var n = read();
                 if (!n) return;
-                if (!n.endpoint) { ElixirAI.Settings.clear(); } else if (!ElixirAI.Settings.save(n)) { msg(t('invalidUrl'), true); return; }
-                msg(t('saved'));
-                changed();
+                Promise.resolve(!n.endpoint ? ElixirAI.Settings.clear() : ElixirAI.Settings.save(n)).then(function (saved) {
+                    if (saved === false) { msg(t('notConfigured'), true); return; }
+                    msg(t('saved')); changed();
+                }).catch(function () { msg(t('invalidUrl'), true); });
             });
             $('[data-act=test]').addEventListener('click', function () {
                 var n = read();
@@ -705,8 +710,9 @@ define([
                 });
             });
             $('[data-act=clear]').addEventListener('click', function () {
-                ElixirAI.Settings.clear();
-                ElixirAI.Settings.loadManaged(true).then(function () { ElixirAI.ConfigForm.render(container, host); changed(); });
+                Promise.resolve(ElixirAI.Settings.clear()).then(function () {
+                    return ElixirAI.Settings.loadManaged(true);
+                }).then(function () { ElixirAI.ConfigForm.render(container, host); changed(); });
             });
         }
     };

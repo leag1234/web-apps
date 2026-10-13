@@ -3371,5 +3371,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Sūtīt e-pasta ziņojumus...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Vispirms izvēlieties adresātus (Sūtījumi > Izvēlēties adresātus)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Adresāti: {0}",
-  "DE.Controllers.WordMailings.txtMergeError": "Sapludināšanu neizdevās veikt."
+  "DE.Controllers.WordMailings.txtMergeError": "Sapludināšanu neizdevās veikt.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

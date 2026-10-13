@@ -3944,5 +3944,7 @@
   "PE.Views.ElixirTitleBar.txtChangeName": "Cambiar nombre",
   "PE.Views.ElixirTitleBar.txtManageAccount": "Administrar mi cuenta en {0}",
   "PE.Views.ElixirTitleBar.txtTestUser": "Usuario de prueba (modo desarrollador)",
-  "PE.Views.ElixirTitleBar.txtTestUserMe": "Yo ({0})"
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "Yo ({0})",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

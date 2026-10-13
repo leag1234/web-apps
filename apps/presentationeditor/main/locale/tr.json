@@ -2509,5 +2509,7 @@
   "PE.Views.ViewTab.tipFitToSlide": "Slayta sığdır",
   "PE.Views.ViewTab.tipFitToWidth": "Genişliğe Sığdır",
   "PE.Views.ViewTab.tipInterfaceTheme": "Arayüz teması",
-  "PE.Views.ViewTab.tipNormal": "Normal"
+  "PE.Views.ViewTab.tipNormal": "Normal",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

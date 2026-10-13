@@ -3964,5 +3964,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "විද්‍යුත් තැපැල් පණිවිඩ යවන්න...",
   "DE.Controllers.WordMailings.txtNoRecipients": "පළමුව ලබන්නන් තෝරන්න (තැපැල් යැවීම් > ලබන්නන් තෝරන්න)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "ලබන්නන් {0}",
-  "DE.Controllers.WordMailings.txtMergeError": "ඒකාබද්ධ කිරීම සිදු කළ නොහැකි විය."
+  "DE.Controllers.WordMailings.txtMergeError": "ඒකාබද්ධ කිරීම සිදු කළ නොහැකි විය.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

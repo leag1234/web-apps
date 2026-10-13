@@ -1777,9 +1777,9 @@ define([
                 this.appOptions.twoLevelHeader = this.appOptions.isEdit || this.appOptions.isPDFForm && this.appOptions.canFillForms && this.appOptions.isRestrictedEdit; // when compactHeader=true some buttons move to toolbar
 
                 if ( this.appOptions.isLightVersion ) {
-                    this.appOptions.canUseHistory =
-                    this.appOptions.canReview =
-                    this.appOptions.isReviewOnly = false;
+                    this.appOptions.canUseHistory = false;
+                    if (!this.appOptions.canLocalReview)
+                        this.appOptions.canReview = this.appOptions.isReviewOnly = false;
                 }
 
                 if ( !this.appOptions.canCoAuthoring ) {

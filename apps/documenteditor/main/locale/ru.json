@@ -5536,5 +5536,7 @@
   "DE.Views.ContextTabs.txtGroupCharttype": "Тип",
   "DE.Views.ContextTabs.txtChartStyles": "Стили диаграмм",
   "DE.Views.ContextTabs.txtEditData": "Изменить данные",
-  "DE.Views.ContextTabs.txtChangeChartType": "Изменить тип диаграммы"
+  "DE.Views.ContextTabs.txtChangeChartType": "Изменить тип диаграммы",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

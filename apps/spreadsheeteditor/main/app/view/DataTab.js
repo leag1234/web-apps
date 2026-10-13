@@ -262,6 +262,7 @@ define([
                     dataHintDirection: 'bottom',
                     dataHintOffset: 'small'
                 });
+                this.toolbar.mode.isElixirLocal && this.btnExternalLinks.setVisible(false);
                 this.lockedControls.push(this.btnExternalLinks);
 
                 this.btnGoalSeek = new Common.UI.Button({

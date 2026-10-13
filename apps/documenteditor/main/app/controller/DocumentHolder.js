@@ -212,7 +212,7 @@ define([
         setMode: function(m) {
             this.mode = m;
             /** coauthoring begin **/
-            !(this.mode.canCoAuthoring && this.mode.canComments)
+            !((this.mode.canCoAuthoring || this.mode.canLocalComments) && this.mode.canComments)
                 ? Common.util.Shortcuts.suspendEvents(this.hkComments)
                 : Common.util.Shortcuts.resumeEvents(this.hkComments);
             /** coauthoring end **/
@@ -677,7 +677,7 @@ define([
         },
 
         addComment: function(item, e, eOpt){
-            if (this.api && this.mode.canCoAuthoring && this.mode.canComments) {
+            if (this.api && (this.mode.canCoAuthoring || this.mode.canLocalComments) && this.mode.canComments) {
                 this.documentHolder.suppressEditComplete = true;
 
                 var controller = DE.getController('Common.Controllers.Comments');

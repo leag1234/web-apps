@@ -201,7 +201,7 @@ define([
         setMode: function(permissions) {
             this.permissions = permissions;
             /** coauthoring begin **/
-            !(this.permissions.canCoAuthoring && this.permissions.canComments)
+            !((this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canComments)
                 ? Common.util.Shortcuts.suspendEvents(this.hkComments)
                 : Common.util.Shortcuts.resumeEvents(this.hkComments);
             /** coauthoring end **/
@@ -243,13 +243,13 @@ define([
         onAddComment: function(item) {
             if (this._state.wsProps['Objects']) return;
             
-            if (this.api && this.permissions.canCoAuthoring && this.permissions.canComments) {
+            if (this.api && (this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canComments) {
 
                 var controller = SSE.getController('Common.Controllers.Comments'),
                     cellinfo = this.api.asc_getCellInfo();
                 if (controller) {
                     var comments = cellinfo.asc_getComments();
-                    if (comments && !comments.length && this.permissions.canCoAuthoring) {
+                    if (comments && !comments.length && (this.permissions.canCoAuthoring || this.permissions.canLocalComments)) {
                         controller.addDummyComment();
                     }
                 }

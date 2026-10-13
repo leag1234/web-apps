@@ -3149,5 +3149,7 @@
   "PE.Views.ViewTab.tipMacros": "Մակրոներ",
   "PE.Views.ViewTab.tipNormal": "Սովորական",
   "PE.Views.ViewTab.tipSelectTool": "Ընտրել գործիք",
-  "PE.Views.ViewTab.tipSlideMaster": "Slide master"
+  "PE.Views.ViewTab.tipSlideMaster": "Slide master",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

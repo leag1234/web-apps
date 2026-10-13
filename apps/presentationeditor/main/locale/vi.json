@@ -1390,5 +1390,7 @@
   "PE.Views.Transitions.txtParameters": "Thông số",
   "PE.Views.Transitions.txtPreview": "Xem trước",
   "PE.Views.Transitions.txtSec": "s",
-  "PE.Views.ViewTab.textZoom": "Thu phóng"
+  "PE.Views.ViewTab.textZoom": "Thu phóng",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

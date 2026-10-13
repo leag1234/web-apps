@@ -3603,5 +3603,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "E-posta İletileri Gönder...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Önce alıcıları seçin (Posta Gönderileri > Alıcı Seç)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} alıcı",
-  "DE.Controllers.WordMailings.txtMergeError": "Birleştirme yapılamadı."
+  "DE.Controllers.WordMailings.txtMergeError": "Birleştirme yapılamadı.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

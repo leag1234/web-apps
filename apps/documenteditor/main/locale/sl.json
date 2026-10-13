@@ -2287,5 +2287,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Pošlji e-poštna sporočila...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Najprej izberite prejemnike (Pošiljanje > Izberi prejemnike)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Prejemnikov: {0}",
-  "DE.Controllers.WordMailings.txtMergeError": "Spajanja ni bilo mogoče izvesti."
+  "DE.Controllers.WordMailings.txtMergeError": "Spajanja ni bilo mogoče izvesti.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

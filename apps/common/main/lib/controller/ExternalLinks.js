@@ -70,7 +70,7 @@ define([
 
         setApi: function(api) {
             this.api = api;
-            if ((this.toolbar.mode.canRequestReferenceData || this.toolbar.mode.isOffline) && this.api) {
+            if (this.api && !this.api.eoLocalMode && (this.toolbar.mode.canRequestReferenceData || this.toolbar.mode.isOffline)) {
                 !!window.SSE && this.api.asc_registerCallback('asc_onNeedUpdateExternalReference', _.bind(this.onNeedUpdateExternalReference, this));
                 this.api.asc_registerCallback('asc_onNeedUpdateExternalReferenceOnOpen', _.bind(this.onNeedUpdateExternalReferenceOnOpen, this));
                 this.api.asc_registerCallback('asc_onStartUpdateExternalReference', _.bind(this.onStartUpdateExternalReference, this));
@@ -88,6 +88,7 @@ define([
         },
 
         onExternalLinks: function() {
+            if (this.api && this.api.eoLocalMode) return;
             var me = this;
             this.externalLinksDlg = (new Common.Views.ExternalLinksDlg({
                 api: this.api,
@@ -182,6 +183,7 @@ define([
         },
 
         onNeedUpdateExternalReferenceOnOpen: function() {
+            if (this.api && this.api.eoLocalMode) return;
             var value = this.api.asc_getUpdateLinks();
             Common.UI.warning({
                 msg: value ? (!!window.SSE ? this.warnUpdateExternalAutoupdate : !!window.PE ? this.warnUpdateExternalAutoupdatePE : this.warnUpdateExternalAutoupdateDE) :
@@ -215,6 +217,7 @@ define([
         },
 
         openLink: function(externalRef) {
+            if (this.api && this.api.eoLocalMode) return;
             if (!externalRef) return;
             var data = this.api.asc_openExternalReference(externalRef);
             if (data) {
@@ -239,6 +242,7 @@ define([
         },
 
         updateReferences: function(data, fromDlg) {
+            if (this.api && this.api.eoLocalMode) return;
             this._state.isFromDlg = !!fromDlg;
             this.api && this.api.asc_updateExternalReferences(data);
         },

@@ -229,7 +229,7 @@ define([
             var me = this;
             me.mode = mode;
             /** coauthoring begin **/
-            !(me.mode.canCoAuthoring && me.mode.canComments)
+            !((me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments)
                 ? Common.util.Shortcuts.suspendEvents(me.hkComments)
                 : Common.util.Shortcuts.resumeEvents(me.hkComments);
             /** coauthoring end **/
@@ -711,7 +711,7 @@ define([
 
         /** coauthoring begin **/
         addComment: function(item, e, eOpt){
-            if (this.api && this.mode.canCoAuthoring && this.mode.canComments) {
+            if (this.api && (this.mode.canCoAuthoring || this.mode.canLocalComments) && this.mode.canComments) {
                 this.documentHolder.suppressEditComplete = true;
 
                 var controller = PE.getController('Common.Controllers.Comments');

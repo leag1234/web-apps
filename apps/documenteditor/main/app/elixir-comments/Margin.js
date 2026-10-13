@@ -44,7 +44,7 @@ define([
             this.api = api;
             this.mode = mode;
             this.ctrl = ctrl;
-            this.canComment = !!mode.canComments && !mode.isLightVersion;
+            this.canComment = !!mode.canComments && (!mode.isLightVersion || mode.canLocalComments);
 
             var $main = $('#id_main');
             if (!$main.length || !api.asc_ElixirGetCommentAnchors) return;

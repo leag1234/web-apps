@@ -38,9 +38,18 @@ define([], function () {
     LF.hasConsent = function () { return lsGet(KEY_CONSENT) === '1'; };
     LF.setConsent = function (on) { lsSet(KEY_CONSENT, on ? '1' : null); };
 
+    // The preload bridge belongs to the same-origin desktop start window.
+    LF.desktopBridge = function () {
+        try {
+            var bridge = window.eoDesktop || window.parent && window.parent.eoDesktop;
+            return bridge && typeof bridge.fontConsent === 'function' ? bridge : null;
+        } catch (e) { return null; }
+    };
+
     // ---- support -----------------------------------------------------------------------------------
     // 'ok' | 'insecure' (not HTTPS) | 'unsupported' (Firefox, Safari...)
     LF.support = function () {
+        if (LF.desktopBridge()) return 'ok';
         if (!window.isSecureContext) return 'insecure';
         if (typeof window.queryLocalFonts !== 'function') return 'unsupported';
         return 'ok';
@@ -48,6 +57,9 @@ define([], function () {
 
     // 'granted' | 'prompt' | 'denied' | null (cannot be asked)
     LF.permission = function () {
+        var bridge = LF.desktopBridge();
+        if (bridge) return typeof bridge.fontPermission === 'function' ?
+            bridge.fontPermission().then(function (allowed) { return allowed ? 'granted' : 'prompt'; }) : Promise.resolve('prompt');
         try {
             return navigator.permissions.query({ name: 'local-fonts' }).then(function (s) { return s.state; }, function () { return null; });
         } catch (e) { return Promise.resolve(null); }
@@ -303,7 +315,18 @@ define([], function () {
     LF.readList = function () {
         if (LF.fonts) return Promise.resolve(LF.fonts);
         if (LF._listing) return LF._listing;
-        LF._listing = window.queryLocalFonts().then(function (l) {
+        var bridge = LF.desktopBridge();
+        var list = bridge ? bridge.fontConsent().then(function (allowed) {
+            if (!allowed) { var error = new Error('Computer font access cancelled'); error.name = 'NotAllowedError'; throw error; }
+            return bridge.fonts();
+        }).then(function (faces) {
+            return faces.map(function (face) {
+                return Object.assign({}, face, { blob: function () {
+                    return bridge.font(face.id).then(function (bytes) { return new window.Blob([bytes]); });
+                } });
+            });
+        }) : window.queryLocalFonts();
+        LF._listing = list.then(function (l) {
             LF._listing = null;
             // a browser that is not allowed to answer may give an empty list instead of an error
             if (!l || !l.length) { var e = new Error('no fonts'); e.name = 'NotAllowedError'; throw e; }
@@ -450,6 +473,11 @@ define([], function () {
     };
 
     LF.disable = function () {
+        var bridge = LF.desktopBridge();
+        if (bridge) {
+            LF.fonts = null;
+            if (typeof bridge.fontDisable === 'function') bridge.fontDisable().catch(function () { LF.setStatus('error'); });
+        }
         LF.setConsent(false);
         LF.setStatus('off');
     };

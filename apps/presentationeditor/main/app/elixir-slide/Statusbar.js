@@ -77,7 +77,7 @@ define([
                 vt && vt.view && vt.view.chNotes && vt.view.chNotes.setValue(b.pressed, true);
                 Common.NotificationCenter.trigger('edit:complete');
             });
-            if (this.mode.canViewComments !== false && this.mode.canCoAuthoring !== false) {
+            if (this.mode.canViewComments !== false && (this.mode.canCoAuthoring !== false || this.mode.canLocalComments)) {
                 this.btnComments = this.btn($views.find('#elx-sb-comments'), 'btn-elx-sb-comments', { caption: s.txtComments, hint: s.tipComments, enableToggle: true });
                 this.btnComments.on('click', function () {
                     var c = me.getApplication().getController('ElixirChrome');

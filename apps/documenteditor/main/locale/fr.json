@@ -5354,8 +5354,8 @@
   "DE.Controllers.Main.errorForcedViewMode": "This file is opened in view mode.<br>The file is locked for editing or your access rights do not allow editing.",
   "DE.Controllers.Toolbar.helpHeaderFooterTab": "Access all header and footer options in one convenient location.",
   "DE.Controllers.Toolbar.helpHeaderFooterTabHeader": "New tab: Header & Footer",
-  "DE.Controllers.Toolbar.helpMultipageView": "Work with multiple pages at once for easier navigation.",
-  "DE.Controllers.Toolbar.helpMultipageViewHeader": "Multipage view",
+  "DE.Controllers.Toolbar.helpMultipageView": "Travaillez sur plusieurs pages à la fois pour naviguer plus facilement.",
+  "DE.Controllers.Toolbar.helpMultipageViewHeader": "Vue multipage",
   "DE.Controllers.Toolbar.helpSignature": "Insert a signature field to let the recipients sign forms: by image, custom text, or drawing on the screen.",
   "DE.Controllers.Toolbar.helpSignatureHeader": "More signature options",
   "DE.Controllers.WordEditKeys.textMoveTo": "Déplacer vers où ? Appuyez sur Entrée",
@@ -5551,5 +5551,7 @@
   "DE.Controllers.WordViews.txtNoField": "Il n'y a pas de champ ici",
   "DE.Controllers.WordViews.txtLockedSkipped": "Les champs verrouillés ne sont pas mis à jour : {0}",
   "DE.Views.Statusbar.textTrackChanges": "Suivi des modifications",
-  "DE.Views.Statusbar.textChangesPanel": "Volet Vérification"
+  "DE.Views.Statusbar.textChangesPanel": "Volet Vérification",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "Clé API (chiffrée par votre système d’exploitation)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée."
 }

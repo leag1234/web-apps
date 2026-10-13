@@ -92,6 +92,12 @@ define([], function () {
         },
 
         render: function() {
+            if (this.menu.mode.localDownloadFormats) {
+                var supported = this.menu.mode.localDownloadFormats;
+                this.formats = this.formats.map(function(row) {
+                    return row.filter(function(item) { return supported.indexOf(item.type) >= 0; });
+                }).filter(function(row) { return row.length > 0; });
+            }
             this.$el.html(this.template({rows:this.formats,
                 fileType: (this.fileType || 'pptx').toLowerCase(),
                 header: /*this.textDownloadAs*/ Common.Locale.get('btnDownloadCaption', {name:'PE.Views.FileMenu', default:this.textDownloadAs})}));
@@ -193,6 +199,12 @@ define([], function () {
         },
 
         render: function() {
+            if (this.menu.mode.localDownloadFormats) {
+                var supported = this.menu.mode.localDownloadFormats;
+                this.formats = this.formats.map(function(row) {
+                    return row.filter(function(item) { return supported.indexOf(item.type) >= 0; });
+                }).filter(function(row) { return row.length > 0; });
+            }
             this.$el.html(this.template({rows:this.formats,
                 fileType: (this.fileType || 'pptx').toLowerCase(),
                 header: /*this.textSaveCopyAs*/ Common.Locale.get('btnSaveCopyAsCaption', {name:'PE.Views.FileMenu', default:this.textSaveCopyAs})}));

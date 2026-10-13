@@ -3311,5 +3311,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Надіслати повідомлення електронної пошти...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Спочатку виберіть одержувачів (Розсилки > Вибрати одержувачів)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Одержувачів: {0}",
-  "DE.Controllers.WordMailings.txtMergeError": "Не вдалося виконати злиття."
+  "DE.Controllers.WordMailings.txtMergeError": "Не вдалося виконати злиття.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

@@ -3565,5 +3565,7 @@
   "PE.Views.ViewTab.tipResumeMacro": "녹음 재개",
   "PE.Views.ViewTab.tipSelectTool": "도구 선택",
   "PE.Views.ViewTab.tipSlideMaster": "슬라이드 마스터",
-  "PE.Views.ViewTab.tipStopMacro": "녹음 중지"
+  "PE.Views.ViewTab.tipStopMacro": "녹음 중지",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

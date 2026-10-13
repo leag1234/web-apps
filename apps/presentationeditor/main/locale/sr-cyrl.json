@@ -3261,5 +3261,7 @@
   "PE.Views.ViewTab.tipMacros": "Макрои",
   "PE.Views.ViewTab.tipNormal": "Нормалан",
   "PE.Views.ViewTab.tipSelectTool": "Одабери алатку",
-  "PE.Views.ViewTab.tipSlideMaster": "Главни управљаш слајдова"
+  "PE.Views.ViewTab.tipSlideMaster": "Главни управљаш слајдова",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

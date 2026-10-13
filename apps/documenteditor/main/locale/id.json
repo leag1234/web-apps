@@ -3620,5 +3620,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Kirim Pesan Email...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Pilih penerima terlebih dahulu (Surat > Pilih Penerima)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} penerima",
-  "DE.Controllers.WordMailings.txtMergeError": "Penggabungan tidak dapat dilakukan."
+  "DE.Controllers.WordMailings.txtMergeError": "Penggabungan tidak dapat dilakukan.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

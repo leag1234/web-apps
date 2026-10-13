@@ -3639,5 +3639,7 @@
   "PE.Views.ElixirTitleBar.txtChangeName": "名前を変更",
   "PE.Views.ElixirTitleBar.txtManageAccount": "{0} のアカウントを管理",
   "PE.Views.ElixirTitleBar.txtTestUser": "テスト ユーザー (開発者モード)",
-  "PE.Views.ElixirTitleBar.txtTestUserMe": "自分 ({0})"
+  "PE.Views.ElixirTitleBar.txtTestUserMe": "自分 ({0})",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

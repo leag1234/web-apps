@@ -445,7 +445,7 @@ define([
                     html += '<div class="elx-sg">' + esc(AI.t('searchAskGroup')) + '</div>' +
                         '<div class="elx-sr elx-sr-ask" role="option" id="elx-sr-' + (this.results.length - 1) + '"><span class="elx-sr-ic">' + AI.Icons.svg('sparkle', 20) + '</span>' +
                         '<span class="elx-sr-label">' + esc(AI.tf('searchAsk', [q])) + '</span><span class="elx-sr-where">' + esc(AI.t('searchAskHint')) + '</span></div>';
-                } else if (this.aiCapable && Common.ElixirAI) {
+                } else if (this.aiCapable && Common.ElixirAI && !window.eoDesktopAI) {
                     // AI is off: one discreet link, no AI call
                     this.results.push({ type: 'setup' });
                     html += '<div class="elx-sr elx-sr-setup" role="option" id="elx-sr-' + (this.results.length - 1) + '" style="opacity:.75"><span class="elx-sr-ic">' + Common.ElixirAI.Icons.svg('sparkle', 20) + '</span>' +

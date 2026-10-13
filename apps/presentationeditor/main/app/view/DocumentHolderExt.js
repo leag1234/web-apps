@@ -57,10 +57,10 @@ define([], function () {
             this.viewModeMenu = new Common.UI.Menu({
                 cls: 'shifted-right',
                 initMenu: function (value) {
-                    me.menuViewUndo.setVisible(me.mode.canCoAuthoring && me.mode.canComments && !me._isDisabled);
+                    me.menuViewUndo.setVisible((me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !me._isDisabled);
                     me.menuViewUndo.setDisabled(!me.api.asc_getCanUndo());
-                    menuViewCopySeparator.setVisible(!value.isChart && me.api.can_AddQuotedComment() !== false && me.mode.canCoAuthoring && me.mode.canComments && !me._isDisabled);
-                    me.menuViewAddComment.setVisible(!value.isChart && me.api.can_AddQuotedComment() !== false && me.mode.canCoAuthoring && me.mode.canComments && !me._isDisabled);
+                    menuViewCopySeparator.setVisible(!value.isChart && me.api.can_AddQuotedComment() !== false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !me._isDisabled);
+                    me.menuViewAddComment.setVisible(!value.isChart && me.api.can_AddQuotedComment() !== false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !me._isDisabled);
                     me.menuViewAddComment.setDisabled(value.locked);
                     var cancopy = me.api && me.api.can_CopyCut();
                     me.menuViewCopy.setDisabled(!cancopy);
@@ -1900,7 +1900,7 @@ define([], function () {
                     }
 
                     /** coauthoring begin **/
-                    me.menuAddCommentPara.setVisible(!isInChart && isInShape && me.api.can_AddQuotedComment()!==false && me.mode.canCoAuthoring && me.mode.canComments);
+                    me.menuAddCommentPara.setVisible(!isInChart && isInShape && me.api.can_AddQuotedComment()!==false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments);
                     /** coauthoring end **/
 
                     menuCommentParaSeparator.setVisible(/** coauthoring begin **/ me.menuAddCommentPara.isVisible() || /** coauthoring end **/ me.menuAddHyperlinkPara.isVisible() || menuHyperlinkPara.isVisible());
@@ -2097,7 +2097,7 @@ define([], function () {
                     }
 
                     /** coauthoring begin **/
-                    me.menuAddCommentTable.setVisible(me.api.can_AddQuotedComment()!==false && me.mode.canCoAuthoring && me.mode.canComments);
+                    me.menuAddCommentTable.setVisible(me.api.can_AddQuotedComment()!==false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments);
                     me.menuAddCommentTable.setDisabled(!_.isUndefined(value.paraProps) && value.paraProps.locked || disabled);
                     /** coauthoring end **/
 
@@ -2292,7 +2292,7 @@ define([], function () {
                     );
 
                     /** coauthoring begin **/
-                    me.menuAddCommentImg.setVisible(me.api.can_AddQuotedComment()!==false && me.mode.canCoAuthoring && me.mode.canComments);
+                    me.menuAddCommentImg.setVisible(me.api.can_AddQuotedComment()!==false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments);
                     me.menuAddCommentImg.setDisabled(disabled);
                     /** coauthoring end **/
                     me.menuImgShapeAlign.setDisabled(disabled);

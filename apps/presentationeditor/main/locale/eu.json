@@ -2771,5 +2771,7 @@
   "PE.Views.ViewTab.tipFitToWidth": "Doitu zabalerara",
   "PE.Views.ViewTab.tipGridlines": "Erakutsi sareta-lerroak",
   "PE.Views.ViewTab.tipGuides": "Erakutsi gidak",
-  "PE.Views.ViewTab.tipInterfaceTheme": "Interfazearen gaia"
+  "PE.Views.ViewTab.tipInterfaceTheme": "Interfazearen gaia",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

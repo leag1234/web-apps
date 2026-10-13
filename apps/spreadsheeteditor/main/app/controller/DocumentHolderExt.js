@@ -1544,7 +1544,7 @@ define([], function () {
 
                             var commentsController = this.getApplication().getController('Common.Controllers.Comments');
                             if (commentsController) {
-                                if (this.permissions.canCoAuthoring && this.permissions.canViewComments)
+                                if ((this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canViewComments)
                                     setTimeout(function() {commentsController.onApiHideComment(true);}, 200);
                                 else
                                     commentsController.onApiHideComment(true);
@@ -2681,8 +2681,8 @@ define([], function () {
 
                 /** coauthoring begin **/
                 var celcomments = cellinfo.asc_getComments(); // celcomments===null - has comment, but no permissions to view it
-                documentHolder.pmiAddCommentSeparator.setVisible(iscellmenu && !iscelledit && this.permissions.canCoAuthoring && this.permissions.canComments && celcomments && (celcomments.length < 1));
-                documentHolder.pmiAddComment.setVisible(iscellmenu && !iscelledit && this.permissions.canCoAuthoring && this.permissions.canComments && celcomments && (celcomments.length < 1));
+                documentHolder.pmiAddCommentSeparator.setVisible(iscellmenu && !iscelledit && (this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canComments && celcomments && (celcomments.length < 1));
+                documentHolder.pmiAddComment.setVisible(iscellmenu && !iscelledit && (this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canComments && celcomments && (celcomments.length < 1));
                 /** coauthoring end **/
                 documentHolder.pmiCellMenuSeparator.setVisible(iscellmenu && !iscelledit || isrowmenu || iscolmenu || isallmenu);
                 documentHolder.pmiEntireHide.isrowmenu = isrowmenu;
@@ -2816,9 +2816,9 @@ define([], function () {
 
             var signProps = (signGuid) ? this.api.asc_getSignatureSetup(signGuid) : null,
                 isInSign = !!signProps && this._canProtect,
-                canComment = iscellmenu && !iscelledit && this.permissions.canCoAuthoring && this.permissions.canComments && !this._isDisabled && cellinfo.asc_getComments() && cellinfo.asc_getComments().length < 1;
+                canComment = iscellmenu && !iscelledit && (this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canComments && !this._isDisabled && cellinfo.asc_getComments() && cellinfo.asc_getComments().length < 1;
 
-            documentHolder.menuViewUndo.setVisible(this.permissions.canCoAuthoring && this.permissions.canComments && !this._isDisabled);
+            documentHolder.menuViewUndo.setVisible((this.permissions.canCoAuthoring || this.permissions.canLocalComments) && this.permissions.canComments && !this._isDisabled);
             documentHolder.menuViewUndo.setDisabled(!this.api.asc_getCanUndo());
             documentHolder.menuViewCopySeparator.setVisible(isInSign);
 

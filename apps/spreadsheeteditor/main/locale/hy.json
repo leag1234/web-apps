@@ -4624,5 +4624,7 @@
   "SSE.Views.WBProtection.txtSheetUnlockDescription": "Մուտքագրեք գաղտնաբառ՝ թերթը չպաշտպանելու համար",
   "SSE.Views.WBProtection.txtSheetUnlockTitle": "Չպաշտպանել թերթիկը",
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Մուտքագրեք գաղտնաբառ՝ աշխատանքային գրքույկը պաշտպանելու համար",
-  "SSE.Views.WBProtection.txtWBUnlockTitle": "Չպաշտպանել աշխատանքային գրքույկը"
+  "SSE.Views.WBProtection.txtWBUnlockTitle": "Չպաշտպանել աշխատանքային գրքույկը",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

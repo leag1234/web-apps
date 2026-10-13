@@ -145,7 +145,7 @@ define([
             Common.NotificationCenter.on('api:disconnect',               _.bind(this.onApiServerDisconnect, this));
             this.api.asc_registerCallback('asc_onDownloadUrl',           _.bind(this.onDownloadUrl, this));
             /** coauthoring begin **/
-            if (this.mode.canCoAuthoring) {
+            if (this.mode.canCoAuthoring || this.mode.canLocalComments) {
                 if (this.mode.canChat)
                     this.api.asc_registerCallback('asc_onCoAuthoringChatReceiveMessage', _.bind(this.onApiChatMessage, this));
                 if (this.mode.canComments) {
@@ -186,8 +186,8 @@ define([
 
         createDelayedElements: function() {
             /** coauthoring begin **/
-            if ( this.mode.canCoAuthoring ) {
-                this.leftMenu.btnComments[(this.mode.canViewComments && !this.mode.isLightVersion) ? 'show' : 'hide']();
+            if (this.mode.canCoAuthoring || this.mode.canLocalComments) {
+                this.leftMenu.btnComments[(this.mode.canViewComments && (!this.mode.isLightVersion || this.mode.canLocalComments)) ? 'show' : 'hide']();
                 if (this.mode.canViewComments)
                     this.leftMenu.setOptionsPanel('comment', this.getApplication().getController('Common.Controllers.Comments').getView('Common.Views.Comments'));
 
@@ -622,7 +622,7 @@ define([
             if (value && this.leftMenu._state.pluginIsRunning) {
                 this.leftMenu.panelPlugins.show();
                 this.leftMenu.$el.width(Common.localStorage.getItem('pe-mainmenu-width') || MENU_SCALE_PART);
-                if (this.mode.canCoAuthoring) {
+                if (this.mode.canCoAuthoring || this.mode.canLocalComments) {
                     this.mode.canViewComments && this.leftMenu.panelComments['hide']();
                     this.mode.canChat && this.leftMenu.panelChat['hide']();
                 }
@@ -740,7 +740,7 @@ define([
                     }
                     return false;
                 case 'comments':
-                    if (this.mode.canCoAuthoring && this.mode.canViewComments && !this.mode.isLightVersion && (!previewPanel || !previewPanel.isVisible()) && !this._state.no_slides) {
+                    if ((this.mode.canCoAuthoring || this.mode.canLocalComments) && this.mode.canViewComments && (!this.mode.isLightVersion || this.mode.canLocalComments) && (!previewPanel || !previewPanel.isVisible()) && !this._state.no_slides) {
                         Common.UI.Menu.Manager.hideAll();
                         this.leftMenu.showMenu('comments');
                         this.getApplication().getController('Common.Controllers.Comments').onAfterShow();

@@ -3206,5 +3206,7 @@
   "PE.Views.ViewTab.tipMacros": "සාර්ව",
   "PE.Views.ViewTab.tipNormal": "සාමාන්‍ය",
   "PE.Views.ViewTab.tipSelectTool": "මෙවලම තෝරන්න",
-  "PE.Views.ViewTab.tipSlideMaster": "ප්‍රධාන සර්පණය"
+  "PE.Views.ViewTab.tipSlideMaster": "ප්‍රධාන සර්පණය",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

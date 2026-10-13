@@ -4387,5 +4387,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "전자 메일 메시지 보내기...",
   "DE.Controllers.WordMailings.txtNoRecipients": "먼저 받는 사람을 선택하세요(편지 > 받는 사람 선택)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "받는 사람 {0}명",
-  "DE.Controllers.WordMailings.txtMergeError": "병합을 수행할 수 없습니다."
+  "DE.Controllers.WordMailings.txtMergeError": "병합을 수행할 수 없습니다.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

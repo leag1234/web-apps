@@ -124,6 +124,11 @@ define([
                         {caption: this.txtTextFromStorage, value: 'storage'}
                     ]})
                 });
+                if (this.mode.isElixirLocal) {
+                    this.btnInsObject.setVisible(false);
+                    _.each(this.btnInsObject.menu.items, function (item) { item.setVisible(false); });
+                    tb.$layout.find('#slot-elx-ins-object').hide();
+                }
             },
 
             // ---- Layout -------------------------------------------------------------------

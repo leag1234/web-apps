@@ -2643,6 +2643,10 @@ define([
                     me.btnTextFromFile.menu.items[1].setDisabled(config.disableNetworkFunctionality);
                     me.btnTextFromFile.menu.items[2].setDisabled(config.disableNetworkFunctionality);
                     me.btnTextFromFile.updateHint(me.tipTextFromFile);
+                    if (config.isElixirLocal) {
+                        me.btnTextFromFile.setVisible(false);
+                        _.each(me.btnTextFromFile.menu.items, function (item) { item.setVisible(false); });
+                    }
 
                     if (!config.canFeatureContentControl && me.btnContentControls.cmpEl) {
                         me.btnContentControls.cmpEl.parents('.group').hide().prev('.separator').hide();

@@ -2223,5 +2223,7 @@
   "PE.Views.ViewTab.textNotes": "Poznámky",
   "PE.Views.ViewTab.textRulers": "Pravítka",
   "PE.Views.ViewTab.textStatusBar": "Stavový riadok",
-  "PE.Views.ViewTab.textZoom": "Priblíženie"
+  "PE.Views.ViewTab.textZoom": "Priblíženie",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

@@ -1802,7 +1802,7 @@ define([], function () {
 
                     /** coauthoring begin **/
                     // comments
-                    me.menuAddCommentTable.setVisible(me.api.can_AddQuotedComment()!==false && me.mode.canCoAuthoring && me.mode.canComments && !control_lock);
+                    me.menuAddCommentTable.setVisible(me.api.can_AddQuotedComment()!==false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !control_lock);
                     me.menuAddCommentTable.setDisabled(value.paraProps!==undefined && value.paraProps.locked===true);
                     /** coauthoring end **/
 
@@ -2460,7 +2460,7 @@ define([], function () {
                     menuParaTOCSeparator.setVisible(in_toc);
 
                     /** coauthoring begin **/
-                    var isVisible = !isInChart && me.api.can_AddQuotedComment()!==false && me.mode.canCoAuthoring && me.mode.canComments && !control_lock;
+                    var isVisible = !isInChart && me.api.can_AddQuotedComment()!==false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !control_lock;
                     if (me.mode.compatibleFeatures)
                         isVisible = isVisible && !isInShape;
                     menuCommentSeparatorPara.setVisible(isVisible);
@@ -2691,7 +2691,7 @@ define([], function () {
                         isInSign = !!signProps && me._canProtect,
                         control_lock = (value.paraProps) ? (!value.paraProps.value.can_DeleteBlockContentControl() || !value.paraProps.value.can_EditBlockContentControl() ||
                             !value.paraProps.value.can_DeleteInlineContentControl() || !value.paraProps.value.can_EditInlineContentControl()) : false,
-                        canComment = !isInChart && me.api.can_AddQuotedComment() !== false && me.mode.canCoAuthoring && me.mode.canComments && !me._isDisabled && !control_lock,
+                        canComment = !isInChart && me.api.can_AddQuotedComment() !== false && (me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !me._isDisabled && !control_lock,
                         canEditControl = false;
 
                     if (me.mode.compatibleFeatures)
@@ -2705,7 +2705,7 @@ define([], function () {
                         canEditControl = spectype !== undefined && (spectype === Asc.c_oAscContentControlSpecificType.None || spectype === Asc.c_oAscContentControlSpecificType.ComboBox || spectype === Asc.c_oAscContentControlSpecificType.Complex) && !control_lock;
                     }
 
-                    me.menuViewUndo.setVisible(me.mode.canCoAuthoring && me.mode.canComments && !me._isDisabled);
+                    me.menuViewUndo.setVisible((me.mode.canCoAuthoring || me.mode.canLocalComments) && me.mode.canComments && !me._isDisabled);
                     me.menuViewUndo.setDisabled(!me.api.asc_getCanUndo());
                     me.menuViewCopySeparator.setVisible(isInSign);
 

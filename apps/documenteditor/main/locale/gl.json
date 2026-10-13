@@ -3028,5 +3028,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Enviar mensaxes de correo electrónico...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Seleccione primeiro os destinatarios (Correspondencia > Seleccionar destinatarios)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} destinatarios",
-  "DE.Controllers.WordMailings.txtMergeError": "Non se puido facer a combinación."
+  "DE.Controllers.WordMailings.txtMergeError": "Non se puido facer a combinación.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

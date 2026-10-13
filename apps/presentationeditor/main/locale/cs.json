@@ -3565,5 +3565,7 @@
   "PE.Views.ViewTab.tipResumeMacro": "Obnovit záznam",
   "PE.Views.ViewTab.tipSelectTool": "Zvolit nástroj",
   "PE.Views.ViewTab.tipSlideMaster": "Předloha snímků",
-  "PE.Views.ViewTab.tipStopMacro": "Zastavit záznam"
+  "PE.Views.ViewTab.tipStopMacro": "Zastavit záznam",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

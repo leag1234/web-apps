@@ -2826,5 +2826,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "ສົ່ງຂໍ້ຄວາມອີເມວ...",
   "DE.Controllers.WordMailings.txtNoRecipients": "ເລືອກຜູ້ຮັບກ່ອນ (ການສົ່ງຈົດໝາຍ > ເລືອກຜູ້ຮັບ)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} ຜູ້ຮັບ",
-  "DE.Controllers.WordMailings.txtMergeError": "ບໍ່ສາມາດລວມໄດ້."
+  "DE.Controllers.WordMailings.txtMergeError": "ບໍ່ສາມາດລວມໄດ້.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

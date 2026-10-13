@@ -4388,5 +4388,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "ای میل پیغامات بھیجیں...",
   "DE.Controllers.WordMailings.txtNoRecipients": "پہلے وصول کنندگان منتخب کریں (مراسلات > وصول کنندگان منتخب کریں)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} وصول کنندگان",
-  "DE.Controllers.WordMailings.txtMergeError": "مرج انجام نہیں دیا جا سکا۔"
+  "DE.Controllers.WordMailings.txtMergeError": "مرج انجام نہیں دیا جا سکا۔",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

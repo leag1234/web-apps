@@ -4374,5 +4374,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "שליחת הודעות דואר אלקטרוני...",
   "DE.Controllers.WordMailings.txtNoRecipients": "בחר תחילה את הנמענים (דיוור > בחירת נמענים)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} נמענים",
-  "DE.Controllers.WordMailings.txtMergeError": "לא ניתן היה לבצע את המיזוג."
+  "DE.Controllers.WordMailings.txtMergeError": "לא ניתן היה לבצע את המיזוג.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

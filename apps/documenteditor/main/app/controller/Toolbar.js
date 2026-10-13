@@ -1744,6 +1744,7 @@ define([
         },
 
         onTextFromFileClick: function(menu, item, e) {
+            if (this.api && this.api.eoLocalMode) return;
             var me = this, type = item.value;
             if (type === "file") {
                 this.api.asc_insertTextFromFile();
@@ -3987,7 +3988,7 @@ define([
                 $reviewPanel = $panel;
             if ( $panel ) {
                 me.toolbar.addTab(tab, $panel, 6);
-                me.toolbar.setVisible('review', (config.isEdit || config.canCoAuthoring && config.canComments) && Common.UI.LayoutManager.isElementVisible('toolbar-collaboration') ); // use config.canViewReview in review controller. set visible review tab in view mode only when asc_HaveRevisionsChanges
+                me.toolbar.setVisible('review', (config.isEdit || (config.canCoAuthoring || config.canLocalComments) && config.canComments) && Common.UI.LayoutManager.isElementVisible('toolbar-collaboration') ); // use config.canViewReview in review controller. set visible review tab in view mode only when asc_HaveRevisionsChanges
             }
 
             if ( config.isEdit ) {
@@ -4122,7 +4123,7 @@ define([
             }
 
             this.btnsComment = [];
-            if ( config.canCoAuthoring && config.canComments ) {
+            if ( (config.canCoAuthoring || config.canLocalComments) && config.canComments ) {
                 this.btnsComment = Common.Utils.injectButtons(this.toolbar.$el.find('.slot-comment'), 'tlbtn-addcomment-', 'toolbar__icon btn-big-add-comment', this.toolbar.capBtnComment,
                             [  Common.enumLock.paragraphLock, Common.enumLock.headerLock, Common.enumLock.richEditLock, Common.enumLock.plainEditLock, Common.enumLock.richDelLock, Common.enumLock.plainDelLock,
                                     Common.enumLock.cantAddQuotedComment, Common.enumLock.imageLock, Common.enumLock.inSpecificForm, Common.enumLock.inImage, Common.enumLock.lostConnect, Common.enumLock.disableOnStart,

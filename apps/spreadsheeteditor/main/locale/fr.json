@@ -5669,5 +5669,7 @@
   "SSE.Views.ElixirTitleBar.txtChangeName": "Changer de nom",
   "SSE.Views.ElixirTitleBar.txtManageAccount": "Gérer mon compte sur {0}",
   "SSE.Views.ElixirTitleBar.txtTestUser": "Utilisateur de test (mode développeur)",
-  "SSE.Views.ElixirTitleBar.txtTestUserMe": "Moi ({0})"
+  "SSE.Views.ElixirTitleBar.txtTestUserMe": "Moi ({0})",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "Clé API (chiffrée par votre système d’exploitation)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée."
 }

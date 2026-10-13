@@ -1221,5 +1221,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Send e-postmeldinger...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Velg mottakerne først (Forsendelser > Velg mottakere)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} mottakere",
-  "DE.Controllers.WordMailings.txtMergeError": "Flettingen kunne ikke gjennomføres."
+  "DE.Controllers.WordMailings.txtMergeError": "Flettingen kunne ikke gjennomføres.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

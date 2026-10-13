@@ -63,7 +63,7 @@ define([
                     if (item) {
                         var panel = this.panels[item.options.action];
                         if (item.options.action === 'help') {
-                            if ( panel.noHelpContents === true && navigator.onLine ) {
+                            if ( panel && panel.noHelpContents === true && navigator.onLine ) {
                                 this.fireEvent('item:click', [this, 'external-help', true]);
                                 const helpCenter = Common.Utils.InternalSettings.get('url-help-center');
                                 !!helpCenter && window.open(helpCenter, '_blank');

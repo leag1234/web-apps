@@ -4372,5 +4372,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "E-mail-üzenetek küldése...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Először jelölje ki a címzetteket (Levelezés > Címzettek kijelölése)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} címzett",
-  "DE.Controllers.WordMailings.txtMergeError": "Az egyesítés nem hajtható végre."
+  "DE.Controllers.WordMailings.txtMergeError": "Az egyesítés nem hajtható végre.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

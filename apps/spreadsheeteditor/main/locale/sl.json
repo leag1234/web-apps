@@ -1407,5 +1407,7 @@
   "SSE.Views.ViewTab.textCreate": "Novo",
   "SSE.Views.ViewTab.textDefault": "Privzeto",
   "SSE.Views.ViewTab.textHeadings": "Naslovi",
-  "SSE.Views.ViewTab.textZoom": "Povečaj"
+  "SSE.Views.ViewTab.textZoom": "Povečaj",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

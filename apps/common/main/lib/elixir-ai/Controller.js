@@ -131,7 +131,7 @@ define([
 
         // Run an instruction from another entry point (search box, Ask Elixir menu, "/" menu)
         ask: function (text, autoSubmit) {
-            if (!this.isAvailable()) return false;
+            if (!this.isAvailable() || (window.eoDesktopAI && !this.isActive())) return false;
             this.openBar();
             this.bar.ask(text, autoSubmit);
             return true;
@@ -159,6 +159,7 @@ define([
         },
 
         openBar: function () {
+            if (window.eoDesktopAI && !this.isActive()) return;
             if (!this.api) this.api = this.getApplication().getController('Viewport').getApi();
             var host = this.host();
             host.api = this.api;

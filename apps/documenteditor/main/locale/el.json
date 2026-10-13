@@ -4387,5 +4387,7 @@
   "DE.Controllers.WordMailings.txtSendEmail": "Αποστολή μηνυμάτων ηλεκτρονικού ταχυδρομείου...",
   "DE.Controllers.WordMailings.txtNoRecipients": "Επιλέξτε πρώτα τους παραλήπτες (Αλληλογραφία > Επιλογή παραληπτών)",
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} παραλήπτες",
-  "DE.Controllers.WordMailings.txtMergeError": "Η συγχώνευση δεν ήταν δυνατή."
+  "DE.Controllers.WordMailings.txtMergeError": "Η συγχώνευση δεν ήταν δυνατή.",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }

@@ -1697,5 +1697,7 @@
   "PE.Views.ViewTab.textInterfaceTheme": "Тема на интерфейса",
   "PE.Views.ViewTab.textLine": "Линия",
   "PE.Views.ViewTab.textRulers": "Владетели",
-  "PE.Views.ViewTab.tipInterfaceTheme": "Тема на интерфейса"
+  "PE.Views.ViewTab.tipInterfaceTheme": "Тема на интерфейса",
+  "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
 }
