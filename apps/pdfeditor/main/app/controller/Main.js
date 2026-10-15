@@ -211,7 +211,19 @@ define([
                     Common.Gateway.on('opendocument',   _.bind(this.loadDocument, this));
                     Common.Gateway.on('opendocumentfrombinary', _.bind(this.loadBinary, this));
                     Common.Gateway.on('grabfocus',      _.bind(this.onGrabFocus, this));
-                    Common.Gateway.appReady();
+                    // Only explicit local launchers load the local transport and native shell adapters.
+                    var localLauncher = false;
+                    try {
+                        localLauncher = window.parent !== window && !!(window.parent.EOLocalOpen || window.parent.EODesktopState);
+                    } catch (_crossOriginParent) {}
+                    if (localLauncher) {
+                        require(['common/main/lib/elixir-local/Controller',
+                            'common/main/lib/elixir-localfonts/Core',
+                            'common/main/lib/elixir-chrome/Backstage'], function () {
+                            document.body.classList.add('eo-local-pdf');
+                            Common.Gateway.appReady();
+                        });
+                    } else Common.Gateway.appReady();
 
 //                $(window.top).resize(_.bind(this.onDocumentResize, this));
                     this.getApplication().getController('Viewport').setApi(this.api);
@@ -1316,7 +1328,7 @@ define([
                 if (params.asc_getRights() !== Asc.c_oRights.Edit)
                     this.permissions.edit = this.permissions.review = false;
 
-                this.appOptions.isXpsViewer = /^(?:(djvu|xps|oxps))$/.test(this.document.fileType) || Common.Locale.getDefaultLanguage() === 'ru';
+                this.appOptions.isXpsViewer = /^(?:(djvu|xps|oxps))$/.test(this.document.fileType) || (!this.appOptions.isElixirLocal && Common.Locale.getDefaultLanguage() === 'ru');
                 this.appOptions.isForm = !this.appOptions.isXpsViewer && !!window.isPDFForm;
                 this.appOptions.permissionsLicense = licType;
                 this.appOptions.canAnalytics   = params.asc_getIsAnalyticsEnable();

@@ -1232,6 +1232,11 @@
         if ((isPdf || oldForm) && (config.document && config.document.permissions && config.document.permissions.edit === false || config.editorConfig && config.editorConfig.mode == 'view'))
             params += "&mode=fillforms";
 
+        // The explicit local launcher supplies bytes after app-ready; skip the hosted form probe.
+        if (!config.document && config.documentType === 'pdf' && config.editorConfig &&
+            config.editorConfig.customization && config.editorConfig.customization.elixirLocal === true)
+            params += "&isForm=false";
+
         if (config.document) {
             config.document.isForm = isPdf ? config.document.isForm : !!oldForm;
             (config.document.isForm===true || config.document.isForm===false) && (params += "&isForm=" + config.document.isForm);

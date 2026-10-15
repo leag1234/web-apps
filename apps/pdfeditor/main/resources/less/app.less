@@ -263,3 +263,8 @@
 }
 
 @import "../../../../common/main/resources/less/_theme-main.less";
+
+// Shared backstage styling applies only to an explicitly local PDF shell.
+body.eo-local-pdf {
+ @import "../../../../common/main/resources/less/elixir-chrome.less";
+}

@@ -106,6 +106,9 @@ define([], function () {
                 ]];
             }
 
+            if (this.fileType === 'pdf' && this.mode && this.mode.isElixirLocal)
+                this.formats = [[{name: 'PDF', imgCls: 'pdf', type: Asc.c_oAscFileType.PDF}]];
+
             this.$el.html(this.template({rows:this.formats,
                 fileType: (this.fileType || 'docx').toLowerCase(),
                 header: /*this.textDownloadAs*/ Common.Locale.get('btnDownloadCaption', {name:'PDFE.Views.FileMenu', default:this.textDownloadAs})}));
@@ -223,6 +226,9 @@ define([], function () {
                     {name: 'PDF',   imgCls: 'pdf',   type: Asc.c_oAscFileType.PDF, ext: '.pdf'}
                 ]];
             }
+
+            if (this.fileType === 'pdf' && this.mode && this.mode.isElixirLocal)
+                this.formats = [[{name: 'PDF', imgCls: 'pdf', type: Asc.c_oAscFileType.PDF}]];
 
             this.$el.html(this.template({rows:this.formats,
                 fileType: (this.fileType || 'docx').toLowerCase(),

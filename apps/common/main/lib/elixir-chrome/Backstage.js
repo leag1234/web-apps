@@ -62,6 +62,7 @@ define([
         txtPdfBullet1: 'Preserves layout, formatting, fonts and images', txtPdfBullet2: 'Content cannot be easily changed',
         txtPdfBullet3: 'Free viewers are available on every device', txtCreatePdfBtn: 'Create PDF', txtCreatePdfaBtn: 'Create PDF/A (archiving)',
         txtDocumentTypes: 'Document file types', txtOtherTypes: 'Other file types', txtImageTypes: 'Images',
+        txtStorageSaveLead: 'Choose a format, then choose a folder in your storage.',
         txtSaveAsLead: 'Download a copy of this document in the format of your choice.', txtDownloadCopy: 'Download a copy',
         txtRename: 'Rename', txtRenameDesc: 'Change the name of this document.',
         txtProperties: 'Properties', txtProtectDocument: 'Protect Document', txtProtectDocumentDesc: 'Control what types of changes people can make to this document.',
@@ -675,14 +676,20 @@ define([
             var panel = this.fm.panels && this.fm.panels['saveas'], me = this;
             if (!panel || !panel.$el || panel.$el.hasClass('elx-saveas')) return;
             panel.$el.addClass('elx-saveas elx-page');
-            var mode = this.mode || {};
+            var mode = this.mode || {}, storage = mode.canRequestSaveAs && me.hostConfig().storage;
+            var cards = this.formatCards(this.formatsFor(['doc', 'pdf', 'other', 'image']));
             panel.$el.html('<div class="elx-page-inner"><h1 class="header">' + esc(this.txtSaveAs) + '</h1>' +
-                '<p class="elx-lead">' + esc(this.txtSaveAsLead) + '</p>' +
+                '<p class="elx-lead">' + esc(mode.canRequestSaveAs && me.hostConfig().storage ? this.txtStorageSaveLead : this.txtSaveAsLead) + '</p>' +
                 ((mode.canRename && !mode.isDesktopApp) ? '<div class="elx-tiles">' + this.tile({ action: 'rename', icon: 'rename', title: this.txtRename, desc: this.txtRenameDesc }) + '</div>' : '') +
-                '<h2>' + esc(this.txtDownloadCopy) + '</h2>' +
-                this.formatCards(this.formatsFor(['doc', 'pdf', 'other', 'image'])) + '</div>');
+                (storage ? '<h2>' + esc(this.txtSaveCopy) + '</h2><div class="elx-copy-formats">' +
+                    cards.replace(/btn-doc-format/g, '') + '</div>' : '') +
+                '<h2>' + esc(this.txtDownloadCopy) + '</h2><div class="elx-download-formats">' + cards + '</div></div>');
             panel.$el.find('.elx-format').on('click', function () {
-                me.fm.fireEvent('saveas:format', [me.fm, parseInt($(this).attr('format'))]);
+                // This page owns these cards; dispatch directly to the existing editor controller.
+                var copy = $(this).closest('.elx-copy-formats').length ? true : undefined;
+                var controller=me.ctrl('LeftMenu'), format=parseInt($(this).attr('format'));
+                if(copy && controller.clickSaveCopyAsFormat) controller.clickSaveCopyAsFormat(me.fm,format,copy);
+                else controller.clickSaveAsFormat(me.fm,format,copy);
             });
             panel.$el.find('[data-action=rename]').on('click', function () {
                 me.fm.hide();

@@ -1,0 +1,101 @@
+/*
+ * SPDX-FileCopyrightText: 2026 ElixirOffice contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+define(['common/main/lib/elixir-local/PdfWriter','common/main/lib/elixir-local/PdfMessages'],function(PdfWriter,PdfMessages){
+ 'use strict';
+ function install(api,options){
+  if(!api.DocInfo||!api.DocInfo.get_OfflineApp())throw Error('Local PDF requires an offline editor');
+  var opening=false,disposed=false,original=null,saving=null,policy={writable:false,reason:'unverified'};
+  // Untrusted document scripts and form URI actions must not escape the local transport.
+  // This iframe contains only this explicitly offline API instance; hosted SDKs are unchanged.
+  function disableScripts(){
+   if(!window.AscPDF||!AscPDF.CActionRunScript)throw Error('Local PDF script isolation is unavailable');
+   AscPDF.CActionRunScript.prototype.RunScript=function(){};
+   AscPDF.CActionRunScript.prototype.Do=function(){var queue=api.getPDFDoc().GetActionsQueue();queue.SetCurAction(this);queue.Continue();};
+  }
+  var openDocument=api.openDocument;
+  api.openDocument=function(){disableScripts();return openDocument.apply(this,arguments);};
+  api.asc_registerCallback('asc_onOpenLinkPdfForm',function(_uri,_open,next){if(typeof next==='function')next();});
+
+  function report(error){if(options.onError)options.onError(error);}
+  function readOnlyMessage(){return PdfMessages.readOnlyMessage(policy.reason,options.lang,options.pdfStrings);}
+  function writerOptions(){return {signal:signal(),lang:options.lang,strings:options.pdfStrings};}
+  function viewer(){return api.DocumentRenderer||api.getDocumentRenderer();}
+  function bytes(){
+   var v=viewer(),pages=v.file.pages,originalCount=v.file.originalPagesCount,next=originalCount;
+   var indexes=pages.map(function(page){return page.originIndex===undefined?next++:page.originIndex;});
+   v.getPDFDoc().BlurActiveObject();v.getPDFDoc().RecalculateAll();
+   var output=v.file.nativeFile.SplitPages(indexes,v.SaveForSplit());
+   if(!output||output.length>512*1024*1024||output.length<5||String.fromCharCode.apply(null,output.subarray(0,5))!=='%PDF-')throw Error('Local PDF writer did not produce a PDF');
+   return new Uint8Array(output);
+  }
+  // The matched runtime and bounded public preservation gate are verified before this hook.
+  function signal(){return options.getSignal&&options.getSignal();}
+  async function preserved(){return PdfWriter.write(original,viewer().Save(),writerOptions());}
+  async function save(){
+   if(!policy.writable)throw Error(readOnlyMessage());
+   if(disposed)throw Error('The PDF editor is closed');
+   if(saving)return saving;
+   saving=(async function(){
+    if(options.onBeforeSave)options.onBeforeSave();
+    try{
+     var changes=viewer().Save(),history=api.getPDFDoc().History,index=history.Index;
+     var output=await PdfWriter.write(original,changes,writerOptions());
+     if(disposed||signal()&&signal().aborted)throw Error('PDF saving cancelled');
+     if(!options.onSave)throw Error('No local PDF save destination is available');
+     await options.onSave(output);
+     // Browser downloads do not acknowledge overwriting the user's source.
+     if(options.saveAcknowledgesOriginal===true && history.Index===index){
+      history.Reset_SavedIndex(true);api.SetDocumentModified(false);
+     }
+     return output;
+    }finally{if(options.onAfterSave)options.onAfterSave();}
+   })();
+   try{return await saving;}finally{saving=null;}
+  }
+  api.elixirPdfSaveAllowed=function(){return policy.writable;};
+  api.asc_Save=function(isAutoSave){if(isAutoSave===true)return false;if(!policy.writable){report(Error(readOnlyMessage()));return false;}save().catch(report);return true;};
+  async function exportAs(target,downloadOptions){
+   if(target!=='pdf')throw Error('Only PDF copies are available in local PDF mode');
+   if(!options.onExport)throw Error('Use the desktop PDF export command');
+   if(options.onBeforeSave)options.onBeforeSave();
+   try{var output=policy.writable?await preserved():bytes();await options.onExport(output,'pdf',downloadOptions||{},{backend:policy.writable?'original-append':'drawingfile'});return output;}
+   finally{if(options.onAfterSave)options.onAfterSave();}
+  }
+  api.asc_DownloadAs=function(downloadOptions){if(downloadOptions.fileType!==Asc.c_oAscFileType.PDF){report(Error('Only PDF copies are available in local PDF mode'));return false;}exportAs('pdf',downloadOptions).catch(report);return true;};
+  api.asc_Print=function(downloadOptions){exportAs('pdf',Object.assign({},downloadOptions,{isPdfPrint:true})).catch(report);return true;};
+  async function open(input){
+   if(opening||disposed)throw Error('Local PDF opening is unavailable');opening=true;
+   original=new Uint8Array(input);
+   if(original.length>512*1024*1024){opening=false;throw Error('Choose a PDF under 512 MiB');}
+   if(String.fromCharCode.apply(null,original.subarray(0,5))!=='%PDF-'){opening=false;throw Error('Invalid PDF input');}
+   try{await new Promise(function(resolve,reject){
+    var timer=setTimeout(function(){finish(Error('Local PDF did not become ready'));},90000),signal=options.getSignal&&options.getSignal();
+    function finish(error){clearTimeout(timer);api.asc_unregisterCallback('asc_onDocumentContentReady',ready);if(signal)signal.removeEventListener('abort',cancel);error?reject(error):resolve();}
+    function ready(){
+     var v=viewer(),file=v.file,selectAll=file.selectAll;
+     file.selectAll=function(){
+      if(!v.isFullText){v.fullTextMessageCallback=function(){file.selectAll();};v.showTextMessage();return;}
+      selectAll.apply(this,arguments);
+      if(this.Selection.Glyph1===-2&&this.Selection.Glyph2===-1){
+       this.Selection.IsSelection=true;this.onUpdateSelection();this.onUpdateOverlay();
+      }
+     };
+     finish();
+    }
+    function cancel(){finish(Error('Opening cancelled'));}
+    api.asc_registerCallback('asc_onDocumentContentReady',ready);if(signal)signal.addEventListener('abort',cancel,{once:true});
+    if(signal&&signal.aborted)return cancel();
+    try{api.asc_openDocumentFromBytes(original);}catch(error){finish(error);}
+   });
+   try{policy=await PdfWriter.inspect(original,writerOptions());}
+   catch(error){if(signal()&&signal().aborted)throw error;policy={writable:false,reason:'runtime-unavailable'};}
+   if(!policy.writable)api.asc_addRestriction(Asc.c_oAscRestrictionType.View);
+   return {backend:'drawingfile',inputBytes:original.length,pages:viewer().file.pages.length,policy:policy};}
+   finally{opening=false;}
+  }
+  return {open:open,serialize:function(){return policy.writable?preserved():bytes();},exportAs:exportAs,save:save,readOnlyMessage:readOnlyMessage,canSave:function(){return policy.writable;},isSaving:function(){return !!saving;},snapshot:async function(){return {bytes:policy.writable?await preserved():original.slice(),format:'pdf',resources:[]};},isModified:function(){return api.isDocumentModified();},hasPendingImages:function(){return false;},dispose:function(){disposed=true;}};
+ }
+ return {install:install};
+});

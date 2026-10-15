@@ -51,19 +51,19 @@ define([
                 type: 'light',
                 source: 'static',
                 skeleton: {
-                    css: `.loadmask {--sk-height-toolbar-controls: 66px; --sk-layout-padding-toolbar: 0;
-                                    --sk-shadow-toolbar: inset 0 -1px #cbcbcb; --sk-border-radius-toolbar: 0;
-                                    --sk-background-toolbar: #f7f7f7; --sk-background-toolbar-controls: #f7f7f7;
-                                    --sk-background-toolbar-header-word: #446995; --sk-background-toolbar-header-pdf: #aa5252;
-                                    --sk-background-toolbar-header-slide: #BE664F; --sk-background-toolbar-header-cell: #40865c; 
-                                    --sk-background-toolbar-header-visio: #444796; 
-                                    --sk-background-toolbar-tab: rgba(0,0,0,.15); --sk-background-toolbar-button: #d8dadc;
-                                    --sk-layout-padding-toolbar-controls: 0 7px; --sk-layout-padding-header: 0 8px;
-                                    --sk-canvas-background: #eee; --sk-canvas-content-background: #fff;
+                    css: `.loadmask {--EXAMPLE_TOKEN_NOT_VALID: 66px; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                    --sk-shadow-toolbar: inset 0 -1px #cbcbcb; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                    --sk-background-toolbar: #f7f7f7; --EXAMPLE_TOKEN_NOT_VALID: #f7f7f7;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #446995; --EXAMPLE_TOKEN_NOT_VALID: #aa5252;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #BE664F; --EXAMPLE_TOKEN_NOT_VALID: #40865c; 
+                                    --EXAMPLE_TOKEN_NOT_VALID: #444796; 
+                                    --EXAMPLE_TOKEN_NOT_VALID: rgba(0,0,0,.15); --EXAMPLE_TOKEN_NOT_VALID: #d8dadc;
+                                    --EXAMPLE_TOKEN_NOT_VALID: 0 7px; --EXAMPLE_TOKEN_NOT_VALID: 0 8px;
+                                    --sk-canvas-background: #eee; --EXAMPLE_TOKEN_NOT_VALID: #fff;
                                     --sk-canvas-page-border: #dde0e5; --sk-canvas-line: rgba(0,0,0,.05);
                                     --sk-height-formula: 24px; --sk-padding-formula: 0 0 4px 0;
-                                    --sk-border-style-formula: solid; --sk-gap-formula-field: 20px;
-                                    --sk-border-radius-formula-field: 0px; --sk-layout-padding-placeholder: 46px auto;
+                                    --EXAMPLE_TOKEN_NOT_VALID: solid; --sk-gap-formula-field: 20px;
+                                    --EXAMPLE_TOKEN_NOT_VALID: 0px; --EXAMPLE_TOKEN_NOT_VALID: 46px auto;
                                 }`
                 },
             },
@@ -72,19 +72,19 @@ define([
                 type: 'light',
                 source: 'static',
                 skeleton: {
-                    css: `.loadmask {--sk-height-toolbar-controls: 66px; --sk-layout-padding-toolbar: 0;
-                                    --sk-shadow-toolbar: inset 0 -1px #cbcbcb; --sk-border-radius-toolbar: 0;
-                                    --sk-background-toolbar-header-word: #446995; --sk-background-toolbar-header-pdf: #aa5252;
-                                    --sk-background-toolbar-header-slide: #BE664F;; --sk-background-toolbar-header-cell: #40865c;
-                                    --sk-background-toolbar-header-visio: #444796; 
-                                    --sk-background-toolbar: #f7f7f7; --sk-background-toolbar-controls: #f1f1f1;
-                                    --sk-background-toolbar-tab: rgba(255,255,255,.15); --sk-background-toolbar-button: #d8dadc;
-                                    --sk-layout-padding-toolbar-controls: 0 7px; --sk-layout-padding-header: 0 8px;
-                                    --sk-canvas-background: #eee; --sk-canvas-content-background: #fff;
+                    css: `.loadmask {--EXAMPLE_TOKEN_NOT_VALID: 66px; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                    --sk-shadow-toolbar: inset 0 -1px #cbcbcb; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #446995; --EXAMPLE_TOKEN_NOT_VALID: #aa5252;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #BE664F;; --EXAMPLE_TOKEN_NOT_VALID: #40865c;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #444796; 
+                                    --sk-background-toolbar: #f7f7f7; --EXAMPLE_TOKEN_NOT_VALID: #f1f1f1;
+                                    --EXAMPLE_TOKEN_NOT_VALID: rgba(255,255,255,.15); --EXAMPLE_TOKEN_NOT_VALID: #d8dadc;
+                                    --EXAMPLE_TOKEN_NOT_VALID: 0 7px; --EXAMPLE_TOKEN_NOT_VALID: 0 8px;
+                                    --sk-canvas-background: #eee; --EXAMPLE_TOKEN_NOT_VALID: #fff;
                                     --sk-canvas-page-border: #dde0e5; --sk-canvas-line: rgba(0,0,0,.05);
                                     --sk-height-formula: 24px; --sk-padding-formula: 0 0 4px 0;
-                                    --sk-border-style-formula: solid; --sk-gap-formula-field: 20px;
-                                    --sk-border-radius-formula-field: 0px; --sk-layout-padding-placeholder: 46px auto;
+                                    --EXAMPLE_TOKEN_NOT_VALID: solid; --sk-gap-formula-field: 20px;
+                                    --EXAMPLE_TOKEN_NOT_VALID: 0px; --EXAMPLE_TOKEN_NOT_VALID: 46px auto;
                                 }`
                 },
             },
@@ -94,22 +94,22 @@ define([
                 source: 'static',
                 skeleton: {
                     css: `.theme-dark .loadmask, .theme-type-dark .loadmask {
-                                --sk-height-toolbar-controls: 66px; --sk-layout-padding-toolbar: 0;
-                                --sk-shadow-toolbar: inset 0 -1px #616161; --sk-border-radius-toolbar: 0;
-                                --sk-background-toolbar-header-word: #2a2a2a; --sk-background-toolbar-header-pdf: #2a2a2a;
-                                --sk-background-toolbar-header-slide: #2a2a2a;--sk-background-toolbar-header-cell: #2a2a2a;
-                                --sk-background-toolbar-header-visio: #2a2a2a; 
-                                --sk-background-toolbar: #404040; --sk-background-toolbar-controls: #404040;
-                                --sk-background-toolbar-tab: rgba(255,255,255,.15); --sk-background-toolbar-button: #555;
-                                --sk-layout-padding-toolbar-controls: 0 7px; --sk-layout-padding-header: 0 8px;
-                                --sk-canvas-background: #555; --sk-canvas-content-background: #fff;
+                                --EXAMPLE_TOKEN_NOT_VALID: 66px; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                --sk-shadow-toolbar: inset 0 -1px #616161; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a; --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a;
+                                --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a;--EXAMPLE_TOKEN_NOT_VALID: #2a2a2a;
+                                --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a; 
+                                --sk-background-toolbar: #404040; --EXAMPLE_TOKEN_NOT_VALID: #404040;
+                                --EXAMPLE_TOKEN_NOT_VALID: rgba(255,255,255,.15); --EXAMPLE_TOKEN_NOT_VALID: #555;
+                                --EXAMPLE_TOKEN_NOT_VALID: 0 7px; --EXAMPLE_TOKEN_NOT_VALID: 0 8px;
+                                --sk-canvas-background: #555; --EXAMPLE_TOKEN_NOT_VALID: #fff;
                                 --sk-canvas-page-border: #555; --sk-canvas-line: rgba(0,0,0,.05);
                                 --sk-height-formula: 24px; --sk-padding-formula: 0 0 4px 0;
-                                --sk-border-style-formula: solid; --sk-gap-formula-field: 20px;
-                                --sk-border-radius-formula-field: 0px; --sk-layout-padding-placeholder: 46px auto;
+                                --EXAMPLE_TOKEN_NOT_VALID: solid; --sk-gap-formula-field: 20px;
+                                --EXAMPLE_TOKEN_NOT_VALID: 0px; --EXAMPLE_TOKEN_NOT_VALID: 46px auto;
                             }
                             .content-theme-dark {
-                                --sk-canvas-content-background: #3a3a3a; --sk-canvas-page-border: #616161;
+                                --EXAMPLE_TOKEN_NOT_VALID: #3a3a3a; --sk-canvas-page-border: #616161;
                                 --sk-canvas-line: rgba(255,255,255,.05);
                             }`
                 },
@@ -120,22 +120,22 @@ define([
                 source: 'static',
                 skeleton: {
                     css: `.theme-dark .loadmask, .theme-type-dark .loadmask {
-                                --sk-height-toolbar-controls: 66px; --sk-layout-padding-toolbar: 0;
-                                --sk-shadow-toolbar: inset 0 -1px #616161; --sk-border-radius-toolbar: 0;
-                                --sk-background-toolbar-header-word: #2a2a2a; --sk-background-toolbar-header-pdf: #2a2a2a;
-                                --sk-background-toolbar-header-slide: #2a2a2a;--sk-background-toolbar-header-cell: #2a2a2a;
-                                --sk-background-toolbar-header-visio: #2a2a2a; 
-                                --sk-background-toolbar: #404040; --sk-background-toolbar-controls: #404040;
-                                --sk-background-toolbar-tab: rgba(255,255,255,.15); --sk-background-toolbar-button: #555;
-                                --sk-layout-padding-toolbar-controls: 0 7px; --sk-layout-padding-header: 0 8px;
-                                --sk-canvas-background: #555; --sk-canvas-content-background: #fff;
+                                --EXAMPLE_TOKEN_NOT_VALID: 66px; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                --sk-shadow-toolbar: inset 0 -1px #616161; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a; --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a;
+                                --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a;--EXAMPLE_TOKEN_NOT_VALID: #2a2a2a;
+                                --EXAMPLE_TOKEN_NOT_VALID: #2a2a2a; 
+                                --sk-background-toolbar: #404040; --EXAMPLE_TOKEN_NOT_VALID: #404040;
+                                --EXAMPLE_TOKEN_NOT_VALID: rgba(255,255,255,.15); --EXAMPLE_TOKEN_NOT_VALID: #555;
+                                --EXAMPLE_TOKEN_NOT_VALID: 0 7px; --EXAMPLE_TOKEN_NOT_VALID: 0 8px;
+                                --sk-canvas-background: #555; --EXAMPLE_TOKEN_NOT_VALID: #fff;
                                 --sk-canvas-page-border: #555; --sk-canvas-line: rgba(0,0,0,.05);
                                 --sk-height-formula: 24px; --sk-padding-formula: 0 0 4px 0;
-                                --sk-border-style-formula: solid; --sk-gap-formula-field: 20px;
-                                --sk-border-radius-formula-field: 0px; --sk-layout-padding-placeholder: 46px auto;
+                                --EXAMPLE_TOKEN_NOT_VALID: solid; --sk-gap-formula-field: 20px;
+                                --EXAMPLE_TOKEN_NOT_VALID: 0px; --EXAMPLE_TOKEN_NOT_VALID: 46px auto;
                             }
                             .content-theme-dark {
-                                --sk-canvas-content-background: #3a3a3a;
+                                --EXAMPLE_TOKEN_NOT_VALID: #3a3a3a;
                                 --sk-canvas-page-border: #616161; --sk-canvas-line: rgba(255,255,255,.05);
                             }`
                 },
@@ -145,19 +145,19 @@ define([
                 type: 'light',
                 source: 'static',
                 skeleton: {
-                    css: `.loadmask {--sk-height-toolbar-controls: 66px;--sk-layout-padding-toolbar: 0;
-                                    --sk-shadow-toolbar: inset 0 -1px #cbcbcb; --sk-border-radius-toolbar: 0;
-                                    --sk-background-toolbar-header-word: #f7f7f7; --sk-background-toolbar-header-pdf: #f7f7f7;
-                                    --sk-background-toolbar-header-slide: #f7f7f7;--sk-background-toolbar-header-cell: #f7f7f7;
-                                    --sk-background-toolbar-header-visio: #f7f7f7; 
-                                    --sk-background-toolbar: #f7f7f7; --sk-background-toolbar-controls: #f1f1f1;
-                                    --sk-background-toolbar-tab: #e0e0e0; --sk-background-toolbar-button: #e0e0e0;
-                                    --sk-layout-padding-toolbar-controls: 0 7px; --sk-layout-padding-header: 0 8px;
-                                    --sk-canvas-background: #eee; --sk-canvas-content-background: #fff;
+                    css: `.loadmask {--EXAMPLE_TOKEN_NOT_VALID: 66px;--EXAMPLE_TOKEN_NOT_VALID: 0;
+                                    --sk-shadow-toolbar: inset 0 -1px #cbcbcb; --EXAMPLE_TOKEN_NOT_VALID: 0;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #f7f7f7; --EXAMPLE_TOKEN_NOT_VALID: #f7f7f7;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #f7f7f7;--EXAMPLE_TOKEN_NOT_VALID: #f7f7f7;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #f7f7f7; 
+                                    --sk-background-toolbar: #f7f7f7; --EXAMPLE_TOKEN_NOT_VALID: #f1f1f1;
+                                    --EXAMPLE_TOKEN_NOT_VALID: #e0e0e0; --EXAMPLE_TOKEN_NOT_VALID: #e0e0e0;
+                                    --EXAMPLE_TOKEN_NOT_VALID: 0 7px; --EXAMPLE_TOKEN_NOT_VALID: 0 8px;
+                                    --sk-canvas-background: #eee; --EXAMPLE_TOKEN_NOT_VALID: #fff;
                                     --sk-canvas-page-border: #ccc; --sk-canvas-line: rgba(0,0,0,.05);
                                     --sk-height-formula: 24px; --sk-padding-formula: 0 0 4px 0;
-                                    --sk-border-style-formula: solid; --sk-gap-formula-field: 20px;
-                                    --sk-border-radius-formula-field: 0px; --sk-layout-padding-placeholder: 46px auto;
+                                    --EXAMPLE_TOKEN_NOT_VALID: solid; --sk-gap-formula-field: 20px;
+                                    --EXAMPLE_TOKEN_NOT_VALID: 0px; --EXAMPLE_TOKEN_NOT_VALID: 46px auto;
                                 }`
                 },
             },

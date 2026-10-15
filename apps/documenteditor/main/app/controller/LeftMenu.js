@@ -244,7 +244,7 @@ define([
                 break;
             case 'save-copy':
                 if ( isopts ) close_menu = false;
-                else this.clickSaveAsFormat(undefined, undefined, true);
+                else this.clickSaveAsFormat(this.leftMenu.getMenu('file'), Asc.c_oAscFileType[this.getApplication().getController('Main').document.fileType.toUpperCase()], true);
                 break;
             case 'print': this.api.asc_Print(new Asc.asc_CDownloadOptions(null, Common.Utils.isChrome || Common.Utils.isOpera || Common.Utils.isGecko && Common.Utils.firefoxVersion>86)); break;
             case 'exit': Common.NotificationCenter.trigger('goback'); break;

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 (function(factory){
- if(typeof define==='function'&&define.amd)define(['common/main/lib/elixir-local/Images'],factory);else factory(window.Common&&window.Common.ElixirLocalImages);
-})(function(Images){
+ if(typeof define==='function'&&define.amd)define(['common/main/lib/elixir-local/Images','common/main/lib/elixir-local/Pdf','common/main/lib/elixir-local/Password'],factory);else factory(window.Common&&window.Common.ElixirLocalImages,window.Common&&window.Common.ElixirLocalPdf,window.Common&&window.Common.ElixirLocalPassword);
+})(function(Images,Pdf,Password){
  var window=globalThis;
  'use strict';
  function guardNetwork(){
@@ -28,6 +28,7 @@
  function prepare(api,main,capabilities){
   guardNetwork();
   api.eoLocalMode=true;
+  Password.prepare(api,main);
   api._openChartOrLocalDocument=function(){};
   api.asc_isOffline=function(){return true;};
   var permissions=main.onEditorPermissions;
@@ -49,11 +50,12 @@
   };
  }
  function install(api,options){
-  options=options||{};var resources=[],urls=[],saving=null,pendingImage=Promise.resolve(),pendingImages=0,disposed=false,revision=0,format=options.format,exporting=null;
+  options=options||{};if(options.format==='pdf')return Pdf.install(api,options);var resources=[],urls=[],saving=null,pendingImage=Promise.resolve(),pendingImages=0,disposed=false,revision=0,format=options.format,exporting=null;
   var editorFormat={docx:'doct',odt:'doct',xlsx:'xlst',ods:'xlst',pptx:'pptt',odp:'pptt'}[format];
   if(!editorFormat)throw new Error('Unsupported local document format');
   if(!api.DocInfo||!api.DocInfo.get_OfflineApp())throw new Error('Local mode requires an offline editor');
   Images.assertAvailable();
+  var passwords=Password.install(api,Object.assign({},options,{save:save,isBusy:function(){return !!(saving||exporting);},onError:function(e){if(options.onError)options.onError(e);}}));
   var wordHistoryState;
   function action(){revision++;}
   function modified(){
@@ -73,15 +75,17 @@
    if(editorFormat==='xlst'){api.wbModel.dependencyFormulas.calcTree();return new AscCommonExcel.BinaryFileWriter(api.wbModel).Write(true);}
    api.WordControl.m_oLogicDocument.CalculateComments();return new AscCommon.CBinaryFileWriter().WriteDocument3(api.WordControl.m_oLogicDocument,false);
   }
-  async function save(){
-   if(saving)return saving;
+  async function save(passwordChoice){
+   if(saving){if(passwordChoice!==undefined)throw new Error('A local save is already running');return saving;}
    if(exporting)throw new Error('A local export is already running');
    saving=(async function(){
     if(options.onBeforeSave)options.onBeforeSave();
     await pendingImage;
     var saveRevision=revision,bytes=serialize();
-    var output=await window.EOWasmConvert.convert(bytes,editorFormat,format,{resources:resources,onProgress:options.onProgress,signal:signal()});
-    if(options.onSave)await options.onSave(output);
+    var output=await passwords.save(async function(passwordOptions,protection){
+     var output=await window.EOWasmConvert.convert(bytes,editorFormat,format,Object.assign({resources:resources,onProgress:options.onProgress,signal:signal()},passwordOptions));
+     if(options.onSave)await options.onSave(output,protection);return output;
+    },passwordChoice);
     // Mark only the completed snapshot saved; edits made during conversion stay dirty.
     if(revision===saveRevision){AscCommon.History.Reset_SavedIndex(true);api.SetDocumentModified(false);}
     else if(editorFormat==='doct'){
@@ -108,7 +112,7 @@
     var state=await snapshot(),output;
     if(target==='pdf'){
      if(!options.buildPdf)throw new Error('The bundled PDF exporter is unavailable');
-     output=await options.buildPdf(api,format,downloadOptions||{},signal());
+     await passwords.confirmExport();output=await options.buildPdf(api,format,downloadOptions||{},signal());
     }else{
      var conversion={resources:state.resources,onProgress:options.onProgress,signal:signal()},advanced=downloadOptions&&downloadOptions.advancedOptions;
      if(target==='csv'&&advanced&&advanced.asc_getCodePage){
@@ -120,7 +124,7 @@
       if(delimiter===-1&&custom)delimiter=0;
       conversion.csv={encoding:advanced.asc_getCodePage(),delimiter:delimiter,delimiterChar:custom};
      }
-     output={bytes:await window.EOWasmConvert.convert(state.bytes,state.format,target,conversion)};
+     output={bytes:await passwords.copyAs(target,function(passwordOptions){return window.EOWasmConvert.convert(state.bytes,state.format,target,Object.assign(conversion,passwordOptions));})};
     }
     if(disposed||(signal()&&signal().aborted))throw new Error('Conversion cancelled');
     await options.onExport(output.bytes,target,downloadOptions||{},output.stats);
@@ -173,7 +177,8 @@
    picker.click();
   };
   async function open(input){
-   var output=await window.EOWasmConvert.convert(new Uint8Array(input),format,editorFormat,{onProgress:options.onProgress,signal:signal()});
+   var source=new Uint8Array(input);
+   var output=await passwords.open(source,function(passwordOptions){return window.EOWasmConvert.convert(source,format,editorFormat,Object.assign({onProgress:options.onProgress,signal:signal()},passwordOptions));});
    resources=output.resources||[];resources.forEach(function(f){
     var url=URL.createObjectURL(new Blob([f.bytes]));urls.push(url);
     imageUrls.set(f.path.replace(/^media\//,''),url);imageUrls.set(f.path,url);
@@ -186,18 +191,28 @@
     function ready(){finish();}
     function cancel(){finish(new Error('Opening cancelled'));}
     api.asc_registerCallback('asc_onDocumentContentReady',ready);
-    if(currentSignal)currentSignal.addEventListener('abort',cancel,{once:true});
+    if(currentSignal){currentSignal.addEventListener('abort',cancel,{once:true});if(currentSignal.aborted){cancel();return;}}
     try{api.asc_openDocumentFromBytes(output);}catch(e){finish(e);}
-   });
+   }).catch(function(e){passwords.dispose();throw e;});
    pictures.activate();
    return output.stats;
+  }
+  async function exportCopy(target,write){
+   if(outputs.indexOf(target)<0||target==='pdf')throw new Error('Unsupported local converted copy');
+   if(saving||exporting)throw new Error('A local conversion is already running');
+   exporting=(async function(){var state=await snapshot();return passwords.copyAs(target,async function(passwordOptions,protection){
+    var output=await window.EOWasmConvert.convert(state.bytes,state.format,target,Object.assign({resources:state.resources,signal:signal()},passwordOptions));
+    if(disposed||(signal()&&signal().aborted))throw new Error('Conversion cancelled');
+    await write(output,protection);return output;
+   });})();
+   try{return await exporting;}finally{exporting=null;}
   }
   // Recovery takes a detached snapshot without saving or resetting document history.
   async function snapshot(){
    await pendingImage;
    return {bytes:serialize(),format:editorFormat,resources:resources.map(function(resource){return {path:resource.path,bytes:new Uint8Array(resource.bytes)};})};
   }
-  return {open:open,save:save,exportAs:exportAs,snapshot:snapshot,serialize:serialize,addImage:addImage,isModified:function(){return api.isDocumentModified();},hasPendingImages:function(){return pendingImages>0;},dispose:function(){disposed=true;pictures.dispose();api.asc_unregisterCallback('asc_onDocumentModifiedChanged',modified);actions.forEach(function(event){api.asc_unregisterCallback(event,action);});urls.forEach(URL.revokeObjectURL);if(docUrls.addImageUrl===localImageUrl)docUrls.addImageUrl=add;}};
+  return {open:open,save:save,exportCopy:exportCopy,saveAs:function(){return passwords.saveAs(save);},confirmUnprotectedExport:passwords.confirmExport,isProtected:passwords.isProtected,isRecoveryLocked:passwords.isRecoveryLocked,exportAs:exportAs,snapshot:snapshot,serialize:serialize,addImage:addImage,isModified:function(){return api.isDocumentModified();},hasPendingImages:function(){return pendingImages>0;},dispose:function(){disposed=true;passwords.dispose();pictures.dispose();api.asc_unregisterCallback('asc_onDocumentModifiedChanged',modified);actions.forEach(function(event){api.asc_unregisterCallback(event,action);});urls.forEach(URL.revokeObjectURL);if(docUrls.addImageUrl===localImageUrl)docUrls.addImageUrl=add;}};
  }
  window.Common=window.Common||{};window.Common.ElixirLocal={prepare:prepare,install:install};
  return window.Common.ElixirLocal;
