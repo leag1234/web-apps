@@ -195,5 +195,6 @@
   "DE.Views.ApplicationView.txtPrint": "طباعة",
   "DE.Views.ApplicationView.txtSearch": "إيجاد",
   "DE.Views.ApplicationView.txtShare": "مشاركة",
-  "DE.Views.ApplicationView.txtTheme": "سمة الواجهة"
+  "DE.Views.ApplicationView.txtTheme": "سمة الواجهة",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }

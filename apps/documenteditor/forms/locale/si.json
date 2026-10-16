@@ -200,5 +200,6 @@
   "DE.Views.ApplicationView.txtPrint": "මුද්‍රණය",
   "DE.Views.ApplicationView.txtSearch": "සොයන්න",
   "DE.Views.ApplicationView.txtShare": "බෙදාගන්න",
-  "DE.Views.ApplicationView.txtTheme": "අතුරුමුහුණතේ තේමාව"
+  "DE.Views.ApplicationView.txtTheme": "අතුරුමුහුණතේ තේමාව",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

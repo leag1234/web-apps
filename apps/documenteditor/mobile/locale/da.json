@@ -200,6 +200,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Link referencen eksiterer ikke. Ret linket eller slet det.",
     "errorCopyCutPaste": "Kopiér, klip og indsæt via kontekstmenuen virker kun inden for den aktuelle fil.",
     "menuAddComment": "Tilføj kommentar",
     "menuAddLink": "Tilføj Link",

@@ -2014,6 +2014,12 @@ define([], function () {
         };
 
         dh.onApiHyperlinkClick = function(url) {
+            var safeUrl = AscCommon.getSafeHyperlink(url);
+            if (safeUrl) url = safeUrl;
+            if (url && !AscCommon.isSafeHyperlink(url)) {
+                Common.UI.alert({msg: this.errorInvalidLink});
+                return;
+            }
             if (!url) {
                 Common.UI.alert({
                     msg: this.errorInvalidLink,
@@ -2032,7 +2038,7 @@ define([], function () {
             else
                 Common.UI.warning({
                     maxwidth: 500,
-                    msg: Common.Utils.String.format(this.txtWarnUrl, url),
+                    msg: Common.Utils.String.format(this.txtWarnUrl, Common.Utils.String.htmlEncode(url)),
                     buttons: ['no', 'yes'],
                     primary: 'no',
                     callback: function(btn) {

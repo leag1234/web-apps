@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "ບັນທຶກເປັນ",
+  "SSE.Views.ElixirBackstage.txtSaveName": "ຊື່ຟາຍ",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "ເລືອກຊື່ໄຟລ໌ອື່ນ.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "ປຶ້ມວຽກ Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "ຮູບແບບມາດຕະຖານສຳລັບແກ້ໄຂ ແລະແບ່ງປັນ",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "ຕາຕະລາງ OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "ຮູບແບບເປີດສຳລັບໂປຣແກຣມຫ້ອງການອື່ນ",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "ສະເພາະຄ່າໃນແຜ່ນງານປັດຈຸບັນເປັນຂໍ້ຄວາມ",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "ເອກະສານ PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "ໂຄງຮ່າງຄົງທີ່ສຳລັບແບ່ງປັນ ແລະພິມ",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "ຮູບແບບໄຟລ໌",
   "cancelButtonText": "ຍົກເລີກ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "ແຈ້ງເຕືອນ",
   "Common.Controllers.History.notcriticalErrorTitle": "ເຕືອນ",
@@ -3514,5 +3526,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "ປ້ອນລະຫັດຜ່ານເພື່ອບໍ່ປົກປ້ອງປື້ມບັນທືກ",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "ບໍ່ປ້ອງ ປື້ມບັນທືກ",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "ບາງສູດ, ຮູບແບບເຊວ ຫຼື ວັດຖຸທີ່ຝັງໄວ້ອາດສູນເສຍ. ຕ້ອງການສືບຕໍ່ບໍ?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV ບັນທຶກສະເພາະແຜ່ນງານທີ່ໃຊ້ຢູ່ເປັນຂໍ້ຄວາມ ໂດຍບໍ່ມີຮູບແບບ ຫຼື ວັດຖຸ. ຕ້ອງການສືບຕໍ່ບໍ?"
 }

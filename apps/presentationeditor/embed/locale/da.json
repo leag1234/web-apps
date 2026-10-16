@@ -57,5 +57,6 @@
   "PE.ApplicationView.txtFullScreen": "Fuld skærm",
   "PE.ApplicationView.txtPrint": "Udskriv",
   "PE.ApplicationView.txtSearch": "Søg",
-  "PE.ApplicationView.txtShare": "Del"
+  "PE.ApplicationView.txtShare": "Del",
+  "PE.ApplicationController.txtCannotOpenLink": "Link referencen eksiterer ikke. Ret linket eller slet det."
 }

@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Lagre som",
+  "PE.Views.ElixirBackstage.txtSaveName": "Filnavn",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Velg et annet filnavn.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint-presentasjon (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Standardformat for redigering og deling",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument-presentasjon (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Åpent format for andre kontorprogrammer",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast oppsett for deling og utskrift",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Lukk",
   "Common.Translation.warnFileLockedBtnEdit": "Lag en kopi",
   "Common.UI.ButtonColored.textNewColor": "Legg til ny egendefinert farge",
@@ -150,5 +160,6 @@
   "PE.Views.Transitions.txtApplyToAll": "Bruk på alle lysbilder",
   "PE.Views.Transitions.txtSec": "s",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

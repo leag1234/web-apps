@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Imprimare",
   "DE.Views.ApplicationView.txtSearch": "Căutare",
   "DE.Views.ApplicationView.txtShare": "Partajează",
-  "DE.Views.ApplicationView.txtTheme": "Tema interfeței"
+  "DE.Views.ApplicationView.txtTheme": "Tema interfeței",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
 }

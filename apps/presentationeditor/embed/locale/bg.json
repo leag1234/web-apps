@@ -26,5 +26,6 @@
   "PE.ApplicationView.txtDownload": "Изтегли",
   "PE.ApplicationView.txtEmbed": "Вграждане",
   "PE.ApplicationView.txtFullScreen": "Цял екран",
-  "PE.ApplicationView.txtShare": "Дял"
+  "PE.ApplicationView.txtShare": "Дял",
+  "PE.ApplicationController.txtCannotOpenLink": "Референтната връзка не съществува. Моля, коригирайте връзката или я изтрийте."
 }

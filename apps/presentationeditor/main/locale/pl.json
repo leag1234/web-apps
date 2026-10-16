@@ -1,4 +1,7 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveName": "Nazwa pliku",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Wybierz inną nazwę pliku.",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Format pliku",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Ostrzeżenie",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Utwórz z szablonu",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonimowy użytkownik ",
@@ -2850,5 +2853,6 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "Użytkownik testowy (tryb dewelopera)",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Ja ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go."
 }

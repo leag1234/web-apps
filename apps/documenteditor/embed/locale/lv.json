@@ -58,5 +58,6 @@
   "DE.ApplicationView.txtFullScreen": "Pilnekrāna",
   "DE.ApplicationView.txtPrint": "Printēt",
   "DE.ApplicationView.txtSearch": "Meklēt",
-  "DE.ApplicationView.txtShare": "Dalīties"
+  "DE.ApplicationView.txtShare": "Dalīties",
+  "DE.ApplicationController.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
 }

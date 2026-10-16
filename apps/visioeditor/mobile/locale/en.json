@@ -28,6 +28,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
     "menuCancel": "Cancel",
     "textOk": "Ok",
     "txtWarnUrl": "Clicking this link can be harmful to your device and data. This location may be unsafe:<br>{0}<br>Are you sure you want to continue?"

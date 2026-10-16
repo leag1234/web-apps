@@ -148,9 +148,9 @@ define([
             var me = this;
             if (this.funcprops) {
                 var props = this.funcprops;
-                props.args ? $('#formula-wizard-args').html('<b>' + props.name + '</b>' + props.args) : $('#formula-wizard-args').addClass('hidden');
+                props.args ? $('#formula-wizard-args').html('<b>' + _.escape(props.name) + '</b>' + _.escape(props.args)) : $('#formula-wizard-args').addClass('hidden');
                 props.desc ? $('#formula-wizard-desc').text(props.desc) : $('#formula-wizard-desc').addClass('hidden');
-                props.name ? $('#formula-wizard-name').html(this.textFunction + ': ' + props.name) : $('#formula-wizard-name').addClass('hidden');
+                props.name ? $('#formula-wizard-name').text(this.textFunction + ': ' + props.name) : $('#formula-wizard-name').addClass('hidden');
                 this.argsDesc = props.argsDesc || [];
                 this.parseArgsDesc(props.args);
 
@@ -169,9 +169,9 @@ define([
                 this.recalcArgTableSize();
 
                 var result = props.asc_getFunctionResult();
-                this.lblFunctionResult.html('= ' + ((result!==undefined && result!==null) ? result : ''));
+                this.lblFunctionResult.text('= ' + ((result!==undefined && result!==null) ? result : ''));
                 result = props.asc_getFormulaResult();
-                this.lblFormulaResult.html(this.textValue + ': ' + ((result!==undefined && result!==null)? result : ''));
+                this.lblFormulaResult.text(this.textValue + ': ' + ((result!==undefined && result!==null)? result : ''));
 
                 var argres = props.asc_getArgumentsResult(),
                     argtype = props.asc_getArgumentsType(),
@@ -242,7 +242,7 @@ define([
                 content = this.lblArgDesc.html();
             this.argsDesc && this.argsDesc.forEach(function(item, index) {
                 var name = me.args[index] ? me.args[index].argName || '' : '';
-                item && me.lblArgDesc.html('<b>' + name + ': </b><span>' + item + '</span>');
+                item && me.lblArgDesc.html('<b>' + _.escape(name) + ': </b><span>' + _.escape(item) + '</span>');
                 var height = parseInt(me.lblArgDesc.find('span').height());
                 if (height>maxHeight)
                     maxHeight = height;
@@ -373,10 +373,10 @@ define([
                 argTypeName: me.getArgType(argtype)
             });
             if (argcount<me.minArgCount)
-                me.args[argcount].lblName.html('<b>' + me.args[argcount].argName + '</b>');
+                me.args[argcount].lblName.html('<b>' + _.escape(me.args[argcount].argName) + '</b>');
             else
-                me.args[argcount].lblName.html(me.args[argcount].argName);
-            me.args[argcount].lblValue.html('= '+ ( argres!==null && argres!==undefined ? argres : '<span style="opacity: 0.6; font-weight: bold;">' + me.args[argcount].argTypeName + '</span>'));
+                me.args[argcount].lblName.text(me.args[argcount].argName);
+            me.args[argcount].lblValue.html('= '+ ( argres!==null && argres!==undefined ? _.escape(argres) : '<span style="opacity: 0.6; font-weight: bold;">' + _.escape(me.args[argcount].argTypeName) + '</span>'));
 
             Common.UI.FocusManager.insert(this, txt, -1 * this.getFooterButtons().length);
         },
@@ -388,12 +388,12 @@ define([
             var res = me.api.asc_insertArgumentsInFormula(me.getArgumentsValue(), index, arg.argType, this.funcprops ? this.funcprops.origin : undefined, !!endInsert),
                 argres = res ? res.asc_getArgumentsResult() : undefined;
             argres = argres ? argres[index] : undefined;
-            arg.lblValue.html('= '+ (argres!==null && argres !==undefined ? argres : '<span style="opacity: 0.6; font-weight: bold;">' + arg.argTypeName + '</span>' ));
+            arg.lblValue.html('= '+ (argres!==null && argres !==undefined ? _.escape(argres) : '<span style="opacity: 0.6; font-weight: bold;">' + _.escape(arg.argTypeName) + '</span>' ));
 
             var result = res ? res.asc_getFunctionResult() : undefined;
-            me.lblFunctionResult.html('= ' + ((result!==undefined && result!==null)? result : ''));
+            me.lblFunctionResult.text('= ' + ((result!==undefined && result!==null)? result : ''));
             result = res ? res.asc_getFormulaResult() : undefined;
-            me.lblFormulaResult.html(me.textValue + ':' + ((result!==undefined && result!==null)? result : ''));
+            me.lblFormulaResult.text(me.textValue + ':' + ((result!==undefined && result!==null)? result : ''));
             if (endInsert && res) {
                 argres = res.asc_getArguments();
                 argres && arg.argInput.setValue(argres[index]);
@@ -437,7 +437,7 @@ define([
         onSelectArgument: function(input) {
             var index = input.options.index,
                 arg = this.args[index];
-            this.lblArgDesc.html('<b>' + arg.argName + ': </b><span style="opacity: 0.7;">' + (arg.argDesc || this.textNoArgsDesc) + '</span>');
+            this.lblArgDesc.html('<b>' + _.escape(arg.argName) + ': </b><span style="opacity: 0.7;">' + _.escape(arg.argDesc || this.textNoArgsDesc) + '</span>');
             if (!this._noApply && index==this.args.length-1 && this.repeatedArg && index+this.repeatedArg.length<this.maxArgCount) {// add new repeated arguments
                 this.fillArgs(this.repeatedArg);
                 this.scrollerY.update();

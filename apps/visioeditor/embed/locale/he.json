@@ -55,5 +55,6 @@
   "VE.ApplicationView.txtFullScreen": "מסך מלא",
   "VE.ApplicationView.txtPrint": "הדפס",
   "VE.ApplicationView.txtSearch": "מצא",
-  "VE.ApplicationView.txtShare": "שיתוף"
+  "VE.ApplicationView.txtShare": "שיתוף",
+  "VE.ApplicationController.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

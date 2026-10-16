@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "链接引用不存在。请更正链接或删除。",
     "errorCopyCutPaste": "使用右键快捷菜单的复制、剪切和粘贴操作将仅在当前文件中执行。",
     "menuAddComment": "添加批注",
     "menuAddLink": "添加链接",

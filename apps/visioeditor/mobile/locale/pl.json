@@ -17,6 +17,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go.",
     "menuCancel": "Anuluj",
     "txtWarnUrl": "Kliknięcie tego linku może być szkodliwe dla twojego urządzenia i danych.<br>Czy na pewno chcesz kontynuować?"
   },

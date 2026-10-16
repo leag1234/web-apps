@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite.",
     "errorCopyCutPaste": "Kopiranje, isecanje i lepljenje akcije koristeći kontekstualni meni će biti izvedene samo u sklopu trenutnog fajla.",
     "errorInvalidLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite.",
     "menuAddComment": "Dodaj Komentar",

@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。",
     "errorCopyCutPaste": "使用右鍵選單進行的複製、剪下和貼上動作只會在目前的檔案內執行。",
     "menuAddComment": "發表評論",
     "menuAddLink": "新增連結",

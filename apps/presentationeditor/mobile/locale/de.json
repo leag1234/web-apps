@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. ",
     "errorCopyCutPaste": "Kopieren, Ausschneiden und Einfügen über das Kontextmenü werden nur in der aktuellen Datei ausgeführt.",
     "menuAddComment": "Kommentar hinzufügen",
     "menuAddLink": "Link hinzufügen",

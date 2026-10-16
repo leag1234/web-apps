@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Drucken",
   "DE.Views.ApplicationView.txtSearch": "Suche",
   "DE.Views.ApplicationView.txtShare": "Freigeben",
-  "DE.Views.ApplicationView.txtTheme": "Thema der Benutzeroberfläche"
+  "DE.Views.ApplicationView.txtTheme": "Thema der Benutzeroberfläche",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

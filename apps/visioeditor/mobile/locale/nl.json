@@ -28,6 +28,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze.",
     "menuCancel": "Annuleer",
     "textOk": "OK",
     "txtWarnUrl": "Het klikken op deze link kan schadelijk zijn voor je apparaat en data. Deze locatie kan onveilig zijn:<br>{0}<br>Weet je zeker dat je door wilt gaan?"

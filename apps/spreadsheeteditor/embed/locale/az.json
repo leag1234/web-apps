@@ -39,5 +39,6 @@
   "SSE.ApplicationView.txtFullScreen": "Tam ekran",
   "SSE.ApplicationView.txtPrint": "Çap",
   "SSE.ApplicationView.txtSearch": "Axtar",
-  "SSE.ApplicationView.txtShare": "Paylaş"
+  "SSE.ApplicationView.txtShare": "Paylaş",
+  "SSE.ApplicationController.txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin."
 }

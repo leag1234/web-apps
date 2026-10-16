@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Сачувај као",
+  "PE.Views.ElixirBackstage.txtSaveName": "Назив фајла",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Изаберите друго име датотеке.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint презентација (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Стандардни формат за уређивање и дељење",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument презентација (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Отворени формат за друге канцеларијске програме",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF документ (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Фиксни распоред за дељење и штампање",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Формат датотеке",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Упозорење",
   "Common.Controllers.Desktop.hintBtnHome": "Прикажи Главни прозор",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Креирај из шаблона",
@@ -3263,5 +3273,6 @@
   "PE.Views.ViewTab.tipSelectTool": "Одабери алатку",
   "PE.Views.ViewTab.tipSlideMaster": "Главни управљаш слајдова",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Референца линка не постоји. Молимо вас исправите линк или га избришите."
 }

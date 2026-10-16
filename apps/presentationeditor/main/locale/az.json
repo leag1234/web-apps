@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "kimi yadda saxla",
+  "PE.Views.ElixirBackstage.txtSaveName": "Fayl adı",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Başqa fayl adı seçin.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint təqdimatı (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Redaktə və paylaşma üçün standart format",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument təqdimatı (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Digər ofis proqramları ilə uyğun açıq format",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF sənədi (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Paylaşma və çap üçün sabit tərtibat",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Fayl formatı",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Xəbərdarlıq",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonim",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Bağla",
@@ -1987,5 +1997,6 @@
   "PE.Views.ViewTab.textLine": "Sətir",
   "PE.Views.ViewTab.tipInterfaceTheme": "İnterfeys mövzusu",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin."
 }

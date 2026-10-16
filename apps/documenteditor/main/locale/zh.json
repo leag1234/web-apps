@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "是否保存 PDF 副本？书签、文档属性、密码保护和签名有效性可能丢失。",
+  "DE.Views.ElixirBackstage.txtSaveName": "文件名",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "请选择其他文件名。",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "文件格式",
   "Common.Controllers.Chat.notcriticalErrorTitle": "警告",
   "Common.Controllers.Desktop.hintBtnHome": "显示主窗口",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "用模板创建",
@@ -5538,5 +5542,6 @@
   "DE.Views.ContextTabs.txtEditData": "编辑数据",
   "DE.Views.ContextTabs.txtChangeChartType": "更改图表类型",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "链接引用不存在。请更正链接或删除。"
 }

@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "පිටු සලකුණු, ලේඛන ගුණාංග, මුරපද ආරක්ෂාව සහ අත්සන්වල වලංගුභාවය අහිමි විය හැකි PDF පිටපතක් සුරකින්නද?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "මෙලෙස සුරකින්න",
+  "DE.Views.ElixirBackstage.txtSaveName": "ගොනුවේ නම",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "වෙනත් ගොනු නාමයක් තෝරන්න.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word ලේඛනය (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "සංස්කරණය සහ බෙදාගැනීම සඳහා සම්මත ආකෘතිය",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument පෙළ (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "වෙනත් කාර්යාල යෙදුම් සඳහා විවෘත ආකෘතිය",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "හැඩතල ගැන්වූ RTF පෙළ (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "මූලික පෙළ හැඩතල තබා ගනී",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "සරල පෙළ (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "හැඩතල නොමැති පෙළ පමණි",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF ලේඛනය (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "බෙදාගැනීම සහ මුද්‍රණය සඳහා ස්ථාවර සැකැස්ම",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "ගොනු ආකෘතිය",
   "Common.Controllers.Chat.notcriticalErrorTitle": "අවවාදයයි",
   "Common.Controllers.Desktop.hintBtnHome": "ප්‍රධාන කවුළුව පෙන්වන්න",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "අච්චුවකින් සාදන්න",
@@ -3966,5 +3981,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "ලබන්නන් {0}",
   "DE.Controllers.WordMailings.txtMergeError": "ඒකාබද්ධ කිරීම සිදු කළ නොහැකි විය.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Να αποθηκευτεί αντίγραφο PDF που μπορεί να χάσει σελιδοδείκτες, ιδιότητες εγγράφου, προστασία με κωδικό και εγκυρότητα υπογραφών;",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Αποθήκευση ως",
+  "DE.Views.ElixirBackstage.txtSaveName": "Όνομα αρχείου",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Επιλέξτε άλλο όνομα αρχείου.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Έγγραφο Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Τυπική μορφή για επεξεργασία και κοινή χρήση",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Κείμενο OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Ανοικτή μορφή για άλλες εφαρμογές γραφείου",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Μορφοποιημένο κείμενο RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Διατηρεί τη βασική μορφοποίηση κειμένου",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Απλό κείμενο (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Μόνο κείμενο χωρίς μορφοποίηση",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Έγγραφο PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Σταθερή διάταξη για κοινή χρήση και εκτύπωση",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Μορφή αρχείου",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Προειδοποίηση",
   "Common.Controllers.Desktop.hintBtnHome": "Εμφάνιση κύριου παραθύρου",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Δημιουργία από πρότυπο",
@@ -4389,5 +4404,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} παραλήπτες",
   "DE.Controllers.WordMailings.txtMergeError": "Η συγχώνευση δεν ήταν δυνατή.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "全屏",
   "DE.ApplicationView.txtPrint": "打印",
   "DE.ApplicationView.txtSearch": "查找",
-  "DE.ApplicationView.txtShare": "分享"
+  "DE.ApplicationView.txtShare": "分享",
+  "DE.ApplicationController.txtCannotOpenLink": "链接引用不存在。请更正链接或删除。"
 }

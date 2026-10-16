@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "حفظ باسم",
+  "SSE.Views.ElixirBackstage.txtSaveName": "اسم الملف",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "اختر اسم ملف آخر.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "مصنف Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "تنسيق قياسي للتحرير والمشاركة",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "جدول بيانات OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "تنسيق مفتوح متوافق مع تطبيقات مكتبية أخرى",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "قيم الورقة الحالية فقط كنص",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "مستند PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "تخطيط ثابت للمشاركة والطباعة",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "تنسيق الملف",
   "cancelButtonText": "الغاء",
   "Common.Controllers.Chat.notcriticalErrorTitle": "تحذير",
   "Common.Controllers.Desktop.hintBtnHome": "عرض النافذة الرئيسية",
@@ -4535,5 +4547,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "أدخل كلمة سر لفك تشفير المصنف",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "فك حماية المصنف",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "قد تُفقد بعض الصيغ أو تنسيقات الخلايا أو الكائنات المضمنة. هل تريد المتابعة؟",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "يحفظ CSV الورقة النشطة فقط كنص، دون تنسيق أو كائنات. هل تريد المتابعة؟"
 }

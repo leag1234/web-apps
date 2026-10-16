@@ -39,6 +39,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Linkin viittausta ei ole olemassa. Ole hyvä ja korjaa linkki tai poista se.",
     "menuAddLink": "Lisää linkki",
     "menuCancel": "Peruuta",
     "menuDeleteTable": "Poista taulukko",

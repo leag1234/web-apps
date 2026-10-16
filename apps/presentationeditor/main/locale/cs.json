@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Uložit jako",
+  "PE.Views.ElixirBackstage.txtSaveName": "Název souboru",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Zvolte jiný název souboru.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Prezentace PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Standardní formát pro úpravy a sdílení",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Prezentace OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Otevřený formát pro další kancelářské aplikace",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Pevné rozložení pro sdílení a tisk",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Formát souboru",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Varování",
   "Common.Controllers.Desktop.hintBtnHome": "Zobrazit hlavní okno",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Vytvořit ze šablony",
@@ -3567,5 +3577,6 @@
   "PE.Views.ViewTab.tipSlideMaster": "Předloha snímků",
   "PE.Views.ViewTab.tipStopMacro": "Zastavit záznam",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

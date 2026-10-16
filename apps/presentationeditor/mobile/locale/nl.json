@@ -63,6 +63,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze.",
     "errorCopyCutPaste": "Acties voor kopiëren, knippen en plakken met behulp van het contextmenu worden alleen in het huidige bestand uitgevoerd.",
     "menuAddComment": "Opmerking toevoegen",
     "menuAddLink": "Koppeling toevoegen",

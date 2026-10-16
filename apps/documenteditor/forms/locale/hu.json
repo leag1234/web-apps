@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Nyomtatás",
   "DE.Views.ApplicationView.txtSearch": "Keresés",
   "DE.Views.ApplicationView.txtShare": "Megosztás",
-  "DE.Views.ApplicationView.txtTheme": "Felhasználói felület témája"
+  "DE.Views.ApplicationView.txtTheme": "Felhasználói felület témája",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

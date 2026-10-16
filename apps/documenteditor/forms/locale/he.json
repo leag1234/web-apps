@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "הדפס",
   "DE.Views.ApplicationView.txtSearch": "חיפוש",
   "DE.Views.ApplicationView.txtShare": "שיתוף",
-  "DE.Views.ApplicationView.txtTheme": "ממשק נושא"
+  "DE.Views.ApplicationView.txtTheme": "ממשק נושא",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

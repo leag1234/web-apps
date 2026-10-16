@@ -477,5 +477,6 @@
   "VE.Views.ViewTab.textZoom": "Zoom",
   "VE.Views.ViewTab.tipFitPage": "Ajustar a página",
   "VE.Views.ViewTab.tipFitWidth": "Ajustar à largura",
-  "VE.Views.ViewTab.tipInterfaceTheme": "Tema de interface"
+  "VE.Views.ViewTab.tipInterfaceTheme": "Tema de interface",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "A referência de link não existe. Corrija o link ou o exclua."
 }

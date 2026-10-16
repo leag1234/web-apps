@@ -199,6 +199,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul.",
     "errorCopyCutPaste": "Comenzile copiere, decupare și lipire din meniul contextual se aplică numai documentului curent.",
     "menuAddComment": "Adăugare comentariu",
     "menuAddLink": "Adăugare link",

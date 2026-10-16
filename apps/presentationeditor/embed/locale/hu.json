@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Teljes képernyő",
   "PE.ApplicationView.txtPrint": "Nyomtat",
   "PE.ApplicationView.txtSearch": "Keresés",
-  "PE.ApplicationView.txtShare": "Megosztás"
+  "PE.ApplicationView.txtShare": "Megosztás",
+  "PE.ApplicationController.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

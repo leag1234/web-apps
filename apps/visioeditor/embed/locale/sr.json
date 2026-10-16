@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Prikaz celog ekrana",
   "VE.ApplicationView.txtPrint": "Štampaj",
   "VE.ApplicationView.txtSearch": "Pronađi",
-  "VE.ApplicationView.txtShare": "Podeli"
+  "VE.ApplicationView.txtShare": "Podeli",
+  "VE.ApplicationController.txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite."
 }

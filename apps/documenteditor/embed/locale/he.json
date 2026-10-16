@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "מסך מלא",
   "DE.ApplicationView.txtPrint": "הדפס",
   "DE.ApplicationView.txtSearch": "מצא",
-  "DE.ApplicationView.txtShare": "שיתוף"
+  "DE.ApplicationView.txtShare": "שיתוף",
+  "DE.ApplicationController.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

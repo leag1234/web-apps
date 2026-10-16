@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Štampaj",
   "DE.Views.ApplicationView.txtSearch": "Pretraži",
   "DE.Views.ApplicationView.txtShare": "Podeli",
-  "DE.Views.ApplicationView.txtTheme": "Tema interfejsa"
+  "DE.Views.ApplicationView.txtTheme": "Tema interfejsa",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite."
 }

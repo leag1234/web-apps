@@ -20,6 +20,13 @@ define(['core'], function () {
     var MAC = /Mac|iPhone|iPad/.test(navigator.platform || '');
     var KEYCODE = {KeyW: 87, KeyN: 78, KeyT: 84, KeyF: 70, Tab: 9};
     var HINT_KEY = 'elixir-browserkeys-hint-seen';
+    BK.isLocal = function () {
+        try { if (window.parent.eoDesktop && typeof window.parent.eoDesktop.onAction === 'function') return true; } catch (e) { /* cross-origin hosted parent */ }
+        var app = window.DE || window.SSE || window.PE || window.PDFE;
+        var main = app && app.getController('Main');
+        return !!(main && (main.appOptions && main.appOptions.isElixirLocal || main.api && main.api.eoLocalMode));
+    };
+
 
     function editor() { return window.DE ? 'word' : window.SSE ? 'excel' : window.PE ? 'powerpoint' : ''; }
     function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
@@ -94,7 +101,7 @@ define(['core'], function () {
         onLaunch: function () {},
 
         onAppReady: function () {
-            if (this.styled) return;
+            if (BK.isLocal() || this.styled) return;
             this.styled = true;
             var st = document.createElement('style');
             st.textContent = CSS;
@@ -142,7 +149,7 @@ define(['core'], function () {
         },
 
         // ---- the top-level page (Keyboard Lock, install, full screen) -----------------------------
-        askStatus: function () { this.toTop({ask: 'status'}); },
+        askStatus: function () { if (!BK.isLocal()) this.toTop({ask: 'status'}); },
 
         toTop: function (msg) { try { window.parent !== window && window.parent.postMessage({elixirBrowserKeys: msg}, '*'); } catch (e) { /* no parent */ } },
 
@@ -157,6 +164,7 @@ define(['core'], function () {
         // The keys the browser keeps never reach the page, but their effect is visible: Ctrl was pressed alone and the window
         // lost the focus right away (tab switch, new window). Shown once, when the user comes back.
         trackHint: function () {
+            if (BK.isLocal()) return;
             var me = this, ctrl = null, pending = false;
             var isMod = function (k) { return k === 'Control' || k === 'Meta' || k === 'Shift' || k === 'Alt'; };
             window.addEventListener('keydown', function (e) {
@@ -181,6 +189,7 @@ define(['core'], function () {
 
         showHint: function (force) {
             var me = this;
+            if (BK.isLocal()) return;
             if (!force && (store(HINT_KEY) || document.getElementById('elx-bk-hint'))) return;
             store(HINT_KEY, '1');
             BK._mem = 1;
@@ -200,6 +209,7 @@ define(['core'], function () {
         // ---- dialog ---------------------------------------------------------------------------
         showDialog: function () {
             var me = this;
+            if (BK.isLocal()) return;
             if (this.dlg && this.dlg.isVisible && this.dlg.isVisible()) return;
             var rows = ROWS.filter(function (r) { return r[4].indexOf(me.ed) >= 0; }).map(function (r) {
                 var mac = r[0].replace(/Ctrl/g, 'Cmd');

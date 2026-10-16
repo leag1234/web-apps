@@ -192,5 +192,6 @@
   "DE.Views.ApplicationView.txtPrint": "Natisni",
   "DE.Views.ApplicationView.txtSearch": "Iskanje",
   "DE.Views.ApplicationView.txtShare": "Deli",
-  "DE.Views.ApplicationView.txtTheme": "Tema vmesnika"
+  "DE.Views.ApplicationView.txtTheme": "Tema vmesnika",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

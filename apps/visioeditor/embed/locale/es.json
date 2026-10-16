@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Pantalla Completa",
   "VE.ApplicationView.txtPrint": "Imprimir",
   "VE.ApplicationView.txtSearch": "Buscar",
-  "VE.ApplicationView.txtShare": "Compartir"
+  "VE.ApplicationView.txtShare": "Compartir",
+  "VE.ApplicationController.txtCannotOpenLink": "El enlace no existe. Por favor, corrija o elimine el enlace."
 }

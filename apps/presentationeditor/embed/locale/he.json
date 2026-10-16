@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "מסך מלא",
   "PE.ApplicationView.txtPrint": "הדפס",
   "PE.ApplicationView.txtSearch": "מצא",
-  "PE.ApplicationView.txtShare": "שיתוף"
+  "PE.ApplicationView.txtShare": "שיתוף",
+  "PE.ApplicationController.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

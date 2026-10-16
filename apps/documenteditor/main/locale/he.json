@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "לשמור עותק PDF שעלול לאבד סימניות, מאפייני מסמך, הגנה באמצעות סיסמה ותוקף של חתימות?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "שמירה בשם",
+  "DE.Views.ElixirBackstage.txtSaveName": "שם הקובץ",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "יש לבחור שם קובץ אחר.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "מסמך Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "תבנית תקנית לעריכה ולשיתוף",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "טקסט OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "תבנית פתוחה התואמת ליישומי משרד אחרים",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "טקסט מעוצב RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "שומרת על עיצוב טקסט בסיסי",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "טקסט פשוט (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "טקסט בלבד, ללא עיצוב",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "מסמך PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "פריסה קבועה לשיתוף ולהדפסה",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "תבנית קובץ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "אזהרה",
   "Common.Controllers.Desktop.hintBtnHome": "הצגת חלון ראשי",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "יצירה מתבנית",
@@ -4376,5 +4391,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} נמענים",
   "DE.Controllers.WordMailings.txtMergeError": "לא ניתן היה לבצע את המיזוג.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

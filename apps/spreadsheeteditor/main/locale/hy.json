@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Պահպանել որպես",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Նիշքի անուն",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Ընտրեք ֆայլի այլ անուն։",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel աշխատանքային գիրք (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Ստանդարտ ձևաչափ՝ խմբագրման և համօգտագործման համար",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument աղյուսակ (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Բաց ձևաչափ՝ այլ գրասենյակային ծրագրերի համար",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Միայն ընթացիկ թերթի արժեքները՝ որպես տեքստ",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF փաստաթուղթ (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Անփոփոխ դասավորություն՝ համօգտագործման և տպման համար",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Ֆայլի ձևաչափ",
   "cancelButtonText": "Չեղարկել",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Զգուշացում",
   "Common.Controllers.Desktop.hintBtnHome": "Ցույց տալ հիմնական պատուհանը",
@@ -4626,5 +4638,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Մուտքագրեք գաղտնաբառ՝ աշխատանքային գրքույկը պաշտպանելու համար",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Չպաշտպանել աշխատանքային գրքույկը",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Որոշ բանաձևեր, բջիջների ձևաչափում կամ ներդրված օբյեկտներ կարող են կորչել։ Շարունակե՞լ։",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV-ն պահպանում է միայն ակտիվ թերթը որպես տեքստ՝ առանց ձևաչափման և օբյեկտների։ Շարունակե՞լ։"
 }

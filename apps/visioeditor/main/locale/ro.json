@@ -477,5 +477,6 @@
   "VE.Views.ViewTab.textZoom": "Zoom",
   "VE.Views.ViewTab.tipFitPage": "Portivire la pagina",
   "VE.Views.ViewTab.tipFitWidth": "Potrivire lățime",
-  "VE.Views.ViewTab.tipInterfaceTheme": "Tema de interfață"
+  "VE.Views.ViewTab.tipInterfaceTheme": "Tema de interfață",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
 }

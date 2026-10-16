@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Lagre som",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Navn",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Velg et annet filnavn.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel-arbeidsbok (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Standardformat for redigering og deling",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument-regneark (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Åpent format for andre kontorprogrammer",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Bare verdiene i gjeldende ark som tekst",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast oppsett for deling og utskrift",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "Common.UI.ButtonColored.textNewColor": "Legg til ny egendefinert farge",
   "Common.Views.OpenDialog.txtOpenFile": "Skriv inn passordet for å opne fila",
   "Common.Views.PasswordDialog.txtWarning": "Åtvaring! Dersom du mister eller gløymer passordet, kan det ikkje gjenopprettast. Oppbevare han på ein trygg stad.",
@@ -15,5 +27,7 @@
   "SSE.Views.Toolbar.txtDollar": "$ Dollar",
   "SSE.Views.Toolbar.txtRouble": "₽ Rubel",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Noen formler, celleformateringer eller innebygde objekter kan gå tapt. Vil du fortsette?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV lagrer bare det aktive arket som tekst, uten formatering eller objekter. Vil du fortsette?"
 }

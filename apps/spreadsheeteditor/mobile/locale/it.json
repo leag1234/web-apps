@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Il collegamento a cui si fa riferimento non esiste. Correggere il collegamento o rimuoverlo.",
     "errorCopyCutPaste": "Le azioni di copia, taglia e incolla utilizzando il menu contestuale verranno eseguite solo all'interno del file corrente.",
     "errorInvalidLink": "Il riferimento al collegamento non esiste. Si prega di correggerlo o eliminarlo.",
     "menuAddComment": "Aggiungi commento",

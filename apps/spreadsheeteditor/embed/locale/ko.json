@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "전체 화면",
   "SSE.ApplicationView.txtPrint": "인쇄",
   "SSE.ApplicationView.txtSearch": "찾기",
-  "SSE.ApplicationView.txtShare": "공유"
+  "SSE.ApplicationView.txtShare": "공유",
+  "SSE.ApplicationController.txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오."
 }

@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Toàn màn hình",
   "PE.ApplicationView.txtPrint": "In",
   "PE.ApplicationView.txtSearch": "Tìm",
-  "PE.ApplicationView.txtShare": "Chia sẻ"
+  "PE.ApplicationView.txtShare": "Chia sẻ",
+  "PE.ApplicationController.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó."
 }

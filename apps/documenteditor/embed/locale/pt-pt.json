@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Ecrã inteiro",
   "DE.ApplicationView.txtPrint": "Imprimir",
   "DE.ApplicationView.txtSearch": "Localizar",
-  "DE.ApplicationView.txtShare": "Partilhar"
+  "DE.ApplicationView.txtShare": "Partilhar",
+  "DE.ApplicationController.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação."
 }

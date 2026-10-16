@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Farklı kaydet",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Dosya adı",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Başka bir dosya adı seçin.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel çalışma kitabı (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Düzenleme ve paylaşım için standart biçim",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument elektronik tablosu (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Diğer ofis uygulamaları için açık biçim",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Yalnızca geçerli sayfanın değerleri, metin olarak",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF belgesi (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Paylaşım ve yazdırma için sabit düzen",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Dosya biçimi",
   "cancelButtonText": "İptal Et",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Dikkat",
   "Common.Controllers.History.notcriticalErrorTitle": "Dikkat",
@@ -3457,5 +3469,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Çalışma kitabının korumasını kaldırmak için bir parola girin",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Korumasız Çalışma Sayfası",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Bazı formüller, hücre biçimleri veya gömülü nesneler kaybolabilir. Devam edilsin mi?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV yalnızca etkin sayfayı biçimlendirme veya nesne olmadan metin olarak kaydeder. Devam edilsin mi?"
 }

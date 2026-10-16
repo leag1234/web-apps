@@ -125,6 +125,7 @@ define([
             this.resetAllBtn.on('click', _.bind(this.onResetAll, this));
             // Elixir: Office keys the browser keeps (common/main/lib/elixir-browserkeys)
             this.$window.find('#browser-keys-btn').on('click', function() { Common.NotificationCenter.trigger('elixir:browserkeys:help'); });
+            if (Common.ElixirBrowserKeys && Common.ElixirBrowserKeys.isLocal && Common.ElixirBrowserKeys.isLocal()) this.$window.find('#browser-keys-btn').hide();
 
             Common.NotificationCenter.on('shortcuts:update', _.bind(function() {
                 this._setDefaults();

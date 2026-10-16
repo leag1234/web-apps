@@ -202,5 +202,6 @@
   "DE.Views.ApplicationView.txtPrint": "Imprimir",
   "DE.Views.ApplicationView.txtSearch": "Cercar",
   "DE.Views.ApplicationView.txtShare": "Compartir",
-  "DE.Views.ApplicationView.txtTheme": "Tema de la interfície"
+  "DE.Views.ApplicationView.txtTheme": "Tema de la interfície",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Enllaç trencat. Corregeix l'enllaç o suprimeix-lo."
 }

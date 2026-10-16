@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Πλήρης οθόνη",
   "PE.ApplicationView.txtPrint": "Εκτύπωση",
   "PE.ApplicationView.txtSearch": "Εύρεση",
-  "PE.ApplicationView.txtShare": "Διαμοιρασμός"
+  "PE.ApplicationView.txtShare": "Διαμοιρασμός",
+  "PE.ApplicationController.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

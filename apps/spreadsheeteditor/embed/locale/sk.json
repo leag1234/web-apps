@@ -34,5 +34,6 @@
   "SSE.ApplicationView.txtFileLocation": "Otvoriť umiestnenie súboru",
   "SSE.ApplicationView.txtFullScreen": "Celá obrazovka",
   "SSE.ApplicationView.txtPrint": "Tlačiť",
-  "SSE.ApplicationView.txtShare": "Zdieľať"
+  "SSE.ApplicationView.txtShare": "Zdieľať",
+  "SSE.ApplicationController.txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte."
 }

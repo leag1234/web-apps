@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Simpan sebagai",
+  "PE.Views.ElixirBackstage.txtSaveName": "Nama Fail",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Pilih nama fail lain.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Persembahan PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Format piawai untuk penyuntingan dan perkongsian",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Persembahan OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Format terbuka untuk aplikasi pejabat lain",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Dokumen PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Susun atur tetap untuk perkongsian dan percetakan",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Format fail",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Amaran",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Tanpa Nama",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Tutup",
@@ -2349,5 +2359,6 @@
   "PE.Views.ViewTab.tipFitToWidth": "Muat kepada Kelebaran",
   "PE.Views.ViewTab.tipInterfaceTheme": "Tema antara muka",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
 }

@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Salvare una copia PDF che può perdere segnalibri, proprietà del documento, protezione con password e validità delle firme?",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nome del file",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Scegli un altro nome per il file.",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Formato file",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Avviso",
   "Common.Controllers.Desktop.hintBtnHome": "Mostra la finestra principale",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Crea da modello",
@@ -5538,5 +5542,6 @@
   "DE.Controllers.ElixirReferences.txtUpdateIndex": "Aggiorna indice",
   "DE.Controllers.ElixirReferences.txtNoIndexEntries": "Non è stata trovata nessuna voce di indice.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Il collegamento a cui si fa riferimento non esiste. Correggere il collegamento o rimuoverlo."
 }

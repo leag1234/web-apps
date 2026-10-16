@@ -28,6 +28,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer.",
     "menuCancel": "Annuler",
     "textOk": "OK",
     "txtWarnUrl": "Cliquer sur ce lien peut endommager votre appareil et vos données. Cet emplacement peut être dangereux :<br>{0}<br>Voulez-vous continuer ?"

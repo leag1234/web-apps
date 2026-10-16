@@ -194,5 +194,6 @@
   "DE.Views.ApplicationView.txtPrint": "Inprimatu",
   "DE.Views.ApplicationView.txtSearch": "Bilatu",
   "DE.Views.ApplicationView.txtShare": "Partekatu",
-  "DE.Views.ApplicationView.txtTheme": "Interfazearen gaia"
+  "DE.Views.ApplicationView.txtTheme": "Interfazearen gaia",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu esteka."
 }

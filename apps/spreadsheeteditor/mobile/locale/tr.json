@@ -41,6 +41,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin.",
     "errorCopyCutPaste": "Bağlam menüsünü kullanan kopyalama, kesme ve yapıştırma işlemleri yalnızca geçerli dosya içinde gerçekleştirilecektir.",
     "errorInvalidLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin.",
     "menuAddComment": "Yorum Ekle",

@@ -46,5 +46,6 @@
   "DE.ApplicationView.txtFileLocation": "Otvoriť umiestnenie súboru",
   "DE.ApplicationView.txtFullScreen": "Celá obrazovka",
   "DE.ApplicationView.txtPrint": "Tlačiť",
-  "DE.ApplicationView.txtShare": "Zdieľať"
+  "DE.ApplicationView.txtShare": "Zdieľať",
+  "DE.ApplicationController.txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte."
 }

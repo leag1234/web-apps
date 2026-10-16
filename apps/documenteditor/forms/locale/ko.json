@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "인쇄",
   "DE.Views.ApplicationView.txtSearch": "찾기",
   "DE.Views.ApplicationView.txtShare": "공유",
-  "DE.Views.ApplicationView.txtTheme": "인터페이스 테마"
+  "DE.Views.ApplicationView.txtTheme": "인터페이스 테마",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오."
 }

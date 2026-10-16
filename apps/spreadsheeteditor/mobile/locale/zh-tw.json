@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。",
     "errorCopyCutPaste": "使用右鍵選單動作的複製、剪下和貼上的動作將只在目前的檔案中執行。",
     "errorInvalidLink": "引用的連結不存在。請更正連結或將其刪除。",
     "menuAddComment": "新增註解",

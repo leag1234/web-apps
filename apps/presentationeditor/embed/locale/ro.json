@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Ecran complet",
   "PE.ApplicationView.txtPrint": "Imprimare",
   "PE.ApplicationView.txtSearch": "Căutare",
-  "PE.ApplicationView.txtShare": "Partajează"
+  "PE.ApplicationView.txtShare": "Partajează",
+  "PE.ApplicationController.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
 }

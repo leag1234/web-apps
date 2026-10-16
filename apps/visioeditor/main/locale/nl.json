@@ -256,5 +256,6 @@
   "VE.Views.ViewTab.textLeftMenu": "Linker zijbalk",
   "VE.Views.ViewTab.textLine": "Lijn",
   "VE.Views.ViewTab.tipFitPage": "Aan pagina aanpassen",
-  "VE.Views.ViewTab.tipInterfaceTheme": "Thema van de interface"
+  "VE.Views.ViewTab.tipInterfaceTheme": "Thema van de interface",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

@@ -34,5 +34,6 @@
   "PE.ApplicationView.txtFileLocation": "Otvoriť umiestnenie súboru",
   "PE.ApplicationView.txtFullScreen": "Celá obrazovka",
   "PE.ApplicationView.txtPrint": "Tlačiť",
-  "PE.ApplicationView.txtShare": "Zdieľať"
+  "PE.ApplicationView.txtShare": "Zdieľať",
+  "PE.ApplicationController.txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte."
 }

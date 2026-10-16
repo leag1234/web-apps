@@ -85,15 +85,37 @@ define([], function () {
             this.viewPageMenu = new Common.UI.Menu({
                 cls: 'shifted-right',
                 initMenu: function (value) {
+                    if (!me.menuLocalRotatePages && me.mode && me.mode.isElixirLocal && me.api && me.api.eoLocalMode) {
+                        me.menuLocalRotatePages = [90, -90].map(function(angle) {
+                            var item = new Common.UI.MenuItem({
+                                iconCls: 'menu__icon btn-rotate-' + (angle === 90 ? '90' : '270'),
+                                caption: angle === 90 ? me.txtRotateRight : me.txtRotateLeft
+                            });
+                            item.on('click', function() {
+                                if (me.api.eoLocalPdfCanRotate && me.api.eoLocalPdfCanRotate() && me.api.asc_CanRotatePages()) {
+                                    me.api.asc_RotatePage(angle);
+                                    me.fireEvent('editcomplete', me);
+                                }
+                            });
+                            return item;
+                        });
+                        me.menuLocalRotatePages.forEach(function(item) { me.viewPageMenu.addItem(item); });
+                    }
+
                     if (value)
                         me.options.eventProps = value;
                     else
                         value = me.options.eventProps;
                     value && me.menuViewCopyPage.setDisabled(value.isPageSelect!==true);
+                    if (me.menuLocalRotatePages) {
+                        var available = !!(me.api.eoLocalPdfCanRotate && me.api.eoLocalPdfCanRotate());
+                        me.menuLocalRotatePages.forEach(function(item) {
+                            item.setVisible(available);
+                            item.setDisabled(!available || !value || value.isPageSelect!==true || !me.api.asc_CanRotatePages());
+                        });
+                    }
                 },
-                items: [
-                    me.menuViewCopyPage
-                ]
+                items: [me.menuViewCopyPage]
             }).on('hide:after', function (menu, e, isFromInputControl) {
                 me.clearCustomItems(menu);
                 me.currentMenu = null;

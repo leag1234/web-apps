@@ -199,5 +199,6 @@
   "DE.Views.ApplicationView.txtPrint": "Skriv ut",
   "DE.Views.ApplicationView.txtSearch": "Sök",
   "DE.Views.ApplicationView.txtShare": "Dela",
-  "DE.Views.ApplicationView.txtTheme": "Gränssnittstema"
+  "DE.Views.ApplicationView.txtTheme": "Gränssnittstema",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

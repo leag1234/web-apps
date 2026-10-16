@@ -28,6 +28,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë.",
     "menuCancel": "Anuloni",
     "textOk": "Ok",
     "txtWarnUrl": "Shtypja e kësaj lidhjeje mund të jetë shumë e dëmshme për pajisjen dhe të dhënat e tua.<br>Jeni i sigurt që doni të vazhdoni?"

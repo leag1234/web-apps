@@ -1,4 +1,7 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveName": "Nom de fichier",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Choisissez un autre nom de fichier.",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Format du fichier",
   "SSE.Views.ElixirBackstage.txtStorageSaveLead": "Choisissez un format, puis un dossier dans votre espace de stockage.",
   "cancelButtonText": "Annuler",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Avertissement",

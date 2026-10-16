@@ -1236,6 +1236,12 @@ define([
         },
 
         onHyperlinkClick: function(url) {
+            var safeUrl = AscCommon.getSafeHyperlink(url);
+            if (!safeUrl) {
+                if (url) Common.UI.alert({msg: this.txtCannotOpenLink});
+                return;
+            }
+            url = safeUrl;
             if (url) {
                 var type = this.api.asc_getUrlType(url);
                 if (type===AscCommon.c_oAscUrlType.Http || type===AscCommon.c_oAscUrlType.Email)
@@ -1245,7 +1251,7 @@ define([
                     setTimeout(function() {
                         Common.UI.warning({
                             maxwidth: 500,
-                            msg: Common.Utils.String.format(me.txtWarnUrl, url),
+                            msg: Common.Utils.String.format(me.txtWarnUrl, Common.Utils.String.htmlEncode(url)),
                             buttons: ['no', 'yes'],
                             primary: 'no',
                             callback: function(btn) {
@@ -1683,6 +1689,14 @@ define([
             requireUserAction = false;
         },
 
+        onConfiguredHyperlinkClick: function(url) {
+            if (typeof url !== 'string' || !url.trim()) return;
+            try {
+                url = new URL(url, window.location.origin + '/').href;
+            } catch (err) {}
+            this.onHyperlinkClick(url);
+        },
+
         onOptionsClick: function(menu, item, e) {
             switch (item.value) {
                 case 'undo':
@@ -1695,11 +1709,11 @@ define([
                     this.api.asc_ClearAllSpecialForms();
                     break;
                 case 'fullscr':
-                    this.onHyperlinkClick(this.embedConfig.fullscreenUrl);
+                    this.onConfiguredHyperlinkClick(this.embedConfig.fullscreenUrl);
                     break;
                 case 'download':
                     if ( !!this.embedConfig.saveUrl ){
-                        this.onHyperlinkClick(this.embedConfig.saveUrl);
+                        this.onConfiguredHyperlinkClick(this.embedConfig.saveUrl);
                     } else if (this.api && this.appOptions.canPrint){
                         this.api.asc_Print(new Asc.asc_CDownloadOptions(null, Common.Utils.isChrome || Common.Utils.isOpera || Common.Utils.isGecko && Common.Utils.firefoxVersion>86)); // if isChrome or isOpera == true use asc_onPrintUrl event
                     }

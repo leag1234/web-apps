@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Sačuvati PDF kopiju koja može izgubiti obeleživače, svojstva dokumenta, zaštitu lozinkom i ispravnost potpisa?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Sačuvaj kao",
+  "DE.Views.ElixirBackstage.txtSaveName": "Naziv fajla",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Izaberite drugo ime datoteke.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word dokument (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standardni format za uređivanje i deljenje",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument tekst (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Otvoreni format za druge kancelarijske programe",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formatirani tekst RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Čuva osnovno formatiranje teksta",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Običan tekst (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Samo tekst, bez formatiranja",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF dokument (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Fiksni raspored za deljenje i štampanje",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format datoteke",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Upozorenje ",
   "Common.Controllers.Desktop.hintBtnHome": "Prikaži glavni prozor",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Kreiraj iz šablona",
@@ -4390,5 +4405,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Primalaca: {0}",
   "DE.Controllers.WordMailings.txtMergeError": "Spajanje nije moglo da se izvrši.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite."
 }

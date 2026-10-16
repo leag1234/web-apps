@@ -170,6 +170,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go.",
     "errorCopyCutPaste": "Akcje kopiuj, wytnij i wklej wywołane z menu kontekstowego zostanie wykonane w obrębie bieżącego pliku.",
     "menuAddComment": "Dodaj komentarz",
     "menuAddLink": "Dodaj link",

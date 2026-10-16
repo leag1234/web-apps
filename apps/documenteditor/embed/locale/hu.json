@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Teljes képernyő",
   "DE.ApplicationView.txtPrint": "Nyomtatás",
   "DE.ApplicationView.txtSearch": "Keresés",
-  "DE.ApplicationView.txtShare": "Megosztás"
+  "DE.ApplicationView.txtShare": "Megosztás",
+  "DE.ApplicationController.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

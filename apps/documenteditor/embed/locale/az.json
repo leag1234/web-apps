@@ -52,5 +52,6 @@
   "DE.ApplicationView.txtFullScreen": "Tam ekran",
   "DE.ApplicationView.txtPrint": "Çap",
   "DE.ApplicationView.txtSearch": "Axtar",
-  "DE.ApplicationView.txtShare": "Paylaş"
+  "DE.ApplicationView.txtShare": "Paylaş",
+  "DE.ApplicationController.txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin."
 }

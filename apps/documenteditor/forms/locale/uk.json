@@ -173,5 +173,6 @@
   "DE.Views.ApplicationView.txtPrint": "Друк",
   "DE.Views.ApplicationView.txtSearch": "Пошук",
   "DE.Views.ApplicationView.txtShare": "Доступ",
-  "DE.Views.ApplicationView.txtTheme": "Тема інтерфейсу"
+  "DE.Views.ApplicationView.txtTheme": "Тема інтерфейсу",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
 }

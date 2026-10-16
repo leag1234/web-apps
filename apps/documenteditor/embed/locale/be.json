@@ -58,5 +58,6 @@
   "DE.ApplicationView.txtFullScreen": "Поўнаэкранны рэжым",
   "DE.ApplicationView.txtPrint": "Друкаванне",
   "DE.ApplicationView.txtSearch": "Пошук",
-  "DE.ApplicationView.txtShare": "Падзяліцца"
+  "DE.ApplicationView.txtShare": "Падзяліцца",
+  "DE.ApplicationController.txtCannotOpenLink": "Спасылка паказвае на ячэйку, якая не існуе. Выпраўце ці выдаліце спасылку."
 }

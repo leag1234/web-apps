@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Schermo intero",
   "VE.ApplicationView.txtPrint": "Stampa",
   "VE.ApplicationView.txtSearch": "Trova",
-  "VE.ApplicationView.txtShare": "Condividi"
+  "VE.ApplicationView.txtShare": "Condividi",
+  "VE.ApplicationController.txtCannotOpenLink": "Il collegamento a cui si fa riferimento non esiste. Correggere il collegamento o rimuoverlo."
 }

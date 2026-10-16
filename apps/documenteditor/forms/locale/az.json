@@ -169,5 +169,6 @@
   "DE.Views.ApplicationView.txtPrint": "Çap",
   "DE.Views.ApplicationView.txtSearch": "Axtar",
   "DE.Views.ApplicationView.txtShare": "Paylaş",
-  "DE.Views.ApplicationView.txtTheme": "İnterfeys mövzusu"
+  "DE.Views.ApplicationView.txtTheme": "İnterfeys mövzusu",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin."
 }

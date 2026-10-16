@@ -13,6 +13,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його.",
     "menuAddComment": "Додати коментар",
     "menuAddLink": "Додати посилання",
     "menuCancel": "Скасувати"

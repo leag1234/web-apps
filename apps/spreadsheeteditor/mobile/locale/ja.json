@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "リンク参照が存在しません。 リンクを修正するか、ご削除ください。",
     "errorCopyCutPaste": "コンテキストメニューを使う中コピーしたり切り取り貼り付きたりするの操作がこのファイルだけに実行されます。",
     "errorInvalidLink": "リンクの参照先が存在しません。リンクを修正するか、削除してください。",
     "menuAddComment": "コメントを追加する",

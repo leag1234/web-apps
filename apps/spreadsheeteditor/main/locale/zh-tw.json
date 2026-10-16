@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "另存為",
+  "SSE.Views.ElixirBackstage.txtSaveName": "檔案名稱",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "請選擇其他檔案名稱。",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel 活頁簿 (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "標準格式，方便編輯與共用",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument 試算表 (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "開放格式，可與其他辦公軟體交換",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "只保留目前工作表的文字值",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF 文件 (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "固定版面，方便共用與列印",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "檔案格式",
   "cancelButtonText": "取消",
   "Common.Controllers.Chat.notcriticalErrorTitle": "警告",
   "Common.Controllers.Desktop.hintBtnHome": "顯示主視窗",
@@ -4685,5 +4697,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "輸入密碼以解除工作簿的保護",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "解除工作簿保護",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "部分公式、儲存格格式或內嵌物件可能會遺失。是否繼續？",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV 僅將目前工作表儲存為文字，不保留格式或物件。是否繼續？"
 }

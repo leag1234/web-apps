@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Vollbild-Modus",
   "VE.ApplicationView.txtPrint": "Drucken",
   "VE.ApplicationView.txtSearch": "Suchen",
-  "VE.ApplicationView.txtShare": "Freigeben"
+  "VE.ApplicationView.txtShare": "Freigeben",
+  "VE.ApplicationController.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

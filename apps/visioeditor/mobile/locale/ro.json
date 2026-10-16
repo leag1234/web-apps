@@ -28,6 +28,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul.",
     "menuCancel": "Revocare",
     "textOk": "OK",
     "txtWarnUrl": "Accesarea acestui link poate dăuna dispozitivului sau datelor dvs. Această locație poate fi nesigură:<br>{0}<br>Sigur doriti sa continuati? "

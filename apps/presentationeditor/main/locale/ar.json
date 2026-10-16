@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "حفظ باسم",
+  "PE.Views.ElixirBackstage.txtSaveName": "اسم الملف",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "اختر اسم ملف آخر.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "عرض PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "تنسيق قياسي للتحرير والمشاركة",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "عرض OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "تنسيق مفتوح متوافق مع تطبيقات مكتبية أخرى",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "مستند PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "تخطيط ثابت للمشاركة والطباعة",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "تنسيق الملف",
   "Common.Controllers.Chat.notcriticalErrorTitle": "تحذير",
   "Common.Controllers.Desktop.hintBtnHome": "عرض النافذة الرئيسية",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "إنشاء باستخدام قالب",
@@ -3008,5 +3018,6 @@
   "PE.Views.ViewTab.tipSelectTool": "حدد الأداة",
   "PE.Views.ViewTab.tipSlideMaster": "الشريحة الرئيسية",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }

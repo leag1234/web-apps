@@ -36,5 +36,6 @@
   "VE.ApplicationView.txtDownload": "Ներբեռնել",
   "VE.ApplicationView.txtEmbed": "Ներկառուցել",
   "VE.ApplicationView.txtPrint": "Տպել",
-  "VE.ApplicationView.txtShare": "Տարածել"
+  "VE.ApplicationView.txtShare": "Տարածել",
+  "VE.ApplicationController.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
 }

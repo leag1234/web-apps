@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Lưu dưới dạng",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Tên file",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Chọn tên tệp khác.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Sổ làm việc Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Định dạng chuẩn để chỉnh sửa và chia sẻ",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Bảng tính OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Định dạng mở cho các ứng dụng văn phòng khác",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Chỉ các giá trị của trang tính hiện tại dưới dạng văn bản",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Tài liệu PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Bố cục cố định để chia sẻ và in",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Định dạng tệp",
   "cancelButtonText": "Hủy",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Cảnh báo",
   "Common.Controllers.Shortcuts.txtLabelCopy": "Sao chép",
@@ -1662,5 +1674,7 @@
   "SSE.Views.ValueFieldSettingsDialog.txtPercentOfCol": "% của cột",
   "SSE.Views.WatchDialog.textFormula": "Công thức",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Một số công thức, định dạng ô hoặc đối tượng nhúng có thể bị mất. Bạn có muốn tiếp tục không?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV chỉ lưu trang tính hiện tại dưới dạng văn bản, không có định dạng hoặc đối tượng. Bạn có muốn tiếp tục không?"
 }

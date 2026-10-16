@@ -64,5 +64,6 @@
   "DE.ApplicationView.txtFullScreen": "Tam Ekran",
   "DE.ApplicationView.txtPrint": "Yazdır",
   "DE.ApplicationView.txtSearch": "Arama",
-  "DE.ApplicationView.txtShare": "Paylaş"
+  "DE.ApplicationView.txtShare": "Paylaş",
+  "DE.ApplicationController.txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin."
 }

@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "PDF kopia gorde, laster-markak, dokumentuaren propietateak, pasahitz-babesa eta sinaduren baliozkotasuna gal daitezkeela kontuan hartuta?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Gorde honela",
+  "DE.Views.ElixirBackstage.txtSaveName": "Fitxategi-izena",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Aukeratu beste fitxategi-izen bat.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word dokumentua (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Editatzeko eta partekatzeko formatu estandarra",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument testua (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Beste bulego-aplikazioekin bateragarria den formatu irekia",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "RTF testu aberastua (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Testuaren oinarrizko formatua gordetzen du",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Testu arrunta (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Testua soilik, formaturik gabe",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF dokumentua (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Partekatze eta inprimatzerako diseinu finkoa",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Fitxategi-formatua",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Abisua",
   "Common.Controllers.Desktop.hintBtnHome": "Erakutsi leiho nagusia",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Sortu txantiloitik",
@@ -3588,5 +3603,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} hartzaile",
   "DE.Controllers.WordMailings.txtMergeError": "Ezin izan da konbinaketa egin.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu esteka."
 }

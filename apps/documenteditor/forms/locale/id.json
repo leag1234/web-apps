@@ -194,5 +194,6 @@
   "DE.Views.ApplicationView.txtPrint": "Cetak",
   "DE.Views.ApplicationView.txtSearch": "Cari",
   "DE.Views.ApplicationView.txtShare": "Bagikan",
-  "DE.Views.ApplicationView.txtTheme": "Tema interface"
+  "DE.Views.ApplicationView.txtTheme": "Tema interface",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
 }

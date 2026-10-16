@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Simpan salinan PDF yang mungkin kehilangan markah, properti dokumen, perlindungan kata sandi, dan keabsahan tanda tangan?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Simpan Sebagai",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nama file",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Pilih nama file lain.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Dokumen Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Format standar untuk mengedit dan berbagi",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Teks OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Format terbuka untuk aplikasi perkantoran lain",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Teks berformat RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Mempertahankan pemformatan teks dasar",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Teks biasa (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Hanya teks, tanpa pemformatan",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Dokumen PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Tata letak tetap untuk berbagi dan mencetak",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format berkas",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Peringatan",
   "Common.Controllers.Desktop.hintBtnHome": "Tampilkan jendela utama",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Buat dari templat",
@@ -3622,5 +3637,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} penerima",
   "DE.Controllers.WordMailings.txtMergeError": "Penggabungan tidak dapat dilakukan.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
 }

@@ -45,5 +45,6 @@
   "PE.ApplicationView.txtFullScreen": "Pilnekrāna",
   "PE.ApplicationView.txtPrint": "Printēt",
   "PE.ApplicationView.txtSearch": "Meklēt",
-  "PE.ApplicationView.txtShare": "Dalīties"
+  "PE.ApplicationView.txtShare": "Dalīties",
+  "PE.ApplicationController.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
 }

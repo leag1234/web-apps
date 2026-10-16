@@ -1,4 +1,7 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveName": "Имя файла",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Выберите другое имя файла.",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Формат файла",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Предупреждение",
   "Common.Controllers.Desktop.hintBtnHome": "Показать главное окно",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Создать по шаблону",
@@ -3946,5 +3949,6 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "Тестовый пользователь (режим разработчика)",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Я ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Ссылка указывает на несуществующую ячейку. Исправьте или удалите ссылку."
 }

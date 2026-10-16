@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Ekran i plotë",
   "PE.ApplicationView.txtPrint": "Printo",
   "PE.ApplicationView.txtSearch": "Gjej",
-  "PE.ApplicationView.txtShare": "Shpërndaj"
+  "PE.ApplicationView.txtShare": "Shpërndaj",
+  "PE.ApplicationController.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

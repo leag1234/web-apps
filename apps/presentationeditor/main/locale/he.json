@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "שמירה בשם",
+  "PE.Views.ElixirBackstage.txtSaveName": "שם הקובץ",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "יש לבחור שם קובץ אחר.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "מצגת PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "תבנית תקנית לעריכה ולשיתוף",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "מצגת OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "תבנית פתוחה התואמת ליישומי משרד אחרים",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "מסמך PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "פריסה קבועה לשיתוף ולהדפסה",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "תבנית קובץ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "אזהרה",
   "Common.Controllers.Desktop.hintBtnHome": "הצגת חלון ראשי",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "ליצור מתבנית",
@@ -3365,5 +3375,6 @@
   "PE.Views.ViewTab.tipSelectTool": "כלי הבחירה",
   "PE.Views.ViewTab.tipSlideMaster": "תבנית בסיס לשקופיות",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

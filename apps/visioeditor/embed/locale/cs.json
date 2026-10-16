@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Celá obrazovka",
   "VE.ApplicationView.txtPrint": "Tisk",
   "VE.ApplicationView.txtSearch": "Najít",
-  "VE.ApplicationView.txtShare": "Sdílet"
+  "VE.ApplicationView.txtShare": "Sdílet",
+  "VE.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

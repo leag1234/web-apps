@@ -40,6 +40,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go.",
     "menuAddComment": "Dodaj komentarz",
     "menuAddLink": "Dodaj link",
     "menuDeleteTable": "Usuń tabelę",

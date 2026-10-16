@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Eine PDF-Kopie speichern, bei der Lesezeichen, Dokumenteigenschaften, Kennwortschutz und gültige Signaturen verloren gehen können?",
+  "DE.Views.ElixirBackstage.txtSaveName": "Dateiname",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Wählen Sie einen anderen Dateinamen.",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Dateiformat",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Achtung",
   "Common.Controllers.Desktop.hintBtnHome": "Hauptfenster anzeigen",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Von Vorlage erstellen",
@@ -5538,5 +5542,6 @@
   "DE.Controllers.ElixirReferences.txtUpdateIndex": "Index aktualisieren",
   "DE.Controllers.ElixirReferences.txtNoIndexEntries": "Es wurden keine Indexeinträge gefunden.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

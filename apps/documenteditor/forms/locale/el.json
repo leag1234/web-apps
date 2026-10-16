@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Εκτύπωση",
   "DE.Views.ApplicationView.txtSearch": "Εύρεση",
   "DE.Views.ApplicationView.txtShare": "Διαμοιρασμός",
-  "DE.Views.ApplicationView.txtTheme": "Θέμα διεπαφής"
+  "DE.Views.ApplicationView.txtTheme": "Θέμα διεπαφής",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

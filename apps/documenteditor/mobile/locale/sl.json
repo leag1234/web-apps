@@ -32,6 +32,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
     "menuAddComment": "Dodaj komentar",
     "menuAddLink": "Dodaj povezavo",
     "menuCancel": "Zapri",

@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오.",
     "errorCopyCutPaste": "복사, 자르기 및 붙여 넣기",
     "menuAddComment": "코멘트 달기",
     "menuAddLink": "링크 추가",

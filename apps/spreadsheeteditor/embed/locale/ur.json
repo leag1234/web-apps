@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "فل اسکرین",
   "SSE.ApplicationView.txtPrint": "پرنٹ کریں",
   "SSE.ApplicationView.txtSearch": "تلاش کریں۔",
-  "SSE.ApplicationView.txtShare": "بانٹیں"
+  "SSE.ApplicationView.txtShare": "بانٹیں",
+  "SSE.ApplicationController.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "しおり、文書のプロパティ、パスワード保護、署名の有効性が失われる可能性のある PDF コピーを保存しますか？",
+  "DE.Views.ElixirBackstage.txtSaveName": "ファイル名",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "別のファイル名を指定してください。",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "ファイル形式",
   "Common.Controllers.Chat.notcriticalErrorTitle": "警告",
   "Common.Controllers.Desktop.hintBtnHome": "メインウィンドウを表示する",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "テンプレートから作成",
@@ -5538,5 +5542,6 @@
   "DE.Views.ContextTabs.txtEditData": "データの編集",
   "DE.Views.ContextTabs.txtChangeChartType": "グラフの種類の変更",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "リンク参照が存在しません。 リンクを修正するか、ご削除ください。"
 }

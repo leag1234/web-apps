@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "전체 화면",
   "DE.ApplicationView.txtPrint": "인쇄",
   "DE.ApplicationView.txtSearch": "찾기",
-  "DE.ApplicationView.txtShare": "공유"
+  "DE.ApplicationView.txtShare": "공유",
+  "DE.ApplicationController.txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오."
 }

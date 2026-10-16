@@ -173,5 +173,6 @@
   "DE.Views.ApplicationView.txtPrint": "Imprimir",
   "DE.Views.ApplicationView.txtSearch": "Buscar",
   "DE.Views.ApplicationView.txtShare": "Compartir",
-  "DE.Views.ApplicationView.txtTheme": "Tema da interface"
+  "DE.Views.ApplicationView.txtTheme": "Tema da interface",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "A referencia da ligazón non existe. Corrixa a ligazón ou elimínaa."
 }

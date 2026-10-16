@@ -75,5 +75,6 @@
   "DE.ApplicationView.txtFullScreen": "Fuld skærm",
   "DE.ApplicationView.txtPrint": "Udskriv",
   "DE.ApplicationView.txtSearch": "Søg",
-  "DE.ApplicationView.txtShare": "Del"
+  "DE.ApplicationView.txtShare": "Del",
+  "DE.ApplicationController.txtCannotOpenLink": "Link referencen eksiterer ikke. Ret linket eller slet det."
 }

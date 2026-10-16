@@ -39,5 +39,6 @@
   "PE.ApplicationView.txtFullScreen": "Tam ekran",
   "PE.ApplicationView.txtPrint": "Çap",
   "PE.ApplicationView.txtSearch": "Axtar",
-  "PE.ApplicationView.txtShare": "Paylaş"
+  "PE.ApplicationView.txtShare": "Paylaş",
+  "PE.ApplicationController.txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin."
 }

@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Vollbild-Modus",
   "DE.ApplicationView.txtPrint": "Drucken",
   "DE.ApplicationView.txtSearch": "Suche",
-  "DE.ApplicationView.txtShare": "Freigeben"
+  "DE.ApplicationView.txtShare": "Freigeben",
+  "DE.ApplicationController.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

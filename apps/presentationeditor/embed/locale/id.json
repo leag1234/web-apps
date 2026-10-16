@@ -50,5 +50,6 @@
   "PE.ApplicationView.txtFullScreen": "Layar penuh",
   "PE.ApplicationView.txtPrint": "Cetak",
   "PE.ApplicationView.txtSearch": "Cari",
-  "PE.ApplicationView.txtShare": "Bagikan"
+  "PE.ApplicationView.txtShare": "Bagikan",
+  "PE.ApplicationController.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
 }

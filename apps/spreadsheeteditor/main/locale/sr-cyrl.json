@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Сачувај као",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Назив фајла",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Изаберите друго име датотеке.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel радна свеска (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Стандардни формат за уређивање и дељење",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument табела (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Отворени формат за друге канцеларијске програме",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Само вредности текућег листа као текст",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF документ (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Фиксни распоред за дељење и штампање",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Формат датотеке",
   "cancelButtonText": "Откажи",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Упозорење",
   "Common.Controllers.Desktop.hintBtnHome": "Прикажи Главни прозор",
@@ -4849,5 +4861,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Унесите лозинку да незаштитите радну књигу",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Незаштити радну књигу",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Неке формуле, обликовање ћелија или уграђени објекти могу бити изгубљени. Наставити?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV чува само активни лист као текст, без обликовања и објеката. Наставити?"
 }

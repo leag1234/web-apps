@@ -210,5 +210,6 @@
   "DE.Views.ApplicationView.txtPrint": "Udskriv",
   "DE.Views.ApplicationView.txtSearch": "Søg",
   "DE.Views.ApplicationView.txtShare": "Del",
-  "DE.Views.ApplicationView.txtTheme": "Tema"
+  "DE.Views.ApplicationView.txtTheme": "Tema",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Link referencen eksiterer ikke. Ret linket eller slet det."
 }

@@ -45,5 +45,6 @@
   "SSE.ApplicationView.txtFullScreen": "Pilnekrāna",
   "SSE.ApplicationView.txtPrint": "Printēt",
   "SSE.ApplicationView.txtSearch": "Meklēt",
-  "SSE.ApplicationView.txtShare": "Dalīties"
+  "SSE.ApplicationView.txtShare": "Dalīties",
+  "SSE.ApplicationController.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
 }

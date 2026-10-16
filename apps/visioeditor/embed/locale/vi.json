@@ -55,5 +55,6 @@
   "VE.ApplicationView.txtFullScreen": "Toàn màn hình",
   "VE.ApplicationView.txtPrint": "In",
   "VE.ApplicationView.txtSearch": "Tìm kiếm",
-  "VE.ApplicationView.txtShare": "Chia sẻ"
+  "VE.ApplicationView.txtShare": "Chia sẻ",
+  "VE.ApplicationController.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó."
 }

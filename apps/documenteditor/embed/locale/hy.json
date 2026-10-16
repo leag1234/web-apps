@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Ամբողջ էկրանով",
   "DE.ApplicationView.txtPrint": "Տպել",
   "DE.ApplicationView.txtSearch": "Գտնել",
-  "DE.ApplicationView.txtShare": "Տարածել"
+  "DE.ApplicationView.txtShare": "Տարածել",
+  "DE.ApplicationController.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
 }

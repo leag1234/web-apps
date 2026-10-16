@@ -197,5 +197,6 @@
   "DE.Views.ApplicationView.txtPrint": "Штампај",
   "DE.Views.ApplicationView.txtSearch": "Претрага",
   "DE.Views.ApplicationView.txtShare": "Подели",
-  "DE.Views.ApplicationView.txtTheme": "Тема интерфејса"
+  "DE.Views.ApplicationView.txtTheme": "Тема интерфејса",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Референца линка не постоји. Молимо вас исправите линк или га избришите."
 }

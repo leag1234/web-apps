@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Celá obrazovka",
   "DE.ApplicationView.txtPrint": "Tisk",
   "DE.ApplicationView.txtSearch": "Najít",
-  "DE.ApplicationView.txtShare": "Sdílet"
+  "DE.ApplicationView.txtShare": "Sdílet",
+  "DE.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

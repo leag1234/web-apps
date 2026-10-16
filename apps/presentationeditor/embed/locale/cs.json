@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Na celou obrazovku",
   "PE.ApplicationView.txtPrint": "Tisk",
   "PE.ApplicationView.txtSearch": "Najít",
-  "PE.ApplicationView.txtShare": "Sdílet"
+  "PE.ApplicationView.txtShare": "Sdílet",
+  "PE.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

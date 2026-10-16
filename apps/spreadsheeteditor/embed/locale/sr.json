@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Prikaz celog ekrana",
   "SSE.ApplicationView.txtPrint": "Štampaj",
   "SSE.ApplicationView.txtSearch": "Pretraga",
-  "SSE.ApplicationView.txtShare": "Podeli"
+  "SSE.ApplicationView.txtShare": "Podeli",
+  "SSE.ApplicationController.txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite."
 }

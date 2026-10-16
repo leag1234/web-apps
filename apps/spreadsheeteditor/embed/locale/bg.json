@@ -26,5 +26,6 @@
   "SSE.ApplicationView.txtDownload": "Изтегли",
   "SSE.ApplicationView.txtEmbed": "Вграждане",
   "SSE.ApplicationView.txtFullScreen": "Цял екран",
-  "SSE.ApplicationView.txtShare": "Дял"
+  "SSE.ApplicationView.txtShare": "Дял",
+  "SSE.ApplicationController.txtCannotOpenLink": "Референтната връзка не съществува. Моля, коригирайте връзката или я изтрийте."
 }

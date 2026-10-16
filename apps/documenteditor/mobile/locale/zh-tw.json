@@ -199,6 +199,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。",
     "errorCopyCutPaste": "使用上下文選單進行的複製、剪下和粘貼操作將僅在當前文件內執行。",
     "menuAddComment": "新增註解",
     "menuAddLink": "新增連結",

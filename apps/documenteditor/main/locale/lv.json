@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Vai saglabāt PDF kopiju, kurā var zust grāmatzīmes, dokumenta rekvizīti, paroles aizsardzība un parakstu derīgums?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Saglabāt kā...",
+  "DE.Views.ElixirBackstage.txtSaveName": "Faila nosaukums",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Izvēlieties citu faila nosaukumu.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word dokuments (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standarta formāts rediģēšanai un kopīgošanai",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument teksts (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Atvērts formāts citām biroja lietotnēm",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formatēts teksts RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Saglabā teksta pamata formatējumu",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Vienkāršs teksts (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Tikai teksts bez formatējuma",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF dokuments (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Fiksēts izkārtojums kopīgošanai un drukāšanai",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Faila formāts",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Brīdinājums",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonīms",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Aizvērt",
@@ -3373,5 +3388,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Adresāti: {0}",
   "DE.Controllers.WordMailings.txtMergeError": "Sapludināšanu neizdevās veikt.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
 }

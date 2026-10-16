@@ -184,6 +184,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin.",
     "errorCopyCutPaste": "Kontekst menyusundan istifadə edərək kopyalama, kəsmə və yapışdırma əməliyyatları yalnız cari fayl daxilində həyata keçiriləcək.",
     "menuAddComment": "Şərh yazın",
     "menuAddLink": "Link əlavə edin",

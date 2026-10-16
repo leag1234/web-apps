@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Yer işaretlerini, belge özelliklerini, parola korumasını ve imza geçerliliğini kaybedebilecek bir PDF kopyası kaydedilsin mi?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Farklı kaydet",
+  "DE.Views.ElixirBackstage.txtSaveName": "Dosya adı",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Başka bir dosya adı seçin.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word belgesi (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Düzenleme ve paylaşım için standart biçim",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument metni (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Diğer ofis uygulamaları için açık biçim",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Biçimlendirilmiş RTF metni (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Temel metin biçimlendirmesini korur",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Düz metin (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Biçimlendirme olmadan yalnızca metin",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF belgesi (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Paylaşım ve yazdırma için sabit düzen",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Dosya biçimi",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Uyarı",
   "Common.Controllers.Desktop.hintBtnHome": "Ana pencereyi göster",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Şablondan oluştur",
@@ -3605,5 +3620,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} alıcı",
   "DE.Controllers.WordMailings.txtMergeError": "Birleştirme yapılamadı.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin."
 }

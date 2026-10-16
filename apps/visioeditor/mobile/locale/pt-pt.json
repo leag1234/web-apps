@@ -18,6 +18,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação.",
     "menuCancel": "Cancelar",
     "txtWarnUrl": "Clicar nesta ligação pode ser prejudicial ao seu dispositivo e dados.<br>Deseja continuar?"
   },

@@ -9,6 +9,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin.",
     "textOk": "Tamam"
   },
   "Controller": {

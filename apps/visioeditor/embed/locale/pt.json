@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Tela cheia",
   "VE.ApplicationView.txtPrint": "Imprimir",
   "VE.ApplicationView.txtSearch": "Pesquisar",
-  "VE.ApplicationView.txtShare": "Compartilhar"
+  "VE.ApplicationView.txtShare": "Compartilhar",
+  "VE.ApplicationController.txtCannotOpenLink": "A referência de link não existe. Corrija o link ou o exclua."
 }

@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Vollbild-Modus",
   "PE.ApplicationView.txtPrint": "Drucken",
   "PE.ApplicationView.txtSearch": "Suche",
-  "PE.ApplicationView.txtShare": "Freigeben"
+  "PE.ApplicationView.txtShare": "Freigeben",
+  "PE.ApplicationController.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

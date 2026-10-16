@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Во весь экран",
   "SSE.ApplicationView.txtPrint": "Печать",
   "SSE.ApplicationView.txtSearch": "Поиск",
-  "SSE.ApplicationView.txtShare": "Поделиться"
+  "SSE.ApplicationView.txtShare": "Поделиться",
+  "SSE.ApplicationController.txtCannotOpenLink": "Ссылка указывает на несуществующую ячейку. Исправьте или удалите ссылку."
 }

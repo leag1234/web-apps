@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Toàn màn hình",
   "SSE.ApplicationView.txtPrint": "In",
   "SSE.ApplicationView.txtSearch": "Tìm kiếm",
-  "SSE.ApplicationView.txtShare": "Chia sẻ"
+  "SSE.ApplicationView.txtShare": "Chia sẻ",
+  "SSE.ApplicationController.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó."
 }

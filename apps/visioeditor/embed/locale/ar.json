@@ -52,5 +52,6 @@
   "VE.ApplicationView.txtFullScreen": "شاشة كاملة",
   "VE.ApplicationView.txtPrint": "طباعة",
   "VE.ApplicationView.txtSearch": "إيجاد",
-  "VE.ApplicationView.txtShare": "مشاركة"
+  "VE.ApplicationView.txtShare": "مشاركة",
+  "VE.ApplicationController.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }

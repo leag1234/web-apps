@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Во весь экран",
   "DE.ApplicationView.txtPrint": "Печать",
   "DE.ApplicationView.txtSearch": "Поиск",
-  "DE.ApplicationView.txtShare": "Поделиться"
+  "DE.ApplicationView.txtShare": "Поделиться",
+  "DE.ApplicationController.txtCannotOpenLink": "Ссылка указывает на несуществующую ячейку. Исправьте или удалите ссылку."
 }

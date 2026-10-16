@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Зберегти копію PDF, у якій можуть бути втрачені закладки, властивості документа, захист паролем і чинність підписів?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Зберегти як",
+  "DE.Views.ElixirBackstage.txtSaveName": "Ім'я файлу",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Виберіть інше ім’я файлу.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Документ Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Стандартний формат для редагування та обміну",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Текст OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Відкритий формат для інших офісних програм",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Форматований текст RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Зберігає основне форматування тексту",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Звичайний текст (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Лише текст без форматування",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Документ PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Фіксований макет для обміну та друку",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Формат файлу",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Застереження",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Гість",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Закрити",
@@ -3313,5 +3328,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Одержувачів: {0}",
   "DE.Controllers.WordMailings.txtMergeError": "Не вдалося виконати злиття.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
 }

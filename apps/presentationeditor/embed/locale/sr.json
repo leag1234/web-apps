@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Prikaz celog ekrana",
   "PE.ApplicationView.txtPrint": "Štampaj",
   "PE.ApplicationView.txtSearch": "Pretraži",
-  "PE.ApplicationView.txtShare": "Podeli"
+  "PE.ApplicationView.txtShare": "Podeli",
+  "PE.ApplicationController.txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite."
 }

@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Αποθήκευση ως",
+  "PE.Views.ElixirBackstage.txtSaveName": "Όνομα αρχείου",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Επιλέξτε άλλο όνομα αρχείου.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Παρουσίαση PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Τυπική μορφή για επεξεργασία και κοινή χρήση",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Παρουσίαση OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Ανοικτή μορφή για άλλες εφαρμογές γραφείου",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Έγγραφο PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Σταθερή διάταξη για κοινή χρήση και εκτύπωση",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Μορφή αρχείου",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Προειδοποίηση",
   "Common.Controllers.Desktop.hintBtnHome": "Εμφάνιση κύριου παραθύρου",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Δημιουργία από πρότυπο",
@@ -3567,5 +3577,6 @@
   "PE.Views.ViewTab.tipSlideMaster": "Υπόδειγμα διαφανειών",
   "PE.Views.ViewTab.tipStopMacro": "Διακοπή εγγραφής",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

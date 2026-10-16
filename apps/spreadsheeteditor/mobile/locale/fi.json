@@ -15,6 +15,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Linkin viittausta ei ole olemassa. Ole hyvä ja korjaa linkki tai poista se.",
     "menuHide": "Piilota",
     "menuMerge": "Yhdistä",
     "menuOpenLink": "Avoin linkki",

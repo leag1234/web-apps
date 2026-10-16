@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Πλήρης οθόνη",
   "SSE.ApplicationView.txtPrint": "Εκτύπωση",
   "SSE.ApplicationView.txtSearch": "Εύρεση",
-  "SSE.ApplicationView.txtShare": "Διαμοιρασμός"
+  "SSE.ApplicationView.txtShare": "Διαμοιρασμός",
+  "SSE.ApplicationController.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

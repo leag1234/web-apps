@@ -1,4 +1,15 @@
 {
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Wordov dokument (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standardna oblika za urejanje in skupno rabo",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Besedilo OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Odprta oblika za druge pisarniške programe",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Oblikovano besedilo RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Ohrani osnovno oblikovanje besedila",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Navadno besedilo (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Samo besedilo brez oblikovanja",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Nespremenljiva postavitev za skupno rabo in tiskanje",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Oblika datoteke",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Opozorilo",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonimno",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Zapri",
@@ -2289,5 +2300,11 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Prejemnikov: {0}",
   "DE.Controllers.WordMailings.txtMergeError": "Spajanja ni bilo mogoče izvesti.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Želite shraniti kopijo PDF, v kateri se lahko izgubijo zaznamki, lastnosti dokumenta, zaščita z geslom in veljavnost podpisov?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Save as",
+  "DE.Views.ElixirBackstage.txtSaveName": "Ime datoteke",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Izberite drugo ime datoteke.",
+  "DE.Controllers.LeftMenu.warnDownloadAsRTF": "Pri shranjevanju kopije RTF se lahko izgubi del oblikovanja."
 }

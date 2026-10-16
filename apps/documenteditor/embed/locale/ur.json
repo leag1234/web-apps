@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "فل اسکرین",
   "DE.ApplicationView.txtPrint": "پرنٹ کریں",
   "DE.ApplicationView.txtSearch": "تلاش کریں۔",
-  "DE.ApplicationView.txtShare": "بانٹیں"
+  "DE.ApplicationView.txtShare": "بانٹیں",
+  "DE.ApplicationController.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

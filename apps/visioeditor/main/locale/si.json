@@ -423,5 +423,6 @@
   "VE.Views.ViewTab.textZoom": "විශාල කරන්න",
   "VE.Views.ViewTab.tipFitPage": "පිටුවට ගළපන්න",
   "VE.Views.ViewTab.tipFitWidth": "පළලට ගළපන්න",
-  "VE.Views.ViewTab.tipInterfaceTheme": "අතුරුමුහුණතේ තේමාව"
+  "VE.Views.ViewTab.tipInterfaceTheme": "අතුරුමුහුණතේ තේමාව",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

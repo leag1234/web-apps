@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه.",
     "errorCopyCutPaste": "ستنفذ اجراءات النسخ و القص و اللصق عبر قائمة السياق في هذا الملف فقط",
     "menuAddComment": "اضافة تعليق",
     "menuAddLink": "إضافة رابط",

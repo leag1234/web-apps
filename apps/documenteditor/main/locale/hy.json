@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Պահե՞լ PDF պատճեն, որում կարող են կորչել էջանիշները, փաստաթղթի հատկությունները, գաղտնաբառով պաշտպանությունը և ստորագրությունների վավերականությունը։",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Պահպանել որպես",
+  "DE.Views.ElixirBackstage.txtSaveName": "Ֆայլի անուն",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Ընտրեք ֆայլի այլ անուն։",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word փաստաթուղթ (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Ստանդարտ ձևաչափ՝ խմբագրման և համօգտագործման համար",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument տեքստ (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Բաց ձևաչափ՝ այլ գրասենյակային ծրագրերի համար",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "RTF ձևաչափված տեքստ (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Պահպանում է տեքստի հիմնական ձևաչափումը",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Պարզ տեքստ (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Միայն տեքստ՝ առանց ձևաչափման",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF փաստաթուղթ (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Անփոփոխ դասավորություն՝ համօգտագործման և տպման համար",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Ֆայլի ձևաչափ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Զգուշացում",
   "Common.Controllers.Desktop.hintBtnHome": "Ցույց տալ հիմնական պատուհանը",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Ստեղծել ձևանմուշից",
@@ -4374,5 +4389,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} ստացող",
   "DE.Controllers.WordMailings.txtMergeError": "Միաձուլումը չհաջողվեց կատարել։",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
 }

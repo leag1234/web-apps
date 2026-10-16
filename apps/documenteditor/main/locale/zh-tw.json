@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "是否儲存 PDF 副本？書籤、文件內容資訊、密碼保護和簽章有效性可能遺失。",
+  "DE.Views.ElixirBackstage.txtSaveAs": "另存為",
+  "DE.Views.ElixirBackstage.txtSaveName": "檔案名稱",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "請選擇其他檔案名稱。",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word 文件 (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "標準格式，方便編輯與共用",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument 文字文件 (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "開放格式，可與其他辦公軟體交換",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "RTF 文件 (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "保留基本文字格式",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "純文字 (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "僅保留文字，不含格式",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF 文件 (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "固定版面，方便共用與列印",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "檔案格式",
   "Common.Controllers.Chat.notcriticalErrorTitle": "警告",
   "Common.Controllers.Desktop.hintBtnHome": "顯示主視窗",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "從模板創建",
@@ -4149,5 +4164,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} 位收件者",
   "DE.Controllers.WordMailings.txtMergeError": "無法完成合併。",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。"
 }

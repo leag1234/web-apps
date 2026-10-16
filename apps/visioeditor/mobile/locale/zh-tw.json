@@ -28,6 +28,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。",
     "menuCancel": "取消",
     "textOk": "確定",
     "txtWarnUrl": "點擊此連結可能會危害您的裝置與資料。此位置可能不安全：<br>{0}<br>您確定要繼續嗎？"

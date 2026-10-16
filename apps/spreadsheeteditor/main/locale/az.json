@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "kimi yadda saxla",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Fayl adı",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Başqa fayl adı seçin.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel iş kitabı (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Redaktə və paylaşma üçün standart format",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument cədvəli (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Digər ofis proqramları ilə uyğun açıq format",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Yalnız cari vərəqin dəyərləri, mətn kimi",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF sənədi (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Paylaşma və çap üçün sabit tərtibat",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Fayl formatı",
   "cancelButtonText": "Ləğv edin",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Xəbərdarlıq",
   "Common.Controllers.History.notcriticalErrorTitle": "Xəbərdarlıq",
@@ -3435,5 +3447,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "İş kitabının mühafizəsini ləğv etmək üçün parol daxil edin",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "İş kitabının qorumasını ləğv et",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Bəzi düsturlar, xana formatları və ya daxil edilmiş obyektlər itə bilər. Davam edilsin?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV yalnız aktiv vərəqi mətn kimi, formatlaşdırma və obyektlər olmadan saxlayır. Davam edilsin?"
 }

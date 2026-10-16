@@ -657,6 +657,17 @@ SSE.ApplicationController = new(function(){
     }
 
     function onHyperlinkClick(url) {
+        var safeUrl = AscCommon.getSafeHyperlink(url);
+        if (!safeUrl) {
+            if (url) common.controller.modals.showWarning({
+                title: me.notcriticalErrorTitle,
+                message: me.txtCannotOpenLink,
+                buttons: [me.txtClose],
+                callback: function() {}
+            });
+            return;
+        }
+        url = safeUrl;
         var type = api.asc_getUrlType(url);
         if (type===AscCommon.c_oAscUrlType.Http || type===AscCommon.c_oAscUrlType.Email) 
             window.open(url, '_blank');  
@@ -664,7 +675,7 @@ SSE.ApplicationController = new(function(){
             WarningShown = true; 
             common.controller.modals.showWarning({
                     title: me.notcriticalErrorTitle,
-                    message: me.txtOpenWarning.replace('%1', url || ''),
+                    message: me.txtOpenWarning.replace('%1', common.utils.htmlEncode(url)),
                     buttons: [me.txtNo, me.txtYes],
                     primary: me.txtNo,
                     callback: function (btn) {

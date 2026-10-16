@@ -41,6 +41,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte.",
     "errorCopyCutPaste": "Akcie kopírovania, vystrihnutia a prilepenia pomocou kontextovej ponuky sa vykonajú iba v rámci aktuálneho súboru.",
     "errorInvalidLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte.",
     "menuAddComment": "Pridať komentár",

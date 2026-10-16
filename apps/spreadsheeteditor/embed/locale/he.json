@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "מסך מלא",
   "SSE.ApplicationView.txtPrint": "הדפסה",
   "SSE.ApplicationView.txtSearch": "חיפוש",
-  "SSE.ApplicationView.txtShare": "שיתוף"
+  "SSE.ApplicationView.txtShare": "שיתוף",
+  "SSE.ApplicationController.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
 }

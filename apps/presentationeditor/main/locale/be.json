@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Захаваць як",
+  "PE.Views.ElixirBackstage.txtSaveName": "Назва файла",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Выберыце іншую назву файла.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Прэзентацыя PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Стандартны фармат для рэдагавання і абмену",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Прэзентацыя OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Адкрыты фармат для іншых офісных праграм",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Дакумент PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Фіксаваны макет для абмену і друку",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Фармат файла",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Увага",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Ананімны карыстальнік",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Закрыць",
@@ -2677,5 +2687,6 @@
   "PE.Views.ViewTab.tipGuides": "Паказваць накіравальныя",
   "PE.Views.ViewTab.tipInterfaceTheme": "Тэма інтэрфейсу",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Спасылка паказвае на ячэйку, якая не існуе. Выпраўце ці выдаліце спасылку."
 }

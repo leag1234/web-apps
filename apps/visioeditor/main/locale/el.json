@@ -477,5 +477,6 @@
   "VE.Views.ViewTab.textZoom": "Εστίαση",
   "VE.Views.ViewTab.tipFitPage": "Προσαρμογή στη σελίδα",
   "VE.Views.ViewTab.tipFitWidth": "Προσαρμογή στο πλάτος",
-  "VE.Views.ViewTab.tipInterfaceTheme": "Θέμα διεπαφής"
+  "VE.Views.ViewTab.tipInterfaceTheme": "Θέμα διεπαφής",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

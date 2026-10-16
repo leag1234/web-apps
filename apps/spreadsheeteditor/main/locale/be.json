@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Захаваць як",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Назва файла",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Выберыце іншую назву файла.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Кніга Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Стандартны фармат для рэдагавання і абмену",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Табліца OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Адкрыты фармат для іншых офісных праграм",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Толькі значэнні бягучага аркуша ў выглядзе тэксту",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Дакумент PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Фіксаваны макет для абмену і друку",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Фармат файла",
   "cancelButtonText": "Скасаваць",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Увага",
   "Common.Controllers.History.notcriticalErrorTitle": "Увага",
@@ -4075,5 +4087,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Каб зняць абарону кнігі, увядзіце пароль",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Зняць абарону працоўнай кнігі",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Некаторыя формулы, фарматаванне ячэек або ўбудаваныя аб’екты могуць быць страчаны. Працягнуць?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV захоўвае толькі актыўны аркуш як тэкст, без фарматавання і аб’ектаў. Працягнуць?"
 }

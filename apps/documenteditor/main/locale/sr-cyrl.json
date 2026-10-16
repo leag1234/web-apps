@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Сачувати PDF копију која може изгубити обележиваче, својства документа, заштиту лозинком и исправност потписа?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Сачувај као",
+  "DE.Views.ElixirBackstage.txtSaveName": "Назив фајла",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Изаберите друго име датотеке.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word документ (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Стандардни формат за уређивање и дељење",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument текст (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Отворени формат за друге канцеларијске програме",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Форматирани текст RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Чува основно форматирање текста",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Обичан текст (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Само текст, без форматирања",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF документ (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Фиксни распоред за дељење и штампање",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Формат датотеке",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Упозорење",
   "Common.Controllers.Desktop.hintBtnHome": "Прикажи главни прозор",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Креирај из шаблона",
@@ -4026,5 +4041,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Прималаца: {0}",
   "DE.Controllers.WordMailings.txtMergeError": "Спајање није могло да се изврши.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Референца линка не постоји. Молимо вас исправите линк или га избришите."
 }

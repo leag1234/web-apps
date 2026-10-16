@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë.",
     "errorCopyCutPaste": "Veprimet e kopjimit, prerjes dhe ngjitjes duke përdorur menunë e kontekstit do të kryhen vetëm brenda skedarit aktual.",
     "errorInvalidLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë.",
     "menuAddComment": "Shto një koment",

@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Een PDF-kopie opslaan waarbij bladwijzers, documenteigenschappen, wachtwoordbeveiliging en geldige handtekeningen verloren kunnen gaan?",
+  "DE.Views.ElixirBackstage.txtSaveName": "Bestandsnaam",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Kies een andere bestandsnaam.",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Bestandsindeling",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Waarschuwing",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Creëer volgens sjabloon",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anoniem",
@@ -5538,5 +5542,6 @@
   "DE.Views.ContextTabs.txtEditData": "Gegevens bewerken",
   "DE.Views.ContextTabs.txtChangeChartType": "Ander grafiektype",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

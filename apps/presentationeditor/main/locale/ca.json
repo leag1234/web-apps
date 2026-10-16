@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Desar com",
+  "PE.Views.ElixirBackstage.txtSaveName": "Nom de fitxer",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Trieu un altre nom de fitxer.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Presentació del PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Format estàndard per editar i compartir",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Presentació OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Format obert compatible amb altres aplicacions ofimàtiques",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Document PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Disseny fix per compartir i imprimir",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Format del fitxer",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Advertiment",
   "Common.Controllers.Desktop.hintBtnHome": "Mostra la finestra principal",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Crea a partir de la plantilla",
@@ -2792,5 +2802,6 @@
   "PE.Views.ViewTab.tipInterfaceTheme": "Tema de la interfície",
   "PE.Views.ViewTab.tipSelectTool": "Seleccionar l'eina",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Enllaç trencat. Corregeix l'enllaç o suprimeix-lo."
 }

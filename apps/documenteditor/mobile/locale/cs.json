@@ -199,6 +199,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte.",
     "errorCopyCutPaste": "Akce kopírovat, vyjmout a vložit použitím kontextové nabídky budou prováděny pouze v rámci právě otevřeného souboru.",
     "menuAddComment": "Přidat komentář",
     "menuAddLink": "Přidat odkaz",

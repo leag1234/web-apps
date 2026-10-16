@@ -207,5 +207,6 @@
   "DE.Views.ApplicationView.txtPrint": "打印",
   "DE.Views.ApplicationView.txtSearch": "查找",
   "DE.Views.ApplicationView.txtShare": "分享",
-  "DE.Views.ApplicationView.txtTheme": "界面主题"
+  "DE.Views.ApplicationView.txtTheme": "界面主题",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "链接引用不存在。请更正链接或删除。"
 }

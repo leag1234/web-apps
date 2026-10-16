@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Toàn màn hình",
   "DE.ApplicationView.txtPrint": "In",
   "DE.ApplicationView.txtSearch": "Tìm kiếm",
-  "DE.ApplicationView.txtShare": "Chia sẻ"
+  "DE.ApplicationView.txtShare": "Chia sẻ",
+  "DE.ApplicationController.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó."
 }

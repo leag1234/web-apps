@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "මෙලෙස සුරකින්න",
+  "PE.Views.ElixirBackstage.txtSaveName": "ගොනුවේ නම",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "වෙනත් ගොනු නාමයක් තෝරන්න.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint ඉදිරිපත් කිරීම (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "සංස්කරණය සහ බෙදාගැනීම සඳහා සම්මත ආකෘතිය",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument ඉදිරිපත් කිරීම (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "වෙනත් කාර්යාල යෙදුම් සඳහා විවෘත ආකෘතිය",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF ලේඛනය (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "බෙදාගැනීම සහ මුද්‍රණය සඳහා ස්ථාවර සැකැස්ම",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "ගොනු ආකෘතිය",
   "Common.Controllers.Chat.notcriticalErrorTitle": "අවවාදයයි",
   "Common.Controllers.Desktop.hintBtnHome": "ප්‍රධාන කවුළුව පෙන්වන්න",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "අච්චුවකින් සාදන්න",
@@ -3208,5 +3218,6 @@
   "PE.Views.ViewTab.tipSelectTool": "මෙවලම තෝරන්න",
   "PE.Views.ViewTab.tipSlideMaster": "ප්‍රධාන සර්පණය",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

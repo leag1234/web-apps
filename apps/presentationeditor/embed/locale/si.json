@@ -50,5 +50,6 @@
   "PE.ApplicationView.txtFullScreen": "පූර්ණ තිරය",
   "PE.ApplicationView.txtPrint": "මුද්‍රණය කරන්න",
   "PE.ApplicationView.txtSearch": "සොයන්න",
-  "PE.ApplicationView.txtShare": "බෙදාගන්න"
+  "PE.ApplicationView.txtShare": "බෙදාගන්න",
+  "PE.ApplicationController.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

@@ -54,6 +54,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet.",
     "errorCopyCutPaste": "Kopēšanas, izgriešanas un ielīmēšanas darbības, izmantojot konteksta izvēlni, tiks veiktas tikai pašreizējā failā.",
     "errorInvalidLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet.",
     "menuAddComment": "Pievienot komentāru",

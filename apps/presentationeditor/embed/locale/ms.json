@@ -36,5 +36,6 @@
   "PE.ApplicationView.txtFullScreen": "Skrin penuh",
   "PE.ApplicationView.txtPrint": "Cetak",
   "PE.ApplicationView.txtSearch": "Carian",
-  "PE.ApplicationView.txtShare": "Kongsi"
+  "PE.ApplicationView.txtShare": "Kongsi",
+  "PE.ApplicationController.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
 }

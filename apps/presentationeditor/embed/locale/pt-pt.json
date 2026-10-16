@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Ecrã inteiro",
   "PE.ApplicationView.txtPrint": "Imprimir",
   "PE.ApplicationView.txtSearch": "Localizar",
-  "PE.ApplicationView.txtShare": "Partilhar"
+  "PE.ApplicationView.txtShare": "Partilhar",
+  "PE.ApplicationController.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação."
 }

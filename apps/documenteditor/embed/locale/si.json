@@ -71,5 +71,6 @@
   "DE.ApplicationView.txtFullScreen": "පූර්ණ තිරය",
   "DE.ApplicationView.txtPrint": "මුද්‍රණය කරන්න",
   "DE.ApplicationView.txtSearch": "සොයන්න",
-  "DE.ApplicationView.txtShare": "බෙදාගන්න"
+  "DE.ApplicationView.txtShare": "බෙදාගන්න",
+  "DE.ApplicationController.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

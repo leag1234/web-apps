@@ -1,4 +1,7 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveName": "文件名",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "请选择其他文件名。",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "文件格式",
   "Common.Controllers.Chat.notcriticalErrorTitle": "警告",
   "Common.Controllers.Desktop.hintBtnHome": "显示主窗口",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "用模板创建",
@@ -3946,5 +3949,6 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "测试用户（开发者模式）",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "我（{0}）",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "链接引用不存在。请更正链接或删除。"
 }

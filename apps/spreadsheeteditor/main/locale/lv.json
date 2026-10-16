@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Saglabāt kā...",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Faila nosaukums",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Izvēlieties citu faila nosaukumu.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel darbgrāmata (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Standarta formāts rediģēšanai un kopīgošanai",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument izklājlapa (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Atvērts formāts citām biroja lietotnēm",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Tikai pašreizējās lapas vērtības kā teksts",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF dokuments (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Fiksēts izkārtojums kopīgošanai un drukāšanai",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Faila formāts",
   "cancelButtonText": "Atcelt",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Brīdinājums",
   "Common.Controllers.History.notcriticalErrorTitle": "Brīdinājums",
@@ -4067,5 +4079,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Ievadiet paroli, lai noņemtu darbgrāmatas aizsardzību",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Noņemt darbgrāmatas aizsardzību",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Dažas formulas, šūnu formatējums vai iegultie objekti var tikt zaudēti. Vai turpināt?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV saglabā tikai aktīvo lapu kā tekstu bez formatējuma vai objektiem. Vai turpināt?"
 }

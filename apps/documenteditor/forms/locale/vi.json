@@ -124,5 +124,6 @@
   "DE.Views.ApplicationView.txtEmbed": "Nhúng",
   "DE.Views.ApplicationView.txtFullScreen": "Toàn màn hình",
   "DE.Views.ApplicationView.txtSearch": "Tìm kiếm",
-  "DE.Views.ApplicationView.txtShare": "Chia sẻ"
+  "DE.Views.ApplicationView.txtShare": "Chia sẻ",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó."
 }

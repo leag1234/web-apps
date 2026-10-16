@@ -50,5 +50,6 @@
   "SSE.ApplicationView.txtFullScreen": "Ամբողջ էկրանով",
   "SSE.ApplicationView.txtPrint": "Տպել",
   "SSE.ApplicationView.txtSearch": "Գտնել",
-  "SSE.ApplicationView.txtShare": "Տարածել"
+  "SSE.ApplicationView.txtShare": "Տարածել",
+  "SSE.ApplicationController.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
 }

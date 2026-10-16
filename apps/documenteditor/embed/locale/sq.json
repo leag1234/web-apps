@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Ekran i plotë",
   "DE.ApplicationView.txtPrint": "Printo",
   "DE.ApplicationView.txtSearch": "Zbuloj diçka të fshehur.",
-  "DE.ApplicationView.txtShare": "Shpërndaj"
+  "DE.ApplicationView.txtShare": "Shpërndaj",
+  "DE.ApplicationController.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

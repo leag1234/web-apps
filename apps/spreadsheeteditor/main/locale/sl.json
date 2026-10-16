@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Save as",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Ime datoteke",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Izberite drugo ime datoteke.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excelov delovni zvezek (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Standardna oblika za urejanje in skupno rabo",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Preglednica OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Odprta oblika za druge pisarniške programe",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Samo vrednosti trenutnega lista kot besedilo",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Nespremenljiva postavitev za skupno rabo in tiskanje",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Oblika datoteke",
   "cancelButtonText": "Prekliči",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Opozorilo",
   "Common.define.chartData.textArea": "Ploščinski grafikon",
@@ -1409,5 +1421,7 @@
   "SSE.Views.ViewTab.textHeadings": "Naslovi",
   "SSE.Views.ViewTab.textZoom": "Povečaj",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Nekatere formule, oblikovanje celic ali vdelani predmeti se lahko izgubijo. Želite nadaljevati?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV shrani samo aktivni list kot besedilo, brez oblikovanja ali predmetov. Želite nadaljevati?"
 }

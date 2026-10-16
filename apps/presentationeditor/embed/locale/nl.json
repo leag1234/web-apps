@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Volledig scherm",
   "PE.ApplicationView.txtPrint": "Afdrukken",
   "PE.ApplicationView.txtSearch": "Zoeken",
-  "PE.ApplicationView.txtShare": "Delen"
+  "PE.ApplicationView.txtShare": "Delen",
+  "PE.ApplicationController.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

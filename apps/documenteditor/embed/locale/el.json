@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Πλήρης οθόνη",
   "DE.ApplicationView.txtPrint": "Εκτύπωση",
   "DE.ApplicationView.txtSearch": "Εύρεση",
-  "DE.ApplicationView.txtShare": "Διαμοιρασμός"
+  "DE.ApplicationView.txtShare": "Διαμοιρασμός",
+  "DE.ApplicationController.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

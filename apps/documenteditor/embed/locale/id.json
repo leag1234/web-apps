@@ -64,5 +64,6 @@
   "DE.ApplicationView.txtFullScreen": "Layar penuh",
   "DE.ApplicationView.txtPrint": "Cetak",
   "DE.ApplicationView.txtSearch": "Cari",
-  "DE.ApplicationView.txtShare": "Bagikan"
+  "DE.ApplicationView.txtShare": "Bagikan",
+  "DE.ApplicationController.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
 }

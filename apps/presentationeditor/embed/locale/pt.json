@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Tela cheia",
   "PE.ApplicationView.txtPrint": "Imprimir",
   "PE.ApplicationView.txtSearch": "Pesquisar",
-  "PE.ApplicationView.txtShare": "Compartilhar"
+  "PE.ApplicationView.txtShare": "Compartilhar",
+  "PE.ApplicationController.txtCannotOpenLink": "A referência de link não existe. Corrija o link ou o exclua."
 }

@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Πλήρης οθόνη",
   "VE.ApplicationView.txtPrint": "Εκτύπωση",
   "VE.ApplicationView.txtSearch": "Εύρεση",
-  "VE.ApplicationView.txtShare": "Διαμοιρασμός"
+  "VE.ApplicationView.txtShare": "Διαμοιρασμός",
+  "VE.ApplicationController.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
 }

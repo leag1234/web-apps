@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Volledig scherm",
   "DE.ApplicationView.txtPrint": "Afdrukken",
   "DE.ApplicationView.txtSearch": "Zoek",
-  "DE.ApplicationView.txtShare": "Delen"
+  "DE.ApplicationView.txtShare": "Delen",
+  "DE.ApplicationController.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

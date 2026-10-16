@@ -9,5 +9,6 @@
   "VE.ApplicationController.openErrorText": "Terjadi kesalahan saat membuka berkas.",
   "VE.ApplicationController.textAnonymous": "Anonim",
   "VE.ApplicationController.txtClose": "Tutup",
-  "VE.ApplicationController.txtPressLink": "Klik tautan untuk membukanya"
+  "VE.ApplicationController.txtPressLink": "Klik tautan untuk membukanya",
+  "VE.ApplicationController.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
 }

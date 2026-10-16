@@ -35,5 +35,6 @@
   "DE.Views.ApplicationView.txtFileLocation": "Mестоположението на файла",
   "DE.Views.ApplicationView.txtFullScreen": "Цял екран",
   "DE.Views.ApplicationView.txtPrint": "Отпечатване",
-  "DE.Views.ApplicationView.txtShare": "Дял"
+  "DE.Views.ApplicationView.txtShare": "Дял",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Референтната връзка не съществува. Моля, коригирайте връзката или я изтрийте."
 }

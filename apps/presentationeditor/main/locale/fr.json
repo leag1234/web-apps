@@ -1,4 +1,7 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveName": "Nom de fichier",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Choisissez un autre nom de fichier.",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Format du fichier",
   "PE.Views.ElixirBackstage.txtStorageSaveLead": "Choisissez un format, puis un dossier dans votre espace de stockage.",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Avertissement",
   "Common.Controllers.Desktop.hintBtnHome": "Afficher la Fenêtre Principale",
@@ -3947,5 +3950,6 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "Utilisateur de test (mode développeur)",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Moi ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "Clé API (chiffrée par votre système d’exploitation)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer."
 }

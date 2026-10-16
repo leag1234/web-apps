@@ -48,5 +48,6 @@
   "SSE.ApplicationView.txtFullScreen": "Fullskärm",
   "SSE.ApplicationView.txtPrint": "Skriva ut",
   "SSE.ApplicationView.txtSearch": "Sök",
-  "SSE.ApplicationView.txtShare": "Dela"
+  "SSE.ApplicationView.txtShare": "Dela",
+  "SSE.ApplicationController.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

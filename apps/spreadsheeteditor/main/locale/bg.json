@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Запази като",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Име на файл",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Изберете друго име на файл.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Работна книга на Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Стандартен формат за редактиране и споделяне",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Електронна таблица на OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Отворен формат за други офис приложения",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Само стойностите на текущия лист като текст",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF документ (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Фиксирано оформление за споделяне и печат",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Формат на файла",
   "cancelButtonText": "Отказ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Внимание",
   "Common.define.chartData.textArea": "Площ",
@@ -2257,5 +2269,7 @@
   "SSE.Views.ViewTab.textGridlines": "Мрежови линии",
   "SSE.Views.ViewTab.textLine": "Линия",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Някои формули, форматиране на клетки или вградени обекти може да се загубят. Искате ли да продължите?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV записва само активния лист като текст, без форматиране или обекти. Искате ли да продължите?"
 }

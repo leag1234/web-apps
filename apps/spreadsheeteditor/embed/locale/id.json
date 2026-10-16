@@ -50,5 +50,6 @@
   "SSE.ApplicationView.txtFullScreen": "Layar penuh",
   "SSE.ApplicationView.txtPrint": "Cetak",
   "SSE.ApplicationView.txtSearch": "Cari",
-  "SSE.ApplicationView.txtShare": "Bagikan"
+  "SSE.ApplicationView.txtShare": "Bagikan",
+  "SSE.ApplicationController.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
 }

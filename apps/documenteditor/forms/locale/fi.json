@@ -205,5 +205,6 @@
   "DE.Views.ApplicationView.txtPrint": "Tulosta",
   "DE.Views.ApplicationView.txtSearch": "Hae",
   "DE.Views.ApplicationView.txtShare": "Jaa",
-  "DE.Views.ApplicationView.txtTheme": "Käyttöliittymän teema"
+  "DE.Views.ApplicationView.txtTheme": "Käyttöliittymän teema",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Linkin viittausta ei ole olemassa. Ole hyvä ja korjaa linkki tai poista se."
 }

@@ -1,4 +1,7 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveName": "Dateiname",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Wählen Sie einen anderen Dateinamen.",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Dateiformat",
   "cancelButtonText": "Abbrechen",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Achtung",
   "Common.Controllers.Desktop.hintBtnHome": "Hauptfenster anzeigen",

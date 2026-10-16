@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Na celou obrazovku",
   "SSE.ApplicationView.txtPrint": "Tisk",
   "SSE.ApplicationView.txtSearch": "Najít",
-  "SSE.ApplicationView.txtShare": "Sdílet"
+  "SSE.ApplicationView.txtShare": "Sdílet",
+  "SSE.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

@@ -58,5 +58,6 @@
   "VE.ApplicationView.txtFullScreen": "Full screen",
   "VE.ApplicationView.txtPrint": "Print",
   "VE.ApplicationView.txtSearch": "Find",
-  "VE.ApplicationView.txtShare": "Share"
+  "VE.ApplicationView.txtShare": "Share",
+  "VE.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

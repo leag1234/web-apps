@@ -40,5 +40,6 @@
   "SSE.ApplicationView.txtFullScreen": "Pantalla completa",
   "SSE.ApplicationView.txtPrint": "Imprimir",
   "SSE.ApplicationView.txtSearch": "Buscar",
-  "SSE.ApplicationView.txtShare": "Compartir"
+  "SSE.ApplicationView.txtShare": "Compartir",
+  "SSE.ApplicationController.txtCannotOpenLink": "A referencia da ligazón non existe. Corrixa a ligazón ou elimínaa."
 }

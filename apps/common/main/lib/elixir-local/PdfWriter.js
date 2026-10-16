@@ -9,6 +9,8 @@ define(['common/main/lib/elixir-local/PdfMessages'],function(PdfMessages){
   self.onmessage=async function(event){
    try{
     var job=event.data;
+    function stage(value){if(job.progress===true)self.postMessage({type:'progress',stage:value});}
+    stage('loading-runtime');
     var current=await fetch(job.base+'current.json',{cache:'no-store',credentials:'same-origin'});
     if(!current.ok)throw Error('PDF preservation runtime is unavailable');
     var pin=await current.json();
@@ -29,6 +31,7 @@ define(['common/main/lib/elixir-local/PdfMessages'],function(PdfMessages){
     }
     await checked('x2t.js');var wasm=await checked('x2t.wasm');
     importScripts(runtime+'x2t.js');
+    stage('initializing');
     var mod=await createX2t({noInitialRun:true,wasmBinary:wasm,print:function(){},printErr:function(){}});
     var FS=mod.FS;
     ['/p','/fonts','/tmp/pdf'].forEach(function(dir){FS.mkdirTree(dir);});
@@ -36,6 +39,7 @@ define(['common/main/lib/elixir-local/PdfMessages'],function(PdfMessages){
     if(job.changes)FS.writeFile('/p/changes.bin',job.changes);
     job.fonts.forEach(function(bytes,index){FS.writeFile('/fonts/font'+index+'.ttf',bytes);});
     var exit;
+    stage('converting');
     try{exit=mod.callMain([job.inspect?'--inspect-pdf':'--edit-pdf']);}
     catch(error){if(typeof error.status==='number')exit=error.status;else throw error;}
     var policy=JSON.parse(FS.readFile('/p/policy.json',{encoding:'utf8'}));
@@ -71,11 +75,11 @@ define(['common/main/lib/elixir-local/PdfMessages'],function(PdfMessages){
    try{worker=new Worker(url);}catch(error){URL.revokeObjectURL(url);reject(error);return;}
    var signal=options.signal,timer=setTimeout(function(){finish(Object.assign(Error('PDF preservation timed out'),{reason:'timeout'}));},60000),done=false;
    function finish(error,value){if(done)return;done=true;clearTimeout(timer);worker.terminate();URL.revokeObjectURL(url);if(signal)signal.removeEventListener('abort',cancel);error?reject(error):resolve(value);}
-   function cancel(){finish(Object.assign(Error('PDF saving cancelled'),{reason:'cancelled'}));}
-   worker.onmessage=function(event){var value=event.data;if(!value||value.error)finish(Object.assign(Error(value&&value.error||'Invalid PDF writer response'),{reason:value&&value.reason||'runtime-unavailable'}));else finish(null,value);};
+   function cancel(){finish(Object.assign(Error('PDF saving cancelled'),{reason:'cancelled',code:'cancelled',name:'AbortError'}));}
+   worker.onmessage=function(event){if(done)return;var value=event.data;if(value&&value.type==='progress'){if(['loading-runtime','initializing','converting'].indexOf(value.stage)>=0&&options.onProgress){try{var result=options.onProgress({stage:value.stage});if(result&&result.catch)result.catch(function(){});}catch(_error){}}return;}if(!value||value.error)finish(Object.assign(Error(value&&value.error||'Invalid PDF writer response'),{reason:value&&value.reason||'runtime-unavailable'}));else finish(null,value);};
    worker.onerror=function(event){event.preventDefault();finish(Error('Local PDF preservation failed'));};
    if(signal){signal.addEventListener('abort',cancel,{once:true});if(signal.aborted){cancel();return;}}
-   try{worker.postMessage({base:base,original:new Uint8Array(original),changes:changes&&new Uint8Array(changes),inspect:inspect,fonts:inspect?[]:fonts()});}
+   try{worker.postMessage({base:base,original:new Uint8Array(original),changes:changes&&new Uint8Array(changes),inspect:inspect,progress:typeof options.onProgress==='function',fonts:inspect?[]:fonts()});}
    catch(error){finish(error);}
   });
  }

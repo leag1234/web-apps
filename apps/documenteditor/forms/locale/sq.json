@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Printo",
   "DE.Views.ApplicationView.txtSearch": "Gjej",
   "DE.Views.ApplicationView.txtShare": "Shpërndaj",
-  "DE.Views.ApplicationView.txtTheme": "Temë e ndërfaqes"
+  "DE.Views.ApplicationView.txtTheme": "Temë e ndërfaqes",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Guardar uma cópia PDF que pode perder marcadores, propriedades do documento, proteção por palavra-passe e validade das assinaturas?",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nome do ficheiro",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Escolha outro nome de ficheiro.",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Formato do ficheiro",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Aviso",
   "Common.Controllers.Desktop.hintBtnHome": "Mostrar janela principal",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Criar de um modelo",
@@ -5538,5 +5542,6 @@
   "DE.Views.ContextTabs.txtEditData": "Editar Dados",
   "DE.Views.ContextTabs.txtChangeChartType": "Alterar Tipo de Gráfico",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação."
 }

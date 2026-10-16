@@ -50,5 +50,6 @@
   "SSE.ApplicationView.txtFullScreen": "شاشة كاملة",
   "SSE.ApplicationView.txtPrint": "طباعة",
   "SSE.ApplicationView.txtSearch": "إيجاد",
-  "SSE.ApplicationView.txtShare": "مشاركة"
+  "SSE.ApplicationView.txtShare": "مشاركة",
+  "SSE.ApplicationController.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }

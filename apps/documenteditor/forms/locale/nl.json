@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Afdrukken",
   "DE.Views.ApplicationView.txtSearch": "Zoeken",
   "DE.Views.ApplicationView.txtShare": "Delen",
-  "DE.Views.ApplicationView.txtTheme": "Interfacethema"
+  "DE.Views.ApplicationView.txtTheme": "Interfacethema",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

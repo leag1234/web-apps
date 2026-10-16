@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "שמירה בשם",
+  "SSE.Views.ElixirBackstage.txtSaveName": "שם הקובץ",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "יש לבחור שם קובץ אחר.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "חוברת עבודה של Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "תבנית תקנית לעריכה ולשיתוף",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "גיליון אלקטרוני OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "תבנית פתוחה התואמת ליישומי משרד אחרים",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "ערכי הגיליון הנוכחי בלבד כטקסט",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "מסמך PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "פריסה קבועה לשיתוף ולהדפסה",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "תבנית קובץ",
   "cancelButtonText": "ביטול",
   "Common.Controllers.Chat.notcriticalErrorTitle": "אזהרה",
   "Common.Controllers.Desktop.hintBtnHome": "הצגת חלון ראשי",
@@ -5041,5 +5053,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "הזנת סיסמה כדי לבטל את ההגנה חוברת עבודה",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "חוברת עבודה לא מוגנת",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "ייתכן שחלק מהנוסחאות, מעיצוב התאים או מהאובייקטים המוטבעים יאבדו. להמשיך?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV שומר רק את הגיליון הפעיל כטקסט, ללא עיצוב או אובייקטים. להמשיך?"
 }

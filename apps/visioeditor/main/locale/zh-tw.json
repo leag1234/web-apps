@@ -448,5 +448,6 @@
   "VE.Views.ViewTab.textZoom": "縮放",
   "VE.Views.ViewTab.tipFitPage": "調整至頁面",
   "VE.Views.ViewTab.tipFitWidth": "調整至寬度大小",
-  "VE.Views.ViewTab.tipInterfaceTheme": "介面佈景主題"
+  "VE.Views.ViewTab.tipInterfaceTheme": "介面佈景主題",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。"
 }

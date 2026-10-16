@@ -68,5 +68,6 @@
   "DE.ApplicationView.txtFullScreen": "Celozaslonsko",
   "DE.ApplicationView.txtPrint": "Natisni",
   "DE.ApplicationView.txtSearch": "Iskanje",
-  "DE.ApplicationView.txtShare": "Skupna raba"
+  "DE.ApplicationView.txtShare": "Skupna raba",
+  "DE.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

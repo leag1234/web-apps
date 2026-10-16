@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Menti a PDF-másolatot, amelyből elveszhetnek a könyvjelzők, a dokumentumtulajdonságok, a jelszavas védelem és az aláírások érvényessége?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Mentés másként",
+  "DE.Views.ElixirBackstage.txtSaveName": "Fájl név",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Válasszon másik fájlnevet.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word-dokumentum (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Szabványos formátum szerkesztéshez és megosztáshoz",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument-szöveg (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Nyílt formátum más irodai alkalmazásokhoz",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formázott RTF-szöveg (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Megőrzi az alapvető szövegformázást",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Egyszerű szöveg (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Csak szöveg, formázás nélkül",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokumentum (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Rögzített elrendezés megosztáshoz és nyomtatáshoz",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Fájlformátum",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Figyelmeztetés",
   "Common.Controllers.Desktop.hintBtnHome": "Főablak megjelenítése",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Létrehozás sablonból",
@@ -4374,5 +4389,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} címzett",
   "DE.Controllers.WordMailings.txtMergeError": "Az egyesítés nem hajtható végre.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

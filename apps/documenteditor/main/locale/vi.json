@@ -1,4 +1,15 @@
 {
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Tài liệu Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Định dạng chuẩn để chỉnh sửa và chia sẻ",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Văn bản OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Định dạng mở cho các ứng dụng văn phòng khác",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Văn bản có định dạng RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Giữ định dạng văn bản cơ bản",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Văn bản thuần túy (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Chỉ có văn bản, không có định dạng",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Tài liệu PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Bố cục cố định để chia sẻ và in",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Định dạng tệp",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Cảnh báo",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Nặc danh",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Đóng",
@@ -1783,5 +1794,11 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} người nhận",
   "DE.Controllers.WordMailings.txtMergeError": "Không thể thực hiện phối thư.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó.",
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Lưu bản sao PDF có thể làm mất dấu trang, thuộc tính tài liệu, bảo vệ bằng mật khẩu và tính hợp lệ của chữ ký?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Lưu dưới dạng",
+  "DE.Views.ElixirBackstage.txtSaveName": "Tên tệp",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Chọn tên tệp khác.",
+  "DE.Controllers.LeftMenu.warnDownloadAsRTF": "Một số định dạng có thể bị mất trong bản sao RTF."
 }

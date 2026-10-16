@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Gardar unha copia PDF que pode perder os marcadores, as propiedades do documento, a protección por contrasinal e a validez das sinaturas?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Gardar como",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nome do ficheiro",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Escolla outro nome de ficheiro.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Documento de Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Formato estándar para editar e compartir",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Texto OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Formato aberto para outras aplicacións ofimáticas",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Texto enriquecido RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Conserva o formato básico do texto",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Texto sen formato (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Só texto, sen formato",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Documento PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Deseño fixo para compartir e imprimir",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Formato do ficheiro",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Aviso",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anónimo",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Pechar",
@@ -3030,5 +3045,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} destinatarios",
   "DE.Controllers.WordMailings.txtMergeError": "Non se puido facer a combinación.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "A referencia da ligazón non existe. Corrixa a ligazón ou elimínaa."
 }

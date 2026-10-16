@@ -198,6 +198,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin.",
     "errorCopyCutPaste": "Context menüyü kullanarak yapılacak kopyalama, kesme ve yapıştırma işlemleri sadece bu dosya özelinde yapılabilecektir.",
     "menuAddComment": "Yorum Ekle",
     "menuAddLink": "Bağlantı Ekle",

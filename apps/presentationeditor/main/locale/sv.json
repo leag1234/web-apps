@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Spara som",
+  "PE.Views.ElixirBackstage.txtSaveName": "Filnamn",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Välj ett annat filnamn.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint-presentation (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Standardformat för redigering och delning",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument-presentation (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Öppet format för andra kontorsprogram",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast layout för delning och utskrift",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Varning",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonym",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Stäng",
@@ -2563,5 +2573,6 @@
   "PE.Views.ViewTab.tipInterfaceTheme": "Gränssnittstema",
   "PE.Views.ViewTab.tipSelectTool": "Välj verktyg",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

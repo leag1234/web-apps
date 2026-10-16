@@ -64,5 +64,6 @@
   "DE.ApplicationView.txtFullScreen": "Pantaila osoa",
   "DE.ApplicationView.txtPrint": "Inprimatu",
   "DE.ApplicationView.txtSearch": "Bilatu",
-  "DE.ApplicationView.txtShare": "Partekatu"
+  "DE.ApplicationView.txtShare": "Partekatu",
+  "DE.ApplicationController.txtCannotOpenLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu esteka."
 }

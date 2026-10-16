@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "فل اسکرین",
   "VE.ApplicationView.txtPrint": "پرنٹ",
   "VE.ApplicationView.txtSearch": "تلاش کریں۔",
-  "VE.ApplicationView.txtShare": "بانٹیں"
+  "VE.ApplicationView.txtShare": "بانٹیں",
+  "VE.ApplicationController.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

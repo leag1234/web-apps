@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Save as",
+  "PE.Views.ElixirBackstage.txtSaveName": "Ime datoteke",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Izberite drugo ime datoteke.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPointova predstavitev (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Standardna oblika za urejanje in skupno rabo",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Predstavitev OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Odprta oblika za druge pisarniške programe",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Nespremenljiva postavitev za skupno rabo in tiskanje",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Oblika datoteke",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Opozorilo",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonimno",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Zapri",
@@ -1252,5 +1262,6 @@
   "PE.Views.ViewTab.textAddHGuides": "Dodaj vodoravno vodilno črto",
   "PE.Views.ViewTab.textGridlines": "Mreža",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

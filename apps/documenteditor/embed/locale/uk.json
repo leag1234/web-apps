@@ -56,5 +56,6 @@
   "DE.ApplicationView.txtFullScreen": "Повноекранний режим",
   "DE.ApplicationView.txtPrint": "Друк",
   "DE.ApplicationView.txtSearch": "Пошук",
-  "DE.ApplicationView.txtShare": "Доступ"
+  "DE.ApplicationView.txtShare": "Доступ",
+  "DE.ApplicationController.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
 }

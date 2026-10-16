@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Salvați o copie PDF care poate pierde marcajele, proprietățile documentului, protecția prin parolă și validitatea semnăturilor?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Salvare ca",
+  "DE.Views.ElixirBackstage.txtSaveName": "Numele fișierului",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Alegeți alt nume de fișier.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Document Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Format standard pentru editare și partajare",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Text OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Format deschis pentru alte aplicații de birou",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Text formatat RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Păstrează formatarea de bază a textului",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Text simplu (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Numai text, fără formatare",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Document PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Aspect fix pentru partajare și imprimare",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format fișier",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Avertisment",
   "Common.Controllers.Desktop.hintBtnHome": "Afișare fereastră principală",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Creare model formular",
@@ -4390,5 +4405,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} destinatari",
   "DE.Controllers.WordMailings.txtMergeError": "Îmbinarea nu a putut fi efectuată.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
 }

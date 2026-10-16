@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "فل اسکرین",
   "PE.ApplicationView.txtPrint": "پرنٹ کریں",
   "PE.ApplicationView.txtSearch": "تلاش کریں۔",
-  "PE.ApplicationView.txtShare": "بانٹیں"
+  "PE.ApplicationView.txtShare": "بانٹیں",
+  "PE.ApplicationController.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

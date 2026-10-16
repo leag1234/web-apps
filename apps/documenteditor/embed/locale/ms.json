@@ -49,5 +49,6 @@
   "DE.ApplicationView.txtFullScreen": "Skrin penuh",
   "DE.ApplicationView.txtPrint": "Cetak",
   "DE.ApplicationView.txtSearch": "Carian",
-  "DE.ApplicationView.txtShare": "Kongsi"
+  "DE.ApplicationView.txtShare": "Kongsi",
+  "DE.ApplicationController.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
 }

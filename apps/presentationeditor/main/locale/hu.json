@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Mentés másként",
+  "PE.Views.ElixirBackstage.txtSaveName": "Fájl név",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Válasszon másik fájlnevet.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint-bemutató (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Szabványos formátum szerkesztéshez és megosztáshoz",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument-bemutató (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Nyílt formátum más irodai alkalmazásokhoz",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokumentum (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Rögzített elrendezés megosztáshoz és nyomtatáshoz",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Fájlformátum",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Figyelmeztetés",
   "Common.Controllers.Desktop.hintBtnHome": "Főablak megjelenítése",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Létrehozás sablonból",
@@ -3567,5 +3577,6 @@
   "PE.Views.ViewTab.tipSlideMaster": "Diaminta",
   "PE.Views.ViewTab.tipStopMacro": "Felvétel leállítása",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "A referência de link não existe. Corrija o link ou o exclua.",
     "errorCopyCutPaste": "Copiar, cortar e colar usando o menu de contexto serão aplicadas apenas a este arquivo.",
     "menuAddComment": "Adicionar comentário",
     "menuAddLink": "Adicionar Link",

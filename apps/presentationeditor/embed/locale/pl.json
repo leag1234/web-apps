@@ -54,5 +54,6 @@
   "PE.ApplicationView.txtFullScreen": "Pełny ekran",
   "PE.ApplicationView.txtPrint": "Drukuj",
   "PE.ApplicationView.txtSearch": "Szukaj",
-  "PE.ApplicationView.txtShare": "Udostępnij"
+  "PE.ApplicationView.txtShare": "Udostępnij",
+  "PE.ApplicationController.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go."
 }

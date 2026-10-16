@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Ekran i plotë",
   "VE.ApplicationView.txtPrint": "Printoni",
   "VE.ApplicationView.txtSearch": "Gjej",
-  "VE.ApplicationView.txtShare": "Shpërndaj"
+  "VE.ApplicationView.txtShare": "Shpërndaj",
+  "VE.ApplicationController.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

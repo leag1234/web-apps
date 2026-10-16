@@ -19,5 +19,6 @@
   "DE.ApplicationController.waitText": "Vennligst vent...",
   "DE.ApplicationView.txtDownload": "Last ned",
   "DE.ApplicationView.txtFullScreen": "Fullskjerm",
-  "DE.ApplicationView.txtShare": "Del"
+  "DE.ApplicationView.txtShare": "Del",
+  "DE.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

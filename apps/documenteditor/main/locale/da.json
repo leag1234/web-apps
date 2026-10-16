@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Vil du gemme en PDF-kopi, som kan miste bogmærker, dokumentegenskaber, adgangskodebeskyttelse og gyldige signaturer?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Gem som",
+  "DE.Views.ElixirBackstage.txtSaveName": "Filnavn",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Vælg et andet filnavn.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word-dokument (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standardformat til redigering og deling",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument-tekst (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Åbent format til andre kontorprogrammer",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formateret tekst RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Bevarer grundlæggende tekstformatering",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Almindelig tekst (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Kun tekst uden formatering",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast layout til deling og udskrivning",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Advarsel",
   "Common.Controllers.Desktop.hintBtnHome": "Vis hovedvinduet",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Opret ud fra skabelon",
@@ -4255,5 +4270,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} modtagere",
   "DE.Controllers.WordMailings.txtMergeError": "Brevfletningen kunne ikke gennemføres.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Link referencen eksiterer ikke. Ret linket eller slet det."
 }

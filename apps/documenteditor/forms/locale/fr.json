@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Imprimer",
   "DE.Views.ApplicationView.txtSearch": "Rechercher",
   "DE.Views.ApplicationView.txtShare": "Partager",
-  "DE.Views.ApplicationView.txtTheme": "Thème d’interface"
+  "DE.Views.ApplicationView.txtTheme": "Thème d’interface",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer."
 }

@@ -12,8 +12,9 @@
  */
 define([
     'core',
-    'common/main/lib/elixir-chrome/Icons'
-], function () {
+    'common/main/lib/elixir-chrome/Icons',
+    'common/main/lib/elixir-local/FormatDialog'
+], function (_core, _icons, FormatDialog) {
     'use strict';
 
     var Icons = window.ElixirChromeIcons;
@@ -48,6 +49,7 @@ define([
         txtDownload: 'Download', txtPrint: 'Print', txtShare: 'Share', txtExport: 'Export', txtClose: 'Close', txtOptions: 'Options',
         txtHelp: 'Help', txtBack: 'Back', txtAbout: 'About',
         txtGoodMorning: 'Good morning', txtGoodAfternoon: 'Good afternoon', txtGoodEvening: 'Good evening',
+        txtSaveFormat: 'File format', txtSaveName: 'File name', txtSaveNameInvalid: 'Choose another file name.',
         txtMoreTemplates: 'More templates', txtMoreDocuments: 'More documents', txtRecent: 'Recent', txtName: 'Name', txtModified: 'Date modified',
         txtNoRecent: 'Documents you open recently appear here.', txtNoMatch: 'No document matches your search.',
         txtToday: 'Today, {0}', txtYesterday: 'Yesterday, {0}', txtBlankDocument: 'Blank document',
@@ -140,16 +142,26 @@ define([
 
         patchFileMenu: function () {
             var me = this, fm = this.fm;
-            var show = fm.show, applyMode = fm.applyMode;
+            var show = fm.show, applyMode = fm.applyMode, fireEvent = fm.fireEvent;
 
             // Word opens the backstage on Home
             fm.show = function (panel, opts) {
+                if (panel === 'saveas' && me.isBrowserLocal()) {
+                    return me.showLocalSaveAs();
+                }
                 if (!this.rendered && this.mode && Common.Controllers.LaunchController.isScriptLoaded()) this.render();
                 if (panel === undefined && !this.isVisible() && me.pages && me.pages['elx-home'] && me.isItemVisible('elx-home')) {
                     this.active = undefined;
                     panel = 'elx-home';
                 }
                 return show.call(this, panel, opts);
+            };
+            fm.fireEvent = function (event, args) {
+                var action = event === 'item:click' && args && args[1];
+                if ((action === 'saveas' || action === 'save-desktop') && me.isBrowserLocal()) {
+                    return me.showLocalSaveAs();
+                }
+                return fireEvent.apply(this, arguments);
             };
             fm.applyMode = function () {
                 var res = applyMode.apply(this, arguments);
@@ -670,12 +682,59 @@ define([
             panel.scroller && panel.scroller.update();
         },
 
+        isBrowserLocal: function () {
+            if (!this.mode.isElixirLocal || !Array.isArray(this.mode.localDownloadFormats)) return false;
+            var main = this.ctrl('Main');
+            return !!(main && main.api && main.api.eoLocalSaveAs);
+        },
+
+        showLocalSaveAs: function () {
+            if (this._localSaveAs) return this._localSaveAs;
+            var me = this, main = this.ctrl('Main'), api = main && main.api,
+                capabilities = api && api.eoLocalSaveAs, list = this.formatsFor(['doc', 'pdf', 'other']),
+                fallback = ((this.fm.document && this.fm.document.fileType) || this.defaultFileType).toLowerCase();
+            if (!capabilities || !list.length) return Promise.resolve(null);
+            var preferred = capabilities.sourceFormat;
+            if (!list.some(function(item){return item.ext.slice(1) === preferred;})) preferred = fallback;
+            var dialog = {isVisible:function(){return true;}};
+            Common.NotificationCenter.trigger('modal:show', dialog);
+            this._localSaveAs = Promise.resolve().then(function(){return FormatDialog.chooseFile({
+                title: me.txtSaveAs, label: me.L('txtSaveFormat'), language: capabilities.language,
+                platform: window.AscCommon && AscCommon.AscBrowser.isMacOs ? 'darwin' : undefined,
+                defaultFormat: preferred,
+                formats: list.map(function(item){return {value:item.ext.slice(1),name:me.L(item.name),description:me.L(item.desc)};}),
+                ok: Common.UI.Window.prototype.okButtonText, cancel: Common.UI.Window.prototype.cancelButtonText,
+                fileName: {label:me.L('txtSaveName'),value:capabilities.getName(),error:me.L('txtSaveNameInvalid'),
+                    validate:capabilities.validateName},
+                signal: capabilities.getSignal && capabilities.getSignal()
+            });}).finally(function(){
+                Common.NotificationCenter.trigger('modal:hide', dialog);
+            }).then(function(selected){
+                if (!selected) return null;
+                var format = list.find(function(item){return item.ext.slice(1) === selected.format;});
+                if (!format) return null;
+                capabilities.commitName(selected.name, selected.format);
+                me.ctrl('LeftMenu').clickSaveAsFormat(me.fm, format.type);
+                return selected;
+            }).catch(function(error){
+                if (capabilities.onError) capabilities.onError(error);
+                return null;
+            }).finally(function(){me._localSaveAs = null;});
+            return this._localSaveAs;
+        },
+
         // ---- Save As: the download formats as a Word-like list ----------------------------
 
         enhanceSaveAs: function () {
             var panel = this.fm.panels && this.fm.panels['saveas'], me = this;
             if (!panel || !panel.$el || panel.$el.hasClass('elx-saveas')) return;
             panel.$el.addClass('elx-saveas elx-page');
+            if (this.isBrowserLocal()) {
+                panel.$el.html('<div class="elx-page-inner"><h1 class="header">' + esc(this.txtSaveAs) + '</h1><button type="button" class="btn normal dlg-btn primary" data-local-saveas>' + esc(this.txtSaveAs) + '</button></div>');
+                panel.$el.find('[data-local-saveas]').on('click',function(){me.showLocalSaveAs();});
+                panel.scroller && panel.scroller.update();
+                return;
+            }
             var mode = this.mode || {}, storage = mode.canRequestSaveAs && me.hostConfig().storage;
             var cards = this.formatCards(this.formatsFor(['doc', 'pdf', 'other', 'image']));
             panel.$el.html('<div class="elx-page-inner"><h1 class="header">' + esc(this.txtSaveAs) + '</h1>' +

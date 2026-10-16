@@ -170,6 +170,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia.",
     "errorCopyCutPaste": "Tindakan salin, potong dan tampal menggunakan konteks tindakan menu akan dilakukan dalam tab semasa sahaja.",
     "menuAddComment": "Tambah komen",
     "menuAddLink": "Tambah pautan",

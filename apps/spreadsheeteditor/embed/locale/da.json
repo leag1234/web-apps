@@ -57,5 +57,6 @@
   "SSE.ApplicationView.txtFullScreen": "Fuld skærm",
   "SSE.ApplicationView.txtPrint": "Udskriv",
   "SSE.ApplicationView.txtSearch": "Søg",
-  "SSE.ApplicationView.txtShare": "Del"
+  "SSE.ApplicationView.txtShare": "Del",
+  "SSE.ApplicationController.txtCannotOpenLink": "Link referencen eksiterer ikke. Ret linket eller slet det."
 }

@@ -199,6 +199,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó.",
     "errorCopyCutPaste": "Copy, cut and paste actions using the context menu will be performed within the current file only.",
     "menuAddComment": "Add comment",
     "menuAddLink": "Add link",

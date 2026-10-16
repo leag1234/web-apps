@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Lưu dưới dạng",
+  "PE.Views.ElixirBackstage.txtSaveName": "Tên file",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Chọn tên tệp khác.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Bản trình bày PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Định dạng chuẩn để chỉnh sửa và chia sẻ",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Bản trình bày OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Định dạng mở cho các ứng dụng văn phòng khác",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Tài liệu PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Bố cục cố định để chia sẻ và in",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Định dạng tệp",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Cảnh báo",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Nặc danh",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Đóng",
@@ -1392,5 +1402,6 @@
   "PE.Views.Transitions.txtSec": "s",
   "PE.Views.ViewTab.textZoom": "Thu phóng",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Tham chiếu liên kết không tồn tại. Vui lòng sửa liên kết hoặc xóa nó."
 }

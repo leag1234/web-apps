@@ -1,4 +1,15 @@
 {
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word-dokument (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standardformat for redigering og deling",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument-tekst (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Åpent format for andre kontorprogrammer",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formatert tekst RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Beholder grunnleggende tekstformatering",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Ren tekst (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Bare tekst uten formatering",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast oppsett for deling og utskrift",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Advarsel",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonym",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Lukk",
@@ -1223,5 +1234,12 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} mottakere",
   "DE.Controllers.WordMailings.txtMergeError": "Flettingen kunne ikke gjennomføres.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Vil du lagre en PDF-kopi som kan miste bokmerker, dokumentegenskaper, passordbeskyttelse og gyldige signaturer?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Lagre som",
+  "DE.Views.ElixirBackstage.txtSaveName": "Filnavn",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Velg et annet filnavn.",
+  "DE.Controllers.LeftMenu.warnDownloadAsRTF": "Noe formatering kan gå tapt i RTF-kopien.",
+  "DE.Controllers.LeftMenu.warnDownloadAs": "All formatering og alle andre funksjoner enn tekst går tapt i tekstkopien."
 }

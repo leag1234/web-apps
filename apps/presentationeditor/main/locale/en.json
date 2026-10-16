@@ -1,4 +1,5 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveFormat": "File format",
   "PE.Views.ElixirBackstage.txtStorageSaveLead": "Choose a format, then choose a folder in your storage.",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Warning",
   "Common.Controllers.Desktop.hintBtnHome": "Show Main window",
@@ -3954,5 +3955,8 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "Test user (developer mode)",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Me ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
+  "PE.Views.ElixirBackstage.txtSaveName": "File name",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Choose another file name."
 }

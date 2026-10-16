@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Desar com",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Nom del fitxer",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Trieu un altre nom de fitxer.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Llibre de l'Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Format estàndard per editar i compartir",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Full de càlcul OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Format obert compatible amb altres aplicacions ofimàtiques",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Només els valors del full actual, com a text",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Document PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Disseny fix per compartir i imprimir",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Format del fitxer",
   "cancelButtonText": "Cancel·la",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Advertiment",
   "Common.Controllers.Desktop.hintBtnHome": "Mostra la finestra principal",
@@ -4190,5 +4202,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Introdueix una contrasenya per desprotegir el llibre",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Desprotegeix el llibre de treball",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Es poden perdre algunes fórmules, el format de les cel·les o els objectes incrustats. Voleu continuar?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV només desa el full actiu com a text, sense format ni objectes. Voleu continuar?"
 }

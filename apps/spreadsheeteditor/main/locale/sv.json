@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Spara som",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Filnamn",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Välj ett annat filnamn.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel-arbetsbok (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Standardformat för redigering och delning",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument-kalkylblad (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Öppet format för andra kontorsprogram",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Endast det aktuella bladets värden som text",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast layout för delning och utskrift",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "cancelButtonText": "Avbryt",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Varning",
   "Common.Controllers.History.notcriticalErrorTitle": "Varning",
@@ -3826,5 +3838,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Ange ett lösenord för att låsa upp arbetsbokens skydd",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Lås upp arbetsboken",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Vissa formler, cellformateringar eller inbäddade objekt kan gå förlorade. Vill du fortsätta?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV sparar bara det aktiva bladet som text, utan formatering eller objekt. Vill du fortsätta?"
 }

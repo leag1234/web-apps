@@ -195,9 +195,23 @@ class ContextMenu extends ContextMenuController {
     }
 
     openLink(url) {
+        const internal = typeof url === 'string' && /^ppaction:\/\/(?:hlinkshowjump\?jump=(?:firstslide|lastslide|nextslide|previousslide)|hlinksldjumpslide\d+)$/.test(url);
+        const safeUrl = AscCommon.getSafeHyperlink(url);
+        if (!internal && !safeUrl) {
+            if (url) {
+                const {t} = this.props;
+                const _t = t('ContextMenu', {returnObjects: true});
+                f7.dialog.create({
+                    text: _t.txtCannotOpenLink,
+                    buttons: [{text: _t.textOk || _t.menuCancel, bold: true}]
+                }).open();
+            }
+            return;
+        }
+        if (safeUrl) url = safeUrl;
         if (url) {
             const api = Common.EditorApi.get();
-            if (url.indexOf("ppaction://hlink")>=0) { // internal link
+            if (internal) { // internal link
                 api.asc_GoToInternalHyperlink(url);
             } else {
                 const type = api.asc_getUrlType(url);
@@ -211,7 +225,7 @@ class ContextMenu extends ContextMenuController {
                     const _t = t("ContextMenu", { returnObjects: true });
                     f7.dialog.create({
                         title: t('View.Settings', {returnObjects: true}).notcriticalErrorTitle,
-                        text  : _t.txtWarnUrl.replaceAll('{0}', url),
+                        text  : _t.txtWarnUrl.replaceAll('{0}', Common.Utils.String.htmlEncode(url)),
                         buttons: [
                             { text: _t.menuCancel, bold: true },
                             {

@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "全画面表示",
   "PE.ApplicationView.txtPrint": "印刷する",
   "PE.ApplicationView.txtSearch": "検索",
-  "PE.ApplicationView.txtShare": "シェア"
+  "PE.ApplicationView.txtShare": "シェア",
+  "PE.ApplicationController.txtCannotOpenLink": "リンク参照が存在しません。 リンクを修正するか、ご削除ください。"
 }

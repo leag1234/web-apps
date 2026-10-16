@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Saglabāt kā...",
+  "PE.Views.ElixirBackstage.txtSaveName": "Faila nosaukums",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Izvēlieties citu faila nosaukumu.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint prezentācija (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Standarta formāts rediģēšanai un kopīgošanai",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument prezentācija (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Atvērts formāts citām biroja lietotnēm",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF dokuments (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Fiksēts izkārtojums kopīgošanai un drukāšanai",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Faila formāts",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Brīdinājums",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonīms",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Aizvērt",
@@ -2689,5 +2699,6 @@
   "PE.Views.ViewTab.tipGuides": "Rādīt ceļvežus",
   "PE.Views.ViewTab.tipInterfaceTheme": "Interfeisa tēma",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
 }

@@ -1,4 +1,7 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveName": "Bestandsnaam",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Kies een andere bestandsnaam.",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Bestandsindeling",
   "cancelButtonText": "Annuleren",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Waarschuwing",
   "Common.Controllers.History.notcriticalErrorTitle": "Waarschuwing",

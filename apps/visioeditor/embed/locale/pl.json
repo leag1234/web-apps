@@ -52,5 +52,6 @@
   "VE.ApplicationView.txtFullScreen": "Pełny ekran",
   "VE.ApplicationView.txtPrint": "Drukuj",
   "VE.ApplicationView.txtSearch": "Szukaj",
-  "VE.ApplicationView.txtShare": "Udostępnij"
+  "VE.ApplicationView.txtShare": "Udostępnij",
+  "VE.ApplicationController.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go."
 }

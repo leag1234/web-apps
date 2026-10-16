@@ -1,4 +1,5 @@
 {
+  "DE.Views.ElixirBackstage.txtSaveFormat": "File format",
   "DE.Views.ElixirBackstage.txtStorageSaveLead": "Choose a format, then choose a folder in your storage.",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Warning",
   "Common.Controllers.Desktop.hintBtnHome": "Show main window",
@@ -2887,7 +2888,6 @@
   "DE.Views.DocumentHolder.textStandardError": "Standard Error",
   "DE.Views.DocumentHolder.textStartNewList": "Start new list",
   "DE.Views.DocumentHolder.textStartNumberingFrom": "Set numbering value",
-  "DE.Views.DocumentHolder.textStretchControl": "Resize to cell",
   "DE.Views.DocumentHolder.textTitleCellsRemove": "Delete cells",
   "DE.Views.DocumentHolder.textTOC": "Table of contents",
   "DE.Views.DocumentHolder.textTOCSettings": "Table of contents settings",
@@ -5389,7 +5389,7 @@
   "DE.Views.PasteSpecialDialog.textFormatted": "Formatted text (keep source formatting)",
   "DE.Views.PasteSpecialDialog.textMerge": "Merge formatting",
   "DE.Views.PasteSpecialDialog.textUnformatted": "Unformatted text",
-  "DE.Views.PasteSpecialDialog.textPicture": "Picture",
+  "DE.Views.PasteSpecialDialog.textPicture": "Picture",
   "Common.Controllers.ElixirBrowserKeys.txtTitle": "Keyboard shortcuts in the browser",
   "Common.Controllers.ElixirBrowserKeys.txtIntro": "Browsers keep some shortcuts for themselves (tabs and windows), so a web page never receives them. Use the alternatives below.",
   "Common.Controllers.ElixirBrowserKeys.txtKey": "Browser key",
@@ -5555,5 +5555,9 @@
   "DE.Views.Statusbar.textTrackChanges": "Track Changes",
   "DE.Views.Statusbar.textChangesPanel": "Changes panel",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Save a PDF copy that may lose bookmarks, document properties, password protection and signature validity?",
+  "DE.Views.ElixirBackstage.txtSaveName": "File name",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Choose another file name."
 }

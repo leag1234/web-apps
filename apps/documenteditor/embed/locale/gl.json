@@ -52,5 +52,6 @@
   "DE.ApplicationView.txtFullScreen": "Pantalla completa",
   "DE.ApplicationView.txtPrint": "Imprimir",
   "DE.ApplicationView.txtSearch": "Buscar",
-  "DE.ApplicationView.txtShare": "Compartir"
+  "DE.ApplicationView.txtShare": "Compartir",
+  "DE.ApplicationController.txtCannotOpenLink": "A referencia da ligazón non existe. Corrixa a ligazón ou elimínaa."
 }

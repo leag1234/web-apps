@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Schermo intero",
   "DE.ApplicationView.txtPrint": "Stampa",
   "DE.ApplicationView.txtSearch": "Trova",
-  "DE.ApplicationView.txtShare": "Condividi"
+  "DE.ApplicationView.txtShare": "Condividi",
+  "DE.ApplicationController.txtCannotOpenLink": "Il collegamento a cui si fa riferimento non esiste. Correggere il collegamento o rimuoverlo."
 }

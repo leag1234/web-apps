@@ -379,6 +379,12 @@ define([
         },
 
         onHyperlinkClick: function(url) {
+            var safeUrl = AscCommon.getSafeHyperlink(url);
+            if (!safeUrl) {
+                if (url) Common.UI.alert({msg: this.documentHolder.txtCannotOpenLink});
+                return;
+            }
+            url = safeUrl;
             if (url) {
                 var type = this.api.asc_getUrlType(url);
                 if (type===AscCommon.c_oAscUrlType.Http || type===AscCommon.c_oAscUrlType.Email)
@@ -388,7 +394,7 @@ define([
                     setTimeout(function() {
                         Common.UI.warning({
                             maxwidth: 500,
-                            msg: Common.Utils.String.format(this.txtWarnUrl, url),
+                            msg: Common.Utils.String.format(me.txtWarnUrl, Common.Utils.String.htmlEncode(url)),
                             buttons: ['no', 'yes'],
                             primary: 'no',
                             callback: function(btn) {

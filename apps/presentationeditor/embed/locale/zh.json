@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "全屏",
   "PE.ApplicationView.txtPrint": "打印",
   "PE.ApplicationView.txtSearch": "搜索",
-  "PE.ApplicationView.txtShare": "分享"
+  "PE.ApplicationView.txtShare": "分享",
+  "PE.ApplicationController.txtCannotOpenLink": "链接引用不存在。请更正链接或删除。"
 }

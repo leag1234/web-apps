@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Əlfəcinləri, sənəd xüsusiyyətlərini, parol qorunmasını və imzaların etibarlılığını itirə bilən PDF surəti saxlanılsın?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "kimi yadda saxla",
+  "DE.Views.ElixirBackstage.txtSaveName": "Fayl adı",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Başqa fayl adı seçin.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word sənədi (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Redaktə və paylaşma üçün standart format",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument mətni (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Digər ofis proqramları ilə uyğun açıq format",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "RTF formatlı mətn (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Əsas mətn formatını saxlayır",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Adi mətn (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Yalnız mətn, formatlaşdırma olmadan",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF sənədi (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Paylaşma və çap üçün sabit tərtibat",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Fayl formatı",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Xəbərdarlıq",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonim",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Bağla",
@@ -2787,5 +2802,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} alıcı",
   "DE.Controllers.WordMailings.txtMergeError": "Birləşdirmə aparıla bilmədi.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Keçid istinadı mövcud deyil. Zəhmət olmasa keçidi düzəldin və ya silin."
 }

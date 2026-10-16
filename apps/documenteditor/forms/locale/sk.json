@@ -165,5 +165,6 @@
   "DE.Views.ApplicationView.txtFullScreen": "Celá obrazovka",
   "DE.Views.ApplicationView.txtPrint": "Tlačiť",
   "DE.Views.ApplicationView.txtShare": "Zdieľať",
-  "DE.Views.ApplicationView.txtTheme": "Téma rozhrania"
+  "DE.Views.ApplicationView.txtTheme": "Téma rozhrania",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte."
 }

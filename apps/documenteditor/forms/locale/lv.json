@@ -180,5 +180,6 @@
   "DE.Views.ApplicationView.txtPrint": "Printēt",
   "DE.Views.ApplicationView.txtSearch": "Meklēt",
   "DE.Views.ApplicationView.txtShare": "Dalīties",
-  "DE.Views.ApplicationView.txtTheme": "Interfeisa tēma"
+  "DE.Views.ApplicationView.txtTheme": "Interfeisa tēma",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
 }

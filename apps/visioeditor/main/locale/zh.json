@@ -477,5 +477,6 @@
   "VE.Views.ViewTab.textZoom": "缩放",
   "VE.Views.ViewTab.tipFitPage": "适合页面",
   "VE.Views.ViewTab.tipFitWidth": "适应宽度",
-  "VE.Views.ViewTab.tipInterfaceTheme": "界面主题"
+  "VE.Views.ViewTab.tipInterfaceTheme": "界面主题",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "链接引用不存在。请更正链接或删除。"
 }

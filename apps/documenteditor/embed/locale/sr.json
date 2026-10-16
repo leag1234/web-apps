@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Prikaz celog ekrana",
   "DE.ApplicationView.txtPrint": "Štampaj",
   "DE.ApplicationView.txtSearch": "Pretraga",
-  "DE.ApplicationView.txtShare": "Podeli"
+  "DE.ApplicationView.txtShare": "Podeli",
+  "DE.ApplicationController.txtCannotOpenLink": "Referenca linka ne postoji. Molimo vas ispravite link ili ga izbrišite."
 }

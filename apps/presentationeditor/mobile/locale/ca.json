@@ -65,6 +65,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Enllaç trencat. Corregeix l'enllaç o suprimeix-lo.",
     "errorCopyCutPaste": "Les accions de copiar, tallar i enganxar mitjançant el menú contextual només es realitzaran en el fitxer actual.",
     "menuAddComment": "Afegeix un comentari",
     "menuAddLink": "Afegir un enllaç",

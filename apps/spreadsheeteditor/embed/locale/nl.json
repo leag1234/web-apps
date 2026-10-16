@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Volledig scherm",
   "SSE.ApplicationView.txtPrint": "Afdrukken",
   "SSE.ApplicationView.txtSearch": "Zoeken",
-  "SSE.ApplicationView.txtShare": "Delen"
+  "SSE.ApplicationView.txtShare": "Delen",
+  "SSE.ApplicationController.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

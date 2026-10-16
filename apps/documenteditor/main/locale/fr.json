@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Enregistrer une copie PDF pouvant perdre les signets, les propriétés du document, la protection par mot de passe et la validité des signatures ?",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nom de fichier",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Choisissez un autre nom de fichier.",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format du fichier",
   "DE.Views.ElixirBackstage.txtStorageSaveLead": "Choisissez un format, puis un dossier dans votre espace de stockage.",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Avertissement",
   "Common.Controllers.Desktop.hintBtnHome": "Afficher la fenêtre principale",
@@ -5554,5 +5558,6 @@
   "DE.Views.Statusbar.textTrackChanges": "Suivi des modifications",
   "DE.Views.Statusbar.textChangesPanel": "Volet Vérification",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "Clé API (chiffrée par votre système d’exploitation)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer."
 }

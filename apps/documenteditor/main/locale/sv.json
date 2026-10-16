@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Vill du spara en PDF-kopia som kan förlora bokmärken, dokumentegenskaper, lösenordsskydd och giltiga signaturer?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Spara som",
+  "DE.Views.ElixirBackstage.txtSaveName": "Filnamn",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Välj ett annat filnamn.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word-dokument (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standardformat för redigering och delning",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument-text (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Öppet format för andra kontorsprogram",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formaterad text RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Behåller grundläggande textformatering",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Oformaterad text (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Endast text utan formatering",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF-dokument (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Fast layout för delning och utskrift",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Filformat",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Varning",
   "Common.Controllers.Desktop.hintBtnHome": "Visa huvudfönstret",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anonym",
@@ -3551,5 +3566,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} mottagare",
   "DE.Controllers.WordMailings.txtMergeError": "Sammanslagningen kunde inte genomföras.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

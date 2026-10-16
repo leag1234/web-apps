@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Plein écran",
   "VE.ApplicationView.txtPrint": "Imprimer",
   "VE.ApplicationView.txtSearch": "Rechercher",
-  "VE.ApplicationView.txtShare": "Partager"
+  "VE.ApplicationView.txtShare": "Partager",
+  "VE.ApplicationController.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer."
 }

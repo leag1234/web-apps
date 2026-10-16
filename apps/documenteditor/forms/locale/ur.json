@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "پرنٹ کریں",
   "DE.Views.ApplicationView.txtSearch": "تلاش کریں۔",
   "DE.Views.ApplicationView.txtShare": "بانٹیں",
-  "DE.Views.ApplicationView.txtTheme": "انٹرفیس تھیم"
+  "DE.Views.ApplicationView.txtTheme": "انٹرفیس تھیم",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

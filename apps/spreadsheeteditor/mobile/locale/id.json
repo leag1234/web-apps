@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link.",
     "errorCopyCutPaste": "Copy, cut, dan paste hanya akan dilakukan di file ini",
     "errorInvalidLink": "Link referensi tidak ada. Silakan koreksi atau hapus link.",
     "menuAddComment": "Tambah Komentar",

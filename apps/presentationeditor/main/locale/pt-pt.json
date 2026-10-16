@@ -1,4 +1,7 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveName": "Nome do ficheiro",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Escolha outro nome de ficheiro.",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Formato do ficheiro",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Aviso",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Anônimo",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Fechar",
@@ -2827,5 +2830,6 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "Utilizador de teste (modo de programador)",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Eu ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação."
 }

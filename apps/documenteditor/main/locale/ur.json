@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "کیا ایسی PDF نقل محفوظ کی جائے جس میں بُک مارکس، دستاویز کی خصوصیات، پاس ورڈ کا تحفظ اور دستخطوں کی درستگی ضائع ہو سکتی ہے؟",
+  "DE.Views.ElixirBackstage.txtSaveAs": "بطور محفوظ کریں۔",
+  "DE.Views.ElixirBackstage.txtSaveName": "فائل کا نام",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "فائل کا کوئی اور نام منتخب کریں۔",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Word دستاویز (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "ترمیم اور اشتراک کے لیے معیاری فارمیٹ",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "OpenDocument متن (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "دوسری دفتری ایپس کے لیے کھلا فارمیٹ",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "RTF وضع کردہ متن (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "متن کی بنیادی وضع برقرار رکھتا ہے",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "سادہ متن (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "صرف متن، بغیر وضع بندی کے",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "PDF دستاویز (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "اشتراک اور طباعت کے لیے مقررہ ترتیب",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "فائل کا فارمیٹ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "انتباہ",
   "Common.Controllers.Desktop.hintBtnHome": "مین ونڈو دکھائیں۔",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "ٹیمپلیٹ سے تخلیق کریں۔",
@@ -4390,5 +4405,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} وصول کنندگان",
   "DE.Controllers.WordMailings.txtMergeError": "مرج انجام نہیں دیا جا سکا۔",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

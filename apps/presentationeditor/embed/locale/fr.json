@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "Plein écran",
   "PE.ApplicationView.txtPrint": "Imprimer",
   "PE.ApplicationView.txtSearch": "Rechercher",
-  "PE.ApplicationView.txtShare": "Partager"
+  "PE.ApplicationView.txtShare": "Partager",
+  "PE.ApplicationController.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer."
 }

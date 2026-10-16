@@ -1,4 +1,7 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveName": "Nazwa pliku",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Wybierz inną nazwę pliku.",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Format pliku",
   "cancelButtonText": "Anuluj",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Ostrzeżenie",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Utwórz z szablonu",

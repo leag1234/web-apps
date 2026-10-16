@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "بطور محفوظ کریں۔",
+  "PE.Views.ElixirBackstage.txtSaveName": "فائل کا نام",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "فائل کا کوئی اور نام منتخب کریں۔",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint پیشکش (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "ترمیم اور اشتراک کے لیے معیاری فارمیٹ",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument پیشکش (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "دوسری دفتری ایپس کے لیے کھلا فارمیٹ",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF دستاویز (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "اشتراک اور طباعت کے لیے مقررہ ترتیب",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "فائل کا فارمیٹ",
   "Common.Controllers.Chat.notcriticalErrorTitle": "انتباہ",
   "Common.Controllers.Desktop.hintBtnHome": "مین ونڈو دکھائیں۔",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "ٹیمپلیٹ سے تخلیق کریں۔",
@@ -3567,5 +3577,6 @@
   "PE.Views.ViewTab.tipSlideMaster": "سلائیڈ ماسٹر",
   "PE.Views.ViewTab.tipStopMacro": "ریکارڈنگ بند کرو",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "لنک کا حوالہ موجود نہیں ہے۔ براہ کرم لنک کو درست کریں یا اسے حذف کریں۔"
 }

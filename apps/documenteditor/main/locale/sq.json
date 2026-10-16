@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Të ruhet një kopje PDF që mund të humbasë faqeshënuesit, vetitë e dokumentit, mbrojtjen me fjalëkalim dhe vlefshmërinë e nënshkrimeve?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Ruaj si",
+  "DE.Views.ElixirBackstage.txtSaveName": "Emri i skedarit",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Zgjidhni një emër tjetër skedari.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Dokument Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Format standard për redaktim dhe ndarje",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Tekst OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Format i hapur për aplikacione të tjera zyre",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Tekst i formatuar RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Ruan formatimin bazë të tekstit",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Tekst i thjeshtë (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Vetëm tekst, pa formatim",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Paraqitje fikse për ndarje dhe printim",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Formati i skedarit",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Paralajmërim",
   "Common.Controllers.Desktop.hintBtnHome": "Shfaqni dritaren kryesore",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Krijo nga shablloni",
@@ -4389,5 +4404,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} marrës",
   "DE.Controllers.WordMailings.txtMergeError": "Bashkimi nuk u krye dot.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

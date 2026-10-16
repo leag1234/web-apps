@@ -70,5 +70,6 @@
   "DE.ApplicationView.txtFullScreen": "Koko näyttö",
   "DE.ApplicationView.txtPrint": "Tulosta",
   "DE.ApplicationView.txtSearch": "Hae",
-  "DE.ApplicationView.txtShare": "Jaa"
+  "DE.ApplicationView.txtShare": "Jaa",
+  "DE.ApplicationController.txtCannotOpenLink": "Linkin viittausta ei ole olemassa. Ole hyvä ja korjaa linkki tai poista se."
 }

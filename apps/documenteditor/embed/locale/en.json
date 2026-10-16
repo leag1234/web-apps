@@ -75,5 +75,6 @@
   "DE.ApplicationView.txtFullScreen": "Full screen",
   "DE.ApplicationView.txtPrint": "Print",
   "DE.ApplicationView.txtSearch": "Find",
-  "DE.ApplicationView.txtShare": "Share"
+  "DE.ApplicationView.txtShare": "Share",
+  "DE.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

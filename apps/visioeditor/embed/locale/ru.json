@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Во весь экран",
   "VE.ApplicationView.txtPrint": "Печать",
   "VE.ApplicationView.txtSearch": "Поиск",
-  "VE.ApplicationView.txtShare": "Поделиться"
+  "VE.ApplicationView.txtShare": "Поделиться",
+  "VE.ApplicationController.txtCannotOpenLink": "Ссылка указывает на несуществующую ячейку. Исправьте или удалите ссылку."
 }

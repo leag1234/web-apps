@@ -34,5 +34,6 @@
   "PE.ApplicationView.txtFileLocation": "Відкрити розташування файлу",
   "PE.ApplicationView.txtFullScreen": "Повноекранний режим",
   "PE.ApplicationView.txtPrint": "Друк",
-  "PE.ApplicationView.txtShare": "Доступ"
+  "PE.ApplicationView.txtShare": "Доступ",
+  "PE.ApplicationController.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
 }

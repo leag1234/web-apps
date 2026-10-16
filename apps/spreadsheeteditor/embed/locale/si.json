@@ -50,5 +50,6 @@
   "SSE.ApplicationView.txtFullScreen": "පූර්ණ තිරය",
   "SSE.ApplicationView.txtPrint": "මුද්‍රණය කරන්න",
   "SSE.ApplicationView.txtSearch": "සොයන්න",
-  "SSE.ApplicationView.txtShare": "බෙදාගන්න"
+  "SSE.ApplicationView.txtShare": "බෙදාගන්න",
+  "SSE.ApplicationController.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

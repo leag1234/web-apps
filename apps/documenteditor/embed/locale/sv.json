@@ -64,5 +64,6 @@
   "DE.ApplicationView.txtFullScreen": "Helskärm",
   "DE.ApplicationView.txtPrint": "Skriv ut",
   "DE.ApplicationView.txtSearch": "Sök",
-  "DE.ApplicationView.txtShare": "Dela"
+  "DE.ApplicationView.txtShare": "Dela",
+  "DE.ApplicationController.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Tisk",
   "DE.Views.ApplicationView.txtSearch": "Najít",
   "DE.Views.ApplicationView.txtShare": "Sdílet",
-  "DE.Views.ApplicationView.txtTheme": "Vzhled uživatelského rozhraní"
+  "DE.Views.ApplicationView.txtTheme": "Vzhled uživatelského rozhraní",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

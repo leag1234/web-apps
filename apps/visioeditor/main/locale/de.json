@@ -477,5 +477,6 @@
   "VE.Views.ViewTab.textZoom": "Zoom",
   "VE.Views.ViewTab.tipFitPage": "Seite anpassen",
   "VE.Views.ViewTab.tipFitWidth": "Breite anpassen",
-  "VE.Views.ViewTab.tipInterfaceTheme": "Thema der Benutzeroberfläche"
+  "VE.Views.ViewTab.tipInterfaceTheme": "Thema der Benutzeroberfläche",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

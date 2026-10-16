@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Teljes képernyő",
   "VE.ApplicationView.txtPrint": "Nyomtatás",
   "VE.ApplicationView.txtSearch": "Keresés",
-  "VE.ApplicationView.txtShare": "Megosztás"
+  "VE.ApplicationView.txtShare": "Megosztás",
+  "VE.ApplicationController.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

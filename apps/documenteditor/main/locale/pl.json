@@ -1,4 +1,8 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Zapisać kopię PDF, która może utracić zakładki, właściwości dokumentu, ochronę hasłem i ważność podpisów?",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nazwa pliku",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Wybierz inną nazwę pliku.",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format pliku",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Ostrzeżenie",
   "Common.Controllers.Desktop.hintBtnHome": "Pokaż główne okno",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Utwórz z szablonu",
@@ -5538,5 +5542,6 @@
   "DE.Views.ContextTabs.txtEditData": "Edytuj dane",
   "DE.Views.ContextTabs.txtChangeChartType": "Zmień typ wykresu",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go."
 }

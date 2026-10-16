@@ -71,5 +71,6 @@
   "DE.ApplicationView.txtFullScreen": "ملء الشاشة",
   "DE.ApplicationView.txtPrint": "طباعة",
   "DE.ApplicationView.txtSearch": "إيجاد",
-  "DE.ApplicationView.txtShare": "مشاركة"
+  "DE.ApplicationView.txtShare": "مشاركة",
+  "DE.ApplicationController.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }

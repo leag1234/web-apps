@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "El enlace no existe. Por favor, corrija o elimine el enlace.",
     "errorCopyCutPaste": "Las acciones de copiar, cortar y pegar utilizando el menú contextual se realizarán sólo dentro del archivo actual.",
     "errorInvalidLink": "La referencia del enlace no existe. Por favor, corrija o elimine el enlace.",
     "menuAddComment": "Agregar comentario",

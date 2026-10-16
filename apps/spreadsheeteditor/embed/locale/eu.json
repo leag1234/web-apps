@@ -48,5 +48,6 @@
   "SSE.ApplicationView.txtFullScreen": "Pantaila osoa",
   "SSE.ApplicationView.txtPrint": "Inprimatu",
   "SSE.ApplicationView.txtSearch": "Bilatu",
-  "SSE.ApplicationView.txtShare": "Partekatu"
+  "SSE.ApplicationView.txtShare": "Partekatu",
+  "SSE.ApplicationController.txtCannotOpenLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu esteka."
 }

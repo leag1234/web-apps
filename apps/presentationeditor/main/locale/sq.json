@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Ruaj si",
+  "PE.Views.ElixirBackstage.txtSaveName": "Emri i skedarit",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Zgjidhni një emër tjetër skedari.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "Prezantim PowerPoint (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Format standard për redaktim dhe ndarje",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "Prezantim OpenDocument (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Format i hapur për aplikacione të tjera zyre",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Paraqitje fikse për ndarje dhe printim",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Formati i skedarit",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Paralajmërim",
   "Common.Controllers.Desktop.hintBtnHome": "Shfaqni dritaren kryesore",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Krijo nga shablloni",
@@ -3567,5 +3577,6 @@
   "PE.Views.ViewTab.tipSlideMaster": "Slajdi master",
   "PE.Views.ViewTab.tipStopMacro": "Ndalo regjistrimin",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

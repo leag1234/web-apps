@@ -477,5 +477,6 @@
   "VE.Views.ViewTab.textZoom": "Zmadhoj",
   "VE.Views.ViewTab.tipFitPage": "Përshtatet me faqen",
   "VE.Views.ViewTab.tipFitWidth": "Përshtatet me gjerësinë",
-  "VE.Views.ViewTab.tipInterfaceTheme": "Temë e ndërfaqes"
+  "VE.Views.ViewTab.tipInterfaceTheme": "Temë e ndërfaqes",
+  "VE.Views.DocumentHolder.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Voleu desar una còpia PDF que pot perdre les adreces d'interès, les propietats del document, la protecció amb contrasenya i la validesa de les signatures?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Desar com",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nom del fitxer",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Trieu un altre nom de fitxer.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Document del Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Format estàndard per editar i compartir",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Text OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Format obert compatible amb altres aplicacions ofimàtiques",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Text enriquit RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Conserva el format bàsic del text",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Text sense format (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Només text, sense format",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Document PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Disseny fix per compartir i imprimir",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format del fitxer",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Advertiment",
   "Common.Controllers.Desktop.hintBtnHome": "Mostra la finestra principal",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Crea a partir de la plantilla",
@@ -3547,5 +3562,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} destinataris",
   "DE.Controllers.WordMailings.txtMergeError": "No s'ha pogut fer la combinació.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Enllaç trencat. Corregeix l'enllaç o suprimeix-lo."
 }

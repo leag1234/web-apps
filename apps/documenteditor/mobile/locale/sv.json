@@ -84,6 +84,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den.",
     "menuAddComment": "Lägg till kommentar",
     "menuAddLink": "Lägg till länk",
     "menuCancel": "Avbryt",

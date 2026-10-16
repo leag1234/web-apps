@@ -152,5 +152,6 @@
   "DE.Views.ApplicationView.txtFileLocation": "Перайсці да дакументаў",
   "DE.Views.ApplicationView.txtFullScreen": "Поўнаэкранны рэжым",
   "DE.Views.ApplicationView.txtPrint": "Друк",
-  "DE.Views.ApplicationView.txtShare": "Падзяліцца"
+  "DE.Views.ApplicationView.txtShare": "Падзяліцца",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Спасылка паказвае на ячэйку, якая не існуе. Выпраўце ці выдаліце спасылку."
 }

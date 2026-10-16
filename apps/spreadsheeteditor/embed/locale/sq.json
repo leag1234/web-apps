@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Ekran i plotë",
   "SSE.ApplicationView.txtPrint": "Printo",
   "SSE.ApplicationView.txtSearch": "Gjej",
-  "SSE.ApplicationView.txtShare": "Shpërndaj"
+  "SSE.ApplicationView.txtShare": "Shpërndaj",
+  "SSE.ApplicationController.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
 }

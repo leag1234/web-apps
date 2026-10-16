@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Simpan Sebagai",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Nama file",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Pilih nama file lain.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Buku kerja Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Format standar untuk mengedit dan berbagi",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Lembar bentang OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Format terbuka untuk aplikasi perkantoran lain",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Hanya nilai lembar aktif, sebagai teks",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Dokumen PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Tata letak tetap untuk berbagi dan mencetak",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Format berkas",
   "cancelButtonText": "Batalkan",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Peringatan",
   "Common.Controllers.Desktop.hintBtnHome": "Tampilkan Jendela utama",
@@ -4311,5 +4323,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Masukkan password untuk membuka proteksi workbook",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Buka Proteksi Workbook",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Sebagian rumus, pemformatan sel, atau objek tersemat mungkin hilang. Lanjutkan?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV hanya menyimpan lembar aktif sebagai teks, tanpa pemformatan atau objek. Lanjutkan?"
 }

@@ -54,5 +54,6 @@
   "PE.ApplicationView.txtFullScreen": "Լիէկրան",
   "PE.ApplicationView.txtPrint": "Տպել",
   "PE.ApplicationView.txtSearch": "Գտնել",
-  "PE.ApplicationView.txtShare": "Տարածել"
+  "PE.ApplicationView.txtShare": "Տարածել",
+  "PE.ApplicationController.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
 }

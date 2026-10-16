@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Gorde honela",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Fitxategi-izena",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Aukeratu beste fitxategi-izen bat.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Excel lan-liburua (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Editatzeko eta partekatzeko formatu estandarra",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "OpenDocument kalkulu-orria (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Beste bulego-aplikazioekin bateragarria den formatu irekia",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Uneko orriko balioak soilik, testu gisa",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "PDF dokumentua (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Partekatze eta inprimatzerako diseinu finkoa",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Fitxategi-formatua",
   "cancelButtonText": "Utzi",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Abisua",
   "Common.Controllers.Desktop.hintBtnHome": "Erakutsi leiho nagusia",
@@ -4285,5 +4297,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Idatzi pasahitza laneko liburuari babesa kentzeko",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Kendu babesa laneko liburuari",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Formula batzuk, gelaxken formatua edo kapsulatutako objektuak gal daitezke. Jarraitu nahi duzu?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV formatuak orri aktiboa soilik gordetzen du testu gisa, formaturik eta objekturik gabe. Jarraitu nahi duzu?"
 }

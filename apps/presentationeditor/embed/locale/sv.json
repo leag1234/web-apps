@@ -48,5 +48,6 @@
   "PE.ApplicationView.txtFullScreen": "Helskärm",
   "PE.ApplicationView.txtPrint": "Skriv ut",
   "PE.ApplicationView.txtSearch": "Sök",
-  "PE.ApplicationView.txtShare": "Dela"
+  "PE.ApplicationView.txtShare": "Dela",
+  "PE.ApplicationController.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

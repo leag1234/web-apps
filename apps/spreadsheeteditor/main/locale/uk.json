@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Зберегти як",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Ім'я файлу",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Виберіть інше ім’я файлу.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Книга Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Стандартний формат для редагування та обміну",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Таблиця OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Відкритий формат для інших офісних програм",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Лише значення поточного аркуша як текст",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Документ PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Фіксований макет для обміну та друку",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Формат файлу",
   "cancelButtonText": "Скасувати",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Застереження",
   "Common.Controllers.History.notcriticalErrorTitle": "Увага",
@@ -3963,5 +3975,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Введіть пароль для вимкнення захисту книги",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Зняти захист книги",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Деякі формули, форматування клітинок або вбудовані об’єкти можуть бути втрачені. Продовжити?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV зберігає лише активний аркуш як текст, без форматування та об’єктів. Продовжити?"
 }

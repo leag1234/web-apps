@@ -27,6 +27,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt.",
     "menuCancel": "Mégse",
     "textOk": "OK"
   },

@@ -55,5 +55,6 @@
   "PE.ApplicationView.txtFullScreen": "전체 화면",
   "PE.ApplicationView.txtPrint": "인쇄",
   "PE.ApplicationView.txtSearch": "찾기",
-  "PE.ApplicationView.txtShare": "공유"
+  "PE.ApplicationView.txtShare": "공유",
+  "PE.ApplicationController.txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오."
 }

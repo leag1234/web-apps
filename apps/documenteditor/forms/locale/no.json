@@ -1,3 +1,4 @@
 {
-  "DE.Views.ApplicationView.txtPrint": "Skriv ut"
+  "DE.Views.ApplicationView.txtPrint": "Skriv ut",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

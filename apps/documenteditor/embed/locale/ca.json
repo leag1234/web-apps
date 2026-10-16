@@ -71,5 +71,6 @@
   "DE.ApplicationView.txtFullScreen": "Pantalla sencera",
   "DE.ApplicationView.txtPrint": "Imprimir",
   "DE.ApplicationView.txtSearch": "Cercar",
-  "DE.ApplicationView.txtShare": "Compartir"
+  "DE.ApplicationView.txtShare": "Compartir",
+  "DE.ApplicationController.txtCannotOpenLink": "Enllaç trencat. Corregeix l'enllaç o suprimeix-lo."
 }

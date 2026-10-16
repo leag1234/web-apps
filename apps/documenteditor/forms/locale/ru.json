@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Печать",
   "DE.Views.ApplicationView.txtSearch": "Поиск",
   "DE.Views.ApplicationView.txtShare": "Поделиться",
-  "DE.Views.ApplicationView.txtTheme": "Тема интерфейса"
+  "DE.Views.ApplicationView.txtTheme": "Тема интерфейса",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Ссылка указывает на несуществующую ячейку. Исправьте или удалите ссылку."
 }

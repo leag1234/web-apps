@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Simpan salinan PDF yang mungkin kehilangan penanda buku, sifat dokumen, perlindungan kata laluan dan kesahan tandatangan?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Simpan sebagai",
+  "DE.Views.ElixirBackstage.txtSaveName": "Nama Fail",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Pilih nama fail lain.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Dokumen Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Format piawai untuk penyuntingan dan perkongsian",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Teks OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Format terbuka untuk aplikasi pejabat lain",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Teks berformat RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Mengekalkan pemformatan teks asas",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Teks biasa (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Teks sahaja tanpa pemformatan",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Dokumen PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Susun atur tetap untuk perkongsian dan percetakan",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Format fail",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Amaran",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "Tanpa Nama",
   "Common.Controllers.ExternalDiagramEditor.textClose": "Tutup",
@@ -2980,5 +2995,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} penerima",
   "DE.Controllers.WordMailings.txtMergeError": "Gabungan tidak dapat dilakukan.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
 }

@@ -50,5 +50,6 @@
   "PE.ApplicationView.txtFullScreen": "Celozaslonski",
   "PE.ApplicationView.txtPrint": "Natisni",
   "PE.ApplicationView.txtSearch": "Iskanje",
-  "PE.ApplicationView.txtShare": "Deli"
+  "PE.ApplicationView.txtShare": "Deli",
+  "PE.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

@@ -191,6 +191,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "A referencia da ligazón non existe. Corrixa a ligazón ou elimínaa.",
     "errorCopyCutPaste": "As accións de copiar, cortar e pegar usando o menú contextual realizaranse só dentro do ficheiro actual.",
     "menuAddComment": "Engadir comentario",
     "menuAddLink": "Engadir ligazón",

@@ -12,5 +12,6 @@
   "DE.Views.ApplicationView.txtDownload": "Last ned",
   "DE.Views.ApplicationView.txtFullScreen": "Fullskjerm",
   "DE.Views.ApplicationView.txtPrint": "Skriv ut",
-  "DE.Views.ApplicationView.txtShare": "Del"
+  "DE.Views.ApplicationView.txtShare": "Del",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

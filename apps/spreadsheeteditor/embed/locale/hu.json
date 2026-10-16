@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Teljes képernyő",
   "SSE.ApplicationView.txtPrint": "Nyomtat",
   "SSE.ApplicationView.txtSearch": "Keresés",
-  "SSE.ApplicationView.txtShare": "Megosztás"
+  "SSE.ApplicationView.txtShare": "Megosztás",
+  "SSE.ApplicationController.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
 }

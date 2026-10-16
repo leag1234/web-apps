@@ -44,5 +44,6 @@
   "SSE.ApplicationView.txtFullScreen": "Поўнаэкранны рэжым",
   "SSE.ApplicationView.txtPrint": "Друкаванне",
   "SSE.ApplicationView.txtSearch": "Пошук",
-  "SSE.ApplicationView.txtShare": "Падзяліцца"
+  "SSE.ApplicationView.txtShare": "Падзяліцца",
+  "SSE.ApplicationController.txtCannotOpenLink": "Спасылка паказвае на ячэйку, якая не існуе. Выпраўце ці выдаліце спасылку."
 }

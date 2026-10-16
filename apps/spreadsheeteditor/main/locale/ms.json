@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Simpan sebagai",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Nama Fail",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Pilih nama fail lain.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Buku kerja Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Format piawai untuk penyuntingan dan perkongsian",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Hamparan OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Format terbuka untuk aplikasi pejabat lain",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Nilai helaian semasa sahaja sebagai teks",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Dokumen PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Susun atur tetap untuk perkongsian dan percetakan",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Format fail",
   "cancelButtonText": "Batalkan",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Amaran",
   "Common.Controllers.History.notcriticalErrorTitle": "Amaran",
@@ -3608,5 +3620,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Masukkan kata laluan untuk melindungi buku kerja",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Buku Kerja Nyahlindung",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Sesetengah formula, pemformatan sel atau objek terbenam mungkin hilang. Teruskan?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV hanya menyimpan helaian aktif sebagai teks, tanpa pemformatan atau objek. Teruskan?"
 }

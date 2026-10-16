@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Տպել",
   "DE.Views.ApplicationView.txtSearch": "Որոնել",
   "DE.Views.ApplicationView.txtShare": "Տարածել",
-  "DE.Views.ApplicationView.txtTheme": "Ինտերֆեյսի ոճ"
+  "DE.Views.ApplicationView.txtTheme": "Ինտերֆեյսի ոճ",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
 }

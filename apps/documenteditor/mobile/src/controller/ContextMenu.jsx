@@ -235,6 +235,19 @@ class ContextMenu extends ContextMenuController {
     }
 
     openLink(url) {
+        const safeUrl = AscCommon.getSafeHyperlink(url);
+        if (!safeUrl) {
+            if (url) {
+                const {t} = this.props;
+                const _t = t('ContextMenu', {returnObjects: true});
+                f7.dialog.create({
+                    text: _t.txtCannotOpenLink,
+                    buttons: [{text: _t.textOk || _t.menuCancel, bold: true}]
+                }).open();
+            }
+            return;
+        }
+        if (safeUrl) url = safeUrl;
         if (url) {
             const type = Common.EditorApi.get().asc_getUrlType(url);
             if (type===AscCommon.c_oAscUrlType.Http || type===AscCommon.c_oAscUrlType.Email) {
@@ -248,7 +261,7 @@ class ContextMenu extends ContextMenuController {
 
                 f7.dialog.create({
                     title: t('Settings', {returnObjects: true}).notcriticalErrorTitle,
-                    text  : _t.txtWarnUrl.replaceAll('{0}', url),
+                    text  : _t.txtWarnUrl.replaceAll('{0}', Common.Utils.String.htmlEncode(url)),
                     buttons: [
                         { text: _t.menuCancel, bold: true },
                         {

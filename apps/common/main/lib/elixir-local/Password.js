@@ -15,6 +15,7 @@ define(['require'],function(require){
   if(!api.eoLocalMode||!api.DocInfo||!api.DocInfo.get_OfflineApp())throw error('permission','Password integration requires a local offline editor');
   var activePassword,locked=false,lockConfirmed=false,disposed=false,dialog=null,cancelPrompt=null,changing=false;
   var original={sendEvent:api.sendEvent,setPassword:api.asc_setCurrentPassword,resetPassword:api.asc_resetPassword};
+  function phase(stage){try{if(options.onState){var value=options.onState({stage:stage});if(value&&value.catch)value.catch(function(){});}}catch(_error){}}
   function signal(){return options.getSignal?options.getSignal():options.signal;}
   function alive(){if(disposed||(signal()&&signal().aborted))throw error('cancelled','Local password operation cancelled');}
   function protectedDocument(){return activePassword!==undefined;}
@@ -26,7 +27,7 @@ define(['require'],function(require){
    lockConfirmed=true;
   }
   function prompt(build){
-   alive();return new Promise(function(resolve,reject){
+   alive();phase('awaiting-user');return new Promise(function(resolve,reject){
     var done=false,currentSignal=signal();
     function cancel(){finish(error('cancelled','Local password operation cancelled'));}
     function finish(e,value){
@@ -36,7 +37,7 @@ define(['require'],function(require){
      if(current&&current.inputPwd)current.inputPwd.setValue('');
      if(current&&current.repeatPwd)current.repeatPwd.setValue('');
      if(current)current.close();
-     e?reject(e):resolve(value);
+     if(!e)phase('preparing');e?reject(e):resolve(value);
     }
     cancelPrompt=cancel;dialog=build(finish);
     if(currentSignal)currentSignal.addEventListener('abort',cancel,{once:true});

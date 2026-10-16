@@ -54,5 +54,6 @@
   "SSE.ApplicationView.txtFullScreen": "Pantalla completa",
   "SSE.ApplicationView.txtPrint": "Imprimir",
   "SSE.ApplicationView.txtSearch": "Cercar",
-  "SSE.ApplicationView.txtShare": "Compartir"
+  "SSE.ApplicationView.txtShare": "Compartir",
+  "SSE.ApplicationController.txtCannotOpenLink": "Enllaç trencat. Corregeix l'enllaç o suprimeix-lo."
 }

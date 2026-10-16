@@ -197,5 +197,6 @@
   "DE.Views.ApplicationView.txtPrint": "Yazdır",
   "DE.Views.ApplicationView.txtSearch": "Bul",
   "DE.Views.ApplicationView.txtShare": "Paylaş",
-  "DE.Views.ApplicationView.txtTheme": "Arayüz teması"
+  "DE.Views.ApplicationView.txtTheme": "Arayüz teması",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin."
 }

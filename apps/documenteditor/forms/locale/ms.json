@@ -172,5 +172,6 @@
   "DE.Views.ApplicationView.txtPrint": "Cetak",
   "DE.Views.ApplicationView.txtSearch": "Carian",
   "DE.Views.ApplicationView.txtShare": "Kongsi",
-  "DE.Views.ApplicationView.txtTheme": "Tema antara muka"
+  "DE.Views.ApplicationView.txtTheme": "Tema antara muka",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
 }

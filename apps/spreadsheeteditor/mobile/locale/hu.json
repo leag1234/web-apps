@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt.",
     "errorCopyCutPaste": "A helyi menü segítségével történő másolási, kivágási és beillesztési műveletek csak az aktuális fájlon belül hajthatók végre.",
     "errorInvalidLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt.",
     "menuAddComment": "Megjegyzés hozzáadása",

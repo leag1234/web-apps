@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Volledig scherm",
   "VE.ApplicationView.txtPrint": "Afdrukken",
   "VE.ApplicationView.txtSearch": "Zoeken",
-  "VE.ApplicationView.txtShare": "Delen"
+  "VE.ApplicationView.txtShare": "Delen",
+  "VE.ApplicationController.txtCannotOpenLink": "De koppelingsverwijzing bestaat niet. Corrigeer de koppeling of verwijder deze."
 }

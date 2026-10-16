@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "ບັນທຶກສຳເນົາ PDF ທີ່ອາດສູນເສຍບຸກມາກ, ຄຸນສົມບັດເອກະສານ, ການປ້ອງກັນດ້ວຍລະຫັດຜ່ານ ແລະຄວາມຖືກຕ້ອງຂອງລາຍເຊັນບໍ?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "ບັນທຶກເປັນ",
+  "DE.Views.ElixirBackstage.txtSaveName": "ຊື່ຟາຍ",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "ເລືອກຊື່ໄຟລ໌ອື່ນ.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "ເອກະສານ Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "ຮູບແບບມາດຕະຖານສຳລັບແກ້ໄຂ ແລະແບ່ງປັນ",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "ຂໍ້ຄວາມ OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "ຮູບແບບເປີດສຳລັບໂປຣແກຣມຫ້ອງການອື່ນ",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "ຂໍ້ຄວາມມີຮູບແບບ RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "ຮັກສາຮູບແບບຂໍ້ຄວາມພື້ນຖານ",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "ຂໍ້ຄວາມທຳມະດາ (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "ສະເພາະຂໍ້ຄວາມ ບໍ່ມີຮູບແບບ",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "ເອກະສານ PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "ໂຄງຮ່າງຄົງທີ່ສຳລັບແບ່ງປັນ ແລະພິມ",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "ຮູບແບບໄຟລ໌",
   "Common.Controllers.Chat.notcriticalErrorTitle": "ແຈ້ງເຕືອນ",
   "Common.Controllers.ExternalDiagramEditor.textAnonymous": "ບໍ່ລະບຸຊື່",
   "Common.Controllers.ExternalDiagramEditor.textClose": "ປິດ",
@@ -2828,5 +2843,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} ຜູ້ຮັບ",
   "DE.Controllers.WordMailings.txtMergeError": "ບໍ່ສາມາດລວມໄດ້.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "ບໍ່ມີການອ້າງອີງຈຸດເຊື່ອມຕໍ່. ກະລຸນາແກ້ໄຂ ຫຼື ລົບຈຸດເຊື່ອມຕໍ່."
 }

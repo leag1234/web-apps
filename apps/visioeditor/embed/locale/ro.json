@@ -56,5 +56,6 @@
   "VE.ApplicationView.txtFullScreen": "Ecran complet",
   "VE.ApplicationView.txtPrint": "Imprimare",
   "VE.ApplicationView.txtSearch": "Căutare",
-  "VE.ApplicationView.txtShare": "Partajare"
+  "VE.ApplicationView.txtShare": "Partajare",
+  "VE.ApplicationController.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
 }

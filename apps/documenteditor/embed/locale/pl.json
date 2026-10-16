@@ -71,5 +71,6 @@
   "DE.ApplicationView.txtFullScreen": "Pełny ekran",
   "DE.ApplicationView.txtPrint": "Drukuj",
   "DE.ApplicationView.txtSearch": "Szukaj",
-  "DE.ApplicationView.txtShare": "Udostępnij"
+  "DE.ApplicationView.txtShare": "Udostępnij",
+  "DE.ApplicationController.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go."
 }

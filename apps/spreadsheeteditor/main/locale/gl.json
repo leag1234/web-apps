@@ -1,4 +1,16 @@
 {
+  "SSE.Views.ElixirBackstage.txtSaveAs": "Gardar como",
+  "SSE.Views.ElixirBackstage.txtSaveName": "Nome do ficheiro",
+  "SSE.Views.ElixirBackstage.txtSaveNameInvalid": "Escolla outro nome de ficheiro.",
+  "SSE.Views.ElixirBackstage.txtFmtXlsx": "Libro de Excel (*.xlsx)",
+  "SSE.Views.ElixirBackstage.txtFmtXlsxDesc": "Formato estándar para editar e compartir",
+  "SSE.Views.ElixirBackstage.txtFmtOds": "Folla de cálculo OpenDocument (*.ods)",
+  "SSE.Views.ElixirBackstage.txtFmtOdsDesc": "Formato aberto para outras aplicacións ofimáticas",
+  "SSE.Views.ElixirBackstage.txtFmtCsv": "CSV UTF-8 (*.csv)",
+  "SSE.Views.ElixirBackstage.txtFmtCsvDesc": "Só os valores da folla actual, como texto",
+  "SSE.Views.ElixirBackstage.txtFmtPdf": "Documento PDF (*.pdf)",
+  "SSE.Views.ElixirBackstage.txtFmtPdfDesc": "Deseño fixo para compartir e imprimir",
+  "SSE.Views.ElixirBackstage.txtSaveFormat": "Formato do ficheiro",
   "cancelButtonText": "Cancelar",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Aviso",
   "Common.Controllers.History.notcriticalErrorTitle": "Aviso",
@@ -3772,5 +3784,7 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Introduza un contrasinal para quitarlle a protección ao libro",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Desprotexer libro",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "SSE.Controllers.LeftMenu.warnDownloadOds": "Pódense perder algunhas fórmulas, o formato das celas ou os obxectos incrustados. Quere continuar?",
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV só garda a folla activa como texto, sen formato nin obxectos. Quere continuar?"
 }

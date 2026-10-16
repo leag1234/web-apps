@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Ecran complet",
   "DE.ApplicationView.txtPrint": "Imprimare",
   "DE.ApplicationView.txtSearch": "Căutare",
-  "DE.ApplicationView.txtShare": "Partajează"
+  "DE.ApplicationView.txtShare": "Partajează",
+  "DE.ApplicationController.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
 }

@@ -36,5 +36,6 @@
   "SSE.ApplicationView.txtFullScreen": "Повноекранний режим",
   "SSE.ApplicationView.txtPrint": "Друк",
   "SSE.ApplicationView.txtSearch": "Пошук",
-  "SSE.ApplicationView.txtShare": "Доступ"
+  "SSE.ApplicationView.txtShare": "Доступ",
+  "SSE.ApplicationController.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
 }

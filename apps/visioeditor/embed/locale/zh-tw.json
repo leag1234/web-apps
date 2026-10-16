@@ -55,5 +55,6 @@
   "VE.ApplicationView.txtFullScreen": "全螢幕",
   "VE.ApplicationView.txtPrint": "打印",
   "VE.ApplicationView.txtSearch": "尋找",
-  "VE.ApplicationView.txtShare": "分享"
+  "VE.ApplicationView.txtShare": "分享",
+  "VE.ApplicationController.txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。"
 }

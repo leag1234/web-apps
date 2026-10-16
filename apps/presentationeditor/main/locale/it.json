@@ -1,4 +1,7 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveName": "Nome del file",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Scegli un altro nome per il file.",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Formato file",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Avviso",
   "Common.Controllers.Desktop.hintBtnHome": "Mostra la finestra principale",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Crea da modello",
@@ -3491,5 +3494,6 @@
   "PE.Views.ElixirTitleBar.txtTestUser": "Utente di prova (modalità sviluppatore)",
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Io ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Il collegamento a cui si fa riferimento non esiste. Correggere il collegamento o rimuoverlo."
 }

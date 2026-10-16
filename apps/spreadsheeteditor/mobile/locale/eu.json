@@ -62,6 +62,7 @@
     }
   },
   "ContextMenu": {
+    "txtCannotOpenLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu esteka.",
     "errorCopyCutPaste": "Kopiatu, ebaki eta itsatsi ekintzak oraingo fitxategian soilik egingo dira laster-menua erabiltzean.",
     "errorInvalidLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu lotura.",
     "menuAddComment": "Gehitu iruzkina",

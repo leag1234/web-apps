@@ -36,5 +36,6 @@
   "SSE.ApplicationView.txtFullScreen": "Skrin penuh",
   "SSE.ApplicationView.txtPrint": "Cetak",
   "SSE.ApplicationView.txtSearch": "Carian",
-  "SSE.ApplicationView.txtShare": "Kongsi"
+  "SSE.ApplicationView.txtShare": "Kongsi",
+  "SSE.ApplicationController.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
 }

@@ -52,5 +52,6 @@
   "VE.ApplicationView.txtFullScreen": "පූර්ණ තිරය",
   "VE.ApplicationView.txtPrint": "මුද්‍රණය",
   "VE.ApplicationView.txtSearch": "සොයන්න",
-  "VE.ApplicationView.txtShare": "බෙදාගන්න"
+  "VE.ApplicationView.txtShare": "බෙදාගන්න",
+  "VE.ApplicationController.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
 }

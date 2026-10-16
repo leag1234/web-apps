@@ -44,5 +44,6 @@
   "DE.ApplicationView.txtFullScreen": "Цял екран",
   "DE.ApplicationView.txtPrint": "Печат",
   "DE.ApplicationView.txtSearch": "Търсене",
-  "DE.ApplicationView.txtShare": "Дял"
+  "DE.ApplicationView.txtShare": "Дял",
+  "DE.ApplicationController.txtCannotOpenLink": "Референтната връзка не съществува. Моля, коригирайте връзката или я изтрийте."
 }

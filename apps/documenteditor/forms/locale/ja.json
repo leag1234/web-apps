@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "印刷する",
   "DE.Views.ApplicationView.txtSearch": "検索",
   "DE.Views.ApplicationView.txtShare": "シェア",
-  "DE.Views.ApplicationView.txtTheme": "インターフェイスのテーマ"
+  "DE.Views.ApplicationView.txtTheme": "インターフェイスのテーマ",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "リンク参照が存在しません。 リンクを修正するか、ご削除ください。"
 }

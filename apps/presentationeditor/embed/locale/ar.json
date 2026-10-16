@@ -50,5 +50,6 @@
   "PE.ApplicationView.txtFullScreen": "ملء الشاشة",
   "PE.ApplicationView.txtPrint": "طباعة",
   "PE.ApplicationView.txtSearch": "إيجاد",
-  "PE.ApplicationView.txtShare": "مشاركة"
+  "PE.ApplicationView.txtShare": "مشاركة",
+  "PE.ApplicationController.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }

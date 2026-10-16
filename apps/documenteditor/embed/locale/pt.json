@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "Tela cheia",
   "DE.ApplicationView.txtPrint": "Imprimir",
   "DE.ApplicationView.txtSearch": "Pesquisar",
-  "DE.ApplicationView.txtShare": "Compartilhar"
+  "DE.ApplicationView.txtShare": "Compartilhar",
+  "DE.ApplicationController.txtCannotOpenLink": "A referência de link não existe. Corrija o link ou o exclua."
 }

@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Vollbild-Modus",
   "SSE.ApplicationView.txtPrint": "Drucken",
   "SSE.ApplicationView.txtSearch": "Suche",
-  "SSE.ApplicationView.txtShare": "Freigeben"
+  "SSE.ApplicationView.txtShare": "Freigeben",
+  "SSE.ApplicationController.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
 }

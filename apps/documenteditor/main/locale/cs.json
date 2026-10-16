@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Uložit kopii PDF, která může ztratit záložky, vlastnosti dokumentu, ochranu heslem a platnost podpisů?",
+  "DE.Views.ElixirBackstage.txtSaveAs": "Uložit jako",
+  "DE.Views.ElixirBackstage.txtSaveName": "Název souboru",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Zvolte jiný název souboru.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "Dokument Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "Standardní formát pro úpravy a sdílení",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "Text OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "Otevřený formát pro další kancelářské aplikace",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "Formátovaný text RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "Zachová základní formátování textu",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "Prostý text (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "Pouze text bez formátování",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "Dokument PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "Pevné rozložení pro sdílení a tisk",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "Formát souboru",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Varování",
   "Common.Controllers.Desktop.hintBtnHome": "Zobrazit hlavní okno",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Vytvořit ze šablony",
@@ -4389,5 +4404,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "Příjemců: {0}",
   "DE.Controllers.WordMailings.txtMergeError": "Sloučení se nepodařilo provést.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

@@ -55,5 +55,6 @@
   "VE.ApplicationView.txtFullScreen": "全画面表示",
   "VE.ApplicationView.txtPrint": "印刷",
   "VE.ApplicationView.txtSearch": "検索",
-  "VE.ApplicationView.txtShare": "共有"
+  "VE.ApplicationView.txtShare": "共有",
+  "VE.ApplicationController.txtCannotOpenLink": "リンク参照が存在しません。 リンクを修正するか、ご削除ください。"
 }

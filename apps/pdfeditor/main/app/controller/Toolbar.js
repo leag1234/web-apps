@@ -1730,7 +1730,7 @@ define([
                                 Common.NotificationCenter.trigger('app:comment:add', 'toolbar');
                             });
                             if (btn.cmpEl.closest('#review-changes-panel').length>0)
-                                btn.setCaption(me.toolbar.capBtnAddComment);
+                                btn.setCaption(me.toolbar.capBtnAddComment || me.toolbar.capBtnComment);
                         }, me);
                         if (_comments.buttonAddNew) {
                             _comments.buttonAddNew.options.lock = [ _set.lostConnect ];

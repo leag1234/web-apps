@@ -1,4 +1,14 @@
 {
+  "PE.Views.ElixirBackstage.txtSaveAs": "Gorde honela",
+  "PE.Views.ElixirBackstage.txtSaveName": "Fitxategi-izena",
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Aukeratu beste fitxategi-izen bat.",
+  "PE.Views.ElixirBackstage.txtFmtPptx": "PowerPoint aurkezpena (*.pptx)",
+  "PE.Views.ElixirBackstage.txtFmtPptxDesc": "Editatzeko eta partekatzeko formatu estandarra",
+  "PE.Views.ElixirBackstage.txtFmtOdp": "OpenDocument aurkezpena (*.odp)",
+  "PE.Views.ElixirBackstage.txtFmtOdpDesc": "Beste bulego-aplikazioekin bateragarria den formatu irekia",
+  "PE.Views.ElixirBackstage.txtFmtPdf": "PDF dokumentua (*.pdf)",
+  "PE.Views.ElixirBackstage.txtFmtPdfDesc": "Partekatze eta inprimatzerako diseinu finkoa",
+  "PE.Views.ElixirBackstage.txtSaveFormat": "Fitxategi-formatua",
   "Common.Controllers.Chat.notcriticalErrorTitle": "Abisua",
   "Common.Controllers.Desktop.hintBtnHome": "Erakutsi leiho nagusia",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "Sortu txantiloitik",
@@ -2773,5 +2783,6 @@
   "PE.Views.ViewTab.tipGuides": "Erakutsi gidak",
   "PE.Views.ViewTab.tipInterfaceTheme": "Interfazearen gaia",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Estekaren erreferentzia ez da existitzen. Mesedez, zuzendu edo ezabatu esteka."
 }

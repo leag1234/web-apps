@@ -208,5 +208,6 @@
   "DE.Views.ApplicationView.txtPrint": "Imprimir",
   "DE.Views.ApplicationView.txtSearch": "Buscar",
   "DE.Views.ApplicationView.txtShare": "Compartir",
-  "DE.Views.ApplicationView.txtTheme": "Tema de interfaz"
+  "DE.Views.ApplicationView.txtTheme": "Tema de interfaz",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "El enlace no existe. Por favor, corrija o elimine el enlace."
 }

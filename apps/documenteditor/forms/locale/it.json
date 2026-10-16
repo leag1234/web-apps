@@ -207,5 +207,6 @@
   "DE.Views.ApplicationView.txtPrint": "Stampa",
   "DE.Views.ApplicationView.txtSearch": "Trova",
   "DE.Views.ApplicationView.txtShare": "Condividi",
-  "DE.Views.ApplicationView.txtTheme": "Tema dell'interfaccia"
+  "DE.Views.ApplicationView.txtTheme": "Tema dell'interfaccia",
+  "DE.Controllers.ApplicationController.txtCannotOpenLink": "Il collegamento a cui si fa riferimento non esiste. Correggere il collegamento o rimuoverlo."
 }

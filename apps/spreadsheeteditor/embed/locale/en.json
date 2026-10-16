@@ -57,5 +57,6 @@
   "SSE.ApplicationView.txtFullScreen": "Full screen",
   "SSE.ApplicationView.txtPrint": "Print",
   "SSE.ApplicationView.txtSearch": "Find",
-  "SSE.ApplicationView.txtShare": "Share"
+  "SSE.ApplicationView.txtShare": "Share",
+  "SSE.ApplicationController.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
 }

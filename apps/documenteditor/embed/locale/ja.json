@@ -73,5 +73,6 @@
   "DE.ApplicationView.txtFullScreen": "全画面表示",
   "DE.ApplicationView.txtPrint": "印刷する",
   "DE.ApplicationView.txtSearch": "検索",
-  "DE.ApplicationView.txtShare": "シェア"
+  "DE.ApplicationView.txtShare": "シェア",
+  "DE.ApplicationController.txtCannotOpenLink": "リンク参照が存在しません。 リンクを修正するか、ご削除ください。"
 }

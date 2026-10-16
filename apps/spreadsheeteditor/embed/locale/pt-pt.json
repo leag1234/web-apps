@@ -55,5 +55,6 @@
   "SSE.ApplicationView.txtFullScreen": "Ecrã inteiro",
   "SSE.ApplicationView.txtPrint": "Imprimir",
   "SSE.ApplicationView.txtSearch": "Pesquisar",
-  "SSE.ApplicationView.txtShare": "Partilhar"
+  "SSE.ApplicationView.txtShare": "Partilhar",
+  "SSE.ApplicationController.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação."
 }

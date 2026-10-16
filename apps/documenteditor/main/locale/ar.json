@@ -1,4 +1,19 @@
 {
+  "DE.Views.ElixirBackstage.txtPdfCopyWarning": "هل تريد حفظ نسخة PDF قد تفقد الإشارات المرجعية وخصائص المستند والحماية بكلمة مرور وصلاحية التوقيعات؟",
+  "DE.Views.ElixirBackstage.txtSaveAs": "حفظ باسم",
+  "DE.Views.ElixirBackstage.txtSaveName": "اسم الملف",
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "اختر اسم ملف آخر.",
+  "DE.Views.ElixirBackstage.txtFmtDocx": "مستند Word (*.docx)",
+  "DE.Views.ElixirBackstage.txtFmtDocxDesc": "تنسيق قياسي للتحرير والمشاركة",
+  "DE.Views.ElixirBackstage.txtFmtOdt": "نص OpenDocument (*.odt)",
+  "DE.Views.ElixirBackstage.txtFmtOdtDesc": "تنسيق مفتوح متوافق مع تطبيقات مكتبية أخرى",
+  "DE.Views.ElixirBackstage.txtFmtRtf": "نص منسق RTF (*.rtf)",
+  "DE.Views.ElixirBackstage.txtFmtRtfDesc": "يحفظ التنسيق الأساسي للنص",
+  "DE.Views.ElixirBackstage.txtFmtTxt": "نص عادي (*.txt)",
+  "DE.Views.ElixirBackstage.txtFmtTxtDesc": "نص فقط دون تنسيق",
+  "DE.Views.ElixirBackstage.txtFmtPdf": "مستند PDF (*.pdf)",
+  "DE.Views.ElixirBackstage.txtFmtPdfDesc": "تخطيط ثابت للمشاركة والطباعة",
+  "DE.Views.ElixirBackstage.txtSaveFormat": "تنسيق الملف",
   "Common.Controllers.Chat.notcriticalErrorTitle": "تحذير",
   "Common.Controllers.Desktop.hintBtnHome": "إظهار النافذة الرئيسية",
   "Common.Controllers.Desktop.itemCreateFromTemplate": "أنشئ باستخدام قالب",
@@ -3779,5 +3794,6 @@
   "DE.Controllers.WordMailings.txtRecipientsLoaded": "{0} مستلمين",
   "DE.Controllers.WordMailings.txtMergeError": "تعذر إجراء الدمج.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
 }
