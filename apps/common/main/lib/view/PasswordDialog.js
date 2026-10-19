@@ -42,6 +42,13 @@ define([], function () {
             var t = this,
                 _options = {};
 
+            if (options.localPasswordLabels) {
+                ['txtTitle', 'txtPassword', 'txtDescription', 'txtRepeat', 'txtIncorrectPwd', 'txtWarning'].forEach(function (key) {
+                    var value = options.localPasswordLabels[key];
+                    if (typeof value === 'string' && value.trim()) t[key] = value;
+                });
+            }
+
             _.extend(_options,  {
                 width           : 395,
                 header          : true,

@@ -3578,5 +3578,12 @@
   "PE.Views.ViewTab.tipStopMacro": "Zastavit záznam",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Ponechat současné heslo",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ponechat bez hesla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Změnit heslo",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Přidat heslo",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Smazat heslo",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Tato exportovaná kopie nebude chráněna heslem. Pokračovat?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Uložením se odstraní ochrana heslem a šifrovaný originál může být přepsán nechráněným souborem. Pokračovat?"
 }

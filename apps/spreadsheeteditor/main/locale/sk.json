@@ -3518,5 +3518,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Niektoré vzorce, formátovanie buniek alebo vložené objekty sa môžu stratiť. Chcete pokračovať?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV uloží iba aktívny hárok ako text bez formátovania alebo objektov. Chcete pokračovať?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV uloží iba aktívny hárok ako text bez formátovania alebo objektov. Chcete pokračovať?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Ponechať aktuálne heslo",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ponechať bez hesla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Zmeniť heslo",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Pridajte heslo",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Odstrániť heslo",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Táto exportovaná kópia nebude chránená heslom. Pokračovať?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Uložením sa odstráni ochrana heslom a šifrovaný originál môže byť prepísaný nechráneným súborom. Pokračovať?"
 }

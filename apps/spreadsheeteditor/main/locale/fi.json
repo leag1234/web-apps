@@ -2850,5 +2850,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Jotkin kaavat, solujen muotoilut tai upotetut objektit voivat kadota. Haluatko jatkaa?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV tallentaa vain aktiivisen taulukon tekstinä ilman muotoiluja tai objekteja. Haluatko jatkaa?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV tallentaa vain aktiivisen taulukon tekstinä ilman muotoiluja tai objekteja. Haluatko jatkaa?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Säilytä nykyinen salasana",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Säilytä ilman salasanaa",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Muuta salasana",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Lisää salasana",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Poista salasana",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Tätä vietyä kopiota ei suojata salasanalla. Jatketaanko?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Tallentaminen poistaa salasanasuojauksen ja voi korvata salatun alkuperäisen suojaamattomalla tiedostolla. Jatketaanko?"
 }

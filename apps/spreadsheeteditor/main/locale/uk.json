@@ -3977,5 +3977,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Деякі формули, форматування клітинок або вбудовані об’єкти можуть бути втрачені. Продовжити?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV зберігає лише активний аркуш як текст, без форматування та об’єктів. Продовжити?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV зберігає лише активний аркуш як текст, без форматування та об’єктів. Продовжити?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Зберегти поточний пароль",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Зберегти без пароля",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Змінити пароль",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Додати пароль",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Видалити пароль",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Цю експортовану копію не буде захищено паролем. Продовжити?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Збереження видалить захист паролем і може замінити зашифрований оригінал незахищеним файлом. Продовжити?"
 }

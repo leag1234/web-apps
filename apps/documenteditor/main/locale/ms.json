@@ -2996,5 +2996,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Gabungan tidak dapat dilakukan.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Rujukan pautan tidak wujud. Sila betulkan pautan atau padam ia.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Kekalkan kata laluan semasa",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Kekalkan tanpa kata laluan",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Ubah kata laluan",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Tambah kata laluan",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Padam kata laluan",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Salinan yang dieksport ini tidak akan dilindungi kata laluan. Teruskan?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Penyimpanan ini akan membuang perlindungan kata laluan dan mungkin menimpa fail asal yang disulitkan dengan fail yang tidak dilindungi. Teruskan?"
 }

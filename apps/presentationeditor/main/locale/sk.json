@@ -2236,5 +2236,12 @@
   "PE.Views.ViewTab.textZoom": "Priblíženie",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Prepojenie na odkaz neexistuje. Opravte prosím odkaz alebo ho odstráňte.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Ponechať aktuálne heslo",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ponechať bez hesla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Zmeniť heslo",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Pridajte heslo",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Odstrániť heslo",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Táto exportovaná kópia nebude chránená heslom. Pokračovať?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Uložením sa odstráni ochrana heslom a šifrovaný originál môže byť prepísaný nechráneným súborom. Pokračovať?"
 }

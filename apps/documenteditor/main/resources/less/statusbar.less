@@ -118,7 +118,9 @@
 .statusbar .status-zoom-slider {
     display: inline-block;
     vertical-align: middle;
-    width: 100px;
+    // SingleSlider adds half a thumb to its configured width for the track.
+    width: (100px + (@slider-thumb-size-ie / 2));
+    width: calc(100px + @slider-thumb-size / 2);
     height: 18px;
     margin: 0 2px;
     position: relative;

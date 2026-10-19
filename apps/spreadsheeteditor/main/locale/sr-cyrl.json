@@ -4863,5 +4863,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Неке формуле, обликовање ћелија или уграђени објекти могу бити изгубљени. Наставити?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV чува само активни лист као текст, без обликовања и објеката. Наставити?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV чува само активни лист као текст, без обликовања и објеката. Наставити?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Задржи тренутну лозинку",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Задржи без лозинке",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Промени лозинку",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Додај лозинку",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Избриши лозинку",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ова извезена копија неће бити заштићена лозинком. Наставити?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Чување ће уклонити заштиту лозинком и може заменити шифровани оригинал незаштићеном датотеком. Наставити?"
 }

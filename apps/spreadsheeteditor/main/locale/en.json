@@ -5713,5 +5713,12 @@
   "SSE.Views.ElixirTitleBar.txtTestUser": "Test user (developer mode)",
   "SSE.Views.ElixirTitleBar.txtTestUserMe": "Me ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Keep current password",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Keep without password",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Change password",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Add password",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Remove password",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "This exported copy will not be password protected. Continue?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "This save will remove password protection and may overwrite the encrypted original with an unprotected file. Continue?"
 }

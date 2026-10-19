@@ -5265,5 +5265,12 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Unesite lozinku da nezaštitite radnu knjigu",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Nezaštiti radnu knjigu",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Zadrži trenutnu lozinku",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Zadrži bez lozinke",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Promeni lozinku",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Dodaj lozinku",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Izbriši lozinku",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ova izvezena kopija neće biti zaštićena lozinkom. Nastaviti?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Čuvanje će ukloniti zaštitu lozinkom i može zameniti šifrovani original nezaštićenom datotekom. Nastaviti?"
 }

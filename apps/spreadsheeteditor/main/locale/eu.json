@@ -4299,5 +4299,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Formula batzuk, gelaxken formatua edo kapsulatutako objektuak gal daitezke. Jarraitu nahi duzu?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV formatuak orri aktiboa soilik gordetzen du testu gisa, formaturik eta objekturik gabe. Jarraitu nahi duzu?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV formatuak orri aktiboa soilik gordetzen du testu gisa, formaturik eta objekturik gabe. Jarraitu nahi duzu?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Mantendu uneko pasahitza",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Mantendu pasahitzik gabe",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Aldatu pasahitza",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Gehitu pasahitza",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Ezabatu pasahitza",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Esportatutako kopia hau ez da pasahitz bidez babestuta egongo. Jarraitu?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Gordetzean pasahitzaren babesa kenduko da, eta enkriptatutako jatorrizkoa babesik gabeko fitxategi batekin gainidatz daiteke. Jarraitu?"
 }

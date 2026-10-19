@@ -1241,5 +1241,15 @@
   "DE.Views.ElixirBackstage.txtSaveName": "Filnavn",
   "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Velg et annet filnavn.",
   "DE.Controllers.LeftMenu.warnDownloadAsRTF": "Noe formatering kan gå tapt i RTF-kopien.",
-  "DE.Controllers.LeftMenu.warnDownloadAs": "All formatering og alle andre funksjoner enn tekst går tapt i tekstkopien."
+  "DE.Controllers.LeftMenu.warnDownloadAs": "All formatering og alle andre funksjoner enn tekst går tapt i tekstkopien.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Behold gjeldende passord",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Behold uten passord",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Endre passord",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Angi passord",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Slett passord",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Denne eksporterte kopien vil ikke være passordbeskyttet. Fortsette?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Lagringen vil fjerne passordbeskyttelsen og kan overskrive den krypterte originalen med en ubeskyttet fil. Fortsette?",
+  "Common.Views.PasswordDialog.txtTitle": "Angi passord",
+  "Common.Views.PasswordDialog.txtDescription": "Et passord kreves for å åpne dette dokumentet",
+  "Common.Views.PasswordDialog.txtRepeat": "Gjenta passord"
 }

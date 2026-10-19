@@ -3950,5 +3950,12 @@
   "PE.Views.ElixirTitleBar.txtTestUserMe": "Ich ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. "
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Der Linkverweis existiert nicht. Bitte korrigieren Sie das Link oder löschen Sie es. ",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Aktuelles Passwort beibehalten",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ohne Passwort beibehalten",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Kennwort ändern",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Kennwort hinzufügen",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Kennwort löschen",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Diese exportierte Kopie wird nicht passwortgeschützt sein. Fortfahren?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Beim Speichern wird der Passwortschutz entfernt. Das verschlüsselte Original wird möglicherweise durch eine ungeschützte Datei ersetzt. Fortfahren?"
 }

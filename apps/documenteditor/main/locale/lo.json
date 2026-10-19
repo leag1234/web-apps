@@ -2844,5 +2844,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "ບໍ່ສາມາດລວມໄດ້.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "ບໍ່ມີການອ້າງອີງຈຸດເຊື່ອມຕໍ່. ກະລຸນາແກ້ໄຂ ຫຼື ລົບຈຸດເຊື່ອມຕໍ່."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "ບໍ່ມີການອ້າງອີງຈຸດເຊື່ອມຕໍ່. ກະລຸນາແກ້ໄຂ ຫຼື ລົບຈຸດເຊື່ອມຕໍ່.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "ຮັກສາລະຫັດຜ່ານປັດຈຸບັນ",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "ຮັກສາໄວ້ໂດຍບໍ່ມີລະຫັດຜ່ານ",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "ປ່ຽນລະຫັດຜ່ານ",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "ເພີ່ມລະຫັດ",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "ລຶບລະຫັດຜ່ານ",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "ສຳເນົາທີ່ສົ່ງອອກນີ້ຈະບໍ່ຖືກປ້ອງກັນດ້ວຍລະຫັດຜ່ານ. ຈະສືບຕໍ່ບໍ?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "ການບັນທຶກນີ້ຈະລຶບການປ້ອງກັນດ້ວຍລະຫັດຜ່ານ ແລະອາດຂຽນທັບຕົ້ນສະບັບທີ່ເຂົ້າລະຫັດດ້ວຍໄຟລ໌ທີ່ບໍ່ຖືກປ້ອງກັນ. ຈະສືບຕໍ່ບໍ?"
 }

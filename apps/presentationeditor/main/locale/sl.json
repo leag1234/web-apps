@@ -1263,5 +1263,16 @@
   "PE.Views.ViewTab.textGridlines": "Mreža",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Ohrani trenutno geslo",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ohrani brez gesla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Spremeni geslo",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Dodaj geslo",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Odstrani geslo",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ta izvožena kopija ne bo zaščitena z geslom. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Shranjevanje bo odstranilo zaščito z geslom in lahko prepiše šifrirani izvirnik z nezaščiteno datoteko. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtTitle": "Nastavi geslo",
+  "Common.Views.PasswordDialog.txtPassword": "Geslo",
+  "Common.Views.PasswordDialog.txtDescription": "Za odpiranje tega dokumenta je potrebno geslo.",
+  "Common.Views.PasswordDialog.txtRepeat": "Ponovite geslo"
 }

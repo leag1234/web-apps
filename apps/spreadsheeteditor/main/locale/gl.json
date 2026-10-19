@@ -3786,5 +3786,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Pódense perder algunhas fórmulas, o formato das celas ou os obxectos incrustados. Quere continuar?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV só garda a folla activa como texto, sen formato nin obxectos. Quere continuar?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV só garda a folla activa como texto, sen formato nin obxectos. Quere continuar?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Manter o contrasinal actual",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Manter sen contrasinal",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Cambiar contrasinal",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Engadir contrasinal",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Eliminar contrasinal",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Esta copia exportada non estará protexida cun contrasinal. Continuar?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Ao gardar eliminarase a protección con contrasinal e poderá substituírse o orixinal cifrado por un ficheiro sen protección. Continuar?"
 }

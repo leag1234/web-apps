@@ -5559,5 +5559,12 @@
   "DE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
   "DE.Views.ElixirBackstage.txtPdfCopyWarning": "Save a PDF copy that may lose bookmarks, document properties, password protection and signature validity?",
   "DE.Views.ElixirBackstage.txtSaveName": "File name",
-  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Choose another file name."
+  "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Choose another file name.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Keep current password",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Keep without password",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Change password",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Add password",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Remove password",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "This exported copy will not be password protected. Continue?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "This save will remove password protection and may overwrite the encrypted original with an unprotected file. Continue?"
 }

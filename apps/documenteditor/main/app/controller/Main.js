@@ -1027,7 +1027,7 @@ define([
                 this.appOptions.canFavorite && appHeader.setFavorite(!!favorite);
             },
 
-            onEditComplete: function(cmp) {
+            onEditComplete: function(cmp, options) {
 //                this.getMainMenu().closeFullScaleMenu();
                 var application = this.getApplication(),
                     toolbarController = application.getController('Toolbar'),
@@ -1051,7 +1051,8 @@ define([
                     toolbarView._isEyedropperStart ? toolbarView._isEyedropperStart = false : rightMenu._isEyedropperStart = false;
                     this.api.asc_cancelEyedropper();
                 }
-                application.getController('DocumentHolder').getView().focus();
+                if (!options || options.preserveFocus !== true)
+                    application.getController('DocumentHolder').getView().focus();
 
                 if (this.api && this.appOptions.isEdit) {
                     this.disableSaveButton(this.api.asc_isDocumentCanSave());

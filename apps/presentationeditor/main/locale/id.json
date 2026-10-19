@@ -2774,5 +2774,12 @@
   "PE.Views.ViewTab.tipInterfaceTheme": "Tema antarmuka",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Link referensi tidak ada. Silakan koreksi atau hapus link.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Pertahankan kata sandi saat ini",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Pertahankan tanpa kata sandi",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Ubah kata sandi",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Tambahkan kata sandi",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Hapus kata sandi",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Salinan yang diekspor ini tidak akan dilindungi kata sandi. Lanjutkan?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Penyimpanan ini akan menghapus perlindungan kata sandi dan dapat menimpa dokumen asli yang terenkripsi dengan file yang tidak dilindungi. Lanjutkan?"
 }

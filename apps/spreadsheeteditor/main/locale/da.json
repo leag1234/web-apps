@@ -5131,5 +5131,12 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Indtast en adgangskode for at fjerne beskyttelsen af projektmappen",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Ubeskyt projektmappe",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Behold den nuværende adgangskode",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Behold uden adgangskode",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Skift adgangskode",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Tilføj adgangskode",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Slet adgangskode",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Denne eksporterede kopi vil ikke være beskyttet med en adgangskode. Fortsæt?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Når du gemmer, fjernes adgangskodebeskyttelsen, og den krypterede original kan blive overskrevet med en ubeskyttet fil. Fortsæt?"
 }

@@ -2574,5 +2574,12 @@
   "PE.Views.ViewTab.tipSelectTool": "Välj verktyg",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Behåll nuvarande lösenord",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Behåll utan lösenord",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Byt lösenord",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Lägg till lösenord",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Radera lösenord",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Den här exporterade kopian kommer inte att lösenordsskyddas. Fortsätta?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "När du sparar tas lösenordsskyddet bort och det krypterade originalet kan skrivas över med en oskyddad fil. Fortsätta?"
 }

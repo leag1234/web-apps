@@ -3958,5 +3958,12 @@
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "PE.Views.DocumentHolder.txtCannotOpenLink": "The link reference does not exist. Please correct the link or delete it.",
   "PE.Views.ElixirBackstage.txtSaveName": "File name",
-  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Choose another file name."
+  "PE.Views.ElixirBackstage.txtSaveNameInvalid": "Choose another file name.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Keep current password",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Keep without password",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Change password",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Add password",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Remove password",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "This exported copy will not be password protected. Continue?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "This save will remove password protection and may overwrite the encrypted original with an unprotected file. Continue?"
 }

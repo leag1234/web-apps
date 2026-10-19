@@ -910,3 +910,26 @@ body.elx-chrome .elx-account-btn:focus-visible { outline: 2px solid var(--border
 
 
 body.elx-chrome .elx-docname.elx-compact .elx-docstate-txt { display: none; }
+
+// Local password choices keep long translated labels inside the modal footer.
+.asc-window.alert .footer.eo-local-password-actions {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 7px 12px 0;
+    box-sizing: border-box;
+
+    > button, > button:not(:first-child) {
+        margin: 0;
+        max-width: 100%;
+        min-height: 24px;
+        height: auto;
+        white-space: normal;
+    }
+}
+
+.eo-local-password .body .box > .input-row:first-child {
+    height: auto;
+}

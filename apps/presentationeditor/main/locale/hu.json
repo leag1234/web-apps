@@ -3578,5 +3578,12 @@
   "PE.Views.ViewTab.tipStopMacro": "Felvétel leállítása",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "A hivatkozás nem létezik. Kérjük, javítsa ki a hivatkozást, vagy törölje azt.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Jelenlegi jelszó megtartása",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Megtartás jelszó nélkül",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Jelszó módosítása",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Jelszó hozzáadása",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Jelszó törlése",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ez az exportált másolat nem lesz jelszóval védett. Folytatja?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "A mentés eltávolítja a jelszavas védelmet, és felülírhatja a titkosított eredetit egy nem védett fájllal. Folytatja?"
 }

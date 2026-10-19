@@ -3621,5 +3621,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Birleştirme yapılamadı.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Link referansı mevcut değil. Lütfen linki düzeltin veya silin.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Geçerli parolayı koru",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Parolasız tut",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Parolayı değiştir",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Parola ekle",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Parolayı sil",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Dışa aktarılan bu kopya parola ile korunmayacak. Devam edilsin mi?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Kaydetme işlemi parola korumasını kaldıracak ve şifrelenmiş özgün dosyanın üzerine korumasız bir dosya yazabilir. Devam edilsin mi?"
 }

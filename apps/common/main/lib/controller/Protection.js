@@ -163,7 +163,7 @@ define([
 
         addPassword: function() {
             var me = this,
-                win = new Common.Views.PasswordDialog({
+                options = {
                     api: me.api,
                     handler: function(result, props) {
                         if (result == 'ok') {
@@ -171,8 +171,23 @@ define([
                         }
                         Common.NotificationCenter.trigger('edit:complete');
                     }
-                });
+                };
 
+            if (me.api && me.api.eoLocalMode === true) {
+                options.cls = 'modal-dlg eo-local-password';
+                options.localPasswordLabels = {};
+                ['txtTitle', 'txtPassword', 'txtDescription', 'txtRepeat', 'txtIncorrectPwd', 'txtWarning'].forEach(function(key) {
+                    var fallback = Common.Views.PasswordDialog.prototype[key],
+                        value = fallback;
+                    try {
+                        if (Common.Locale && typeof Common.Locale.get === 'function')
+                            value = Common.Locale.get(key, {name: 'Common.Views.PasswordDialog', default: fallback});
+                    } catch (error) {}
+                    options.localPasswordLabels[key] = typeof value === 'string' && value.trim() ? value : fallback;
+                });
+            }
+
+            var win = new Common.Views.PasswordDialog(options);
             win.show();
         },
 

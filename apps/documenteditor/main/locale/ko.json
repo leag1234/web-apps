@@ -4405,5 +4405,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "병합을 수행할 수 없습니다.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "링크 참조가 존재하지 않습니다. 링크를 수정하거나 삭제하십시오.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "현재 비밀번호 유지",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "비밀번호 없이 유지",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "비밀번호 변경",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "비밀번호 추가",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "비밀번호 삭제",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "내보낸 이 사본은 비밀번호로 보호되지 않습니다. 계속하시겠습니까?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "저장하면 비밀번호 보호가 제거되며 암호화된 원본을 보호되지 않은 파일로 덮어쓸 수 있습니다. 계속하시겠습니까?"
 }

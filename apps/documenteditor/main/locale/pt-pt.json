@@ -5543,5 +5543,12 @@
   "DE.Views.ContextTabs.txtChangeChartType": "Alterar Tipo de Gráfico",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "A referência da ligação não existe. Deve corrigir ou eliminar a ligação.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Manter a palavra-passe atual",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Manter sem palavra-passe",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Alterar palavra-passe",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Adicionar palavra-passe",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Eliminar palavra-passe",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Esta cópia exportada não será protegida por palavra-passe. Continuar?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Ao guardar, a proteção por palavra-passe será removida e o original encriptado poderá ser substituído por um ficheiro desprotegido. Continuar?"
 }

@@ -715,6 +715,23 @@ define([
 
                 this.$window = $('#' + this.initConfig.id);
 
+                var heading = this.$window.find('> .header > .title'),
+                    message = this.$window.find('> .body > .info-box > .text > span').first();
+                heading.length && heading.attr('id', 'window-title-' + this.cid);
+                message.length && message.attr('id', 'window-message-' + this.cid);
+                if (this.initConfig.ariaLabelledby)
+                    this.$window.attr('aria-labelledby', this.initConfig.ariaLabelledby);
+                else if (this.initConfig.ariaLabel)
+                    this.$window.attr('aria-label', this.initConfig.ariaLabel);
+                else if (heading.length && heading.text().trim() && this.initConfig.title !== config.title)
+                    this.$window.attr('aria-labelledby', heading.attr('id'));
+                else if (this.initConfig.role === 'alertdialog' && message.length)
+                    this.$window.attr('aria-labelledby', message.attr('id'));
+                if (this.initConfig.ariaDescribedby)
+                    this.$window.attr('aria-describedby', this.initConfig.ariaDescribedby);
+                else if (message.length && this.$window.attr('aria-labelledby') !== message.attr('id'))
+                    this.$window.attr('aria-describedby', message.attr('id'));
+
                 if (Common.Locale.getCurrentLanguage() && Common.Locale.getCurrentLanguage() !== 'en')
                     this.$window.attr('applang', Common.Locale.getCurrentLanguage());
 

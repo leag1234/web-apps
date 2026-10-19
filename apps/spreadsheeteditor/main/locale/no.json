@@ -29,5 +29,17 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Noen formler, celleformateringer eller innebygde objekter kan gå tapt. Vil du fortsette?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV lagrer bare det aktive arket som tekst, uten formatering eller objekter. Vil du fortsette?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV lagrer bare det aktive arket som tekst, uten formatering eller objekter. Vil du fortsette?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Behold gjeldende passord",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Behold uten passord",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Endre passord",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Angi passord",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Slett passord",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Denne eksporterte kopien vil ikke være passordbeskyttet. Fortsette?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Lagringen vil fjerne passordbeskyttelsen og kan overskrive den krypterte originalen med en ubeskyttet fil. Fortsette?",
+  "Common.Views.PasswordDialog.txtTitle": "Angi passord",
+  "Common.Views.PasswordDialog.txtPassword": "Passord",
+  "Common.Views.PasswordDialog.txtDescription": "Et passord kreves for å åpne dette dokumentet",
+  "Common.Views.PasswordDialog.txtRepeat": "Gjenta passord",
+  "Common.Views.PasswordDialog.txtIncorrectPwd": "Bekreftet passord er ikke identisk"
 }

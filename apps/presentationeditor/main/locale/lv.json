@@ -2700,5 +2700,12 @@
   "PE.Views.ViewTab.tipInterfaceTheme": "Interfeisa tēma",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Saites atsauce nepastāv. Lūdzu, izlabojiet saiti vai to dzēsiet.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Paturēt pašreizējo paroli",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Paturēt bez paroles",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Mainīt paroli",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Pievienot paroli",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Dzēst paroli",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Šī eksportētā kopija nebūs aizsargāta ar paroli. Vai turpināt?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Saglabājot tiks noņemta paroles aizsardzība, un šifrētais oriģināls var tikt aizstāts ar neaizsargātu failu. Vai turpināt?"
 }

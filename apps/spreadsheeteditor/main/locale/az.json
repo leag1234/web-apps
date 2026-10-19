@@ -3449,5 +3449,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Bəzi düsturlar, xana formatları və ya daxil edilmiş obyektlər itə bilər. Davam edilsin?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV yalnız aktiv vərəqi mətn kimi, formatlaşdırma və obyektlər olmadan saxlayır. Davam edilsin?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV yalnız aktiv vərəqi mətn kimi, formatlaşdırma və obyektlər olmadan saxlayır. Davam edilsin?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Cari şifrəni saxla",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Şifrəsiz saxla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Parolu dəyişin",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Şifrə əlavə et",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Parolu sil",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Bu ixrac edilmiş nüsxə şifrə ilə qorunmayacaq. Davam edilsin?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Saxlama şifrə qorunmasını siləcək və şifrələnmiş orijinalı qorunmayan faylla əvəz edə bilər. Davam edilsin?"
 }

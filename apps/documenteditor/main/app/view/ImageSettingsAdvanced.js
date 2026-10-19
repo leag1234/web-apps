@@ -129,6 +129,9 @@ define([
                 maxValue: 55.88,
                 minValue: 0
             });
+            var inputIdWidth = 'image-Width-' + this.cid;
+            this.spnWidth.$el.find('input').attr('id', inputIdWidth);
+            this.spnWidth.$el.prev('label').attr('for', inputIdWidth);
             this.spnWidth.on('change', _.bind(function(field, newValue, oldValue, eOpts){
                 if (this.btnRatio.pressed) {
                     var w = field.getNumberValue();
@@ -157,6 +160,9 @@ define([
                 maxValue: 55.88,
                 minValue: 0
             });
+            var inputIdHeight = 'image-Height-' + this.cid;
+            this.spnHeight.$el.find('input').attr('id', inputIdHeight);
+            this.spnHeight.$el.prev('label').attr('for', inputIdHeight);
             this.spnHeight.on('change', _.bind(function(field, newValue, oldValue, eOpts){
                 var h = field.getNumberValue(), w = null;
                 if (this.btnRatio.pressed) {

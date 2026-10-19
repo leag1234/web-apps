@@ -1423,5 +1423,15 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Nekatere formule, oblikovanje celic ali vdelani predmeti se lahko izgubijo. Želite nadaljevati?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV shrani samo aktivni list kot besedilo, brez oblikovanja ali predmetov. Želite nadaljevati?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV shrani samo aktivni list kot besedilo, brez oblikovanja ali predmetov. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Ohrani trenutno geslo",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ohrani brez gesla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Spremeni geslo",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Dodaj geslo",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Odstrani geslo",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ta izvožena kopija ne bo zaščitena z geslom. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Shranjevanje bo odstranilo zaščito z geslom in lahko prepiše šifrirani izvirnik z nezaščiteno datoteko. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtTitle": "Nastavi geslo",
+  "Common.Views.PasswordDialog.txtDescription": "Za odpiranje tega dokumenta je potrebno geslo.",
+  "Common.Views.PasswordDialog.txtRepeat": "Ponovite geslo"
 }

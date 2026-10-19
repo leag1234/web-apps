@@ -5674,5 +5674,12 @@
   "SSE.Views.ElixirTitleBar.txtTestUser": "Utente di prova (modalità sviluppatore)",
   "SSE.Views.ElixirTitleBar.txtTestUserMe": "Io ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Mantieni la password attuale",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Mantieni senza password",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Cambia password",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Aggiungi password",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Elimina password",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Questa copia esportata non sarà protetta da password. Continuare?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Il salvataggio rimuoverà la protezione con password e potrebbe sovrascrivere l’originale crittografato con un file non protetto. Continuare?"
 }

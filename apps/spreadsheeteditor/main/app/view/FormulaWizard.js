@@ -116,6 +116,11 @@ define([
             this.afterRender();
         },
 
+        getDefaultFocusableComponent: function() {
+            if (this.args.length < 1)
+                return this.getFooterButtons()[0];
+        },
+
         afterRender: function() {
             this._setDefaults();
         },
@@ -341,7 +346,7 @@ define([
 
         setControls: function(argcount, argtype, argval, argres) {
             var me = this,
-                argtpl = '<tr><td class="padding-right-10" style="padding-bottom: 8px;vertical-align: middle;"><div id="formula-wizard-lbl-name-arg{0}" style="min-width:' + this.minArgWidth + 'px;white-space: nowrap;margin-top: 1px;"></div></td>' +
+                argtpl = '<tr><td class="padding-right-10" style="padding-bottom: 8px;vertical-align: middle;"><label id="formula-wizard-lbl-name-arg{0}" style="display:block;min-width:' + this.minArgWidth + 'px;white-space: nowrap;margin-top: 1px;"></label></td>' +
                         '<td class="padding-right-5" style="padding-bottom: 8px;width: 100%;vertical-align: middle;"><div id="formula-wizard-txt-arg{0}"></div></td>' +
                         '<td style="padding-bottom: 8px;vertical-align: middle;"><div id="formula-wizard-lbl-val-arg{0}" class="input-label" style="margin-top: 1px;width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"></div></td></tr>',
                 div = $(Common.Utils.String.format(argtpl, argcount));
@@ -372,6 +377,9 @@ define([
                 argType: argtype,
                 argTypeName: me.getArgType(argtype)
             });
+            var argumentInputId = 'formula-argument-' + this.cid + '-' + argcount;
+            txt.$el.find('input').attr('id', argumentInputId);
+            me.args[argcount].lblName.attr('for', argumentInputId);
             if (argcount<me.minArgCount)
                 me.args[argcount].lblName.html('<b>' + _.escape(me.args[argcount].argName) + '</b>');
             else

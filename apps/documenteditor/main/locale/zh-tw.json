@@ -4165,5 +4165,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "無法完成合併。",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。"
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "引用的連結不存在。請更正連結或將其刪除。",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "保留目前密碼",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "保持無密碼",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "變更密碼",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "新增密碼",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "刪除密碼",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "匯出的此副本將不受密碼保護。是否繼續？",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "此次儲存將移除密碼保護，並可能以未受保護的檔案覆寫已加密的原始檔案。是否繼續？"
 }

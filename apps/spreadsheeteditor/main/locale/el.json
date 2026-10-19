@@ -5290,5 +5290,12 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "Εισάγετε συνθηματικό για άρση προστασίας βιβλίου εργασίας",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "Άρση προστασίας βιβλίου εργασίας",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Διατήρηση τρέχοντος κωδικού πρόσβασης",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Διατήρηση χωρίς κωδικό πρόσβασης",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Αλλαγή συνθηματικού",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Προσθήκη συνθηματικού",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Διαγραφή συνθηματικού",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Αυτό το εξαγόμενο αντίγραφο δεν θα προστατεύεται με κωδικό πρόσβασης. Συνέχεια;",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Η αποθήκευση θα καταργήσει την προστασία με κωδικό πρόσβασης και μπορεί να αντικαταστήσει το κρυπτογραφημένο πρωτότυπο με μη προστατευμένο αρχείο. Συνέχεια;"
 }

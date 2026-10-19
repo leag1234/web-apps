@@ -1081,7 +1081,8 @@ define([
 
             initialize : function(options) {
                 _.extend(this.options, options || {}, {
-                    label: this.labelSheetName
+                    label: this.labelSheetName,
+                    ariaLabel: this.labelSheetName
                 });
                 this.options.tpl = _.template(this.template)(this.options);
 
@@ -1102,6 +1103,9 @@ define([
                     maxLength: 31,
                     validation: _.bind(this.nameValidator, this)
                 });
+                var inputId = 'sheet-name-' + this.cid;
+                this.txtName.$el.find('input').attr('id', inputId);
+                $window.find('.input-row > label').attr('for', inputId);
             },
 
             getFocusedComponents: function() {
@@ -1189,12 +1193,12 @@ define([
             template:   '<div class="box">' +
                             '<% if ( supportBooks ) { %>' +
                             '<div class="input-row">' +
-                                '<label><%= labelSpreadsheet %></label>' +
+                                '<label class="label-spreadsheet"><%= labelSpreadsheet %></label>' +
                             '</div>' +
                             '<div id="status-cmb-spreadsheet" style="padding-bottom: 12px;"></div>' +
                             '<% } %>' +
                             '<div class="input-row">' +
-                                '<label><%= labelMoveBefore %></label>' +
+                                '<label class="label-move-before"><%= labelMoveBefore %></label>' +
                             '</div>' +
                             '<div id="status-list-names" style="height: 178px;padding-bottom: 16px;"></div>' +
                             '<div id="status-ch-create-copy"></div>' +
@@ -1239,6 +1243,10 @@ define([
                     editable: false
                 });
                 this.cmbSpreadsheet.setValue('current');
+                var spreadsheetInputId = 'spreadsheet-name-' + this.cid;
+                this.cmbSpreadsheet.$el.find('input').attr('id', spreadsheetInputId);
+                $window.find('.label-spreadsheet').attr('for', spreadsheetInputId);
+                this.cmbSpreadsheet.$el.find('button').attr('aria-label', this.textSpreadsheet);
                 var showBefore = function () {
                     me.spreadsheets.opened = true;
                     if (me.spreadsheets.changed) {
@@ -1270,6 +1278,9 @@ define([
                     tabindex: 1
                 });
 
+                var sheetListLabelId = 'sheet-list-label-' + this.cid;
+                $window.find('.label-move-before').attr('id', sheetListLabelId);
+                this.listNames.$el.find('[role=list]').addBack('[role=list]').attr('aria-labelledby', sheetListLabelId);
                 this.listNames.selectByIndex(0);
                 this.listNames.on('entervalue', _.bind(this.onPrimary, this));
                 this.listNames.on('item:dblclick', _.bind(this.onPrimary, this));

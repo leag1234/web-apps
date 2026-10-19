@@ -2306,5 +2306,13 @@
   "DE.Views.ElixirBackstage.txtSaveAs": "Save as",
   "DE.Views.ElixirBackstage.txtSaveName": "Ime datoteke",
   "DE.Views.ElixirBackstage.txtSaveNameInvalid": "Izberite drugo ime datoteke.",
-  "DE.Controllers.LeftMenu.warnDownloadAsRTF": "Pri shranjevanju kopije RTF se lahko izgubi del oblikovanja."
+  "DE.Controllers.LeftMenu.warnDownloadAsRTF": "Pri shranjevanju kopije RTF se lahko izgubi del oblikovanja.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Ohrani trenutno geslo",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Ohrani brez gesla",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Spremeni geslo",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Dodaj geslo",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Odstrani geslo",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ta izvožena kopija ne bo zaščitena z geslom. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Shranjevanje bo odstranilo zaščito z geslom in lahko prepiše šifrirani izvirnik z nezaščiteno datoteko. Želite nadaljevati?",
+  "Common.Views.PasswordDialog.txtDescription": "Za odpiranje tega dokumenta je potrebno geslo."
 }

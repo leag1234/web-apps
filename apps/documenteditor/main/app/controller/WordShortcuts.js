@@ -217,6 +217,7 @@ define([
             if (this.isModal()) return true;
             var regions = [
                 {name: 'document', el: null},
+                {name: 'layoutoptions', el: $('.elx-lo-btn:visible, .elx-lo-pane:visible')},
                 {name: 'pane', el: $('#left-panel .left-panel:visible, #left-menu .left-panel:visible, #right-menu:visible').first()},
                 {name: 'statusbar', el: $('#statusbar')},
                 {name: 'ribbon', el: $('#toolbar')}
@@ -224,7 +225,7 @@ define([
 
             var active = document.activeElement, current = 0;
             for (var i = 1; i < regions.length; i++) {
-                if (active && regions[i].el[0].contains(active)) { current = i; break; }
+                if (active && regions[i].el.filter(function () { return this.contains(active); }).length) { current = i; break; }
             }
             // next region that can take the focus (a visible pane may have nothing focusable)
             for (var step = 1; step <= regions.length; step++) {
@@ -234,11 +235,11 @@ define([
                     Common.NotificationCenter.trigger('edit:complete');
                     return false;
                 }
-                var target = next.name === 'ribbon' ? next.el.find('.ribtab.active > a, li.active > a').filter(':visible').first() : $();
+                var target = next.name === 'layoutoptions' ? next.el.filter('.elx-lo-btn').first() : next.name === 'ribbon' ? next.el.find('.ribtab.active > a, li.active > a').filter(':visible').first() : $();
                 if (!target.length)
                     target = next.el.find('button:visible:not([disabled]), a[href]:visible, input:visible:not([disabled])').first();
                 if (target.length) {
-                    this.api.asc_enableKeyEvents(false);
+                    this.api.asc_enableKeyEvents(next.name === 'layoutoptions');
                     target[0].focus();
                     if (document.activeElement === target[0])
                         return false;

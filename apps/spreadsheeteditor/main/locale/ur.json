@@ -5265,5 +5265,12 @@
   "SSE.Views.WBProtection.txtWBUnlockDescription": "ورک بک کو غیر محفوظ کرنے کے لیے پاس ورڈ درج کریں۔",
   "SSE.Views.WBProtection.txtWBUnlockTitle": "ورک بک کو غیر محفوظ کریں۔",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "موجودہ پاس ورڈ برقرار رکھیں",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "بغیر پاس ورڈ کے رکھیں",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "پاس ورڈ تبدیل کریں۔",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "پاس ورڈ شامل کریں۔",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "پاس ورڈ حذف کریں۔",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "یہ برآمد شدہ نقل پاس ورڈ سے محفوظ نہیں ہوگی۔ کیا آپ جاری رکھنا چاہتے ہیں؟",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "محفوظ کرنے سے پاس ورڈ کا تحفظ ختم ہو جائے گا اور اصل رمز شدہ فائل کی جگہ غیر محفوظ فائل لکھی جا سکتی ہے۔ کیا آپ جاری رکھنا چاہتے ہیں؟"
 }

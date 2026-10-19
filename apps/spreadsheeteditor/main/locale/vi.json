@@ -1676,5 +1676,17 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Một số công thức, định dạng ô hoặc đối tượng nhúng có thể bị mất. Bạn có muốn tiếp tục không?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV chỉ lưu trang tính hiện tại dưới dạng văn bản, không có định dạng hoặc đối tượng. Bạn có muốn tiếp tục không?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV chỉ lưu trang tính hiện tại dưới dạng văn bản, không có định dạng hoặc đối tượng. Bạn có muốn tiếp tục không?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Giữ mật khẩu hiện tại",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Giữ không có mật khẩu",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Đổi mật khẩu",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Thêm mật khẩu",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Xóa mật khẩu",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Bản sao được xuất này sẽ không được bảo vệ bằng mật khẩu. Tiếp tục?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Việc lưu này sẽ xóa bảo vệ bằng mật khẩu và có thể ghi đè bản gốc đã mã hóa bằng một tệp không được bảo vệ. Tiếp tục?",
+  "Common.Views.PasswordDialog.txtTitle": "Đặt mật khẩu",
+  "Common.Views.PasswordDialog.txtPassword": "Mật khẩu",
+  "Common.Views.PasswordDialog.txtDescription": "Cần có mật khẩu để mở tài liệu này",
+  "Common.Views.PasswordDialog.txtRepeat": "Nhập lại mật khẩu",
+  "Common.Views.PasswordDialog.txtIncorrectPwd": "Mật khẩu xác nhận không khớp"
 }

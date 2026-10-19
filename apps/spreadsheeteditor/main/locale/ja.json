@@ -5674,5 +5674,12 @@
   "SSE.Views.ElixirTitleBar.txtTestUser": "テスト ユーザー (開発者モード)",
   "SSE.Views.ElixirTitleBar.txtTestUserMe": "自分 ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "現在のパスワードを保持",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "パスワードなしのまま保持",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "パスワードを変更する",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "パスワードを追加",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "パスワードを削除する",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "このエクスポートしたコピーはパスワードで保護されません。続行しますか？",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "保存するとパスワード保護が解除され、暗号化された元のファイルが保護されていないファイルで上書きされる可能性があります。続行しますか？"
 }

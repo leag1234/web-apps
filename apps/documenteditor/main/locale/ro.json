@@ -4406,5 +4406,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Îmbinarea nu a putut fi efectuată.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Legătura la referință nu există. Corectați sau eliminați linkul.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Păstrează parola actuală",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Păstrează fără parolă",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Schimbare parola",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Adăugare parola",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Ștergere parola",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Această copie exportată nu va fi protejată prin parolă. Continuați?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Salvarea va elimina protecția prin parolă și poate suprascrie originalul criptat cu un fișier neprotejat. Continuați?"
 }

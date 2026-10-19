@@ -3372,5 +3372,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Не ўдалося выканаць зліццё.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Спасылка паказвае на ячэйку, якая не існуе. Выпраўце ці выдаліце спасылку."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Спасылка паказвае на ячэйку, якая не існуе. Выпраўце ці выдаліце спасылку.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Захаваць бягучы пароль",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Захаваць без пароля",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Змяніць пароль",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Дадаць пароль",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Выдаліць пароль",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Гэта экспартаваная копія не будзе абаронена паролем. Працягнуць?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Пры захаванні абарона паролем будзе выдалена, а зашыфраваны арыгінал можа быць заменены неабароненым файлам. Працягнуць?"
 }

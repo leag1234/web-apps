@@ -260,7 +260,10 @@ define([
                 }
 
                 this.api.ImgApply(props);
-                this.toolbar.fireEvent('editcomplete', this.toolbar);
+                if (e && e.preserveFocus === true)
+                    this.toolbar.fireEvent('editcomplete', this.toolbar, {preserveFocus: true});
+                else
+                    this.toolbar.fireEvent('editcomplete', this.toolbar);
             },
 
             onClickMenuGroup: function (menu, item, e) {

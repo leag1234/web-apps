@@ -5674,5 +5674,12 @@
   "SSE.Views.ElixirTitleBar.txtTestUser": "测试用户（开发者模式）",
   "SSE.Views.ElixirTitleBar.txtTestUserMe": "我（{0}）",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "保留当前密码",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "保持无密码",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "修改密码",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "添加密码",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "删除密码",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "导出的此副本将不受密码保护。是否继续？",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "此次保存将移除密码保护，并可能用未受保护的文件覆盖已加密的原件。是否继续？"
 }

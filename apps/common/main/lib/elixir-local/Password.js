@@ -6,6 +6,12 @@ define(['require'],function(require){
  var editors=new WeakMap();
  function dialogs(){return new Promise(function(resolve,reject){require(['common/main/lib/view/OpenDialog','common/main/lib/view/PasswordDialog'],resolve,reject);});}
  function error(code,text){var e=new Error(text);e.code=code;return e;}
+ function text(key,fallback){
+  var locale=Common.Locale,value;
+  // The locale or lazy dialog view may not be ready when a safety warning opens.
+  try{value=locale&&typeof locale.get==='function'?locale.get(key,{name:'Common.Views.PasswordDialog',default:fallback}):fallback;}catch(_error){return fallback;}
+  return typeof value==='string'&&value.trim()?value:fallback;
+ }
  function prepare(api,main){
   if(!api.eoLocalMode)return;
   editors.set(api,main);
@@ -60,17 +66,18 @@ define(['require'],function(require){
    });view.show();return view;
   });}
   async function newPassword(){await dialogs();alive();return prompt(function(finish){
-   var view=new Common.Views.PasswordDialog({api:api,handler:function(result,value){if(result!=='ok')return finish(error('cancelled','Password change cancelled'));try{window.EOWasmConvert.validatePassword(value);finish(null,value);}catch(e){finish(e);}}});
+   var labels={};['txtTitle','txtPassword','txtDescription','txtRepeat','txtIncorrectPwd','txtWarning'].forEach(function(key){labels[key]=text(key,Common.Views.PasswordDialog.prototype[key]);});
+   var view=new Common.Views.PasswordDialog({api:api,cls:'modal-dlg eo-local-password',localPasswordLabels:labels,handler:function(result,value){if(result!=='ok')return finish(error('cancelled','Password change cancelled'));try{window.EOWasmConvert.validatePassword(value);finish(null,value);}catch(e){finish(e);}}});
    view.show();return view;
   });}
   async function choose(){
    await dialogs();alive();
-   var labels=Common.Views.Protection&&Common.Views.Protection.prototype||{};
    var selected=await prompt(function(finish){return Common.UI.alert({
-    title:Common.Views.PasswordDialog.prototype.txtPassword,msg:Common.Views.PasswordDialog.prototype.txtDescription,
-    buttons:[{value:'keep',caption:protectedDocument()?'Keep current password':'Keep without password'},
-     {value:'change',caption:protectedDocument()?labels.txtChangePwd||'Change password':labels.txtAddPwd||'Add password'},
-     {value:'remove',caption:labels.txtDeletePwd||'Delete password'},'cancel'],
+    title:text('txtPassword','Password'),msg:text('txtDescription','A Password is required to open this document'),
+    width:Math.min(780,Math.max(240,(window.innerWidth||800)-32)),footerCls:'center eo-local-password-actions',
+    buttons:[{value:'keep',caption:protectedDocument()?text('txtLocalKeepCurrentPassword','Keep current password'):text('txtLocalKeepWithoutPassword','Keep without password')},
+     {value:'change',caption:protectedDocument()?text('txtLocalChangePassword','Change password'):text('txtLocalAddPassword','Add password')},
+     {value:'remove',caption:text('txtLocalRemovePassword','Remove password')},'cancel'],
     callback:function(value){if(value==='keep'||value==='change'||value==='remove')finish(null,value);else finish(error('cancelled','Save As cancelled'));}
    });});
    return selected==='change'?newPassword():selected==='remove'?null:undefined;
@@ -78,7 +85,7 @@ define(['require'],function(require){
   async function confirmExport(){
    if(!protectedDocument())return false;
    var accepted=await prompt(function(finish){return Common.UI.warning({
-    msg:'This exported copy will not be password protected. Continue?',buttons:['no','yes'],
+    msg:text('txtLocalPlaintextCopyWarning','This exported copy will not be password protected. Continue?'),buttons:['no','yes'],
     callback:function(value){finish(null,value==='yes');}
    });});
    if(!accepted)throw error('cancelled','Export cancelled');return true;
@@ -106,7 +113,7 @@ define(['require'],function(require){
    var removed=protectedDocument()&&candidate===undefined;
    if(removed){
     var accepted=await prompt(function(finish){return Common.UI.warning({
-     msg:'This save will remove password protection and may overwrite the encrypted original with an unprotected file. Continue?',buttons:['no','yes'],
+     msg:text('txtLocalRemovePasswordWarning','This save will remove password protection and may overwrite the encrypted original with an unprotected file. Continue?'),buttons:['no','yes'],
      callback:function(value){finish(null,value==='yes');}
     });});
     if(!accepted)throw error('cancelled','Password removal cancelled');

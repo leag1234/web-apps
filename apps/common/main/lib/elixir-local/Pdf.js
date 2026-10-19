@@ -9,8 +9,10 @@ define(['common/main/lib/elixir-local/PdfWriter','common/main/lib/elixir-local/P
   var opening=false,disposed=false,original=null,saving=null,policy={writable:false,reason:'unverified'},externalOpeningJob;
   var operations=Operation.create(options.onOperation,options.operationScope);
   function openingBusy(){return opening||externalOpeningJob&&externalOpeningJob.isRunning&&externalOpeningJob.isRunning();}
-  // Page rotation preserves page identity/count; destructive organisation stays unavailable.
+  // Rotation and reordering retain page identity/count; insertion/deletion stay unavailable.
   api.eoLocalPdfCanRotate=function(){return !disposed&&!openingBusy()&&!operations.isBusy()&&!saving&&policy.writable;};
+  // Older preservation runtimes cannot attest safe inherited-page reordering.
+  api.eoLocalPdfCanReorder=function(){return !disposed&&!openingBusy()&&!operations.isBusy()&&!saving&&policy.writable&&policy.reorderSafe===true;};
   function begin(kind){return operations.begin(kind,{name:api.documentTitle||options.name||''});}
   // Untrusted document scripts and form URI actions must not escape the local transport.
   // This iframe contains only this explicitly offline API instance; hosted SDKs are unchanged.

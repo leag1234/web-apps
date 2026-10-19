@@ -679,7 +679,7 @@
   "Common.Views.OpenDialog.txtTitleProtected": "ملف محمي",
   "Common.Views.PasswordDialog.txtDescription": "قم بإنشاء كلمة سر لحماية هذا المستند",
   "Common.Views.PasswordDialog.txtIncorrectPwd": "كلمة المرور التأكيد ليست متطابقة",
-  "Common.Views.PasswordDialog.txtPassword": "كملة السر",
+  "Common.Views.PasswordDialog.txtPassword": "كلمة المرور",
   "Common.Views.PasswordDialog.txtRepeat": "تكرار كلمة السر",
   "Common.Views.PasswordDialog.txtTitle": "تعيين كلمة السر",
   "Common.Views.PasswordDialog.txtWarning": "تحذير: لا يمكن استعادة كلمة السر في حال فقدانها أو نسيانها. تأكد من حفظها في مكان آمن",
@@ -3795,5 +3795,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "تعذر إجراء الدمج.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "مرجع الرابط غير موجود. يرجى تصحيح الرابط أو حذفه.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "الاحتفاظ بكلمة المرور الحالية",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "الإبقاء بدون كلمة مرور",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "تغيير كلمة السر",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "اضافة كلمة سر",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "حذف كلمة السر",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "لن تكون هذه النسخة المصدّرة محمية بكلمة مرور. هل تريد المتابعة؟",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "سيؤدي هذا الحفظ إلى إزالة الحماية بكلمة مرور، وقد يستبدل الأصل المشفّر بملف غير محمي. هل تريد المتابعة؟"
 }

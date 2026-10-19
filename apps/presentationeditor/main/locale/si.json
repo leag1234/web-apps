@@ -3219,5 +3219,12 @@
   "PE.Views.ViewTab.tipSlideMaster": "ප්‍රධාන සර්පණය",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "යොමුවේ සබැඳිය නොපවතී. සබැඳිය නිවැරදි කරන්න හෝ එය මකන්න.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "වත්මන් මුරපදය තබාගන්න",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "මුරපදයක් නොමැතිව තබාගන්න",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "මුරපදය වෙනස් කරන්න",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "මුරපදය එකතු කරන්න",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "මුරපදය මකන්න",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "අපනයනය කරන මෙම පිටපත මුරපදයකින් ආරක්ෂා නොවේ. ඉදිරියට යන්නද?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "මෙම සුරැකීම මුරපද ආරක්ෂාව ඉවත් කරන අතර සංකේතනය කළ මුල් ගොනුව ආරක්ෂිත නොවන ගොනුවකින් ප්‍රතිස්ථාපනය කළ හැකිය. ඉදිරියට යන්නද?"
 }

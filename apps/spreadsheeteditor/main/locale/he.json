@@ -5055,5 +5055,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "ייתכן שחלק מהנוסחאות, מעיצוב התאים או מהאובייקטים המוטבעים יאבדו. להמשיך?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV שומר רק את הגיליון הפעיל כטקסט, ללא עיצוב או אובייקטים. להמשיך?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV שומר רק את הגיליון הפעיל כטקסט, ללא עיצוב או אובייקטים. להמשיך?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "השארת הסיסמה הנוכחית",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "השארה ללא סיסמה",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "שינוי סיסמה",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "הוספת סיסמה",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "מחיקת סיסמה",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "העותק המיוצא הזה לא יהיה מוגן בסיסמה. להמשיך?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "השמירה תסיר את ההגנה באמצעות סיסמה ועשויה להחליף את המקור המוצפן בקובץ לא מוגן. להמשיך?"
 }

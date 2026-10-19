@@ -206,6 +206,12 @@ define([
     /**
      * host: {api, toolsetFactory(), openSettings(), shortcutLabel, isHistoryAt(index)…}
      */
+    function setGuidedTipsSuspended(owner, suspended) {
+        var manager = Common.UI && Common.UI.TooltipManager;
+        var action = suspended ? 'suspend' : 'resume';
+        if (manager && typeof manager[action] === 'function') manager[action](owner);
+    }
+
     function CommandBar(host) {
         this.host = host;
         this.el = null;
@@ -291,6 +297,7 @@ define([
         this.render();
         this.position();
         this.el.style.display = '';
+        setGuidedTipsSuspended(this, true);
         if (this.state === 'closed') this.reset();
         var configured = ElixirAI.Settings.isConfigured();
         if (!configured && !this.managedChecked) {
@@ -348,6 +355,7 @@ define([
         // Closing while reviewing keeps the AI changes as ordinary tracked changes in the document.
         this.el.style.display = 'none';
         this.setState('closed');
+        setGuidedTipsSuspended(this, false);
         this.result = null;
         if (this.host.api) this.host.api.asc_enableKeyEvents(true);
         this.host.onClosed && this.host.onClosed();
@@ -722,6 +730,7 @@ define([
     SettingsDialog.prototype.open = function (focusJournal) {
         injectStyles();
         this.close();
+        setGuidedTipsSuspended(this, true);
         var me = this;
         if (this.host.api) this.host.api.asc_enableKeyEvents(false);
         var mask = this.mask = document.createElement('div');
@@ -793,6 +802,7 @@ define([
     SettingsDialog.prototype.close = function () {
         if (this.dlg) { this.dlg.remove(); this.dlg = null; }
         if (this.mask) { this.mask.remove(); this.mask = null; }
+        setGuidedTipsSuspended(this, false);
         if (this.host.api && !(this.host.bar && this.host.bar.isOpen())) this.host.api.asc_enableKeyEvents(true);
     };
 

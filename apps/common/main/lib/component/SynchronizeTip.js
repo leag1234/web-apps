@@ -26,7 +26,8 @@ if (Common === undefined)
     var Common = {};
 
 define([
-    'common/main/lib/component/BaseView'
+    'common/main/lib/component/BaseView',
+    'common/main/lib/core/NotificationCenter'
 ], function () {
     'use strict';
 
@@ -260,17 +261,86 @@ define([
         },
         _targetStack = {
             // 'targetStr' : [targetEl1, targetEl2...]
+        },
+        _suspendedOwners = [],
+        _pendingSteps = [],
+        _resumeTimer = null;
+
+        var _queueTip = function(step) {
+            if (_pendingSteps.indexOf(step) < 0) _pendingSteps.push(step);
+        };
+
+        var _forgetPendingTip = function(step) {
+            var index = _pendingSteps.indexOf(step);
+            if (index >= 0) _pendingSteps.splice(index, 1);
+        };
+
+        var _resumePendingTips = function() {
+            if (_suspendedOwners.length || Object.keys(_helpTips).some(function(step) {
+                var props = _helpTips[step];
+                return props && props.isNewFeature && props.tip && props.tip.isVisible();
+            })) return;
+
+            var pending = _pendingSteps.slice();
+            for (var i = 0; i < pending.length; i++) {
+                var step = pending[i];
+                if (!_getNeedShow(step)) {
+                    _forgetPendingTip(step);
+                    continue;
+                }
+                // Resume one guide; its ordinary dismissal keeps any next-step chain first.
+                _showTip(step);
+                if (_helpTips[step] && _helpTips[step].tip && _helpTips[step].tip.isVisible()) return;
+            }
+        };
+
+        var _suspend = function(owner) {
+            if (_suspendedOwners.indexOf(owner) < 0) _suspendedOwners.push(owner);
+            Object.keys(_helpTips).forEach(function(step) {
+                var props = _helpTips[step];
+                if (props && props.isNewFeature && props.tip && props.tip.isVisible()) {
+                    _queueTip(step);
+                    props.tip.cmpEl.addClass('elixir-guided-tip-suspended');
+                    props.tip.target && props.tip.target.removeClass('highlight-tip');
+                    props.tip.hide();
+                }
+            });
+        };
+
+        var _resume = function(owner, afterWindowEvent) {
+            var index = _suspendedOwners.indexOf(owner);
+            if (index < 0) return;
+            _suspendedOwners.splice(index, 1);
+            // Custom surfaces release ownership after removing their content.
+            if (!afterWindowEvent) {
+                _resumePendingTips();
+                return;
+            }
+            // Window close/hide events precede removal of their target elements.
+            if (!_suspendedOwners.length && _resumeTimer === null) {
+                _resumeTimer = setTimeout(function() {
+                    _resumeTimer = null;
+                    _resumePendingTips();
+                }, 0);
+            }
         };
 
         var _addTips = function(arr) {
             for (var step in arr) {
-                if (arr.hasOwnProperty(step) && !Common.localStorage.getItem(arr[step].name) && !(_helpTips[step] && _helpTips[step].tip && _helpTips[step].tip.isVisible())) { // don't replace tip when it's visible
+                if (arr.hasOwnProperty(step) && !Common.localStorage.getItem(arr[step].name) && !(_helpTips[step] && _helpTips[step].tip && (_helpTips[step].tip.isVisible() || _helpTips[step].tip.cmpEl.hasClass('elixir-guided-tip-suspended')))) { // don't replace a visible or suspended tip
                     _helpTips[step] = arr[step];
                 }
             }
         };
 
         var _removeTip = function(step) {
+            _forgetPendingTip(step);
+            var props = _helpTips[step];
+            if (props && props.tip && props.tip.cmpEl.hasClass('elixir-guided-tip-suspended')) {
+                props.tip.cmpEl.remove();
+                if (typeof props.target === 'string' && props.stackIdx)
+                    _targetStack[props.target][props.stackIdx-1] = undefined;
+            }
             if (_helpTips[step]) {
                 delete _helpTips[step];
                 _helpTips[step] = undefined;
@@ -305,8 +375,9 @@ define([
                     _targetStack[target] = [];
                 for (let i=_targetStack[target].length-1; i>=0; i--) {
                     if (_targetStack[target][i]) {
-                        return _targetStack[target][i];
-                    } else {
+                        if (!_targetStack[target][i].hasClass('elixir-guided-tip-suspended'))
+                            return _targetStack[target][i];
+                    } else if (i === _targetStack[target].length - 1) {
                         _targetStack[target].pop();
                     }
                 }
@@ -326,6 +397,10 @@ define([
                 }
             }
             if (!_helpTips[step]) return;
+            if (_helpTips[step].isNewFeature && _suspendedOwners.length) {
+                _queueTip(step);
+                return false;
+            }
             if (_getNeedShow(step) && !(_helpTips[step].prev && _getNeedShow(_helpTips[step].prev))) { // show current tip if previous tip has already been shown
                 var props = _helpTips[step],
                     target = props.target,
@@ -337,14 +412,24 @@ define([
                 if (!(targetEl && targetEl.length && targetEl.is(':visible')))
                     return false;
 
+                if (props.tip && props.tip.cmpEl.hasClass('elixir-guided-tip-suspended')) {
+                    if (!(props.tip.target && props.tip.target.is(':visible'))) return false;
+                    props.tip.cmpEl.removeClass('elixir-guided-tip-suspended');
+                    !props.noHighlight && props.tip.target.addClass('highlight-tip');
+                    props.tip.show();
+                    _forgetPendingTip(step);
+                    return true;
+                }
+
                 var placement = props.placement || 'bottom';
                 if (Common.UI.isRTL()) {
                     placement = placement.indexOf('right')>-1 ? placement.replace('right', 'left') : placement.replace('left', 'right');
                 }
                 !props.noHighlight && targetEl.addClass('highlight-tip');
 
-                if (props.isNewFeature) {
-                    props.header = '<span>' + (Common.UI.SynchronizeTip.prototype.textNew || 'New') + '</span>' + props.header;
+                var header = props.header || '';
+                if (props.isNewFeature && header) {
+                    header = '<span>' + (Common.UI.SynchronizeTip.prototype.textNew || 'New') + '</span>' + header;
                 }
 
                 props.tip = new Common.UI.SynchronizeTip({
@@ -355,7 +440,7 @@ define([
                     offset: props.offset,
                     target: targetEl,
                     text: props.text,
-                    textHeader: props.header,
+                    textHeader: header,
                     showLink: !!props.link,
                     textLink: props.link ? props.link.text : '',
                     closable: props.closable !== false, // true by default
@@ -388,9 +473,12 @@ define([
                             _targetStack[target][props.stackIdx-1] = undefined;
                             props.stackIdx = undefined;
                         }
+                        _forgetPendingTip(step);
+                        _resumePendingTips();
                     }
                 });
                 props.tip.show();
+                _forgetPendingTip(step);
                 if (typeof target === 'string') {
                     _targetStack[target].push(props.tip.cmpEl);
                     props.stackIdx = _targetStack[target].length;
@@ -399,7 +487,16 @@ define([
             return true;
         };
 
+        // Only guided feature tips pause; SDK warnings retain their existing paths.
+        Common.NotificationCenter.on({
+            'modal:show': _suspend,
+            'modal:close': function(owner) { _resume(owner, true); },
+            'modal:hide': function(owner) { _resume(owner, true); }
+        });
+
         return {
+            suspend: _suspend,
+            resume: _resume,
             showTip: _showTip,
             closeTip: _closeTip,
             removeTip: _removeTip,

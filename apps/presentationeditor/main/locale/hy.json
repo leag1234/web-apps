@@ -3162,5 +3162,12 @@
   "PE.Views.ViewTab.tipSlideMaster": "Slide master",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։"
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Հղման հղումը գոյություն չունի:Խնդրում ենք ուղղել հղումը կամ ջնջել այն։",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Պահպանել ընթացիկ գաղտնաբառը",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Պահպանել առանց գաղտնաբառի",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Փոխել գաղտնաբառը",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Դնել գաղտնաբառ",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Ջնջել գաղտնաբառը",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Արտահանված այս պատճենը գաղտնաբառով պաշտպանված չի լինի։ Շարունակե՞լ։",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Պահպանումը կհեռացնի գաղտնաբառով պաշտպանությունը և կարող է գաղտնագրված բնօրինակը փոխարինել չպաշտպանված ֆայլով։ Շարունակե՞լ։"
 }

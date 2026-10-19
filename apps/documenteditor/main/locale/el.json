@@ -4405,5 +4405,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Η συγχώνευση δεν ήταν δυνατή.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Η παραπομπή του συνδέσμου δεν υπάρχει. Παρακαλούμε διορθώστε τον σύνδεσμο ή διαγράψτε τον.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Διατήρηση τρέχοντος κωδικού πρόσβασης",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Διατήρηση χωρίς κωδικό πρόσβασης",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Αλλαγή συνθηματικού",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Προσθήκη συνθηματικού",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Διαγραφή συνθηματικού",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Αυτό το εξαγόμενο αντίγραφο δεν θα προστατεύεται με κωδικό πρόσβασης. Συνέχεια;",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Η αποθήκευση θα καταργήσει την προστασία με κωδικό πρόσβασης και μπορεί να αντικαταστήσει το κρυπτογραφημένο πρωτότυπο με μη προστατευμένο αρχείο. Συνέχεια;"
 }

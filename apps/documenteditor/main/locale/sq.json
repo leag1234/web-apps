@@ -4405,5 +4405,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Bashkimi nuk u krye dot.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Referenca e lidhjes nuk ekziston. Ju lutem korrigjoni lidhjen ose fshijeni atë.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Mbaj fjalëkalimin aktual",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Mbaj pa fjalëkalim",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Ndrysho fjalëkalimin",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Shtoni fjalëkalimin",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Fshini fjalëkalimin",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Kjo kopje e eksportuar nuk do të mbrohet me fjalëkalim. Të vazhdohet?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Ruajtja do të heqë mbrojtjen me fjalëkalim dhe mund të zëvendësojë origjinalin e enkriptuar me një skedar të pambrojtur. Të vazhdohet?"
 }

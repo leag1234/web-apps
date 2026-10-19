@@ -95,7 +95,7 @@ define([
             var me = this;
             this.$main = $('#id_main_view');
             if (!this.$main.length) return;
-            this.$btn = $('<button type="button" class="elx-lo-btn" aria-haspopup="dialog" aria-expanded="false"></button>')
+            this.$btn = $('<button type="button" class="elx-lo-btn canfocused" aria-haspopup="dialog" aria-expanded="false"></button>')
                 .attr('title', this.textTitle).attr('aria-label', this.textTitle).html(svg('square', 20)).hide();
             this.$anchor = $('<div class="elx-lo-anchor-mark" role="img"></div>').hide();
             this.$pane = $(this.renderPane()).hide();
@@ -106,6 +106,10 @@ define([
             this.$pane.on('mousedown', function (e) { e.stopPropagation(); if (!$(e.target).is('input')) e.preventDefault(); });
             this.$pane.on('click', '.elx-lo-tile', function () { me.applyWrap($(this).data('wrap')); });
             this.$pane.on('change', 'input[name=elx-lo-move]', function () { me.applyMove(this.value === 'move'); });
+            this.$pane.on('focusout', 'input[name=elx-lo-move]', function (e) {
+                // The next control in this flyout owns focus, rather than the document.
+                if (e.relatedTarget && me.$pane[0].contains(e.relatedTarget)) e.stopPropagation();
+            });
             this.$pane.on('click', '.elx-lo-more', function (e) { e.preventDefault(); me.seeMore(); });
             this.$pane.on('click', '.elx-lo-close', function () { me.hidePane(true); });
             this.$pane.on('keydown', function (e) {
@@ -136,7 +140,7 @@ define([
             var tile = function (w) {
                 return '<button type="button" class="elx-lo-tile" data-wrap="' + w.key + '" title="' + esc(me[w.text]) + '" aria-label="' + esc(me[w.text]) + '" aria-pressed="false">' + svg(w.key, 32) + '</button>';
             };
-            return '<div class="elx-lo-pane" role="dialog" aria-label="' + esc(this.textTitle) + '">' +
+            return '<div class="elx-lo-pane canfocused" role="dialog" aria-label="' + esc(this.textTitle) + '">' +
                 '<div class="elx-lo-head"><span class="elx-lo-title">' + esc(this.textTitle) + '</span>' +
                 '<button type="button" class="elx-lo-close" title="' + esc(this.textClose) + '" aria-label="' + esc(this.textClose) + '">' + svg('close', 16) + '</button></div>' +
                 '<div class="elx-lo-group">' + esc(this.textInlineGroup) + '</div>' +
@@ -257,10 +261,10 @@ define([
             if (!w || !menu) return;
             var item = _.find(menu.items, function (i) { return i.options.wrapType === Asc.c_oAscWrapStyle2[w.style]; });
             if (!item) return;
-            menu.trigger('item:click', menu, item);
+            menu.trigger('item:click', menu, item, {preserveFocus: true});
             this.key = '';
-            var me = this;
-            _.defer(function () { me.refresh(); me.$pane.find('.elx-lo-tile.active').focus(); });
+            this.refresh();
+            this.$pane.find('.elx-lo-tile.active').focus();
         },
 
         // Word: "Fix position on page" ties the object to the page, "Move with text" to its
@@ -276,7 +280,7 @@ define([
             p.put_PositionH(h); p.put_PositionV(v);
             this.api.ImgApply(p);
             this.key = '';
-            Common.NotificationCenter.trigger('edit:complete', this);
+            Common.NotificationCenter.trigger('edit:complete', this, {preserveFocus: true});
         },
 
         seeMore: function () {

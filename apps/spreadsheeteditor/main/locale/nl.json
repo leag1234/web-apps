@@ -5674,5 +5674,12 @@
   "SSE.Views.ElixirTitleBar.txtTestUser": "Testgebruiker (ontwikkelaarsmodus)",
   "SSE.Views.ElixirTitleBar.txtTestUserMe": "Ik ({0})",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
-  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged."
+  "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Huidig wachtwoord behouden",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Zonder wachtwoord behouden",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Verander wachtwoord",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Wachtwoord toevoegen",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Wachtwoord verwijderen",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Deze geëxporteerde kopie wordt niet met een wachtwoord beveiligd. Doorgaan?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Bij het opslaan wordt de wachtwoordbeveiliging verwijderd en kan het versleutelde origineel worden overschreven door een onbeveiligd bestand. Doorgaan?"
 }

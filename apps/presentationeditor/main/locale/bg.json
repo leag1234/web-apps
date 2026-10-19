@@ -1710,5 +1710,12 @@
   "PE.Views.ViewTab.tipInterfaceTheme": "Тема на интерфейса",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "Референтната връзка не съществува. Моля, коригирайте връзката или я изтрийте."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "Референтната връзка не съществува. Моля, коригирайте връзката или я изтрийте.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Запазване на текущата парола",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Запазване без парола",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Промяна на паролата",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Добавяне на парола",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Изтриване на паролата",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Това експортирано копие няма да бъде защитено с парола. Продължаване?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Записването ще премахне защитата с парола и може да замени шифрования оригинал с незащитен файл. Продължаване?"
 }

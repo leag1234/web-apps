@@ -3329,5 +3329,12 @@
   "DE.Controllers.WordMailings.txtMergeError": "Не вдалося виконати злиття.",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Зберегти поточний пароль",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Зберегти без пароля",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Змінити пароль",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Додати пароль",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Видалити пароль",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Цю експортовану копію не буде захищено паролем. Продовжити?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Збереження видалить захист паролем і може замінити зашифрований оригінал незахищеним файлом. Продовжити?"
 }

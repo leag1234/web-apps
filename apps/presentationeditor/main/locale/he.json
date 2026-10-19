@@ -3376,5 +3376,12 @@
   "PE.Views.ViewTab.tipSlideMaster": "תבנית בסיס לשקופיות",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "PE.Views.DocumentHolder.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו."
+  "PE.Views.DocumentHolder.txtCannotOpenLink": "הפניה לקישור אינה קיימת. נא לתקן את הקישור או למחוק אותו.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "השארת הסיסמה הנוכחית",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "השארה ללא סיסמה",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "שינוי סיסמה",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "הוספת סיסמה",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "מחיקת סיסמה",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "העותק המיוצא הזה לא יהיה מוגן בסיסמה. להמשיך?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "השמירה תסיר את ההגנה באמצעות סיסמה ועשויה להחליף את המקור המוצפן בקובץ לא מוגן. להמשיך?"
 }

@@ -4204,5 +4204,12 @@
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
   "SSE.Controllers.LeftMenu.warnDownloadOds": "Es poden perdre algunes fórmules, el format de les cel·les o els objectes incrustats. Voleu continuar?",
-  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV només desa el full actiu com a text, sense format ni objectes. Voleu continuar?"
+  "SSE.Controllers.LeftMenu.warnDownloadCsv": "CSV només desa el full actiu com a text, sense format ni objectes. Voleu continuar?",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Mantén la contrasenya actual",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Mantén sense contrasenya",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Canvia la contrasenya",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Afegeix una contrasenya",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Suprimeix la contrasenya",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Aquesta còpia exportada no estarà protegida amb contrasenya. Voleu continuar?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "En desar s’eliminarà la protecció amb contrasenya i es podria sobreescriure l’original xifrat amb un fitxer sense protecció. Voleu continuar?"
 }

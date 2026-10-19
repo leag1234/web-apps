@@ -5559,5 +5559,12 @@
   "DE.Views.Statusbar.textChangesPanel": "Volet Vérification",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "Clé API (chiffrée par votre système d’exploitation)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Votre système d’exploitation chiffre la clé. Elle est conservée uniquement sur cet ordinateur, ne sera jamais réaffichée et n’est envoyée qu’au service IA ci-dessus, sans jamais être journalisée.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Le lien de référence n'existe pas. Veuillez corriger la référence ou la supprimer.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Conserver le mot de passe actuel",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Conserver sans mot de passe",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Modifier le mot de passe",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Ajouter un mot de passe",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Supprimer le mot de passe",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Cette copie exportée ne sera pas protégée par un mot de passe. Continuer ?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Cet enregistrement supprimera la protection par mot de passe et pourra remplacer l’original chiffré par un fichier non protégé. Continuer ?"
 }

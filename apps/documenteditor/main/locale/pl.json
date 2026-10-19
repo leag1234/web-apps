@@ -5543,5 +5543,12 @@
   "DE.Views.ContextTabs.txtChangeChartType": "Zmień typ wykresu",
   "Common.ElixirAI.ConfigForm.desktopKeyLabel": "API key (encrypted by your operating system)",
   "Common.ElixirAI.ConfigForm.desktopPrivacy": "Your operating system encrypts the key. It is stored only on this computer, never shown again, and sent only to the AI service above, never logged.",
-  "DE.Views.DocumentHolder.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go."
+  "DE.Views.DocumentHolder.txtCannotOpenLink": "Odnośnik nie istnieje. Popraw link lub usuń go.",
+  "Common.Views.PasswordDialog.txtLocalKeepCurrentPassword": "Zachowaj obecne hasło",
+  "Common.Views.PasswordDialog.txtLocalKeepWithoutPassword": "Zachowaj bez hasła",
+  "Common.Views.PasswordDialog.txtLocalChangePassword": "Zmień hasło",
+  "Common.Views.PasswordDialog.txtLocalAddPassword": "Dodaj hasło",
+  "Common.Views.PasswordDialog.txtLocalRemovePassword": "Usuń hasło",
+  "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ta wyeksportowana kopia nie będzie chroniona hasłem. Kontynuować?",
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Zapisanie spowoduje usunięcie ochrony hasłem i może zastąpić zaszyfrowany oryginał niezabezpieczonym plikiem. Kontynuować?"
 }
