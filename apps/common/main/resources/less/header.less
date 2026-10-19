@@ -227,6 +227,8 @@
 }
 
 .btn-header {
+    // Monochrome SVG paths inherit this token through the <use> shadow tree.
+    --icon-gray-primary: var(--icon-toolbar-header);
     height: @header-component-height-ie;
     height: @header-component-height;
     background-color: transparent;
