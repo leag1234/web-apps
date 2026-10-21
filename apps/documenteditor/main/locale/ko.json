@@ -4412,5 +4412,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "비밀번호 추가",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "비밀번호 삭제",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "내보낸 이 사본은 비밀번호로 보호되지 않습니다. 계속하시겠습니까?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "저장하면 비밀번호 보호가 제거되며 암호화된 원본을 보호되지 않은 파일로 덮어쓸 수 있습니다. 계속하시겠습니까?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "저장하면 비밀번호 보호가 제거되며 암호화된 원본을 보호되지 않은 파일로 덮어쓸 수 있습니다. 계속하시겠습니까?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "레이아웃 옵션",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "텍스트 줄 바꿈 사용",
+  "DE.Views.ElixirLayoutOptions.textFix": "페이지에서 위치 고정",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "더 보기…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "개체 기준 위치",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "개체 기준 위치 (잠김)",
+  "DE.Views.ElixirLayoutOptions.textInline": "텍스트에 맞춰",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Square",
+  "DE.Views.ElixirLayoutOptions.textTight": "빽빽하게",
+  "DE.Views.ElixirLayoutOptions.textThrough": "통해",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "상단 및 하단",
+  "DE.Views.ElixirLayoutOptions.textBehind": "텍스트 뒤",
+  "DE.Views.ElixirLayoutOptions.textInFront": "텍스트 앞에",
+  "DE.Views.ElixirLayoutOptions.textMove": "텍스트와 함께 이동",
+  "DE.Views.ElixirLayoutOptions.textClose": "닫기",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "텍스트에 맞춰",
+  "DE.Views.RibbonTabs.txtPictures": "그림"
 }

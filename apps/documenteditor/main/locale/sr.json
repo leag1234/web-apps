@@ -4413,5 +4413,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Dodaj lozinku",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Izbriši lozinku",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ova izvezena kopija neće biti zaštićena lozinkom. Nastaviti?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Čuvanje će ukloniti zaštitu lozinkom i može zameniti šifrovani original nezaštićenom datotekom. Nastaviti?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Čuvanje će ukloniti zaštitu lozinkom i može zameniti šifrovani original nezaštićenom datotekom. Nastaviti?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Opcije rasporeda",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Sa prelamanjem teksta",
+  "DE.Views.ElixirLayoutOptions.textFix": "Fiksni položaj na stranici",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Više…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Sidro objekta",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Sidro objekta (zaključano)",
+  "DE.Views.ElixirLayoutOptions.textInline": "U skladu sa tekstom ",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Kvadrat",
+  "DE.Views.ElixirLayoutOptions.textTight": "Čvrsto",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Kroz",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Vrh i dno",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Iza teksta",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Ispred teksta",
+  "DE.Views.ElixirLayoutOptions.textMove": "Pomeri sa tekstom",
+  "DE.Views.ElixirLayoutOptions.textClose": "Zatvori",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "U skladu sa tekstom ",
+  "DE.Views.RibbonTabs.txtPictures": "Slike"
 }

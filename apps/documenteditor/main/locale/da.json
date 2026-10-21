@@ -4278,5 +4278,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Tilføj adgangskode",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Slet adgangskode",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Denne eksporterede kopi vil ikke være beskyttet med en adgangskode. Fortsæt?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Når du gemmer, fjernes adgangskodebeskyttelsen, og den krypterede original kan blive overskrevet med en ubeskyttet fil. Fortsæt?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Når du gemmer, fjernes adgangskodebeskyttelsen, og den krypterede original kan blive overskrevet med en ubeskyttet fil. Fortsæt?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Layoutindstillinger",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Med tekstombrydning",
+  "DE.Views.ElixirLayoutOptions.textFix": "Fast position på siden",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Se mere…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Objektanker",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Objektanker (låst)",
+  "DE.Views.ElixirLayoutOptions.textInline": "På linje med teksten",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Firkant",
+  "DE.Views.ElixirLayoutOptions.textTight": "Stram",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Igennem",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Top og bund",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Bagved",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Foran",
+  "DE.Views.ElixirLayoutOptions.textMove": "Flyt med tekst",
+  "DE.Views.ElixirLayoutOptions.textClose": "Luk",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "På linje med teksten",
+  "DE.Views.RibbonTabs.txtPictures": "Billeder"
 }

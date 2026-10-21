@@ -4412,5 +4412,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Shtoni fjalëkalimin",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Fshini fjalëkalimin",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Kjo kopje e eksportuar nuk do të mbrohet me fjalëkalim. Të vazhdohet?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Ruajtja do të heqë mbrojtjen me fjalëkalim dhe mund të zëvendësojë origjinalin e enkriptuar me një skedar të pambrojtur. Të vazhdohet?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Ruajtja do të heqë mbrojtjen me fjalëkalim dhe mund të zëvendësojë origjinalin e enkriptuar me një skedar të pambrojtur. Të vazhdohet?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Mundësi faqosjeje",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Me mbështjellje teksti",
+  "DE.Views.ElixirLayoutOptions.textFix": "Pozicion i pandryshueshëm në faqe",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Më shumë…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Spirancë objekti",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Spirancë objekti (e kyçur)",
+  "DE.Views.ElixirLayoutOptions.textInline": "Në linjë me tekstin",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Katrorë",
+  "DE.Views.ElixirLayoutOptions.textTight": "Ngushtë",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Përmes",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Sipër dhe Poshtë",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Mbas tekstit",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Përballë tekstit",
+  "DE.Views.ElixirLayoutOptions.textMove": "Lëviz me tekstin",
+  "DE.Views.ElixirLayoutOptions.textClose": "Mbyll",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "Në linjë me tekstin",
+  "DE.Views.RibbonTabs.txtPictures": "Figura"
 }

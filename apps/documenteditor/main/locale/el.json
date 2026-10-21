@@ -4412,5 +4412,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Προσθήκη συνθηματικού",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Διαγραφή συνθηματικού",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Αυτό το εξαγόμενο αντίγραφο δεν θα προστατεύεται με κωδικό πρόσβασης. Συνέχεια;",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Η αποθήκευση θα καταργήσει την προστασία με κωδικό πρόσβασης και μπορεί να αντικαταστήσει το κρυπτογραφημένο πρωτότυπο με μη προστατευμένο αρχείο. Συνέχεια;"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Η αποθήκευση θα καταργήσει την προστασία με κωδικό πρόσβασης και μπορεί να αντικαταστήσει το κρυπτογραφημένο πρωτότυπο με μη προστατευμένο αρχείο. Συνέχεια;",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Επιλογές διάταξης",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Με αναδίπλωση κειμένου",
+  "DE.Views.ElixirLayoutOptions.textFix": "Σταθερή θέση στη σελίδα",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Περισσότερα…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Αγκύρωση αντικειμένου",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Αγκύρωση αντικειμένου (κλειδωμένη)",
+  "DE.Views.ElixirLayoutOptions.textInline": "Εντός κειμένου",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Τετράγωνο",
+  "DE.Views.ElixirLayoutOptions.textTight": "Σφιχτό",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Διά μέσου",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Πάνω και κάτω μέρος",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Πίσω από το κείμενο",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Μπροστά από το κείμενο",
+  "DE.Views.ElixirLayoutOptions.textMove": "Μετακίνηση με κείμενο",
+  "DE.Views.ElixirLayoutOptions.textClose": "Κλείσιμο",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "Εντός κειμένου",
+  "DE.Views.RibbonTabs.txtPictures": "Εικόνες"
 }

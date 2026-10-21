@@ -4412,5 +4412,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Přidat heslo",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Smazat heslo",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Tato exportovaná kopie nebude chráněna heslem. Pokračovat?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Uložením se odstraní ochrana heslem a šifrovaný originál může být přepsán nechráněným souborem. Pokračovat?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Uložením se odstraní ochrana heslem a šifrovaný originál může být přepsán nechráněným souborem. Pokračovat?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Možnosti rozložení",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "S obtékáním textu",
+  "DE.Views.ElixirLayoutOptions.textFix": "Pevná pozice na stránce",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Další…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Ukotvení objektu",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Ukotvení objektu (uzamčené)",
+  "DE.Views.ElixirLayoutOptions.textInline": "V textu",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Čtverec",
+  "DE.Views.ElixirLayoutOptions.textTight": "Těsné",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Přes",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Nahoře a dole",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Za",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Před textem",
+  "DE.Views.ElixirLayoutOptions.textMove": "Přemístit s textem",
+  "DE.Views.ElixirLayoutOptions.textClose": "Zavřít",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "V textu",
+  "DE.Views.RibbonTabs.txtPictures": "Obrázky"
 }

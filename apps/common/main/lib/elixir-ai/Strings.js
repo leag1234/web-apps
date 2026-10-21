@@ -606,6 +606,59 @@ define([], function () {
         r_layout: 'A examinar o esquema', r_outline: 'A analisar os títulos', r_layoutSummary: 'A analisar o esquema da página', r_overflow: 'A procurar elementos que não cabem'
     });
 
+    // Endpoint-policy guidance covers all supported interface locales independently of older AI chrome.
+    ElixirAI.endpointPolicyMessages = {
+        "en": "Use HTTPS for remote services. HTTP is only allowed for localhost, 127.0.0.1 or [::1].",
+        "fr": "Utilisez HTTPS pour les services distants. HTTP est autorisé uniquement pour localhost, 127.0.0.1 ou [::1].",
+        "de": "Verwenden Sie HTTPS für entfernte Dienste. HTTP ist nur für localhost, 127.0.0.1 oder [::1] erlaubt.",
+        "es": "Use HTTPS para servicios remotos. HTTP solo se permite para localhost, 127.0.0.1 o [::1].",
+        "it": "Usa HTTPS per i servizi remoti. HTTP è consentito solo per localhost, 127.0.0.1 o [::1].",
+        "pt": "Use HTTPS para serviços remotos. HTTP só é permitido para localhost, 127.0.0.1 ou [::1].",
+        "pt-pt": "Utilize HTTPS para serviços remotos. HTTP só é permitido para localhost, 127.0.0.1 ou [::1].",
+        "nl": "Gebruik HTTPS voor externe diensten. HTTP is alleen toegestaan voor localhost, 127.0.0.1 of [::1].",
+        "pl": "Użyj HTTPS dla usług zdalnych. HTTP jest dozwolone tylko dla localhost, 127.0.0.1 lub [::1].",
+        "ru": "Используйте HTTPS для удалённых сервисов. HTTP разрешён только для localhost, 127.0.0.1 или [::1].",
+        "ja": "リモートサービスには HTTPS を使用してください。HTTP は localhost、127.0.0.1、[::1] にのみ許可されます。",
+        "zh": "远程服务请使用 HTTPS。HTTP 仅允许用于 localhost、127.0.0.1 或 [::1]。",
+        "zh-tw": "遠端服務請使用 HTTPS。HTTP 僅允許用於 localhost、127.0.0.1 或 [::1]。",
+        "ar": "استخدم HTTPS للخدمات البعيدة. يُسمح باستخدام HTTP فقط مع localhost أو 127.0.0.1 أو [::1].",
+        "az": "Uzaq xidmətlər üçün HTTPS istifadə edin. HTTP yalnız localhost, 127.0.0.1 və ya [::1] üçün icazəlidir.",
+        "be": "Выкарыстоўвайце HTTPS для аддаленых сэрвісаў. HTTP дазволены толькі для localhost, 127.0.0.1 або [::1].",
+        "bg": "Използвайте HTTPS за отдалечени услуги. HTTP е разрешен само за localhost, 127.0.0.1 или [::1].",
+        "ca": "Feu servir HTTPS per als serveis remots. HTTP només es permet per a localhost, 127.0.0.1 o [::1].",
+        "cs": "Pro vzdálené služby použijte HTTPS. HTTP je povoleno pouze pro localhost, 127.0.0.1 nebo [::1].",
+        "da": "Brug HTTPS til fjerntjenester. HTTP er kun tilladt for localhost, 127.0.0.1 eller [::1].",
+        "el": "Χρησιμοποιήστε HTTPS για απομακρυσμένες υπηρεσίες. Το HTTP επιτρέπεται μόνο για localhost, 127.0.0.1 ή [::1].",
+        "eu": "Erabili HTTPS urruneko zerbitzuetarako. HTTP localhost, 127.0.0.1 edo [::1] helbideetarako soilik onartzen da.",
+        "fi": "Käytä etäpalveluihin HTTPS-yhteyttä. HTTP on sallittu vain osoitteille localhost, 127.0.0.1 tai [::1].",
+        "gl": "Use HTTPS para os servizos remotos. HTTP só se permite para localhost, 127.0.0.1 ou [::1].",
+        "he": "יש להשתמש ב־HTTPS לשירותים מרוחקים. HTTP מותר רק עבור localhost, 127.0.0.1 או [::1].",
+        "hu": "Távoli szolgáltatásokhoz használjon HTTPS-t. HTTP csak a localhost, 127.0.0.1 vagy [::1] esetén engedélyezett.",
+        "hy": "Հեռավոր ծառայությունների համար օգտագործեք HTTPS։ HTTP թույլատրվում է միայն localhost, 127.0.0.1 կամ [::1] հասցեների համար։",
+        "id": "Gunakan HTTPS untuk layanan jarak jauh. HTTP hanya diizinkan untuk localhost, 127.0.0.1, atau [::1].",
+        "ko": "원격 서비스에는 HTTPS를 사용하세요. HTTP는 localhost, 127.0.0.1 또는 [::1]에만 허용됩니다.",
+        "lo": "ໃຊ້ HTTPS ສຳລັບບໍລິການທາງໄກ. HTTP ອະນຸຍາດສະເພາະ localhost, 127.0.0.1 ຫຼື [::1] ເທົ່ານັ້ນ.",
+        "lv": "Attālinātiem pakalpojumiem izmantojiet HTTPS. HTTP ir atļauts tikai localhost, 127.0.0.1 vai [::1].",
+        "ms": "Gunakan HTTPS untuk perkhidmatan jauh. HTTP hanya dibenarkan untuk localhost, 127.0.0.1 atau [::1].",
+        "no": "Bruk HTTPS for eksterne tjenester. HTTP er bare tillatt for localhost, 127.0.0.1 eller [::1].",
+        "ro": "Folosiți HTTPS pentru servicii la distanță. HTTP este permis doar pentru localhost, 127.0.0.1 sau [::1].",
+        "si": "දුරස්ථ සේවා සඳහා HTTPS භාවිත කරන්න. HTTP අවසර ඇත්තේ localhost, 127.0.0.1 හෝ [::1] සඳහා පමණි.",
+        "sk": "Pre vzdialené služby použite HTTPS. HTTP je povolené iba pre localhost, 127.0.0.1 alebo [::1].",
+        "sl": "Za oddaljene storitve uporabite HTTPS. HTTP je dovoljen samo za localhost, 127.0.0.1 ali [::1].",
+        "sq": "Përdorni HTTPS për shërbimet në distancë. HTTP lejohet vetëm për localhost, 127.0.0.1 ose [::1].",
+        "sr": "Koristite HTTPS za udaljene usluge. HTTP je dozvoljen samo za localhost, 127.0.0.1 ili [::1].",
+        "sr-cyrl": "Користите HTTPS за удаљене услуге. HTTP је дозвољен само за localhost, 127.0.0.1 или [::1].",
+        "sv": "Använd HTTPS för fjärrtjänster. HTTP är endast tillåtet för localhost, 127.0.0.1 eller [::1].",
+        "tr": "Uzak hizmetler için HTTPS kullanın. HTTP yalnızca localhost, 127.0.0.1 veya [::1] için kullanılabilir.",
+        "uk": "Використовуйте HTTPS для віддалених сервісів. HTTP дозволено лише для localhost, 127.0.0.1 або [::1].",
+        "ur": "دور دراز سروسز کے لیے HTTPS استعمال کریں۔ HTTP کی اجازت صرف localhost، 127.0.0.1 یا [::1] کے لیے ہے۔",
+        "vi": "Dùng HTTPS cho dịch vụ từ xa. HTTP chỉ được phép cho localhost, 127.0.0.1 hoặc [::1]."
+};
+    ElixirAI.endpointPolicyMessage = function (locale) {
+        var key = String(locale || 'en').toLowerCase().replace(/_/g, '-');
+        return this.endpointPolicyMessages[key] || this.endpointPolicyMessages[key.split('-')[0]] || this.endpointPolicyMessages.en;
+    };
+
     // Editor language -> one of the string tables
     ElixirAI.langOf = function (l) {
         l = String(l || 'en').toLowerCase().replace('_', '-');

@@ -4399,5 +4399,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "הוספת סיסמה",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "מחיקת סיסמה",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "העותק המיוצא הזה לא יהיה מוגן בסיסמה. להמשיך?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "השמירה תסיר את ההגנה באמצעות סיסמה ועשויה להחליף את המקור המוצפן בקובץ לא מוגן. להמשיך?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "השמירה תסיר את ההגנה באמצעות סיסמה ועשויה להחליף את המקור המוצפן בקובץ לא מוגן. להמשיך?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "אפשרויות פריסה",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "עם גלישת טקסט",
+  "DE.Views.ElixirLayoutOptions.textFix": "קיבוע המיקום בעמוד",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "עוד…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "עוגן אובייקט",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "עוגן אובייקט (נעול)",
+  "DE.Views.ElixirLayoutOptions.textInline": "בהתאם לטקסט",
+  "DE.Views.ElixirLayoutOptions.textSquare": "ריבוע",
+  "DE.Views.ElixirLayoutOptions.textTight": "הדוק",
+  "DE.Views.ElixirLayoutOptions.textThrough": "חצייה דרך",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "עליון ותחתון",
+  "DE.Views.ElixirLayoutOptions.textBehind": "מאחורי הטקסט",
+  "DE.Views.ElixirLayoutOptions.textInFront": "לפני הטקסט",
+  "DE.Views.ElixirLayoutOptions.textMove": "העברה עם טקסט",
+  "DE.Views.ElixirLayoutOptions.textClose": "סגירה",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "בהתאם לטקסט",
+  "DE.Views.RibbonTabs.txtPictures": "תמונות"
 }

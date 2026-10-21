@@ -182,10 +182,13 @@ define([
 
         renameInsertControls: function () {
             var v = this.view, c = this.getApplication().getController('HeaderFooterTab'),
-                hv = c && c.getView('HeaderFooterTab');
+                hv = c && c.getView('HeaderFooterTab'),
+                pictures = Common.Locale && Common.Locale.get ?
+                    Common.Locale.get('txtPictures', {name: 'DE.Views.RibbonTabs', default: 'Pictures'}) : v.txtPictures;
+            pictures = typeof pictures === 'string' && pictures.trim() ? pictures : 'Pictures';
             // Word: "Pictures", "Shapes"
             hv && _.each(hv.btnsInsImage || [], function (b) {
-                b.cmpEl && b.cmpEl.closest('.panel[data-tab=ins]').length && b.setCaption(v.txtPictures);
+                b.cmpEl && b.cmpEl.closest('.panel[data-tab=ins]').length && b.setCaption(pictures);
             });
             this.toolbar.btnInsertShape && this.toolbar.btnInsertShape.setCaption(v.txtShapes);
             // Table menu items as in Word

@@ -63,7 +63,7 @@ define([
 
         // ---- invitation bar ---------------------------------------------------------------------------
         namesText: function (names) {
-            var shown = names.slice(0, 4).join(', ');
+            var shown = names.slice(0, 4).map(function (name) { return '\u2068' + name + '\u2069'; }).join(', ');
             return names.length > 4 ? shown + '…' : shown;
         },
 

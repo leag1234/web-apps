@@ -309,15 +309,22 @@ define([
                     });
                 });
 
+                // Resolve at construction time: Locale.apply can run after this class loads.
+                var imageCaption = function (key, fallback) {
+                    var value = Common.Locale && Common.Locale.get ?
+                        Common.Locale.get(key, {name: 'DE.Views.HeaderFooterTab', default: fallback}) : me[key];
+                    return typeof value === 'string' && value.trim() ? value : fallback;
+                };
                 this.btnsInsImage.forEach(function (button) {
-                    button.updateHint(me.tipInsertImage);
+                    button.setCaption(imageCaption('capBtnInsImage', 'Image'));
+                    button.updateHint(imageCaption('tipInsertImage', 'Insert image'));
 
                     button.setMenu(
                         new Common.UI.Menu({
                             items: [
-                                {caption: me.mniImageFromFile, value: 'file'},
-                                {caption: me.mniImageFromUrl, value: 'url'},
-                                {caption: me.mniImageFromStorage, value: 'storage'}
+                                {caption: imageCaption('mniImageFromFile', 'Image from File'), value: 'file'},
+                                {caption: imageCaption('mniImageFromUrl', 'Image from URL'), value: 'url'},
+                                {caption: imageCaption('mniImageFromStorage', 'Image from Storage'), value: 'storage'}
                             ]
                         }).on('item:click', function (menu, item, e) {
                             me.fireEvent('headerfooter:insimage', [menu, item, e]);

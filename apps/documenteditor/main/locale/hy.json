@@ -4397,5 +4397,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Դնել գաղտնաբառ",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Ջնջել գաղտնաբառը",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Արտահանված այս պատճենը գաղտնաբառով պաշտպանված չի լինի։ Շարունակե՞լ։",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Պահպանումը կհեռացնի գաղտնաբառով պաշտպանությունը և կարող է գաղտնագրված բնօրինակը փոխարինել չպաշտպանված ֆայլով։ Շարունակե՞լ։"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Պահպանումը կհեռացնի գաղտնաբառով պաշտպանությունը և կարող է գաղտնագրված բնօրինակը փոխարինել չպաշտպանված ֆայլով։ Շարունակե՞լ։",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Դասավորության ընտրանքներ",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Տեքստի շրջահոսքով",
+  "DE.Views.ElixirLayoutOptions.textFix": "Ամրագրել դիրքը էջում",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Ավելին…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Օբյեկտի խարիսխ",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Օբյեկտի խարիսխ (կողպված)",
+  "DE.Views.ElixirLayoutOptions.textInline": "Գրվածքի հետ մեկտող",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Քառակուսի",
+  "DE.Views.ElixirLayoutOptions.textTight": "Ձիգ",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Միջով",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Վերև և ներքև",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Տեքստի հետևում",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Տեքստի դիմաց",
+  "DE.Views.ElixirLayoutOptions.textMove": "Տանել տեքստի հետ",
+  "DE.Views.ElixirLayoutOptions.textClose": "Փակել",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "Գրվածքի հետ մեկտող",
+  "DE.Views.RibbonTabs.txtPictures": "Նկարներ"
 }

@@ -4413,5 +4413,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Adăugare parola",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Ștergere parola",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Această copie exportată nu va fi protejată prin parolă. Continuați?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Salvarea va elimina protecția prin parolă și poate suprascrie originalul criptat cu un fișier neprotejat. Continuați?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "Salvarea va elimina protecția prin parolă și poate suprascrie originalul criptat cu un fișier neprotejat. Continuați?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Opțiuni de aspect",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Cu încadrarea textului",
+  "DE.Views.ElixirLayoutOptions.textFix": "Poziție fixă pe pagină",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Mai multe…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Ancoră obiect",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Ancoră obiect (blocată)",
+  "DE.Views.ElixirLayoutOptions.textInline": "În linie cu textul",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Pătrat",
+  "DE.Views.ElixirLayoutOptions.textTight": "Strâns",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Printre",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Sus și jos",
+  "DE.Views.ElixirLayoutOptions.textBehind": "În spatele textului",
+  "DE.Views.ElixirLayoutOptions.textInFront": "În fața textului",
+  "DE.Views.ElixirLayoutOptions.textMove": "Mutare odată cu textul",
+  "DE.Views.ElixirLayoutOptions.textClose": "Închidere",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "În linie cu textul",
+  "DE.Views.RibbonTabs.txtPictures": "Imagini"
 }

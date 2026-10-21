@@ -2,8 +2,8 @@
  * SPDX-FileCopyrightText: 2026 ElixirOffice contributors
  * SPDX-License-Identifier: AGPL-3.0-only
  *
- * Elixir local fonts: strings of the invitation bar, the Options row and the font box mark, in the 12
- * languages of the editor's translated chrome. {0} is a placeholder.
+ * Elixir local fonts: strings of the invitation bar, the Options row and the font box mark, in all supported
+ * editor languages. {0} is a placeholder.
  */
 
 define([], function () {
@@ -241,6 +241,799 @@ define([], function () {
         reopen: 'Volte a abrir o documento para o paginar com estes tipos de letra.'
     });
 
+    // Additional editor languages; native-shell messages remain selected by desktopBridge.
+    LF.Strings["ar"] = {
+            "missing": "خطوط غير متاحة: {0}.",
+            "ask": "هل تريد استخدام الخطوط المثبتة على هذا الكمبيوتر؟",
+            "useMine": "استخدام خطوطي",
+            "notNow": "الغاء",
+            "ok": "موافق",
+            "close": "إغلاق",
+            "group": "الخط",
+            "option": "استخدام الخطوط المثبتة على هذا الكمبيوتر",
+            "hint": "خطوط المتصفح تبقى هنا. تستخدمها ملفات PDF؛ وتستخدم تحويلات الخادم خطوط الخادم.",
+            "off": "معطّلة.",
+            "loading": "قراءة خطوط هذا الكمبيوتر…",
+            "on": "مفعّلة. {0}",
+            "denied": "تعذرت قراءة خطوط هذا الكمبيوتر. اسمح لهذا الموقع بالوصول إلى الخطوط في إعدادات المتصفح، ثم أعد المحاولة.",
+            "failed": "تعذرت قراءة خطوط هذا الكمبيوتر. اسمح لهذا الموقع بالوصول إلى الخطوط في إعدادات المتصفح، ثم أعد المحاولة.",
+            "insecure": "استخدم HTTPS في Chrome أو Edge، أو تطبيق سطح المكتب.",
+            "unsupported": "غير متاح هنا. استخدم Chrome أو Edge، أو تطبيق سطح المكتب.",
+            "applied": "الخط: {0}.",
+            "notFound": "خطوط غير متاحة: {0}.",
+            "reopen": "أعد فتح المستند لتطبيق هذه الخطوط.",
+            "reload": "إعادة التحميل الآن",
+            "badge": "على هذا الكمبيوتر"
+    };
+
+    LF.Strings["az"] = {
+            "missing": "Əlçatan olmayan şriftlər: {0}.",
+            "ask": "Bu kompüterdə quraşdırılmış şriftlərdən istifadə edilsin?",
+            "useMine": "Şriftlərimdən istifadə et",
+            "notNow": "Ləğv et",
+            "ok": "OK",
+            "close": "Bağla",
+            "group": "Şrift",
+            "option": "Bu kompüterdə quraşdırılmış şriftlərdən istifadə et",
+            "hint": "Brauzer şriftləri burada qalır. PDF onları, server çevirmələri isə server şriftlərini istifadə edir.",
+            "off": "Söndürülüb.",
+            "loading": "Bu kompüterin şriftləri oxunur…",
+            "on": "Aktivdir. {0}",
+            "denied": "Kompüterin şriftlərini oxumaq mümkün olmadı. Brauzer ayarlarında bu sayta şrift icazəsi verin və yenidən cəhd edin.",
+            "failed": "Kompüterin şriftlərini oxumaq mümkün olmadı. Brauzer ayarlarında bu sayta şrift icazəsi verin və yenidən cəhd edin.",
+            "insecure": "Chrome və ya Edge-də HTTPS, yaxud masaüstü tətbiqdən istifadə edin.",
+            "unsupported": "Burada əlçatan deyil. Chrome, Edge və ya masaüstü tətbiqdən istifadə edin.",
+            "applied": "Şrift: {0}.",
+            "notFound": "Əlçatan olmayan şriftlər: {0}.",
+            "reopen": "Bu şriftləri tətbiq etmək üçün sənədi yenidən açın.",
+            "reload": "İndi yenidən yüklə",
+            "badge": "Bu kompüterdə"
+    };
+
+    LF.Strings["be"] = {
+            "missing": "Недаступныя шрыфты: {0}.",
+            "ask": "Выкарыстоўваць шрыфты, усталяваныя на гэтым камп’ютары?",
+            "useMine": "Выкарыстоўваць мае шрыфты",
+            "notNow": "Скасаваць",
+            "ok": "Добра",
+            "close": "Закрыць",
+            "group": "Шрыфт",
+            "option": "Выкарыстоўваць шрыфты, усталяваныя на гэтым камп’ютары",
+            "hint": "Шрыфты браўзера застаюцца тут. PDF выкарыстоўвае іх, а серверныя пераўтварэнні — шрыфты сервера.",
+            "off": "Выключана.",
+            "loading": "Чытанне шрыфтоў гэтага камп’ютара…",
+            "on": "Уключана. {0}",
+            "denied": "Не ўдалося прачытаць шрыфты камп’ютара. Дазвольце гэтаму сайту доступ да шрыфтоў у наладах браўзера і паўтарыце спробу.",
+            "failed": "Не ўдалося прачытаць шрыфты камп’ютара. Дазвольце гэтаму сайту доступ да шрыфтоў у наладах браўзера і паўтарыце спробу.",
+            "insecure": "Выкарыстоўвайце HTTPS у Chrome ці Edge або настольную праграму.",
+            "unsupported": "Тут недаступна. Выкарыстоўвайце Chrome, Edge або настольную праграму.",
+            "applied": "Шрыфт: {0}.",
+            "notFound": "Недаступныя шрыфты: {0}.",
+            "reopen": "Адкрыйце дакумент нанова, каб ужыць гэтыя шрыфты.",
+            "reload": "Перазагрузіць зараз",
+            "badge": "На гэтым камп’ютары"
+    };
+
+    LF.Strings["bg"] = {
+            "missing": "Недостъпни шрифтове: {0}.",
+            "ask": "Да се използват ли шрифтовете на този компютър?",
+            "useMine": "Използване на моите шрифтове",
+            "notNow": "Откажи",
+            "ok": "Добре",
+            "close": "Затвори",
+            "group": "Шрифт",
+            "option": "Използване на шрифтовете, инсталирани на този компютър",
+            "hint": "Шрифтовете на браузъра остават тук. PDF ги използва; сървърните преобразувания използват шрифтовете на сървъра.",
+            "off": "Изключено.",
+            "loading": "Четене на шрифтовете на този компютър…",
+            "on": "Включено. {0}",
+            "denied": "Шрифтовете на компютъра не могат да бъдат прочетени. Разрешете достъпа до шрифтове за този сайт в настройките на браузъра и опитайте отново.",
+            "failed": "Шрифтовете на компютъра не могат да бъдат прочетени. Разрешете достъпа до шрифтове за този сайт в настройките на браузъра и опитайте отново.",
+            "insecure": "Използвайте HTTPS в Chrome или Edge или настолното приложение.",
+            "unsupported": "Недостъпно тук. Използвайте Chrome, Edge или настолното приложение.",
+            "applied": "Шрифт: {0}.",
+            "notFound": "Недостъпни шрифтове: {0}.",
+            "reopen": "Отворете документа отново, за да приложите тези шрифтове.",
+            "reload": "Презареждане сега",
+            "badge": "На този компютър"
+    };
+
+    LF.Strings["ca"] = {
+            "missing": "Tipus de lletra no disponibles: {0}.",
+            "ask": "Voleu utilitzar els tipus de lletra d’aquest ordinador?",
+            "useMine": "Utilitza els meus tipus de lletra",
+            "notNow": "Cancel·la",
+            "ok": "D'acord",
+            "close": "Tanca",
+            "group": "Lletra",
+            "option": "Utilitza els tipus de lletra instal·lats en aquest ordinador",
+            "hint": "Els tipus de lletra del navegador es queden aquí. El PDF els utilitza; les conversions del servidor utilitzen els del servidor.",
+            "off": "Desactivats.",
+            "loading": "S’estan llegint els tipus de lletra d’aquest ordinador…",
+            "on": "Activats. {0}",
+            "denied": "No s’han pogut llegir els tipus de lletra de l’ordinador. Permeteu l’accés als tipus de lletra per a aquest lloc a la configuració del navegador i torneu-ho a provar.",
+            "failed": "No s’han pogut llegir els tipus de lletra de l’ordinador. Permeteu l’accés als tipus de lletra per a aquest lloc a la configuració del navegador i torneu-ho a provar.",
+            "insecure": "Utilitzeu HTTPS al Chrome o a l’Edge, o l’aplicació d’escriptori.",
+            "unsupported": "No disponible aquí. Utilitzeu el Chrome, l’Edge o l’aplicació d’escriptori.",
+            "applied": "Lletra: {0}.",
+            "notFound": "Tipus de lletra no disponibles: {0}.",
+            "reopen": "Torneu a obrir el document per aplicar aquests tipus de lletra.",
+            "reload": "Torna a carregar ara",
+            "badge": "En aquest ordinador"
+    };
+
+    LF.Strings["cs"] = {
+            "missing": "Nedostupná písma: {0}.",
+            "ask": "Použít písma nainstalovaná v tomto počítači?",
+            "useMine": "Použít moje písma",
+            "notNow": "Zrušit",
+            "ok": "OK",
+            "close": "Zavřít",
+            "group": "Písmo",
+            "option": "Používat písma nainstalovaná v tomto počítači",
+            "hint": "Písma prohlížeče zůstávají zde. PDF je používá; serverové převody používají písma serveru.",
+            "off": "Vypnuto.",
+            "loading": "Čtení písem tohoto počítače…",
+            "on": "Zapnuto. {0}",
+            "denied": "Písma tohoto počítače se nepodařilo přečíst. Povolte tomuto webu přístup k písmům v nastavení prohlížeče a zkuste to znovu.",
+            "failed": "Písma tohoto počítače se nepodařilo přečíst. Povolte tomuto webu přístup k písmům v nastavení prohlížeče a zkuste to znovu.",
+            "insecure": "Použijte HTTPS v Chrome nebo Edge, nebo desktopovou aplikaci.",
+            "unsupported": "Zde není dostupné. Použijte Chrome, Edge nebo desktopovou aplikaci.",
+            "applied": "Písmo: {0}.",
+            "notFound": "Nedostupná písma: {0}.",
+            "reopen": "Znovu otevřete dokument, aby se použila tato písma.",
+            "reload": "Znovu načíst",
+            "badge": "V tomto počítači"
+    };
+
+    LF.Strings["da"] = {
+            "missing": "Utilgængelige skrifttyper: {0}.",
+            "ask": "Brug skrifttyper installeret på denne computer?",
+            "useMine": "Brug mine skrifttyper",
+            "notNow": "Annuller",
+            "ok": "OK",
+            "close": "Luk",
+            "group": "Skrifttype",
+            "option": "Brug skrifttyper installeret på denne computer",
+            "hint": "Browserens skrifttyper bliver her. PDF bruger dem; serverkonverteringer bruger serverens skrifttyper.",
+            "off": "Deaktiveret.",
+            "loading": "Læser skrifttyper på denne computer…",
+            "on": "Aktiveret. {0}",
+            "denied": "Computerens skrifttyper kunne ikke læses. Tillad skrifttyper for dette websted i browserindstillingerne, og prøv igen.",
+            "failed": "Computerens skrifttyper kunne ikke læses. Tillad skrifttyper for dette websted i browserindstillingerne, og prøv igen.",
+            "insecure": "Brug HTTPS i Chrome eller Edge eller skrivebordsappen.",
+            "unsupported": "Ikke tilgængeligt her. Brug Chrome, Edge eller skrivebordsappen.",
+            "applied": "Skrifttype: {0}.",
+            "notFound": "Utilgængelige skrifttyper: {0}.",
+            "reopen": "Åbn dokumentet igen for at anvende disse skrifttyper.",
+            "reload": "Genindlæs nu",
+            "badge": "På denne computer"
+    };
+
+    LF.Strings["el"] = {
+            "missing": "Μη διαθέσιμες γραμματοσειρές: {0}.",
+            "ask": "Να χρησιμοποιηθούν οι γραμματοσειρές αυτού του υπολογιστή;",
+            "useMine": "Χρήση των γραμματοσειρών μου",
+            "notNow": "Ακύρωση",
+            "ok": "Εντάξει",
+            "close": "Κλείσιμο",
+            "group": "Γραμματοσειρά",
+            "option": "Χρήση των γραμματοσειρών που είναι εγκατεστημένες σε αυτόν τον υπολογιστή",
+            "hint": "Οι γραμματοσειρές του προγράμματος περιήγησης παραμένουν εδώ. Το PDF τις χρησιμοποιεί· οι μετατροπές διακομιστή χρησιμοποιούν τις γραμματοσειρές του διακομιστή.",
+            "off": "Απενεργοποιημένες.",
+            "loading": "Ανάγνωση γραμματοσειρών αυτού του υπολογιστή…",
+            "on": "Ενεργοποιημένες. {0}",
+            "denied": "Δεν ήταν δυνατή η ανάγνωση των γραμματοσειρών. Επιτρέψτε την πρόσβαση στις γραμματοσειρές για αυτόν τον ιστότοπο στις ρυθμίσεις του προγράμματος περιήγησης και δοκιμάστε ξανά.",
+            "failed": "Δεν ήταν δυνατή η ανάγνωση των γραμματοσειρών. Επιτρέψτε την πρόσβαση στις γραμματοσειρές για αυτόν τον ιστότοπο στις ρυθμίσεις του προγράμματος περιήγησης και δοκιμάστε ξανά.",
+            "insecure": "Χρησιμοποιήστε HTTPS σε Chrome ή Edge ή την εφαρμογή υπολογιστή.",
+            "unsupported": "Δεν διατίθεται εδώ. Χρησιμοποιήστε Chrome, Edge ή την εφαρμογή υπολογιστή.",
+            "applied": "Γραμματοσειρά: {0}.",
+            "notFound": "Μη διαθέσιμες γραμματοσειρές: {0}.",
+            "reopen": "Ανοίξτε ξανά το έγγραφο για να εφαρμοστούν αυτές οι γραμματοσειρές.",
+            "reload": "Επαναφόρτωση τώρα",
+            "badge": "Σε αυτόν τον υπολογιστή"
+    };
+
+    LF.Strings["eu"] = {
+            "missing": "Erabilgarri ez dauden letra-tipoak: {0}.",
+            "ask": "Ordenagailu honetan instalatutako letra-tipoak erabili?",
+            "useMine": "Erabili nire letra-tipoak",
+            "notNow": "Utzi",
+            "ok": "Ados",
+            "close": "Itxi",
+            "group": "Letra-tipoa",
+            "option": "Erabili ordenagailu honetan instalatutako letra-tipoak",
+            "hint": "Arakatzailearen letra-tipoak hemen geratzen dira. PDFak horiek erabiltzen ditu; zerbitzariko bihurketek zerbitzariaren letra-tipoak erabiltzen dituzte.",
+            "off": "Desgaituta.",
+            "loading": "Ordenagailu honetako letra-tipoak irakurtzen…",
+            "on": "Gaituta. {0}",
+            "denied": "Ezin izan dira ordenagailuko letra-tipoak irakurri. Baimendu gune honen letra-tipoen sarbidea arakatzailearen ezarpenetan, eta saiatu berriro.",
+            "failed": "Ezin izan dira ordenagailuko letra-tipoak irakurri. Baimendu gune honen letra-tipoen sarbidea arakatzailearen ezarpenetan, eta saiatu berriro.",
+            "insecure": "Erabili HTTPS Chrome edo Edge arakatzailean, edo mahaigaineko aplikazioa.",
+            "unsupported": "Ez dago erabilgarri hemen. Erabili Chrome, Edge edo mahaigaineko aplikazioa.",
+            "applied": "Letra-tipoa: {0}.",
+            "notFound": "Erabilgarri ez dauden letra-tipoak: {0}.",
+            "reopen": "Ireki berriro dokumentua letra-tipo hauek aplikatzeko.",
+            "reload": "Birkargatu orain",
+            "badge": "Ordenagailu honetan"
+    };
+
+    LF.Strings["fi"] = {
+            "missing": "Fontit eivät ole käytettävissä: {0}.",
+            "ask": "Käytetäänkö tämän tietokoneen fontteja?",
+            "useMine": "Käytä omia fonttejani",
+            "notNow": "Peruuta",
+            "ok": "OK",
+            "close": "Sulje",
+            "group": "Fontti",
+            "option": "Käytä tähän tietokoneeseen asennettuja fontteja",
+            "hint": "Selaimen fontit pysyvät täällä. PDF käyttää niitä; palvelimen muunnokset käyttävät palvelimen fontteja.",
+            "off": "Pois käytöstä.",
+            "loading": "Luetaan tämän tietokoneen fontteja…",
+            "on": "Käytössä. {0}",
+            "denied": "Tietokoneen fontteja ei voitu lukea. Salli tämän sivuston fonttien käyttö selaimen asetuksissa ja yritä uudelleen.",
+            "failed": "Tietokoneen fontteja ei voitu lukea. Salli tämän sivuston fonttien käyttö selaimen asetuksissa ja yritä uudelleen.",
+            "insecure": "Käytä HTTPS-yhteyttä Chromessa tai Edgessä tai työpöytäsovellusta.",
+            "unsupported": "Ei käytettävissä täällä. Käytä Chromea, Edgeä tai työpöytäsovellusta.",
+            "applied": "Fontti: {0}.",
+            "notFound": "Fontit eivät ole käytettävissä: {0}.",
+            "reopen": "Avaa asiakirja uudelleen näiden fonttien käyttämiseksi.",
+            "reload": "Lataa uudelleen nyt",
+            "badge": "Tässä tietokoneessa"
+    };
+
+    LF.Strings["gl"] = {
+            "missing": "Tipos de letra non dispoñibles: {0}.",
+            "ask": "Usar os tipos de letra instalados neste ordenador?",
+            "useMine": "Usar as miñas fontes",
+            "notNow": "Cancelar",
+            "ok": "Aceptar",
+            "close": "Pechar",
+            "group": "Fonte",
+            "option": "Usar as fontes instaladas neste computador",
+            "hint": "As fontes do navegador quedan aquí. O PDF úsaas; as conversións do servidor usan as fontes do servidor.",
+            "off": "Desactivadas.",
+            "loading": "Lendo as fontes deste computador…",
+            "on": "Activadas. {0}",
+            "denied": "Non se puideron ler os tipos de letra do ordenador. Permita o acceso ás fontes para este sitio na configuración do navegador e ténteo de novo.",
+            "failed": "Non se puideron ler os tipos de letra do ordenador. Permita o acceso ás fontes para este sitio na configuración do navegador e ténteo de novo.",
+            "insecure": "Use HTTPS en Chrome ou Edge, ou a aplicación de escritorio.",
+            "unsupported": "Non dispoñible aquí. Use Chrome, Edge ou a aplicación de escritorio.",
+            "applied": "Fonte: {0}.",
+            "notFound": "Tipos de letra non dispoñibles: {0}.",
+            "reopen": "Abra de novo o documento para aplicar estas fontes.",
+            "reload": "Recargar agora",
+            "badge": "Neste computador"
+    };
+
+    LF.Strings["he"] = {
+            "missing": "גופנים לא זמינים: {0}.",
+            "ask": "להשתמש בגופנים המותקנים במחשב זה?",
+            "useMine": "שימוש בגופנים שלי",
+            "notNow": "ביטול",
+            "ok": "בסדר",
+            "close": "סגירה",
+            "group": "גופן",
+            "option": "שימוש בגופנים המותקנים במחשב זה",
+            "hint": "גופני הדפדפן נשארים כאן. PDF משתמש בהם; המרות בשרת משתמשות בגופני השרת.",
+            "off": "מושבתים.",
+            "loading": "קורא את הגופנים במחשב זה…",
+            "on": "מופעלים. {0}",
+            "denied": "לא ניתן לקרוא את גופני המחשב. יש לאפשר לאתר זה גישה לגופנים בהגדרות הדפדפן ולנסות שוב.",
+            "failed": "לא ניתן לקרוא את גופני המחשב. יש לאפשר לאתר זה גישה לגופנים בהגדרות הדפדפן ולנסות שוב.",
+            "insecure": "יש להשתמש ב־HTTPS ב־Chrome או Edge, או ביישום שולחן העבודה.",
+            "unsupported": "לא זמין כאן. יש להשתמש ב־Chrome, ב־Edge או ביישום שולחן העבודה.",
+            "applied": "גופן: {0}.",
+            "notFound": "גופנים לא זמינים: {0}.",
+            "reopen": "יש לפתוח מחדש את המסמך כדי להחיל גופנים אלה.",
+            "reload": "טעינה מחדש כעת",
+            "badge": "במחשב זה"
+    };
+
+    LF.Strings["hu"] = {
+            "missing": "Nem elérhető betűtípusok: {0}.",
+            "ask": "Használja a számítógépre telepített betűtípusokat?",
+            "useMine": "Saját betűtípusok használata",
+            "notNow": "Mégsem",
+            "ok": "OK",
+            "close": "Bezár",
+            "group": "Betűtípus",
+            "option": "A számítógépre telepített betűtípusok használata",
+            "hint": "A böngésző betűtípusai itt maradnak. A PDF ezeket, a kiszolgálói átalakítások a kiszolgáló betűtípusait használják.",
+            "off": "Letiltva.",
+            "loading": "A számítógép betűtípusainak olvasása…",
+            "on": "Engedélyezve. {0}",
+            "denied": "A számítógép betűtípusai nem olvashatók. Engedélyezze a webhely betűtípus-hozzáférését a böngésző beállításaiban, majd próbálja újra.",
+            "failed": "A számítógép betűtípusai nem olvashatók. Engedélyezze a webhely betűtípus-hozzáférését a böngésző beállításaiban, majd próbálja újra.",
+            "insecure": "Használjon HTTPS-t Chrome-ban vagy Edge-ben, vagy az asztali alkalmazást.",
+            "unsupported": "Itt nem érhető el. Használja a Chrome-ot, az Edge-et vagy az asztali alkalmazást.",
+            "applied": "Betűtípus: {0}.",
+            "notFound": "Nem elérhető betűtípusok: {0}.",
+            "reopen": "Nyissa meg újra a dokumentumot e betűtípusok alkalmazásához.",
+            "reload": "Újratöltés most",
+            "badge": "Ezen a számítógépen"
+    };
+
+    LF.Strings["hy"] = {
+            "missing": "Անհասանելի տառատեսակներ՝ {0}։",
+            "ask": "Օգտագործե՞լ այս համակարգչում տեղադրված տառատեսակները։",
+            "useMine": "Օգտագործել իմ տառատեսակները",
+            "notNow": "Չեղարկել",
+            "ok": "Լավ",
+            "close": "Փակել",
+            "group": "Տառատեսակ",
+            "option": "Օգտագործել այս համակարգչում տեղադրված տառատեսակները",
+            "hint": "Դիտարկիչի տառատեսակները մնում են այստեղ։ PDF-ն օգտագործում է դրանք, իսկ սերվերի փոխարկումները՝ սերվերի տառատեսակները։",
+            "off": "Անջատված է։",
+            "loading": "Այս համակարգչի տառատեսակների ընթերցում…",
+            "on": "Միացված է։ {0}",
+            "denied": "Չհաջողվեց կարդալ համակարգչի տառատեսակները։ Դիտարկիչի կարգավորումներում այս կայքին թույլատրեք տառատեսակների հասանելիությունը և կրկին փորձեք։",
+            "failed": "Չհաջողվեց կարդալ համակարգչի տառատեսակները։ Դիտարկիչի կարգավորումներում այս կայքին թույլատրեք տառատեսակների հասանելիությունը և կրկին փորձեք։",
+            "insecure": "Օգտագործեք HTTPS Chrome-ում կամ Edge-ում, կամ աշխատասեղանի հավելվածը։",
+            "unsupported": "Այստեղ հասանելի չէ։ Օգտագործեք Chrome, Edge կամ աշխատասեղանի հավելվածը։",
+            "applied": "Տառատեսակ: {0}.",
+            "notFound": "Անհասանելի տառատեսակներ՝ {0}։",
+            "reopen": "Կրկին բացեք փաստաթուղթը՝ այս տառատեսակները կիրառելու համար։",
+            "reload": "Վերաբեռնել հիմա",
+            "badge": "Այս համակարգչում"
+    };
+
+    LF.Strings["id"] = {
+            "missing": "Font tidak tersedia: {0}.",
+            "ask": "Gunakan font yang terpasang di komputer ini?",
+            "useMine": "Gunakan font saya",
+            "notNow": "Batalkan",
+            "ok": "OK",
+            "close": "Tutup",
+            "group": "Huruf",
+            "option": "Gunakan font yang terpasang di komputer ini",
+            "hint": "Font browser tetap di sini. PDF menggunakannya; konversi server menggunakan font server.",
+            "off": "Dinonaktifkan.",
+            "loading": "Membaca font komputer ini…",
+            "on": "Diaktifkan. {0}",
+            "denied": "Font komputer tidak dapat dibaca. Izinkan akses font untuk situs ini di pengaturan browser, lalu coba lagi.",
+            "failed": "Font komputer tidak dapat dibaca. Izinkan akses font untuk situs ini di pengaturan browser, lalu coba lagi.",
+            "insecure": "Gunakan HTTPS di Chrome atau Edge, atau aplikasi desktop.",
+            "unsupported": "Tidak tersedia di sini. Gunakan Chrome, Edge, atau aplikasi desktop.",
+            "applied": "Huruf: {0}.",
+            "notFound": "Font tidak tersedia: {0}.",
+            "reopen": "Buka kembali dokumen untuk menerapkan font ini.",
+            "reload": "Muat ulang sekarang",
+            "badge": "Di komputer ini"
+    };
+
+    LF.Strings["ko"] = {
+            "missing": "사용할 수 없는 글꼴: {0}.",
+            "ask": "이 컴퓨터에 설치된 글꼴을 사용하시겠습니까?",
+            "useMine": "내 글꼴 사용",
+            "notNow": "취소",
+            "ok": "OK",
+            "close": "닫기",
+            "group": "글꼴",
+            "option": "이 컴퓨터에 설치된 글꼴 사용",
+            "hint": "브라우저 글꼴은 이 컴퓨터에 남습니다. PDF는 이 글꼴을, 서버 변환은 서버 글꼴을 사용합니다.",
+            "off": "사용하지 않습니다.",
+            "loading": "이 컴퓨터의 글꼴을 읽는 중…",
+            "on": "사용 중입니다. {0}",
+            "denied": "컴퓨터의 글꼴을 읽을 수 없습니다. 브라우저 설정에서 이 사이트의 글꼴 접근을 허용한 후 다시 시도하세요.",
+            "failed": "컴퓨터의 글꼴을 읽을 수 없습니다. 브라우저 설정에서 이 사이트의 글꼴 접근을 허용한 후 다시 시도하세요.",
+            "insecure": "Chrome 또는 Edge에서 HTTPS를 사용하거나 데스크톱 앱을 사용하세요.",
+            "unsupported": "여기서는 사용할 수 없습니다. Chrome, Edge 또는 데스크톱 앱을 사용하세요.",
+            "applied": "글꼴: {0}.",
+            "notFound": "사용할 수 없는 글꼴: {0}.",
+            "reopen": "이 글꼴을 적용하려면 문서를 다시 여세요.",
+            "reload": "지금 새로 고침",
+            "badge": "이 컴퓨터에 있음"
+    };
+
+    LF.Strings["lo"] = {
+            "missing": "ຟອນທີ່ບໍ່ມີ: {0}.",
+            "ask": "ໃຊ້ຟອນທີ່ຕິດຕັ້ງໃນຄອມພິວເຕຕີນີ້ບໍ?",
+            "useMine": "ໃຊ້ຟອນຂອງຂ້ອຍ",
+            "notNow": "ຍົກເລີກ",
+            "ok": "ຕົກລົງ",
+            "close": "ປິດ",
+            "group": "ຕົວອັກສອນ",
+            "option": "ໃຊ້ຟອນທີ່ຕິດຕັ້ງໃນຄອມພິວເຕີນີ້",
+            "hint": "ຟອນຂອງບຣາວເຊີຢູ່ໃນຄອມພິວເຕີນີ້. PDF ໃຊ້ຟອນເຫຼົ່ານີ້; ການແປງໃນເຊີບເວີໃຊ້ຟອນຂອງເຊີບເວີ.",
+            "off": "ປິດໃຊ້ແລ້ວ.",
+            "loading": "ກຳລັງອ່ານຟອນຂອງຄອມພິວເຕີນີ້…",
+            "on": "ເປີດໃຊ້ແລ້ວ. {0}",
+            "denied": "ບໍ່ສາມາດອ່ານຟອນຂອງຄອມພິວເຕີໄດ້. ອະນຸຍາດໃຫ້ເວັບໄຊນີ້ເຂົ້າເຖິງຟອນໃນການຕັ້ງຄ່າບຣາວເຊີ ແລ້ວລອງອີກຄັ້ງ.",
+            "failed": "ບໍ່ສາມາດອ່ານຟອນຂອງຄອມພິວເຕີໄດ້. ອະນຸຍາດໃຫ້ເວັບໄຊນີ້ເຂົ້າເຖິງຟອນໃນການຕັ້ງຄ່າບຣາວເຊີ ແລ້ວລອງອີກຄັ້ງ.",
+            "insecure": "ໃຊ້ HTTPS ໃນ Chrome ຫຼື Edge ຫຼືໃຊ້ແອັບເດັສທັອບ.",
+            "unsupported": "ບໍ່ມີໃຫ້ໃຊ້ທີ່ນີ້. ໃຊ້ Chrome, Edge ຫຼືແອັບເດັສທັອບ.",
+            "applied": "ຕົວອັກສອນ: {0}.",
+            "notFound": "ຟອນທີ່ບໍ່ມີ: {0}.",
+            "reopen": "ເປີດເອກະສານຄືນເພື່ອນຳໃຊ້ຟອນເຫຼົ່ານີ້.",
+            "reload": "ໂຫຼດຄືນດຽວນີ້",
+            "badge": "ໃນຄອມພິວເຕີນີ້"
+    };
+
+    LF.Strings["lv"] = {
+            "missing": "Nepieejami fonti: {0}.",
+            "ask": "Izmantot šajā datorā instalētos fontus?",
+            "useMine": "Izmantot manus fontus",
+            "notNow": "Atcelt",
+            "ok": "Labi",
+            "close": "Aizvērt",
+            "group": "Fonts",
+            "option": "Izmantot šajā datorā instalētos fontus",
+            "hint": "Pārlūka fonti paliek šeit. PDF tos izmanto; servera pārveidojumi izmanto servera fontus.",
+            "off": "Atspējots.",
+            "loading": "Nolasa šī datora fontus…",
+            "on": "Iespējots. {0}",
+            "denied": "Neizdevās nolasīt datora fontus. Pārlūka iestatījumos atļaujiet šai vietnei piekļūt fontiem un mēģiniet vēlreiz.",
+            "failed": "Neizdevās nolasīt datora fontus. Pārlūka iestatījumos atļaujiet šai vietnei piekļūt fontiem un mēģiniet vēlreiz.",
+            "insecure": "Izmantojiet HTTPS pārlūkā Chrome vai Edge, vai darbvirsmas lietotni.",
+            "unsupported": "Šeit nav pieejams. Izmantojiet Chrome, Edge vai darbvirsmas lietotni.",
+            "applied": "Fonts: {0}.",
+            "notFound": "Nepieejami fonti: {0}.",
+            "reopen": "Atveriet dokumentu vēlreiz, lai lietotu šos fontus.",
+            "reload": "Pārlādēt tagad",
+            "badge": "Šajā datorā"
+    };
+
+    LF.Strings["ms"] = {
+            "missing": "Fon tidak tersedia: {0}.",
+            "ask": "Gunakan fon yang dipasang pada komputer ini?",
+            "useMine": "Gunakan fon saya",
+            "notNow": "Batalkan",
+            "ok": "Okey",
+            "close": "Tutup",
+            "group": "Fon",
+            "option": "Gunakan fon yang dipasang pada komputer ini",
+            "hint": "Fon pelayar kekal di sini. PDF menggunakannya; penukaran pelayan menggunakan fon pelayan.",
+            "off": "Dinyahdayakan.",
+            "loading": "Membaca fon komputer ini…",
+            "on": "Didayakan. {0}",
+            "denied": "Fon komputer tidak dapat dibaca. Benarkan capaian fon untuk laman ini dalam tetapan pelayar, kemudian cuba lagi.",
+            "failed": "Fon komputer tidak dapat dibaca. Benarkan capaian fon untuk laman ini dalam tetapan pelayar, kemudian cuba lagi.",
+            "insecure": "Gunakan HTTPS dalam Chrome atau Edge, atau aplikasi desktop.",
+            "unsupported": "Tidak tersedia di sini. Gunakan Chrome, Edge atau aplikasi desktop.",
+            "applied": "Fon: {0}.",
+            "notFound": "Fon tidak tersedia: {0}.",
+            "reopen": "Buka semula dokumen untuk menggunakan fon ini.",
+            "reload": "Muat semula sekarang",
+            "badge": "Pada komputer ini"
+    };
+
+    LF.Strings["no"] = {
+            "missing": "Utilgjengelige skrifter: {0}.",
+            "ask": "Bruke skrifter installert på denne datamaskinen?",
+            "useMine": "Bruk mine skrifter",
+            "notNow": "Avbryt",
+            "ok": "OK",
+            "close": "Lukk",
+            "group": "Skrifter",
+            "option": "Bruk skrifter som er installert på denne datamaskinen",
+            "hint": "Nettleserskriftene blir her. PDF bruker dem; serverkonverteringer bruker serverens skrifter.",
+            "off": "Deaktivert.",
+            "loading": "Leser skrifter på denne datamaskinen…",
+            "on": "Aktivert. {0}",
+            "denied": "Skriftene på datamaskinen kunne ikke leses. Tillat skrifttilgang for dette nettstedet i nettleserinnstillingene, og prøv igjen.",
+            "failed": "Skriftene på datamaskinen kunne ikke leses. Tillat skrifttilgang for dette nettstedet i nettleserinnstillingene, og prøv igjen.",
+            "insecure": "Bruk HTTPS i Chrome eller Edge, eller skrivebordsappen.",
+            "unsupported": "Ikke tilgjengelig her. Bruk Chrome, Edge eller skrivebordsappen.",
+            "applied": "Skrifter: {0}.",
+            "notFound": "Utilgjengelige skrifter: {0}.",
+            "reopen": "Åpne dokumentet på nytt for å bruke disse skriftene.",
+            "reload": "Last inn på nytt nå",
+            "badge": "På denne datamaskinen"
+    };
+
+    LF.Strings["ro"] = {
+            "missing": "Fonturi indisponibile: {0}.",
+            "ask": "Folosiți fonturile instalate pe acest computer?",
+            "useMine": "Folosiți fonturile mele",
+            "notNow": "Revocare",
+            "ok": "OK",
+            "close": "Închidere",
+            "group": "Font",
+            "option": "Folosiți fonturile instalate pe acest computer",
+            "hint": "Fonturile browserului rămân aici. PDF le folosește; conversiile pe server folosesc fonturile serverului.",
+            "off": "Dezactivate.",
+            "loading": "Se citesc fonturile acestui computer…",
+            "on": "Activate. {0}",
+            "denied": "Fonturile computerului nu au putut fi citite. Permiteți accesul la fonturi pentru acest site în setările browserului, apoi încercați din nou.",
+            "failed": "Fonturile computerului nu au putut fi citite. Permiteți accesul la fonturi pentru acest site în setările browserului, apoi încercați din nou.",
+            "insecure": "Folosiți HTTPS în Chrome sau Edge ori aplicația desktop.",
+            "unsupported": "Indisponibil aici. Folosiți Chrome, Edge sau aplicația desktop.",
+            "applied": "Font: {0}.",
+            "notFound": "Fonturi indisponibile: {0}.",
+            "reopen": "Redeschideți documentul pentru a aplica aceste fonturi.",
+            "reload": "Reîncărcați acum",
+            "badge": "Pe acest computer"
+    };
+
+    LF.Strings["si"] = {
+            "missing": "නොමැති අකුරු: {0}.",
+            "ask": "මෙම පරිගණකයේ ස්ථාපිත අකුරු භාවිත කරන්නද?",
+            "useMine": "මගේ අකුරු භාවිත කරන්න",
+            "notNow": "අවලංගු",
+            "ok": "හරි",
+            "close": "වසන්න",
+            "group": "රුවකුර",
+            "option": "මෙම පරිගණකයේ ස්ථාපිත අකුරු භාවිත කරන්න",
+            "hint": "බ්‍රවුසරයේ අකුරු මෙහිම පවතී. PDF ඒවා භාවිත කරයි; සේවාදායක පරිවර්තන සේවාදායකයේ අකුරු භාවිත කරයි.",
+            "off": "අක්‍රියයි.",
+            "loading": "මෙම පරිගණකයේ අකුරු කියවමින්…",
+            "on": "සක්‍රියයි. {0}",
+            "denied": "පරිගණකයේ අකුරු කියවීමට නොහැකි විය. බ්‍රවුසර සැකසීම් තුළ මෙම අඩවියට අකුරු ප්‍රවේශය ලබා දී නැවත උත්සාහ කරන්න.",
+            "failed": "පරිගණකයේ අකුරු කියවීමට නොහැකි විය. බ්‍රවුසර සැකසීම් තුළ මෙම අඩවියට අකුරු ප්‍රවේශය ලබා දී නැවත උත්සාහ කරන්න.",
+            "insecure": "Chrome හෝ Edge තුළ HTTPS භාවිත කරන්න, නැතහොත් ඩෙස්ක්ටොප් යෙදුම භාවිත කරන්න.",
+            "unsupported": "මෙහි ලබා ගත නොහැක. Chrome, Edge හෝ ඩෙස්ක්ටොප් යෙදුම භාවිත කරන්න.",
+            "applied": "රුවකුර: {0}.",
+            "notFound": "නොමැති අකුරු: {0}.",
+            "reopen": "මෙම අකුරු යෙදීමට ලේඛනය නැවත විවෘත කරන්න.",
+            "reload": "දැන් නැවත පූරණය කරන්න",
+            "badge": "මෙම පරිගණකයේ"
+    };
+
+    LF.Strings["sk"] = {
+            "missing": "Nedostupné písma: {0}.",
+            "ask": "Použiť písma nainštalované v tomto počítači?",
+            "useMine": "Použiť moje písma",
+            "notNow": "Zrušiť",
+            "ok": "OK",
+            "close": "Zatvoriť",
+            "group": "Písmo",
+            "option": "Používať písma nainštalované v tomto počítači",
+            "hint": "Písma prehliadača zostávajú tu. PDF ich používa; serverové prevody používajú písma servera.",
+            "off": "Vypnuté.",
+            "loading": "Čítanie písiem tohto počítača…",
+            "on": "Zapnuté. {0}",
+            "denied": "Písma počítača sa nepodarilo prečítať. Povoľte tomuto webu prístup k písmam v nastaveniach prehliadača a skúste to znova.",
+            "failed": "Písma počítača sa nepodarilo prečítať. Povoľte tomuto webu prístup k písmam v nastaveniach prehliadača a skúste to znova.",
+            "insecure": "Použite HTTPS v Chrome alebo Edge, alebo počítačovú aplikáciu.",
+            "unsupported": "Tu nie je dostupné. Použite Chrome, Edge alebo počítačovú aplikáciu.",
+            "applied": "Písmo: {0}.",
+            "notFound": "Nedostupné písma: {0}.",
+            "reopen": "Znovu otvorte dokument, aby sa použili tieto písma.",
+            "reload": "Znovu načítať",
+            "badge": "V tomto počítači"
+    };
+
+    LF.Strings["sl"] = {
+            "missing": "Nerazpoložljive pisave: {0}.",
+            "ask": "Uporabite pisave, nameščene v tem računalniku?",
+            "useMine": "Uporabi moje pisave",
+            "notNow": "Prekliči",
+            "ok": "OK",
+            "close": "Zapri",
+            "group": "Ime pisave",
+            "option": "Uporabi pisave, nameščene v tem računalniku",
+            "hint": "Pisave brskalnika ostanejo tukaj. PDF jih uporablja; strežniške pretvorbe uporabljajo pisave strežnika.",
+            "off": "Onemogočeno.",
+            "loading": "Branje pisav tega računalnika…",
+            "on": "Omogočeno. {0}",
+            "denied": "Pisav računalnika ni bilo mogoče prebrati. V nastavitvah brskalnika dovolite temu spletišču dostop do pisav in poskusite znova.",
+            "failed": "Pisav računalnika ni bilo mogoče prebrati. V nastavitvah brskalnika dovolite temu spletišču dostop do pisav in poskusite znova.",
+            "insecure": "Uporabite HTTPS v Chromu ali Edgeu ali namizno aplikacijo.",
+            "unsupported": "Tukaj ni na voljo. Uporabite Chrome, Edge ali namizno aplikacijo.",
+            "applied": "Ime pisave: {0}.",
+            "notFound": "Nerazpoložljive pisave: {0}.",
+            "reopen": "Znova odprite dokument, da uporabite te pisave.",
+            "reload": "Znova naloži zdaj",
+            "badge": "V tem računalniku"
+    };
+
+    LF.Strings["sq"] = {
+            "missing": "Fonte të padisponueshme: {0}.",
+            "ask": "Të përdoren fontet e instaluara në këtë kompjuter?",
+            "useMine": "Përdor shkronjat e mia",
+            "notNow": "Anulo",
+            "ok": "OK",
+            "close": "Mbyll",
+            "group": "Font",
+            "option": "Përdor shkronjat e instaluara në këtë kompjuter",
+            "hint": "Shkronjat e shfletuesit mbeten këtu. PDF i përdor ato; shndërrimet në shërbyes përdorin shkronjat e shërbyesit.",
+            "off": "Çaktivizuar.",
+            "loading": "Po lexohen shkronjat e këtij kompjuteri…",
+            "on": "Aktivizuar. {0}",
+            "denied": "Fontet e kompjuterit nuk mund të lexoheshin. Lejoni hyrjen te shkronjat për këtë sajt te rregullimet e shfletuesit dhe riprovoni.",
+            "failed": "Fontet e kompjuterit nuk mund të lexoheshin. Lejoni hyrjen te shkronjat për këtë sajt te rregullimet e shfletuesit dhe riprovoni.",
+            "insecure": "Përdorni HTTPS në Chrome ose Edge, ose aplikacionin për desktop.",
+            "unsupported": "Nuk ofrohet këtu. Përdorni Chrome, Edge ose aplikacionin për desktop.",
+            "applied": "Font: {0}.",
+            "notFound": "Fonte të padisponueshme: {0}.",
+            "reopen": "Rihapeni dokumentin për të zbatuar këto shkronja.",
+            "reload": "Ringarkoje tani",
+            "badge": "Në këtë kompjuter"
+    };
+
+    LF.Strings["sr"] = {
+            "missing": "Nedostupni fontovi: {0}.",
+            "ask": "Koristiti fontove instalirane na ovom računaru?",
+            "useMine": "Koristi moje fontove",
+            "notNow": "Otkaži",
+            "ok": "OK",
+            "close": "Zatvori",
+            "group": "Font",
+            "option": "Koristi fontove instalirane na ovom računaru",
+            "hint": "Fontovi pregledača ostaju ovde. PDF ih koristi; serverske konverzije koriste fontove servera.",
+            "off": "Isključeno.",
+            "loading": "Čitanje fontova ovog računara…",
+            "on": "Uključeno. {0}",
+            "denied": "Nije moguće pročitati fontove računara. Dozvolite ovom sajtu pristup fontovima u podešavanjima pregledača, pa pokušajte ponovo.",
+            "failed": "Nije moguće pročitati fontove računara. Dozvolite ovom sajtu pristup fontovima u podešavanjima pregledača, pa pokušajte ponovo.",
+            "insecure": "Koristite HTTPS u Chrome ili Edge pregledaču ili aplikaciju za računar.",
+            "unsupported": "Ovde nije dostupno. Koristite Chrome, Edge ili aplikaciju za računar.",
+            "applied": "Font: {0}.",
+            "notFound": "Nedostupni fontovi: {0}.",
+            "reopen": "Ponovo otvorite dokument da primenite ove fontove.",
+            "reload": "Ponovo učitaj sada",
+            "badge": "Na ovom računaru"
+    };
+
+    LF.Strings["sr-cyrl"] = {
+            "missing": "Недоступни фонтови: {0}.",
+            "ask": "Користити фонтове инсталиране на овом рачунару?",
+            "useMine": "Користи моје фонтове",
+            "notNow": "Откажи",
+            "ok": "OK",
+            "close": "Затвори",
+            "group": "Фонт",
+            "option": "Користи фонтове инсталиране на овом рачунару",
+            "hint": "Фонтови прегледача остају овде. PDF их користи; серверске конверзије користе фонтове сервера.",
+            "off": "Искључено.",
+            "loading": "Читање фонтова овог рачунара…",
+            "on": "Укључено. {0}",
+            "denied": "Није могуће прочитати фонтове рачунара. Дозволите овом сајту приступ фонтовима у подешавањима прегледача, па покушајте поново.",
+            "failed": "Није могуће прочитати фонтове рачунара. Дозволите овом сајту приступ фонтовима у подешавањима прегледача, па покушајте поново.",
+            "insecure": "Користите HTTPS у Chrome или Edge прегледачу или апликацију за рачунар.",
+            "unsupported": "Овде није доступно. Користите Chrome, Edge или апликацију за рачунар.",
+            "applied": "Фонт: {0}.",
+            "notFound": "Недоступни фонтови: {0}.",
+            "reopen": "Поново отворите документ да примените ове фонтове.",
+            "reload": "Поново учитај сада",
+            "badge": "На овом рачунару"
+    };
+
+    LF.Strings["sv"] = {
+            "missing": "Otillgängliga teckensnitt: {0}.",
+            "ask": "Använd teckensnitt installerade på den här datorn?",
+            "useMine": "Använd mina teckensnitt",
+            "notNow": "Avbryt",
+            "ok": "OK",
+            "close": "Stäng",
+            "group": "Font",
+            "option": "Använd teckensnitt installerade på den här datorn",
+            "hint": "Webbläsarens teckensnitt stannar här. PDF använder dem; serverkonverteringar använder serverns teckensnitt.",
+            "off": "Inaktiverade.",
+            "loading": "Läser teckensnitt på den här datorn…",
+            "on": "Aktiverade. {0}",
+            "denied": "Datorns teckensnitt kunde inte läsas. Tillåt teckensnittsåtkomst för webbplatsen i webbläsarinställningarna och försök igen.",
+            "failed": "Datorns teckensnitt kunde inte läsas. Tillåt teckensnittsåtkomst för webbplatsen i webbläsarinställningarna och försök igen.",
+            "insecure": "Använd HTTPS i Chrome eller Edge eller skrivbordsappen.",
+            "unsupported": "Inte tillgängligt här. Använd Chrome, Edge eller skrivbordsappen.",
+            "applied": "Font: {0}.",
+            "notFound": "Otillgängliga teckensnitt: {0}.",
+            "reopen": "Öppna dokumentet igen för att använda dessa teckensnitt.",
+            "reload": "Läs in igen nu",
+            "badge": "På den här datorn"
+    };
+
+    LF.Strings["tr"] = {
+            "missing": "Kullanılamayan yazı tipleri: {0}.",
+            "ask": "Bu bilgisayarda yüklü yazı tipleri kullanılsın mı?",
+            "useMine": "Yazı tiplerimi kullan",
+            "notNow": "İptal Et",
+            "ok": "Tamam",
+            "close": "Kapat",
+            "group": "Yazı Tipi",
+            "option": "Bu bilgisayarda yüklü yazı tiplerini kullan",
+            "hint": "Tarayıcı yazı tipleri burada kalır. PDF bunları, sunucu dönüştürmeleri sunucunun yazı tiplerini kullanır.",
+            "off": "Devre dışı.",
+            "loading": "Bu bilgisayarın yazı tipleri okunuyor…",
+            "on": "Etkin. {0}",
+            "denied": "Bilgisayarın yazı tipleri okunamadı. Tarayıcı ayarlarında bu siteye yazı tipi erişimi izni verin ve yeniden deneyin.",
+            "failed": "Bilgisayarın yazı tipleri okunamadı. Tarayıcı ayarlarında bu siteye yazı tipi erişimi izni verin ve yeniden deneyin.",
+            "insecure": "Chrome veya Edge üzerinde HTTPS ya da masaüstü uygulamasını kullanın.",
+            "unsupported": "Burada kullanılamıyor. Chrome, Edge veya masaüstü uygulamasını kullanın.",
+            "applied": "Yazı Tipi: {0}.",
+            "notFound": "Kullanılamayan yazı tipleri: {0}.",
+            "reopen": "Bu yazı tiplerini uygulamak için belgeyi yeniden açın.",
+            "reload": "Şimdi yeniden yükle",
+            "badge": "Bu bilgisayarda"
+    };
+
+    LF.Strings["uk"] = {
+            "missing": "Недоступні шрифти: {0}.",
+            "ask": "Використовувати шрифти, встановлені на цьому комп’ютері?",
+            "useMine": "Використовувати мої шрифти",
+            "notNow": "Скасувати",
+            "ok": "Гаразд",
+            "close": "Закрити",
+            "group": "Шрифт",
+            "option": "Використовувати шрифти, встановлені на цьому комп’ютері",
+            "hint": "Шрифти браузера залишаються тут. PDF використовує їх; серверні перетворення використовують шрифти сервера.",
+            "off": "Вимкнено.",
+            "loading": "Читання шрифтів цього комп’ютера…",
+            "on": "Увімкнено. {0}",
+            "denied": "Не вдалося прочитати шрифти комп’ютера. Дозвольте цьому сайту доступ до шрифтів у налаштуваннях браузера та спробуйте ще раз.",
+            "failed": "Не вдалося прочитати шрифти комп’ютера. Дозвольте цьому сайту доступ до шрифтів у налаштуваннях браузера та спробуйте ще раз.",
+            "insecure": "Використовуйте HTTPS у Chrome чи Edge або настільну програму.",
+            "unsupported": "Тут недоступно. Використовуйте Chrome, Edge або настільну програму.",
+            "applied": "Шрифт: {0}.",
+            "notFound": "Недоступні шрифти: {0}.",
+            "reopen": "Відкрийте документ знову, щоб застосувати ці шрифти.",
+            "reload": "Перезавантажити зараз",
+            "badge": "На цьому комп’ютері"
+    };
+
+    LF.Strings["ur"] = {
+            "missing": "غیر دستیاب فونٹ: {0}۔",
+            "ask": "کیا اس کمپیوٹر پر نصب فونٹ استعمال کیے جائیں؟",
+            "useMine": "میرے فونٹس استعمال کریں",
+            "notNow": "منسوخ کریں۔",
+            "ok": "او کے",
+            "close": "بند کریں",
+            "group": "فونٹ",
+            "option": "اس کمپیوٹر پر نصب فونٹس استعمال کریں",
+            "hint": "براؤزر کے فونٹس یہیں رہتے ہیں۔ PDF انہیں استعمال کرتا ہے؛ سرور کی تبدیلیاں سرور کے فونٹس استعمال کرتی ہیں۔",
+            "off": "غیر فعال ہیں۔",
+            "loading": "اس کمپیوٹر کے فونٹس پڑھے جا رہے ہیں…",
+            "on": "فعال ہیں۔ {0}",
+            "denied": "کمپیوٹر کے فونٹ پڑھے نہیں جا سکے۔ براؤزر کی ترتیبات میں اس سائٹ کو فونٹس تک رسائی دیں، پھر دوبارہ کوشش کریں۔",
+            "failed": "کمپیوٹر کے فونٹ پڑھے نہیں جا سکے۔ براؤزر کی ترتیبات میں اس سائٹ کو فونٹس تک رسائی دیں، پھر دوبارہ کوشش کریں۔",
+            "insecure": "Chrome یا Edge میں HTTPS، یا ڈیسک ٹاپ ایپ استعمال کریں۔",
+            "unsupported": "یہاں دستیاب نہیں۔ Chrome، Edge یا ڈیسک ٹاپ ایپ استعمال کریں۔",
+            "applied": "فونٹ: {0}.",
+            "notFound": "غیر دستیاب فونٹ: {0}۔",
+            "reopen": "ان فونٹس کو لاگو کرنے کے لیے دستاویز دوبارہ کھولیں۔",
+            "reload": "ابھی دوبارہ لوڈ کریں",
+            "badge": "اس کمپیوٹر پر"
+    };
+
+    LF.Strings["vi"] = {
+            "missing": "Phông chữ không có: {0}.",
+            "ask": "Dùng phông chữ đã cài trên máy tính này?",
+            "useMine": "Dùng phông chữ của tôi",
+            "notNow": "Hủy",
+            "ok": "OK",
+            "close": "Đóng",
+            "group": "Phông chữ",
+            "option": "Dùng phông chữ được cài trên máy tính này",
+            "hint": "Phông chữ của trình duyệt ở lại đây. PDF dùng chúng; chuyển đổi trên máy chủ dùng phông chữ máy chủ.",
+            "off": "Đã tắt.",
+            "loading": "Đang đọc phông chữ của máy tính này…",
+            "on": "Đã bật. {0}",
+            "denied": "Không thể đọc phông chữ của máy tính. Cho phép trang web này truy cập phông chữ trong cài đặt trình duyệt, rồi thử lại.",
+            "failed": "Không thể đọc phông chữ của máy tính. Cho phép trang web này truy cập phông chữ trong cài đặt trình duyệt, rồi thử lại.",
+            "insecure": "Dùng HTTPS trong Chrome hoặc Edge, hoặc ứng dụng máy tính.",
+            "unsupported": "Không có ở đây. Dùng Chrome, Edge hoặc ứng dụng máy tính.",
+            "applied": "Phông chữ: {0}.",
+            "notFound": "Phông chữ không có: {0}.",
+            "reopen": "Mở lại tài liệu để áp dụng các phông chữ này.",
+            "reload": "Tải lại ngay",
+            "badge": "Trên máy tính này"
+    };
+
+    LF.Strings["zh-tw"] = {
+            "missing": "無法使用的字型：{0}。",
+            "ask": "使用此電腦上安裝的字型嗎？",
+            "useMine": "使用我的字型",
+            "notNow": "取消",
+            "ok": "確定",
+            "close": "關閉",
+            "group": "字型",
+            "option": "使用此電腦上安裝的字型",
+            "hint": "瀏覽器字型會留在此電腦。PDF 使用這些字型；伺服器轉換使用伺服器字型。",
+            "off": "已停用。",
+            "loading": "正在讀取此電腦的字型…",
+            "on": "已啟用。 {0}",
+            "denied": "無法讀取此電腦的字型。 請在瀏覽器設定中允許此網站存取字型，然後重試。",
+            "failed": "無法讀取此電腦的字型。 請在瀏覽器設定中允許此網站存取字型，然後重試。",
+            "insecure": "請在 Chrome 或 Edge 中使用 HTTPS，或使用桌面應用程式。",
+            "unsupported": "此處無法使用。請使用 Chrome、Edge 或桌面應用程式。",
+            "applied": "字型: {0}.",
+            "notFound": "無法使用的字型：{0}。",
+            "reopen": "請重新開啟文件以套用這些字型。",
+            "reload": "立即重新載入",
+            "badge": "在此電腦上"
+    };
+
     // Editor language -> one of the string tables
     LF.langOf = function (l) {
         l = String(l || 'en').toLowerCase().replace('_', '-');
@@ -259,20 +1052,21 @@ define([], function () {
         if (desktop) {
             var strings = window.EODesktopStrings || window.parent && window.parent.EODesktopStrings;
             var map = { missing: 'fontMissing', ask: 'fontAsk', useMine: 'fontUse', hint: 'fontDetail',
-                denied: 'off', failed: 'fontFailed', insecure: 'fontFailed', unsupported: 'fontFailed',
-                off: 'off', loading: 'fontUse', on: 'fontUse', applied: 'fontUse', notFound: 'fontMissing',
+                denied: 'fontDisabled', failed: 'fontFailed', insecure: 'fontFailed', unsupported: 'fontFailed',
+                off: 'fontDisabled', loading: 'opPreparing', on: 'fontEnabled', applied: 'fontEnabled', notFound: 'fontMissing',
                 reopen: 'open', reload: 'open', badge: 'fonts', group: 'fonts', option: 'fontAsk',
                 notNow: 'cancel', ok: 'ok', close: 'close' };
             var value = strings && strings[map[key]];
-            if (value) {
-                if (['on', 'applied'].indexOf(key) >= 0) value += ': {0}';
+            if (typeof value === 'string' && value.trim()) {
+                if (['on', 'applied'].indexOf(key) >= 0) value += ' ({0})';
                 for (var j = 1; j < arguments.length; j++) value = value.split('{' + (j - 1) + '}').join(arguments[j]);
                 return value;
             }
             // An incomplete shell must never offer nonexistent browser site settings.
             if (['denied', 'failed', 'insecure', 'unsupported'].indexOf(key) >= 0) return 'Computer font access unavailable.';
         }
-        var s = (LF.Strings[lang] && LF.Strings[lang][key]) || LF.Strings.en[key] || key;
+        var value = LF.Strings[lang] && LF.Strings[lang][key];
+        var s = typeof value === 'string' && value.trim() ? value : LF.Strings.en[key] || key;
         for (var i = 1; i < arguments.length; i++) s = s.split('{' + (i - 1) + '}').join(arguments[i]);
         return s;
     };

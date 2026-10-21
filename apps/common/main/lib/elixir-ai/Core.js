@@ -44,6 +44,18 @@ define([], function () {
         prices: DEFAULT_PRICES
     };
 
+    // Check raw authorities before URL normalization (127.1 and encoded hosts are not literals).
+    function endpointAllowed(value, managed) {
+        if (managed && /^\/elixir-ai\/v1\/?$/.test(value)) return true;
+        if (typeof value !== 'string' || value.length > 2048 || /[\u0000-\u0020\u007f\\?#]/.test(value)) return false;
+        var raw = /^https?:\/\/([^/]+)(?:\/|$)/i.exec(value), url;
+        if (!raw) return false;
+        try { url = new URL(value); } catch (e) { return false; }
+        if (raw[1].indexOf('@') >= 0 || /:$/.test(raw[1]) || url.username || url.password || url.port === '0') return false;
+        if (url.protocol === 'https:') return true;
+        return url.protocol === 'http:' && /^(?:localhost|127\.0\.0\.1|\[::1\])(?::[0-9]+)?$/i.test(raw[1]);
+    }
+
     function readJSON(key) {
         try { return JSON.parse(window.localStorage.getItem(key) || 'null'); } catch (e) { return null; }
     }
@@ -67,10 +79,10 @@ define([], function () {
             if (force) me.managedReady = null;
             if (!me.managedReady) {
                 if (me.hasUserConfig()) { me.managedLoaded = true; return Promise.resolve(null); }
-                me.managedReady = (window.fetch ? fetch('/elixir-ai/config.json', { cache: 'no-store', credentials: 'omit' }) : Promise.reject())
+                me.managedReady = (window.fetch ? fetch('/elixir-ai/config.json', { cache: 'no-store', credentials: 'omit', redirect: 'error' }) : Promise.reject())
                     .then(function (r) { return r.ok ? r.json() : null; })
                     .then(function (c) {
-                        me.managed = (c && c.enabled !== false && typeof c.endpoint === 'string' && c.endpoint.charAt(0) === '/') ? c : null;
+                        me.managed = (c && c.enabled !== false && typeof c.endpoint === 'string' && endpointAllowed(c.endpoint, true) && c.endpoint.charAt(0) === '/') ? c : null;
                         me.managedLoaded = true;
                         return me.managed;
                     })
@@ -91,7 +103,9 @@ define([], function () {
             out.prices = Object.assign({}, DEFAULT_PRICES, s.prices || {});
             return out;
         },
+        endpointAllowed: endpointAllowed,
         save: function (s) {
+            if (!s || !endpointAllowed(s.endpoint, s.managed)) return false;
             if (window.eoDesktopAI) return window.eoDesktopAI.configure(s);
             try {
                 window.localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
@@ -102,7 +116,7 @@ define([], function () {
         isConfigured: function (s) {
             s = s || this.get();
             if (window.eoDesktopAI) return window.eoDesktopAI.configured(s);
-            return !!(s.endpoint && (/^https?:\/\//i.test(s.endpoint) || (s.managed && s.endpoint.charAt(0) === '/')) && s.model);
+            return !!(endpointAllowed(s.endpoint, s.managed) && s.model);
         },
         // What may be shown or journaled: never the key.
         publicView: function (s) {
@@ -239,7 +253,7 @@ define([], function () {
 
             var t0 = performance.now(), ttfb = null;
             var send = function (b) {
-                return (window.eoDesktopAI ? window.eoDesktopAI.fetch : fetch)(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: opts.signal, credentials: 'omit', referrerPolicy: 'no-referrer' });
+                return (window.eoDesktopAI ? window.eoDesktopAI.fetch : fetch)(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: opts.signal, credentials: 'omit', referrerPolicy: 'no-referrer', redirect: 'error' });
             };
             var retried = false;
             var retry400 = function (resp) {

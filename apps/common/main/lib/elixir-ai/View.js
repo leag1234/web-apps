@@ -70,11 +70,12 @@ define([
         }
     };
 
-    var lang = 'en';
-    ElixirAI.setLang = function (l) { lang = ElixirAI.langOf(l); };
+    var lang = 'en', requestedLang = 'en';
+    ElixirAI.setLang = function (l) { requestedLang = l; lang = ElixirAI.langOf(l); };
     ElixirAI.getLang = function () { return lang; };
     // Command bar and entry points: Strings.js (12 languages); settings dialog: STRINGS above (en, fr)
     var t = ElixirAI.t = function (k) {
+        if (k === 'invalidUrl') return ElixirAI.endpointPolicyMessage(requestedLang);
         var S = ElixirAI.Strings || {};
         return (S[lang] && S[lang][k]) || (STRINGS[lang] && STRINGS[lang][k]) || (S.en && S.en[k]) || STRINGS.en[k] || k;
     };
@@ -685,7 +686,7 @@ define([
                     prices: ElixirAI.Settings.get().prices,
                     mode: ElixirAI.Settings.get().mode, earlyStop: ElixirAI.Settings.get().earlyStop
                 };
-                if (n.endpoint && !/^https?:\/\//i.test(n.endpoint)) { msg(t('invalidUrl'), true); return null; }
+                if (n.endpoint && !ElixirAI.Settings.endpointAllowed(n.endpoint, false)) { msg(t('invalidUrl'), true); return null; }
                 if (n.endpoint && !n.model) { msg(t('modelRequired'), true); return null; }
                 if (n.extraParams) {
                     try { var j = JSON.parse(n.extraParams); if (!j || typeof j !== 'object' || Array.isArray(j)) throw 0; }

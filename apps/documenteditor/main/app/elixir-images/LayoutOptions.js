@@ -82,6 +82,13 @@ define([
     DE.Views.ElixirLayoutOptions = Backbone.View.extend(_.extend({
 
         initialize: function (options) {
+            // Keep translated instance strings independent of class/locale load order.
+            var me = this;
+            Object.keys(STRINGS).forEach(function (key) {
+                var value = Common.Locale && Common.Locale.get ?
+                    Common.Locale.get(key, {name: 'DE.Views.ElixirLayoutOptions', default: STRINGS[key]}) : me[key];
+                me[key] = typeof value === 'string' && value.trim() ? value : STRINGS[key];
+            });
             this.controller = options.controller;
             this.layout = null;
             this.key = '';

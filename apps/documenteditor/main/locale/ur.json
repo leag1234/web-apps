@@ -4413,5 +4413,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "پاس ورڈ شامل کریں۔",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "پاس ورڈ حذف کریں۔",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "یہ برآمد شدہ نقل پاس ورڈ سے محفوظ نہیں ہوگی۔ کیا آپ جاری رکھنا چاہتے ہیں؟",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "محفوظ کرنے سے پاس ورڈ کا تحفظ ختم ہو جائے گا اور اصل رمز شدہ فائل کی جگہ غیر محفوظ فائل لکھی جا سکتی ہے۔ کیا آپ جاری رکھنا چاہتے ہیں؟"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "محفوظ کرنے سے پاس ورڈ کا تحفظ ختم ہو جائے گا اور اصل رمز شدہ فائل کی جگہ غیر محفوظ فائل لکھی جا سکتی ہے۔ کیا آپ جاری رکھنا چاہتے ہیں؟",
+  "DE.Views.ElixirLayoutOptions.textTitle": "لے آؤٹ کے اختیارات",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "متن کی لپیٹ کے ساتھ",
+  "DE.Views.ElixirLayoutOptions.textFix": "صفحے پر مقام مقرر رکھیں",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "مزید…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "آبجیکٹ کا اینکر",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "آبجیکٹ کا اینکر (مقفل)",
+  "DE.Views.ElixirLayoutOptions.textInline": "متن کے مطابق",
+  "DE.Views.ElixirLayoutOptions.textSquare": "چکور",
+  "DE.Views.ElixirLayoutOptions.textTight": "تنگ",
+  "DE.Views.ElixirLayoutOptions.textThrough": "کے ذریعے",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "اوپر اور نیچے",
+  "DE.Views.ElixirLayoutOptions.textBehind": "متن کے پیچھے",
+  "DE.Views.ElixirLayoutOptions.textInFront": "متن کے سامنے",
+  "DE.Views.ElixirLayoutOptions.textMove": "متن کے ساتھ منتقل کریں",
+  "DE.Views.ElixirLayoutOptions.textClose": "بند کریں",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "متن کے مطابق",
+  "DE.Views.RibbonTabs.txtPictures": "تصاویر"
 }

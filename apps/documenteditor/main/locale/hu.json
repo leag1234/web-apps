@@ -4397,5 +4397,22 @@
   "Common.Views.PasswordDialog.txtLocalAddPassword": "Jelszó hozzáadása",
   "Common.Views.PasswordDialog.txtLocalRemovePassword": "Jelszó törlése",
   "Common.Views.PasswordDialog.txtLocalPlaintextCopyWarning": "Ez az exportált másolat nem lesz jelszóval védett. Folytatja?",
-  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "A mentés eltávolítja a jelszavas védelmet, és felülírhatja a titkosított eredetit egy nem védett fájllal. Folytatja?"
+  "Common.Views.PasswordDialog.txtLocalRemovePasswordWarning": "A mentés eltávolítja a jelszavas védelmet, és felülírhatja a titkosított eredetit egy nem védett fájllal. Folytatja?",
+  "DE.Views.ElixirLayoutOptions.textTitle": "Elrendezési beállítások",
+  "DE.Views.ElixirLayoutOptions.textWrapGroup": "Szöveg körbefuttatásával",
+  "DE.Views.ElixirLayoutOptions.textFix": "Rögzített helyzet az oldalon",
+  "DE.Views.ElixirLayoutOptions.textSeeMore": "Továbbiak…",
+  "DE.Views.ElixirLayoutOptions.tipAnchor": "Objektumhorgony",
+  "DE.Views.ElixirLayoutOptions.tipLockedAnchor": "Objektumhorgony (zárolva)",
+  "DE.Views.ElixirLayoutOptions.textInline": "Szöveggel egy sorban",
+  "DE.Views.ElixirLayoutOptions.textSquare": "Négyszögben",
+  "DE.Views.ElixirLayoutOptions.textTight": "Szűken",
+  "DE.Views.ElixirLayoutOptions.textThrough": "Körbefutva",
+  "DE.Views.ElixirLayoutOptions.textTopBottom": "Felül - alul",
+  "DE.Views.ElixirLayoutOptions.textBehind": "Szöveg mögött",
+  "DE.Views.ElixirLayoutOptions.textInFront": "Szöveg előtt",
+  "DE.Views.ElixirLayoutOptions.textMove": "Szöveggel mozgat",
+  "DE.Views.ElixirLayoutOptions.textClose": "Bezár",
+  "DE.Views.ElixirLayoutOptions.textInlineGroup": "Szöveggel egy sorban",
+  "DE.Views.RibbonTabs.txtPictures": "Képek"
 }

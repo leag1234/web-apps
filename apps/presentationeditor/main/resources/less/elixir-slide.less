@@ -57,7 +57,9 @@
     .elx-sb-zoom-slider {
         display: inline-block;
         vertical-align: middle;
-        width: 100px;
+        // Reserve SingleSlider's half-thumb track extension, as in Word.
+        width: (100px + (@slider-thumb-size-ie / 2));
+        width: calc(100px + @slider-thumb-size / 2);
         height: 18px;
         margin: 0 2px;
         position: relative;
