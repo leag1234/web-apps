@@ -219,5 +219,26 @@ define([
             assert.equal(icon.length, 1, 'template svg is not duplicated');
             assert.equal(icon.find('use').attr('href'), '#btn-copy');
         });
+
+        it('setCaption updates an item rendered without a caption', function(){
+            item = renderItem(domPlaceholder, {});
+
+            assert.equal(item.cmpEl.find('> a').length, 1, 'normal item keeps a caption target');
+
+            assert.doesNotThrow(function(){
+                item.setCaption('Open');
+            });
+            assert.equal(item.cmpEl.find('> a').text(), 'Open', 'late caption is visible');
+            assert.equal(item.caption, 'Open', 'object caption follows the DOM');
+        });
+
+        it('setCaption preserves an icon when adding the first caption', function(){
+            item = renderItem(domPlaceholder, {iconCls: 'btn-copy'});
+
+            item.setCaption('Copy');
+
+            assert.equal(item.cmpEl.find('> a').text(), 'Copy');
+            assert.equal(item.cmpEl.find('.menu-item-icon use').attr('href'), '#btn-copy', 'icon markup survives');
+        });
     });
 });

@@ -179,7 +179,8 @@ define([
             '<% if ( iconImg ) { %>' +
                 '<img src="<%= iconImg %>">' +
             '<% } else { %>' +
-                '<% var iconMatch = /btn-[^\\s]+/.exec(iconCls); ' +
+                '<% var iconMatch = /btn-[^\\s]+/.exec(iconCls), legacyMatch = /(?:^|\\s)(svg-icon-[A-Za-z0-9_-]+)(?=\\s|$)/.exec(iconCls); ' +
+                'if (!iconMatch && legacyMatch) iconMatch = [legacyMatch[1]]; ' +
                 'if (iconMatch) {' +
                     'print(\'<svg class=\"icon uni-scale\"><use href=\"#\' + iconMatch[0] + \'\"></use></svg>\');' +
                 '} else ' +
@@ -283,7 +284,8 @@ define([
                 '<% if (iconImg) { print(\'<img src=\"\' + iconImg + \'\">\'); } else { %>',
                 // SVG sprite approach - uses <svg><use href="#id"> for dark mode support
                 '<% if (iconCls != "") { ' +
-                    'var iconMatch = /btn-[^\\s]+/.exec(iconCls); ' +
+                    'var iconMatch = /btn-[^\\s]+/.exec(iconCls), legacyMatch = /(?:^|\\s)(svg-icon-[A-Za-z0-9_-]+)(?=\\s|$)/.exec(iconCls); ' +
+                    'if (!iconMatch && legacyMatch) iconMatch = [legacyMatch[1]]; ' +
                     'if (iconMatch) {' +
                         'print(\'<svg class=\"icon uni-scale\"><use href=\"#\' + iconMatch[0] + \'\"></use></svg>\');' +
                     '} else ' +

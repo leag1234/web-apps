@@ -134,7 +134,7 @@ define([
         tagName : 'li',
 
         template: _.template([
-            '<% if (header) { %><span class="menu-item-header"><%- header %></span><% } %><% if (caption) { %><a id="<%= id %>" class="menu-item" <% if (_.isEmpty(iconCls)) { %> data-no-icon <% } %> style="<%= style %>" <% if(options.canFocused) { %> tabindex="-1" type="menuitem" <% }; if(!_.isUndefined(options.stopPropagation)) { %> data-stopPropagation="true" <% }; if(!_.isUndefined(options.dataHint)) { %> data-hint="<%= options.dataHint %>" <% }; if(!_.isUndefined(options.dataHintDirection)) { %> data-hint-direction="<%= options.dataHintDirection %>" <% }; if(!_.isUndefined(options.dataHintOffset)) { %> data-hint-offset="<%= options.dataHintOffset %>" <% }; if(options.dataHintTitle) { %> data-hint-title="<%= options.dataHintTitle %>" <% }; %> >',
+            '<% if (header) { %><span class="menu-item-header"><%- header %></span><% } %><% if (caption || !header) { %><a id="<%= id %>" class="menu-item" <% if (_.isEmpty(iconCls)) { %> data-no-icon <% } %> style="<%= style %>" <% if(options.canFocused) { %> tabindex="-1" type="menuitem" <% }; if(!_.isUndefined(options.stopPropagation)) { %> data-stopPropagation="true" <% }; if(!_.isUndefined(options.dataHint)) { %> data-hint="<%= options.dataHint %>" <% }; if(!_.isUndefined(options.dataHintDirection)) { %> data-hint-direction="<%= options.dataHintDirection %>" <% }; if(!_.isUndefined(options.dataHintOffset)) { %> data-hint-offset="<%= options.dataHintOffset %>" <% }; if(options.dataHintTitle) { %> data-hint-title="<%= options.dataHintTitle %>" <% }; %> >',
                 '<% if (!_.isEmpty(iconCls)) { %>',
                     '<%= Common.UI.menuItemIconMarkup(iconCls) %>',
                 '<% } else if (!_.isEmpty(iconImg)) { %>',
@@ -298,8 +298,15 @@ define([
         setCaption: function(caption) {
             this.caption = caption;
 
-            if (this.rendered)
-                this.cmpEl.find('> a').contents().last()[0].textContent = caption;
+            if (this.rendered) {
+                var anchor = this.cmpEl.find('> a'),
+                    node = anchor.contents().last()[0];
+
+                if (node && node.nodeType === document.TEXT_NODE)
+                    node.textContent = caption;
+                else if (anchor.length)
+                    anchor.append(document.createTextNode(caption));
+            }
         },
 
         setIconCls: function(iconCls) {
