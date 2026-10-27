@@ -388,6 +388,7 @@ define([], function () {
                 entry.summary = finalText;
                 entry.answer = answerText;
                 entry.changed = changed;
+                if (ctx && ctx.rollbackUnverified) { entry.rollbackUnverified = true; entry.changed = true; }
                 if (ctx) {
                     entry.plan = ctx.plan || null;
                     entry.verification = ctx.verification || null;
@@ -435,7 +436,7 @@ define([], function () {
                                 role: 'user', content: 'Verification. User request: ' + opts.instruction + (ctx.plan ? '\nYour goal: ' + ctx.plan.goal : '') +
                                     '\nDocument state now: ' + JSON.stringify(state) +
                                     (auto ? '\nAutomatic checks found these problems (they are certain, fix them): ' + auto.join(' ') : '') +
-                                    '\nCheck every part of the request against this state (text, styles, alignment, sizes, lists, tables, page setup, pages). If everything is done, call verify_result {goal_met:true}. Otherwise call verify_result {goal_met:false, problems} AND, in the same turn, the tools that fix the problems.'
+                                    '\n' + (ts.verificationInstructions ? ts.verificationInstructions(ctx) : 'Check every part of the request against this state (text, styles, alignment, sizes, lists, tables, page setup, pages). If everything is done, call verify_result {goal_met:true}. Otherwise call verify_result {goal_met:false, problems} AND, in the same turn, the tools that fix the problems.')
                             });
                             return 'continue';
                         });
@@ -445,10 +446,24 @@ define([], function () {
                 return Promise.resolve(earlyStop ? 'stop' : 'continue');
             };
 
+            function handleError(err) {
+                // A missing Cell commit/cancel callback cannot prove that edits were reverted.
+                if (ts.requireConfirmedRollback && ctx && !ctx.groupOpen && changed) ctx.rollbackUnverified = true;
+                return (groupStarted && ctx ? ts.end(ctx, false) : Promise.resolve()).catch(function () {
+                    if (ts.requireConfirmedRollback && ctx) ctx.rollbackUnverified = true;
+                }).then(function () {
+                    return finish(opts.signal && opts.signal.aborted ? 'cancelled' : 'error', err);
+                }).then(function () {
+                    emit('error', err);
+                    return { ok: false, error: err, ctx: ctx, entry: entry, changed: !!(ctx && ctx.rollbackUnverified), rollbackUnverified: !!(ctx && ctx.rollbackUnverified) };
+                });
+            }
+
             return ts.init().then(function (c) {
                 ctx = c;
                 ctx.instruction = opts.instruction;
-                entry.scope = { kind: ctx.scope, from: ctx.from, to: ctx.to, blocks: ctx.context.blocks.length };
+                groupStarted = !!ctx.groupOpen;
+                entry.scope = ts.scopeInfo ? ts.scopeInfo(ctx) : { kind: ctx.scope, from: ctx.from, to: ctx.to, blocks: ctx.context.blocks.length };
                 emit('context', ctx);
                 messages = [
                     { role: 'system', content: ts.systemPrompt(ctx, { mode: mode, lang: opts.lang }) },
@@ -498,9 +513,10 @@ define([], function () {
                                 } else p = ts.execute(name, args, ctx);
                                 return p.then(function (result) {
                                     tc.result = result;
+                                    if (result && result.fatal) throw new Error(result.error && result.error.message || 'The action could not be completed safely.');
                                     tc.ms = Math.round(performance.now() - t1);
                                     results.push(result);
-                                    if (result && result.ok && ts.isMutating(name)) {
+                                    if (result && result.ok && ts.isMutating(name) && (!ts.didMutate || ts.didMutate(name, result))) {
                                         changed = true;
                                         executed[name] = (executed[name] || 0) + 1;
                                         done.push({ name: name, args: args, result: result });
@@ -531,7 +547,7 @@ define([], function () {
                 };
                 return round(1);
             }).then(function () {
-                return (groupStarted ? ts.end(ctx, true) : Promise.resolve()).then(function () {
+                var finalization = (groupStarted ? ts.end(ctx, true) : Promise.resolve()).then(function () {
                     entry.revisions = ctx.revisionsAfter || null;
                     return finish(changed ? 'applied' : (ctx.cannotDo ? 'cannot-do' : (ctx.question ? 'question' : 'no-change')));
                 }).then(function () {
@@ -542,15 +558,9 @@ define([], function () {
                     emit('done', res);
                     return res;
                 });
-            }, function (err) {
-                // Fatal error (network, cap, cancel): revert everything done in this action
-                return (groupStarted && ctx ? ts.end(ctx, false) : Promise.resolve()).catch(function () {}).then(function () {
-                    return finish(opts.signal && opts.signal.aborted ? 'cancelled' : 'error', err);
-                }).then(function () {
-                    emit('error', err);
-                    return { ok: false, error: err, ctx: ctx, entry: entry, changed: false };
-                });
-            });
+                // Opt-in only: preserve existing Word finalization semantics.
+                return ts.requireConfirmedRollback ? finalization.catch(handleError) : finalization;
+            }, handleError);
         }
     };
 

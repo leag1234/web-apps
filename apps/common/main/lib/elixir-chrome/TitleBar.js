@@ -341,13 +341,12 @@ define([
 
             this.$input.on('focus', function () { me.openSearch(); });
             // Elixir AI: "Search or ask Elixir" once the AI layer is available in this editor
-            // me.aiCapable: this editor has the AI layer; me.ai: and a model is configured (otherwise only a
-            // discreet "Set up AI…" row is offered)
+            // Capability keeps Ask visible; the controller routes unconfigured actions to setup.
             var plain = this.$input.attr('placeholder');
             var aiReady = function (ctrl) {
                 if (!ctrl || !ctrl.isAvailable || !ctrl.isAvailable() || !Common.ElixirAI || !Common.ElixirAI.tf) return;
                 me.aiCapable = ctrl;
-                me.ai = ctrl.isActive && ctrl.isActive() ? ctrl : null;
+                me.ai = ctrl;
                 var aph = me.ai ? Common.ElixirAI.tf('searchPlaceholder', [me.shortcut()]) : plain;
                 me.$input.attr('placeholder', aph).attr('aria-label', aph);
             };

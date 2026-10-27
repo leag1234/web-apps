@@ -62,6 +62,14 @@ define([
             $(document.body).append($el);
             this.$el = $el;
 
+            var ai=this.getApplication().getController('Common.Controllers.ElixirAI');
+            if(ai && ai.isAvailable()) {
+                var slot=$('<span class="mini-slot" id="mini-elixir-ask"></span>');
+                $el.find('.mini-row').last().append(slot);
+                this.btnElixirAsk=new Common.UI.Button({parentEl:slot,cls:'btn-toolbar',iconCls:'elixir-ai-icon elixir-ai-icon-sparkle',hint:Common.ElixirAI.t('menuAsk')});
+                this.btnElixirAsk.on('click',function(){me.hide(true);ai.openBar();});
+            }
+
             // a button forwarding its click to a ribbon control
             var twin = function (slot, src, opts) {
                 if (!src) return null;

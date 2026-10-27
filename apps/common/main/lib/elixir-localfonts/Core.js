@@ -350,7 +350,7 @@ define([], function () {
                 });
                 if (AscCommon.g_fontManager2 && AscCommon.g_fontManager2.ClearFontsRasterCache) AscCommon.g_fontManager2.ClearFontsRasterCache();
                 api.WordControl.m_oDrawingDocument.ClearCachePages();
-                ld.RecalculateFromStart(true);
+                ld.RecalculateFromStart(true, true);
                 return true;
             }
         } catch (e) { if (window.console) console.warn('[localfonts] relayout', e); }

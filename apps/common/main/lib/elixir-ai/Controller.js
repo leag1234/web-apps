@@ -16,7 +16,8 @@ define([
     'common/main/lib/elixir-ai/Core',
     'common/main/lib/elixir-ai/Icons',
     'common/main/lib/elixir-ai/Strings',
-    'common/main/lib/elixir-ai/View'
+    'common/main/lib/elixir-ai/View',
+    'common/main/lib/elixir-ai/Setup'
 ], function () {
     'use strict';
 
@@ -34,7 +35,7 @@ define([
                     'render:before': function (toolbar) { me.onToolbarRender(toolbar); },
                     // the tab strip exists only after Mixtbar.afterRender, which runs right after this event
                     'render:after': function () {
-                        me.hasTab && setTimeout(function () { Common.NotificationCenter.trigger('tab:visible', 'elixir', me.isActive()); }, 0);
+                        me.hasTab && setTimeout(function () { Common.NotificationCenter.trigger('tab:visible', 'elixir', me.isAvailable()); }, 0);
                     }
                 }
             });
@@ -54,7 +55,7 @@ define([
         },
 
         // AI is usable: the editor has the toolset and a model is configured (by the server or by this user).
-        // Without it every AI entry point is hidden; the only trace is a discreet "Set up AI…" link.
+        // Entry points remain discoverable; unconfigured actions open setup before any request.
         isActive: function () {
             return this.isAvailable() && ElixirAI.Settings.isConfigured();
         },
@@ -62,12 +63,18 @@ define([
         // Called when the configuration may have changed (server answer known, settings saved or removed)
         refreshState: function () {
             var active = this.isActive();
-            if (this.hasTab) Common.NotificationCenter.trigger('tab:visible', 'elixir', active);
+            if (this.hasTab) Common.NotificationCenter.trigger('tab:visible', 'elixir', this.isAvailable());
             Common.NotificationCenter.trigger('elixir:ai-state', active, this);
         },
 
         // File > AI page
         openSetup: function () {
+            if (!this.isAvailable()) return;
+            if (!this.isActive()) {
+                if (!this.setupAssistant) this.setupAssistant = new ElixirAI.SetupAssistant(this.host());
+                this.setupAssistant.open(document.activeElement);
+                return;
+            }
             var chrome = this.getApplication().getController('ElixirChrome');
             if (chrome && chrome.openBackstage) chrome.openBackstage('elx-ai');
             else this.openSettings(false);
@@ -76,6 +83,16 @@ define([
         renderSetup: function (el) {
             ElixirAI.setLang(this.appOptions().lang);
             if (!this.api) this.api = this.getApplication().getController('Viewport').getApi();
+            if (!this.isActive()) {
+                el.textContent = '';
+                var me = this, button = document.createElement('button');
+                button.type = 'button'; button.className = 'elixir-ai-btn primary';
+                button.textContent = ElixirAI.t('configure');
+                button.addEventListener('click', function () { me.openSetup(); });
+                el.appendChild(button);
+                this.openSetup();
+                return;
+            }
             ElixirAI.ConfigForm.render(el, this.host());
         },
 
@@ -126,12 +143,18 @@ define([
             // the editor's other entry points (title bar search, Ask Elixir menu, "/" menu)
             var ep = ElixirAI.entryPoints && ElixirAI.entryPoints[this.toolsetId];
             ep && ep.setup(this);
+            window.addEventListener('pagehide', function () {
+                if (me.setupAssistant) me.setupAssistant.dispose();
+                if (me.bar) me.bar.stop();
+                if (me._toolset && me._toolset.dispose) me._toolset.dispose();
+            }, { once: true });
             Common.NotificationCenter.trigger('elixir:ready', this);
         },
 
         // Run an instruction from another entry point (search box, Ask Elixir menu, "/" menu)
         ask: function (text, autoSubmit) {
-            if (!this.isAvailable() || (window.eoDesktopAI && !this.isActive())) return false;
+            if (!this.isAvailable()) return false;
+            if (!this.isActive()) { this.openSetup(); return false; }
             this.openBar();
             this.bar.ask(text, autoSubmit);
             return true;
@@ -141,6 +164,7 @@ define([
             var me = this;
             if (this._host) return this._host;
             this._host = {
+                toolsetId: this.toolsetId,
                 api: this.api,
                 toolsetFactory: function () {
                     if (!me._toolset) me._toolset = ElixirAI.toolsets[me.toolsetId].create(me.api);
@@ -159,7 +183,8 @@ define([
         },
 
         openBar: function () {
-            if (window.eoDesktopAI && !this.isActive()) return;
+            if (!this.isAvailable()) return;
+            if (!this.isActive()) { this.openSetup(); return; }
             if (!this.api) this.api = this.getApplication().getController('Viewport').getApi();
             var host = this.host();
             host.api = this.api;
@@ -168,6 +193,7 @@ define([
         },
 
         openSettings: function (journal) {
+            if (!journal && !this.isActive()) { this.openSetup(); return; }
             var host = this.host();
             host.api = this.api || this.getApplication().getController('Viewport').getApi();
             if (!this.dialog) this.dialog = new ElixirAI.SettingsDialog(host);

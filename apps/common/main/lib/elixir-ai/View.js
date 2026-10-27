@@ -162,6 +162,8 @@ define([
         get_outline_candidates: 'r_outline', get_layout_summary: 'r_layoutSummary', find_overflowing_elements: 'r_overflow'
     };
     function runLabel(name, args) {
+        if (ElixirAI.slideText && ['read_slides','summarize_deck'].indexOf(name)>=0) return ElixirAI.slideText(name==='read_slides'?'read':'summarize');
+        if (['read_range','explain_formula','summarize_range'].indexOf(name)>=0 && ElixirAI.cellText) return ElixirAI.cellText(name==='read_range'?'read':name==='explain_formula'?'explain':'summarize');
         if (READ_LABELS[name]) return tf(READ_LABELS[name], { find: (args && (args.text || args.find)) || '' });
         if (name === 'submit_plan') return tf('r_plan', [args && args.goal || '']).replace('{0}', args && args.goal || '');
         return t('working');
@@ -169,6 +171,10 @@ define([
     function doneText(name, args, result) {
         var d = (result && result.done) || {}, a = args || {};
         var n = d.n;
+        var slideKeys={create_slides:'create',rewrite_text:'rewrite',set_layout:'layout',apply_theme:'theme',align_shapes:'align',set_notes:'notes'};
+        if (ElixirAI.slideText && slideKeys[name]) return ElixirAI.slideText(slideKeys[name],{n:n});
+        var cellKeys={write_formula:'formula',sort_range:'sort',filter_range:'filter',create_chart:'chart',create_pivot:'pivot'};
+        if ((cellKeys[name] || name==='clean_range') && ElixirAI.cellText) return ElixirAI.cellText(cellKeys[name] || a.operation,{range:d.range || a.range,n:n});
         switch (name) {
             case 'apply_styles':
                 return Object.keys(d.byStyle || {}).map(function (st) { return tf('d_apply_style', { style: st, n: d.byStyle[st] }); }).join('; ');
@@ -248,9 +254,9 @@ define([
         this.panel = el.querySelector('.elixir-ai-panel');
 
         var me = this;
-        this.input.placeholder = t('placeholder');
+        this.input.placeholder = this.host.toolsetId==='slide' ? ElixirAI.slideText('placeholder') : this.host.toolsetId==='cell' ? ElixirAI.cellText('placeholder') : t('placeholder');
         this.btnSend.textContent = t('send');
-        el.querySelector('.elixir-ai-footer').textContent = t('footer');
+        el.querySelector('.elixir-ai-footer').textContent = this.host.toolsetId==='slide' ? ElixirAI.slideText('footer') : this.host.toolsetId==='cell' ? ElixirAI.cellText('footer') : t('footer');
         this.btnSend.addEventListener('click', function () { me.state === 'running' ? me.stop() : me.submit(); });
         this.input.addEventListener('input', function () {
             me.input.style.height = 'auto';
@@ -311,7 +317,7 @@ define([
         }
         var sel = '';
         try { sel = this.host.api.asc_GetSelectedText ? this.host.api.asc_GetSelectedText() : ''; } catch (e) {}
-        this.el.querySelector('.elixir-ai-scope').textContent = (sel && sel.replace(/\s/g, '').length) ? t('scopeSelection') : t('scopeDocument');
+        this.el.querySelector('.elixir-ai-scope').textContent = this.host.toolsetId==='slide' ? ElixirAI.slideText('scope') : this.host.toolsetId==='cell' ? ElixirAI.cellText('scope') : (sel && sel.replace(/\s/g, '').length) ? t('scopeSelection') : t('scopeDocument');
         if (!configured) {
             this.setState('unconfigured');
             this.showPanel();
@@ -431,7 +437,7 @@ define([
             instruction: text, toolset: toolset, settings: s, signal: this.abort.signal, lang: lang,
             onEvent: function (type, data) {
                 if (type === 'context') {
-                    me.el.querySelector('.elixir-ai-scope').textContent = data.scope === 'selection' ? t('scopeSelection') : t('scopeDocument');
+                    me.el.querySelector('.elixir-ai-scope').textContent = me.host.toolsetId==='slide' ? ElixirAI.slideText(data.scope==='deck'?'scopeDeck':'scopeSlides',{count:data.scopeSlides.length}) : data.scope === 'range' && ElixirAI.cellText ? ElixirAI.cellText('scopeRange',data) : data.scope === 'selection' ? t('scopeSelection') : t('scopeDocument');
                     me.setStatus(t('working'));
                 } else if (type === 'delta') {
                     me.panel.querySelector('.elixir-ai-plan').textContent = data.text;
@@ -447,7 +453,7 @@ define([
             if (!res.ok) {
                 me.setState('idle');
                 var aborted = res.entry && res.entry.outcome === 'cancelled';
-                me.setStatus(aborted ? t('cancelled') : t('failed') + (res.error && res.error.message || res.error), !aborted);
+                me.setStatus(res.rollbackUnverified && me.host.toolsetId==='slide' ? ElixirAI.slideText('rollbackUnverified') : res.rollbackUnverified && ElixirAI.cellText ? ElixirAI.cellText('rollbackUnverified') : aborted ? t('cancelled') : t('failed') + (res.error && res.error.message || res.error), !!res.rollbackUnverified || !aborted);
                 me.setActions([{ label: t('close'), fn: me.close.bind(me) }]);
                 return;
             }
@@ -572,6 +578,11 @@ define([
         // One undo restores the document as it was before the action, untracked layout included,
         // as long as nothing was edited since. Otherwise only the tracked changes can be rejected.
         var sameHistory = this.host.historyIndex() === this.historyIndex;
+        if (!sameHistory && ts.canRejectAfterEdit === false) {
+            me.setStatus(me.host.toolsetId==='slide' ? ElixirAI.slideText('staleDiscard') : ElixirAI.cellText('staleDiscard'), true);
+            me.setActions([{ label:t('close'), fn:me.close.bind(me) },{ id:'accept',label:t('accept'),primary:true,fn:me.accept.bind(me) }]);
+            return;
+        }
         (sameHistory ? ts.undo() : ts.reject(res.ctx)).then(function () {
             me.journalOutcome(res, sameHistory ? 'discarded' : 'discarded-reject');
             me.setStatus(sameHistory ? t('discarded') : t('discardedReject'));

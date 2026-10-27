@@ -138,7 +138,7 @@ define([
             v.btnNumbering.on('click', function(btn) { tbc.onNumbers(btn); done(); });
             // Elixir AI: hidden when the AI layer is not available in this editor
             var ai = me.getApplication().getController('Common.Controllers.ElixirAI');
-            var aiShow = function() { v.btnElixir.setVisible(!!(ai && ai.isActive && ai.isActive())); };
+            var aiShow = function() { v.btnElixir.setVisible(!!(ai && ai.isAvailable && ai.isAvailable())); };
             aiShow();
             Common.NotificationCenter.on('elixir:ai-state', aiShow);
             v.btnElixir.on('click', function() {

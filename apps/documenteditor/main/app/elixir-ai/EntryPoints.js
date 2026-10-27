@@ -217,6 +217,7 @@ define([
         ep.openAskMenu = function (x, y, above) {
             ep.closeAskMenu();
             closeSlash(false);
+            if (!ctrl.isActive()) { ctrl.openSetup(); return; }
             var items = suggestions(probe(api));
             ask = new Popup({
                 id: 'elixir-ask-menu', cls: 'elixir-ask-menu', input: true, placeholder: t('askMenuPlaceholder'),

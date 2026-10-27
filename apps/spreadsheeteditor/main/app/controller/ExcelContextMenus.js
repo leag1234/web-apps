@@ -25,7 +25,7 @@ define([
         ['pmiFilterCells', 'pmiSortCells', 'pmiReapply'],
         ['mnuRefreshPivot', 'mnuPivotSort', 'mnuPivotFilter', 'mnuSubtotalField', 'mnuExpandCollapsePivot', 'mnuGroupPivot', 'mnuUnGroupPivot',
             'mnuDeleteField', 'mnuSummarize', 'mnuShowAs', 'mnuShowDetails', 'mnuFieldSettings', 'mnuPivotSettings'],
-        ['pmiAddComment'],
+        ['pmiAddComment', 'pmiElixirAI'],
         ['pmiCellFormat', 'pmiEntriesList', 'pmiAddNamedRange', 'menuAddHyperlink', 'menuHyperlink', 'pmiGetRangeList'],
         ['pmiNumFormat', 'pmiCondFormat', 'pmiInsFunction'],
         ['pmiRowHeight', 'pmiColumnWidth', 'pmiEntireHide', 'pmiEntireShow'],
@@ -73,6 +73,12 @@ define([
         setupCellMenu: function (view) {
             var me = this, menu = view.ssMenu;
             this.view = view;
+            var ai=this.getApplication().getController('Common.Controllers.ElixirAI');
+            if(ai && ai.isAvailable() && !view.pmiElixirAI) {
+                view.pmiElixirAI=new Common.UI.MenuItem({caption:Common.ElixirAI.t('menuAsk'),iconCls:'elixir-ai-icon elixir-ai-icon-sparkle'});
+                menu.addItem(view.pmiElixirAI);
+                view.pmiElixirAI.on('click',function(){ai.openBar();});
+            }
             var groups = _.map(CELL_GROUPS, function (g) { return _.compact(_.map(g, function (n) { var it = view[n]; if (it) it._excelKey = n; return it; })); });
             var placed = _.flatten(groups);
             // Excel's words, before the first rendering when possible
