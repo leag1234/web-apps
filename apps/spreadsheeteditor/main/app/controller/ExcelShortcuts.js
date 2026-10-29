@@ -236,7 +236,26 @@ define([
 
         fill: function (type) {
             if (!this.tb || (this.tb.btnFillNumbers && this.tb.btnFillNumbers.isDisabled())) return;
-            this.api.asc_FillCells(type);
+            var wb = this.api.wb, worksheet = wb && wb.getWorksheet && wb.getWorksheet(),
+                selection = worksheet && worksheet.model && worksheet.model.selectionRange,
+                ranges = selection && selection.ranges, range = ranges && ranges.length === 1 && ranges[0],
+                single = range && range.c1 === range.c2 && range.r1 === range.r2,
+                vertical = type === Asc.c_oAscFillType.fillDown;
+            if (single && (vertical || type === Asc.c_oAscFillType.fillRight)) {
+                var sourceRow = range.r1 - (vertical ? 1 : 0), sourceCol = range.c1 - (vertical ? 0 : 1);
+                if (sourceRow < 0 || sourceCol < 0) return;
+                var target = new Asc.Range(range.c1, range.r1, range.c2, range.r2),
+                    fillRange = new Asc.Range(sourceCol, sourceRow, range.c2, range.r2);
+                worksheet.setSelection(fillRange);
+                try {
+                    this.api.asc_FillCells(type);
+                } finally {
+                    worksheet.setSelection(target);
+                    wb._onWSSelectionChanged && wb._onWSSelectionChanged();
+                }
+            } else {
+                this.api.asc_FillCells(type);
+            }
             Common.NotificationCenter.trigger('edit:complete', this.tb);
         },
 

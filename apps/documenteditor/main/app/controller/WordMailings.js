@@ -75,8 +75,8 @@ define([
             this.btnRecipients = mk('elx-mm-recipients', {cls: 'btn-toolbar x-huge icon-top', iconCls: 'toolbar__icon btn-mailmerge', caption: this.txtSelectRecipients, hint: this.tipSelectRecipients,
                 menu: new Common.UI.Menu({items: [
                     {caption: this.txtFromFile, value: 'file'},
-                    {caption: this.txtFromUrl, value: 'url'},
-                    {caption: this.txtFromStorage, value: 'storage', visible: !!canStorage}
+                    {caption: this.txtFromUrl, value: 'url', visible: !mode.isElixirLocal},
+                    {caption: this.txtFromStorage, value: 'storage', visible: !!canStorage && !mode.isElixirLocal}
                 ]})});
             this.btnRecipients.menu.on('item:click', function (menu, item) { me.selectRecipients(item.value); });
             this.btnEdit = mk('elx-mm-edit', {cls: 'btn-toolbar x-huge icon-top', iconCls: 'toolbar__icon btn-edit-text', caption: this.txtEditList, hint: this.tipEditList});
@@ -268,6 +268,10 @@ define([
 
         onEndAction: function (type, id) {
             if (id === Asc.c_oAscAsyncAction.DownloadMerge && this._state.queue) {
+                if (this.appOptions().isElixirLocal && this.api.eoLastMailMergeExport !== 'saved') {
+                    this._state.queue = null;
+                    return;
+                }
                 var me = this;
                 _.defer(function () { me.nextInQueue(); });
             }
