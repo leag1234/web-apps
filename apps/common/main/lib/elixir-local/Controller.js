@@ -7,6 +7,10 @@
 })(function(Images,Pdf,Password,Operation,FileNames,MailMerge){
  var window=globalThis;
  'use strict';
+ var emptyImportedImage='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+ function resolveImportedImage(images,name,url){
+  return images.get(name)||(/(?:^|\/)_offline_media\//.test(String(url))?emptyImportedImage:url);
+ }
  function guardNetwork(){
   function allowed(url,method){
    var u=new URL(url,window.location.href);
@@ -29,6 +33,8 @@
   guardNetwork();
   api.eoLocalMode=true;
   api.eoLocalSaveAs=capabilities&&capabilities.saveAs;
+  var mailMerge=!!(capabilities&&capabilities.mailMerge);
+  if(mailMerge)main.appOptions.canUseMailMerge=true;
   Password.prepare(api,main);
   api._openChartOrLocalDocument=function(){};
   api.asc_isOffline=function(){return true;};
@@ -50,9 +56,13 @@
     params.setBuildVersion(version&&version[1]);
    }
    var result=permissions.call(this,params);
-   if(local&&capabilities&&capabilities.mailMerge)main.appOptions.canUseMailMerge=true;
+   if(local&&mailMerge){
+    main.appOptions.canUseMailMerge=true;
+    Common.NotificationCenter.trigger('elixir:mailmerge-ready');
+   }
    return result;
   };
+  if(mailMerge)Common.NotificationCenter.trigger('elixir:mailmerge-ready');
  }
  function install(api,options){
   options=options||{};if(options.format==='pdf')return Pdf.install(api,options);var resources=[],urls=[],saving=null,pendingImage=Promise.resolve(),pendingImages=0,disposed=false,revision=0,format=options.format,exporting=null,opening=false,activeJob,externalOpeningJob;
@@ -196,7 +206,7 @@
   api.isAutoSave=false;
   var docUrls=AscCommon.g_oDocumentUrls,add=docUrls.addImageUrl;
   var imageUrls=new Map();
-  var localImageUrl=function(name,url){return add.call(this,name,imageUrls.get(name)||url);};
+  var localImageUrl=function(name,url){return add.call(this,name,resolveImportedImage(imageUrls,name,url));};
   docUrls.addImageUrl=localImageUrl;
   function enqueueImage(job){
    pendingImages++;
@@ -290,6 +300,6 @@
   }
   return {beginOperation:begin,open:open,save:save,exportCopy:exportCopy,saveAs:saveAs,confirmUnprotectedExport:passwords.confirmExport,isProtected:passwords.isProtected,isRecoveryLocked:passwords.isRecoveryLocked,exportAs:exportAs,snapshot:snapshot,serialize:serialize,addImage:addImage,isModified:function(){return api.isDocumentModified();},hasPendingImages:function(){return pendingImages>0;},dispose:function(){disposed=true;if(externalOpeningJob)externalOpeningJob.cancel();operations.dispose();passwords.dispose();pictures.dispose();if(startMailMerge)api.asc_StartMailMerge=startMailMerge;if(downloadMailMerge)api.asc_DownloadAsMailMerge=downloadMailMerge;api.asc_unregisterCallback('asc_onDocumentModifiedChanged',modified);actions.forEach(function(event){api.asc_unregisterCallback(event,action);});urls.forEach(URL.revokeObjectURL);if(docUrls.addImageUrl===localImageUrl)docUrls.addImageUrl=add;}};
  }
- window.Common=window.Common||{};window.Common.ElixirLocal={prepare:prepare,install:install,fileName:FileNames.resolve};
+ window.Common=window.Common||{};window.Common.ElixirLocal={prepare:prepare,install:install,fileName:FileNames.resolve,resolveImportedImage:resolveImportedImage};
  return window.Common.ElixirLocal;
 });

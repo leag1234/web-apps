@@ -35,6 +35,13 @@ define([
                 }
             });
             Common.NotificationCenter.on('app:ready', this.onAppReady.bind(this));
+            Common.NotificationCenter.on('elixir:mailmerge-ready', function () {
+                var controller = me.getApplication().getController('Toolbar'),
+                    toolbar = controller && controller.toolbar;
+                if (!toolbar) return;
+                me.onToolbarRender(toolbar);
+                me.activateToolbar();
+            });
         },
 
         appOptions: function () {
@@ -114,9 +121,17 @@ define([
         },
 
         onAppReady: function () {
-            var me = this;
             this.api = this.getApplication().getController('Viewport').getApi();
             if (!this.api || !this.api.asc_StartMailMerge) return;
+            this.api.asc_registerCallback('asc_onStartMailMerge', _.bind(this.onStartMailMerge, this));
+            this.api.asc_registerCallback('asc_onPreviewMailMergeResult', _.bind(this.onPreviewResult, this));
+            this.api.asc_registerCallback('asc_onEndPreviewMailMergeResult', _.bind(this.onEndPreview, this));
+            this.api.asc_registerCallback('asc_onEndAction', _.bind(this.onEndAction, this));
+            document.addEventListener('keydown', _.bind(this.onKey, this), true);
+            this.activateToolbar();
+        },
+
+        activateToolbar: function () {
             this.controls && Common.Utils.lockControls(Common.enumLock.disableOnStart, false, {array: this.controls});
             if (this.toolbar) {
                 // after References, as in Word
@@ -125,11 +140,6 @@ define([
                 this.toolbar.$tabs && (this.toolbar.$tabs = this.toolbar.$tabs.parent().find('> li'));
                 this.toolbar.setVisible('mailings', Common.UI.LayoutManager.isElementVisible('toolbar-collaboration-mailmerge'));
             }
-            this.api.asc_registerCallback('asc_onStartMailMerge', _.bind(this.onStartMailMerge, this));
-            this.api.asc_registerCallback('asc_onPreviewMailMergeResult', _.bind(this.onPreviewResult, this));
-            this.api.asc_registerCallback('asc_onEndPreviewMailMergeResult', _.bind(this.onEndPreview, this));
-            this.api.asc_registerCallback('asc_onEndAction', _.bind(this.onEndAction, this));
-            document.addEventListener('keydown', _.bind(this.onKey, this), true);
             var kt = this.getApplication().getController('WordKeyTips');
             if (kt && kt.commands && kt.tabs && this.toolbar) {
                 kt.tabs.mailings = 'M';

@@ -94,6 +94,32 @@ define([], function () {
     };
     LF.localNames = function () { return Object.keys(local.byName); };
 
+    // Load a registered computer font before an editor applies it. The picker is populated from
+    // metadata, so registration alone does not make the font bytes available to layout or export.
+    LF.loadForSelection = function (name, callback) {
+        var resolved = LF.resolveName(name), A = engine();
+        var loader = window.AscCommon && AscCommon.g_font_loader;
+        if (!resolved || !A || !loader || typeof loader.LoadFonts !== 'function') return false;
+        var info = A.g_font_infos[A.g_map_font_index[resolved]];
+        var ready = function () {
+            return !!info && ['indexR', 'indexI', 'indexB', 'indexBI'].every(function (key) {
+                var index = info[key];
+                return index === -1 || A.g_font_files[index] && A.g_font_files[index].Status === 0;
+            });
+        };
+        var completed = false;
+        try {
+            loader.LoadFonts([resolved], function () {
+                completed = true;
+                callback(ready());
+            });
+        } catch (e) {
+            if (completed) throw e;
+            callback(false);
+        }
+        return true;
+    };
+
     // Names of the document fonts that the server does not have and this computer does not provide (yet)
     LF.neededNames = function () {
         var A = engine();

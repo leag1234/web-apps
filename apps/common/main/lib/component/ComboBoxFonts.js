@@ -493,6 +493,9 @@ define([
                 if (e.isDefaultPrevented())
                     return;
 
+                var obj;
+                this._selectedItem = this.store.findWhere((obj={}, obj[this.displayField]=val, obj));
+
                 if (this._selectedItem) {
                     record[this.valueField] = this._selectedItem.get(this.displayField);
                     this.setRawValue(record[this.valueField]);

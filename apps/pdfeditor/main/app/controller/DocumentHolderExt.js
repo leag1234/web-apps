@@ -691,6 +691,16 @@ define([], function () {
 
         dh.onFontNameSelect = function(combo, record) {
             if (this.api) {
+                if (!record._elixirLocalFontLoaded) {
+                    var request = this._elixirLocalFontRequest = (this._elixirLocalFontRequest || 0) + 1;
+                    if (Common.ElixirLocalFonts &&
+                        Common.ElixirLocalFonts.loadForSelection(record.name, _.bind(function(ready) {
+                            if (this._elixirLocalFontRequest !== request) return;
+                            this.onFontNameSelect(combo, _.extend({}, record,
+                                {isNewFont: !ready, _elixirLocalFontLoaded: true}));
+                        }, this))) return;
+                }
+
                 if (record.isNewFont) {
                     !Common.Utils.ModalWindow.isVisible() &&
                     Common.UI.warning({

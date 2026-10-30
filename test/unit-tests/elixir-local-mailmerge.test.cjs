@@ -145,3 +145,14 @@ test('local controller reports merged output outcome and restores the native cho
     assert.match(source, /eoLastMailMergeExport='pending'/);
     assert.match(source, /api\.asc_StartMailMerge=startMailMerge/);
 });
+
+test('late local Mailings capability renders and activates the existing toolbar', () => {
+    const local = fs.readFileSync(path.join(root,
+        'apps/common/main/lib/elixir-local/Controller.js'), 'utf8');
+    const mailings = fs.readFileSync(path.join(root,
+        'apps/documenteditor/main/app/controller/WordMailings.js'), 'utf8');
+    assert.match(local, /NotificationCenter\.trigger\('elixir:mailmerge-ready'/);
+    assert.match(local, /var result=permissions\.call\(this,params\);[\s\S]*if\(local&&mailMerge\)\{[\s\S]*NotificationCenter\.trigger\('elixir:mailmerge-ready'\);[\s\S]*\}\s*return result;/);
+    assert.match(mailings, /NotificationCenter\.on\('elixir:mailmerge-ready'/);
+    assert.match(mailings, /onToolbarRender\(toolbar\).*activateToolbar\(\)/s);
+});

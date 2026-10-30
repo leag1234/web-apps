@@ -38,8 +38,9 @@ const localeKeys = [
 function loadAmd(relative, context) {
     let value;
     context.define = function (_dependencies, factory) {
-        value = factory();
+        value = factory(...(context.amdArguments || []));
     };
+    context.define.amd = true;
     vm.runInNewContext(fs.readFileSync(path.join(root, relative), 'utf8'), context, {
         filename: relative
     });
@@ -97,4 +98,19 @@ test('font summaries isolate every name and truncate only after four entries', (
     const firstFour = names.slice(0, 4).map(isolate).join(', ');
     assert.equal(namesText(names.slice(0, 4)), firstFour);
     assert.equal(namesText(names), firstFour + String.fromCodePoint(0x2026));
+});
+
+test('missing imported offline pictures resolve locally without hiding valid or remote URLs', () => {
+    const context = {Common: {}};
+    context.window = context;
+    context.amdArguments = [{}, {}, {}, {}, {resolve() {}}, {}];
+    const local = loadAmd('apps/common/main/lib/elixir-local/Controller.js', context);
+    const imported = new Map([['media/real.png', 'blob:real-picture']]);
+    assert.equal(local.resolveImportedImage(imported, 'media/real.png', '_offline_media/real.png'),
+        'blob:real-picture');
+    assert.equal(local.resolveImportedImage(imported, 'missing.png', 'https://example.test/missing.png'),
+        'https://example.test/missing.png');
+    assert.match(local.resolveImportedImage(imported, 'image-1.jpg',
+        'eoapp://desktop.elixiroffice.invalid/example/local-assets/web-apps/apps/documenteditor/main/_offline_media/image-1.jpg'),
+        /^data:image\/gif;base64,/);
 });
