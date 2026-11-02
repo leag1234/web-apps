@@ -91,7 +91,7 @@
     "errorDefaultMessage": "Kód chyby: %1",
     "errorDirectUrl": "Ověřte správnost odkazu na dokument.<br>Musí jít o přímý odkaz pro stažení souboru.",
     "errorEditingDownloadas": "Při práci s dokumentem došlo k chybě.<br>Použijte volbu \"Stáhnout\" pro vytvoření lokální zálohy souboru.",
-    "errorEmailClient": "Nenalezen e-mailový klient.",
+    "errorEmailClient": "Nenalezen žádný e-mailový klient",
     "errorFilePassProtect": "Soubor je zabezpečen heslem a nemůže být otevřen.",
     "errorFileSizeExceed": "Velikost souboru je větší než umožňuje limit serveru.<br>Pro více informací kontaktujte svého správce.",
     "errorForceSave": "Při ukládání souboru došlo k chybě. Prosím použijte „Stáhnout jako“ a uložte si soubor k sobě na počítač nebo původní volbu zkuste znovu později.",
@@ -107,10 +107,10 @@
     "errorSessionAbsolute": "Platnost relace upravování dokumentu skončila. Načtete stránku znovu.",
     "errorSessionIdle": "Poslední úprava dokumentu proběhla před dlouhou dobou. Prosím obnovte stránku.",
     "errorSessionToken": "Připojení k serveru bylo přerušeno. Načtěte prosím stránku znovu.",
-    "errorSetPassword": "Heslo nemohlo být použito",
+    "errorSetPassword": "Heslo nemohlo být použito.",
     "errorToken": "Dokument zabezpečení tokenu má chybný formát.<br> Prosím, kontaktujte administrátora vašeho Dokumentového serveru.",
     "errorTokenExpire": "Dokument bezpečnostního tokenu vypršel.<br>Prosím, kontaktujte administrátora vašeho dokumentového serveru.",
-    "errorUpdateVersionOnDisconnect": "Internetové připojení bylo obnoveno, a verze souboru změněna.<br>Než budete pokračovat v práce stáhněte soubor, nebo zkopírujte o obsah, aby nedošlo ke ztrátě dat. Poté obnovte stránku. ",
+    "errorUpdateVersionOnDisconnect": "Internetové připojení bylo obnoveno, a verze souboru změněna.<br>Než budete pokračovat v práce stáhněte soubor, nebo zkopírujte o obsah, aby nedošlo ke ztrátě dat. Poté obnovte stránku.",
     "errorUserDrop": "Tento soubor není nyní přístupný.",
     "errorUsersExceed": "Počet uživatelů povolených cenovým plánem byl překročen",
     "errorViewerDisconnect": "Spojení bylo ztraceno. Zobrazení dokumentu je stále k dispozici,<br> ale nebudete jej schopni stáhnout nebo vytisknout, dokud nedojde k obnovení připojení a znovunačtení stránky.",
@@ -122,7 +122,9 @@
     "unknownErrorText": "Neznámá chyba.",
     "uploadImageExtMessage": "Neznámý formát obrázku.",
     "uploadImageFileCountMessage": "Žádné obrázky nenahrány.",
-    "uploadImageSizeMessage": "Obrázek je příliš velký. Maximální velikost je 25 MB."
+    "uploadImageSizeMessage": "Obrázek je příliš velký. Maximální velikost je 25 MB.",
+    "errorFileNotAssembled": "Tento soubor je otevřen ze záložní kopie na serveru a není uložený na úložišti.<br>Použijte volbu „Uložit jako…“ pro uložení na jednotku.",
+    "errorForcedViewMode": "Tento soubor je otevřený v režimu zobrazení.<br>Soubor je uzamčený pro úpravy nebo vaše přístupová oprávnění neumožňují upravování."
   },
   "LongActions": {
     "applyChangesTextText": "Načítání dat...",
@@ -138,7 +140,7 @@
     "loadImageTextText": "Načítání obrázku...",
     "loadImageTitleText": "Načítání obrázku",
     "loadingDocumentTextText": "Načítám dokument...",
-    "loadingDocumentTitleText": "Nahrávám ...",
+    "loadingDocumentTitleText": "Načítání…",
     "loadThemeTextText": "Načítání tématu...",
     "loadThemeTitleText": "Načítání tématu",
     "openTextText": "Otevírání dokumentu...",
@@ -149,7 +151,7 @@
     "savePreparingTitle": "Příprava ukládání. Prosím čekejte...",
     "saveTextText": "Ukládání dokumentu...",
     "saveTitleText": "Ukládání dokumentu",
-    "textLoadingDocument": "Nahrávám ...",
+    "textLoadingDocument": "Načítání…",
     "txtEditingMode": "Nastavit editační režim...",
     "uploadImageTextText": "Nahrávání obrázku...",
     "uploadImageTitleText": "Nahrávání obrázku",
@@ -169,7 +171,7 @@
     "Edit": {
       "notcriticalErrorTitle": "Varování",
       "textCancel": "Zrušit",
-      "textInvalidName": "Název souboru nesmí obsahovat žádný z následujících znaků:",
+      "textInvalidName": "Název souboru nesmí obsahovat žádný z následujících znaků: ",
       "textOk": "OK"
     },
     "Settings": {

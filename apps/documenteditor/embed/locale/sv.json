@@ -65,5 +65,8 @@
   "DE.ApplicationView.txtPrint": "Skriv ut",
   "DE.ApplicationView.txtSearch": "Sök",
   "DE.ApplicationView.txtShare": "Dela",
+  "DE.ApplicationController.textOk": "OK",
+  "DE.ApplicationController.txtNo": "Nej",
+  "DE.ApplicationController.txtYes": "Ja",
   "DE.ApplicationController.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }

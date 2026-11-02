@@ -37,5 +37,6 @@
   "SSE.ApplicationView.txtPrint": "Друк",
   "SSE.ApplicationView.txtSearch": "Пошук",
   "SSE.ApplicationView.txtShare": "Доступ",
+  "SSE.ApplicationController.warnLicenseExp": "Термін вашої ліцензії сплив. Оновіть вашу ліцензію та перезавантажте сторінку.",
   "SSE.ApplicationController.txtCannotOpenLink": "Посилання не існує. Будь ласка, виправте посилання або видаліть його."
 }

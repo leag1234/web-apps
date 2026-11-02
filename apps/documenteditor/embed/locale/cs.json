@@ -5,7 +5,7 @@
   "common.view.modals.txtIncorrectPwd": "Heslo je chybné",
   "common.view.modals.txtOpenFile": "Zadejte heslo pro otevření souboru",
   "common.view.modals.txtShare": "Odkaz pro sdílení",
-  "common.view.modals.txtTitleProtected": "Zabezpečený soubor",
+  "common.view.modals.txtTitleProtected": "Chráněný soubor",
   "common.view.modals.txtWidth": "Šířka",
   "common.view.SearchBar.textFind": "Najít",
   "DE.ApplicationController.convertationErrorText": "Převod se nezdařil.",
@@ -64,7 +64,7 @@
   "DE.ApplicationController.unsupportedBrowserErrorText": "Vámi používaný webový prohlížeč není podporován.",
   "DE.ApplicationController.waitText": "Čekejte prosím…",
   "DE.ApplicationController.warnLicenseBefore": "Licence není aktivní. Prosím kontaktujte svého správce.",
-  "DE.ApplicationController.warnLicenseExp": "Platnost licence skončila. Prosím, aktualizujte Vaši licenci a obnovte stránku. ",
+  "DE.ApplicationController.warnLicenseExp": "Platnost licence skončila. Prosím, aktualizujte Vaši licenci a obnovte stránku.",
   "DE.ApplicationView.txtDownload": "Stáhnout",
   "DE.ApplicationView.txtDownloadDocx": "Stáhnout jako DOCX",
   "DE.ApplicationView.txtDownloadPdf": "Stáhnout jako PDF",
@@ -74,5 +74,7 @@
   "DE.ApplicationView.txtPrint": "Tisk",
   "DE.ApplicationView.txtSearch": "Najít",
   "DE.ApplicationView.txtShare": "Sdílet",
+  "DE.ApplicationController.errorFileNotAssembled": "Tento soubor je otevřen ze záložní kopie na serveru a není uložený na úložišti.<br>Použijte volbu „Uložit jako…“ pro uložení na jednotku.",
+  "DE.ApplicationController.errorForcedViewMode": "Tento soubor je otevřený v režimu zobrazení.<br>Soubor je uzamčený pro úpravy nebo vaše přístupová oprávnění neumožňují upravování.",
   "DE.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

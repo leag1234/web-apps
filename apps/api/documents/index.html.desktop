@@ -104,7 +104,7 @@
             function getEditorConfig(urlParams) {
                 return {
                     customization   : {
-                        goback: { url: "onlyoffice.com" }
+                        goback: { url: "" }
                         , feedback: {
                             url: "https://github.com/elixiroffice"
                         }

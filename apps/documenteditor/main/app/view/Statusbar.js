@@ -259,7 +259,7 @@ define([
                     itemTemplate: _.template([
                         '<a id="<%= id %>" tabindex="-1" type="menuitem" langval="<%= value %>" class="<% if (checked) { %> checked <% } %>">',
                             '<div>',
-                                '<svg class="icon uni-scale<% if (spellcheck) { %> spellcheck-lang<% } %>"><% if (spellcheck) { %><use href="#btn-ic-docspell"></use><% } %></svg>',
+                                '<svg class="icon uni-scale<% if (spellcheck) { %> spellcheck-lang<% } else { %> icon-hidden<% } %>"><% if (spellcheck) { %><use href="#btn-ic-docspell"></use><% } %></svg>',
                                 '<%= caption %>',
                             '</div>',
                             '<label style="opacity: 0.6"><%= captionEn %></label>',
@@ -422,6 +422,7 @@ define([
                 if (this.api) {
                     this.api.asc_registerCallback('asc_onCountPages',   _.bind(_onCountPages, this));
                     this.api.asc_registerCallback('asc_onCurrentPage',  _.bind(_onCurrentPage, this));
+                    this.api.asc_registerCallback('asc_onCurrentVisiblePage', _.bind(_onCurrentPage, this));
                     this.api.asc_registerCallback('asc_onGetDocInfoStart', _.bind(this.onGetDocInfoStart, this));
                     this.api.asc_registerCallback('asc_onGetDocInfoStop', _.bind(this.onGetDocInfoEnd, this));
                     this.api.asc_registerCallback('asc_onDocInfo', _.bind(this.onDocInfo, this));

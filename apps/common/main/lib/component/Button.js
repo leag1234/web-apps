@@ -181,7 +181,10 @@ define([
             '<% } else { %>' +
                 '<% var iconMatch = /btn-[^\\s]+/.exec(iconCls), legacyMatch = /(?:^|\\s)(svg-icon-[A-Za-z0-9_-]+)(?=\\s|$)/.exec(iconCls); ' +
                 'if (!iconMatch && legacyMatch) iconMatch = [legacyMatch[1]]; ' +
-                'if (iconMatch) {' +
+                'var svgMatch = /svgicon\\s(\\S+)/.exec(iconCls); ' +
+                'if (svgMatch || /svgicon/.test(iconCls)) {' +
+                    'print(\'<svg class=\"icon uni-scale\"><use class=\"zoom-int\" href=\"#\' + (svgMatch ? svgMatch[1] : \'\') + \'\"></use></svg>\');' +
+                '} else if (iconMatch) {' +
                     'print(\'<svg class=\"icon uni-scale\"><use href=\"#\' + iconMatch[0] + \'\"></use></svg>\');' +
                 '} else ' +
                     'print(\'<i class=\"icon \' + iconCls + \'\">&nbsp;</i>\'); %>' +
@@ -286,7 +289,10 @@ define([
                 '<% if (iconCls != "") { ' +
                     'var iconMatch = /btn-[^\\s]+/.exec(iconCls), legacyMatch = /(?:^|\\s)(svg-icon-[A-Za-z0-9_-]+)(?=\\s|$)/.exec(iconCls); ' +
                     'if (!iconMatch && legacyMatch) iconMatch = [legacyMatch[1]]; ' +
-                    'if (iconMatch) {' +
+                    'var svgMatch = /svgicon\\s(\\S+)/.exec(iconCls); ' +
+                    'if (svgMatch || /svgicon/.test(iconCls)) {' +
+                        'print(\'<svg class=\"icon uni-scale\"><use class=\"zoom-int\" href=\"#\' + (svgMatch ? svgMatch[1] : \'\') + \'\"></use></svg>\');' +
+                    '} else if (iconMatch) {' +
                         'print(\'<svg class=\"icon uni-scale\"><use href=\"#\' + iconMatch[0] + \'\"></use></svg>\');' +
                     '} else ' +
                         'print(\'<i class=\"icon \' + iconCls + \'\">&nbsp;</i>\'); ' +

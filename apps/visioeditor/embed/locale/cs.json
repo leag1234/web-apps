@@ -49,7 +49,7 @@
   "VE.ApplicationController.unsupportedBrowserErrorText": "Váš prohlížeč není podporován.",
   "VE.ApplicationController.waitText": "Čekejte prosím ...",
   "VE.ApplicationController.warnLicenseBefore": "Licence není aktivní. Prosím kontaktujte svého správce.",
-  "VE.ApplicationController.warnLicenseExp": "Platnost licence skončila. Prosím, aktualizujte Vaši licenci a obnovte stránku. ",
+  "VE.ApplicationController.warnLicenseExp": "Platnost licence skončila. Prosím, aktualizujte Vaši licenci a obnovte stránku.",
   "VE.ApplicationView.txtDownload": "Stáhnout",
   "VE.ApplicationView.txtEmbed": "Vestavět",
   "VE.ApplicationView.txtFileLocation": "Otevřít umístění souboru",
@@ -57,5 +57,7 @@
   "VE.ApplicationView.txtPrint": "Tisk",
   "VE.ApplicationView.txtSearch": "Najít",
   "VE.ApplicationView.txtShare": "Sdílet",
+  "VE.ApplicationController.errorFileNotAssembled": "Tento soubor je otevřen ze záložní kopie na serveru a není uložený na úložišti.<br>Použijte volbu „Uložit jako…“ pro uložení na jednotku.",
+  "VE.ApplicationController.errorForcedViewMode": "Tento soubor je otevřený v režimu zobrazení.<br>Soubor je uzamčený pro úpravy nebo vaše přístupová oprávnění neumožňují upravování.",
   "VE.ApplicationController.txtCannotOpenLink": "Odkaz neexistuje. Prosím, opravte odkaz nebo ho odstraňte."
 }

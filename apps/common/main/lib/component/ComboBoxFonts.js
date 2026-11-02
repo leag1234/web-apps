@@ -570,6 +570,9 @@ define([
                     me._fontsArray = me.store.toJSON();
 
                     if (me.recent > 0) {
+                        // fillFonts runs again when the fonts of this computer are merged: bind once, or every recent font adds several rows
+                        me.store.off('add', me.onInsertItem, me);
+                        me.store.off('remove', me.onRemoveItem, me);
                         me.store.on('add', me.onInsertItem, me);
                         me.store.on('remove', me.onRemoveItem, me);
 

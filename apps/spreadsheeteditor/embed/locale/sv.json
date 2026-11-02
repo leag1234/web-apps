@@ -49,5 +49,8 @@
   "SSE.ApplicationView.txtPrint": "Skriva ut",
   "SSE.ApplicationView.txtSearch": "Sök",
   "SSE.ApplicationView.txtShare": "Dela",
+  "SSE.ApplicationController.txtNo": "Nej",
+  "SSE.ApplicationController.txtPressLink": "Klicka på länken för att öppna den",
+  "SSE.ApplicationController.txtYes": "Ja",
   "SSE.ApplicationController.txtCannotOpenLink": "Länkreferensen finns inte. Korrigera länken eller ta bort den."
 }
