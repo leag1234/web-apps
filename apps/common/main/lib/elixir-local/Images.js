@@ -11,6 +11,7 @@
  var fetchImage=window.fetch.bind(window),owners=new Map(),originalSend,originalUpload;
  var MAX_BYTES=20*1024*1024,MAX_PIXELS=16*1024*1024,TIMEOUT=15000;
  function failure(message){return new Error(message);}
+ function desktopBridge(){try{var bridge=window.eoDesktop||window.parent&&window.parent.eoDesktop;return bridge&&typeof bridge.pastedImage==='function'?bridge:null;}catch(e){return null;}}
  function dimensions(bytes){
   var v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
   if(bytes.length>=24&&v.getUint32(0)===0x89504e47&&v.getUint32(4)===0x0d0a1a0a)
@@ -90,6 +91,15 @@
    if(source.length>limit)throw failure(data?'The encoded picture exceeds the local size limit.':'The picture URL is too long.');
    var url=new URL(source,window.location.href),remote=/^https?:$/.test(url.protocol);
    if(remote&&!allowRemote)throw failure('Remote pictures from pasted content are unavailable offline. Use Insert from URL explicitly.');
+   // Remote pictures (pasted from a web page or inserted from a URL) are downloaded once by the desktop app and
+   // stored in the document like a picture from a file; the page never loads them from the web.
+   var bridge=remote&&desktopBridge();
+   if(bridge)return bounded(async function(){
+    var downloaded;
+    try{downloaded=await bridge.pastedImage(url.href);}
+    catch(error){throw failure(String(error&&error.message||error).replace(/^Error invoking remote method [^:]+: (?:Error: )?/,''));}
+    return downloaded instanceof Uint8Array?downloaded:new Uint8Array(downloaded);
+   });
    if(!remote&&!['blob:','data:'].includes(url.protocol))throw failure('Picture URLs must use HTTP or HTTPS.');
    if(url.username||url.password)throw failure('Picture URLs cannot contain credentials.');
    return bounded(async function(signal){
@@ -168,7 +178,8 @@
   };
   api.asc_checkImageUrlAndAction=checkUrl;
 
-  var owner={api:api,send:function(images,callback,quiet){send(images,callback,false,quiet);},upload:function(files,callback){
+  // Pasted content: remote pictures are downloaded through the desktop app when it is available.
+  var owner={api:api,send:function(images,callback,quiet){send(images,callback,!!desktopBridge(),quiet);},upload:function(files,callback){
    queue(async function(){
     var error=Asc.c_oAscError.ID.No,urls=[];
     try{if(!files.length)throw failure('No picture was selected.');for(var file of files)urls.push((await importImage(file,false)).url);}

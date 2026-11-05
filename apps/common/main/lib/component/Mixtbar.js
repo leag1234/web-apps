@@ -437,6 +437,10 @@ define([
                 return tab && btnsMore[tab] ? btnsMore[tab].panel : null;
             },
 
+            getTabIdx: function(action) {
+                return _.findIndex(config.tabs, {action: action});
+            },
+
             getLastTabIdx: function() {
                 var index = _.findIndex(config.tabs, {aux: true});
                 return index<0 ? config.tabs.length-1 : index-1;
