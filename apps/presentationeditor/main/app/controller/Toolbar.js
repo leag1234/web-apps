@@ -2821,7 +2821,8 @@ define([
                 $panel = drawtab.createToolbarPanel();
                 if ($panel) {
                     tab = {action: 'draw', caption: me.toolbar.textTabDraw, extcls: 'canedit', layoutname: 'toolbar-draw', dataHintTitle: 'C'};
-                    me.toolbar.addTab(tab, $panel, 2);
+                    var insIdx = me.toolbar.getTabIdx('ins');
+                    me.toolbar.addTab(tab, $panel, insIdx < 0 ? 2 : insIdx);
                     me.toolbar.setVisible('draw', Common.UI.LayoutManager.isElementVisible('toolbar-draw'));
                     me.btnsDrawTab = drawtab.getView().getButtons();
                     Array.prototype.push.apply(me.toolbar.lockControls, me.btnsDrawTab);

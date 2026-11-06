@@ -4029,7 +4029,7 @@ define([
                 if ($panel) {
                     tab = {action: 'draw', caption: me.toolbar.textTabDraw, extcls: 'canedit', layoutname: 'toolbar-draw', dataHintTitle: 'C'};
                     // After Insert, as in Word (File, Home, Insert, Draw, Design); the fixed index landed before Insert.
-                    var insIdx = me.toolbar.getTabIdx(ins);
+                    var insIdx = me.toolbar.getTabIdx('ins');
                     me.toolbar.addTab(tab, $panel, insIdx < 0 ? 2 : insIdx);
                     me.toolbar.setVisible('draw', Common.UI.LayoutManager.isElementVisible('toolbar-draw'));
                     Array.prototype.push.apply(me.toolbar.lockControls, drawtab.getView().getButtons());
