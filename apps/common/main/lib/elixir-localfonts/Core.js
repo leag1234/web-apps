@@ -370,7 +370,15 @@ define([], function () {
             A && A.g_fontApplication && (A.g_fontApplication.FontPickerMap = {});
             var ld = api && api.WordControl && api.WordControl.m_oLogicDocument;
             if (ld && ld.GetAllParagraphs && ld.RecalculateFromStart) {
-                ld.GetAllParagraphs({ All: true }).forEach(function (p) {
+                var paragraphs = ld.GetAllParagraphs({ All: true });
+                // Text inside shape groups is not reached by GetAllParagraphs; walk the groups too.
+                var walk = function (g, top) {
+                    if (!g) return;
+                    if (Array.isArray(g.spTree)) g.spTree.forEach(function (c) { walk(c, false); });
+                    else if (!top && g.GetAllParagraphs) g.GetAllParagraphs({ All: true }, paragraphs);
+                };
+                if (ld.GetAllDrawingObjects) ld.GetAllDrawingObjects().forEach(function (d) { walk(d && d.GraphicObj, true); });
+                paragraphs.forEach(function (p) {
                     p.Recalc_CompiledPr();
                     p.Recalc_RunsCompiledPr();
                 });
