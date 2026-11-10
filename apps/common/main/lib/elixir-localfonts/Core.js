@@ -316,6 +316,25 @@ define([], function () {
             added.push(name);
         };
         order.forEach(function (fam) { add(fam, pickSlots(fams[fam])); });
+        // localized family names from the font (e.g. Japanese "ＭＳ ゴシック" for MS Gothic): documents use them
+        order.forEach(function (fam) {
+            var seen = {};
+            fams[fam].forEach(function (fd) {
+                (fd.aliases || []).forEach(function (alias) {
+                    if (typeof alias !== "string" || seen[alias] || fams[alias]) return;
+                    seen[alias] = true;
+                    add(alias, pickSlots(fams[fam]));
+                });
+            });
+        });
+        // full names of plain bold/italic faces ("Open Sans Bold"): Word writes them without a bold flag
+        list.forEach(function (fd) {
+            var full = fd.fullName;
+            if (!full || full === fd.family || fams[full] || local.byName[full]) return;
+            var c = classify(fd.style);
+            if (!c.plain || c.alt || !(c.bold || c.italic)) return;
+            add(full, { R: fd, B: c.bold ? fd : null, I: c.italic ? fd : null, BI: c.bold && c.italic ? fd : null });
+        });
         // weight/width variants addressed by their full name ("Calibri Light", "Segoe UI Semibold")
         list.forEach(function (fd) {
             var full = fd.fullName;

@@ -2738,6 +2738,7 @@ define([], function () {
                                     '<tr class="desktop-settings"><td class="padding-large"><div id="print-combo-color-printing" style="width: 248px;"></div></td></tr>',
                                     '<tr><td><label class="font-weight-bold"><%= scope.txtPrintRange %></label></td></tr>',
                                     '<tr><td class="padding-small"><div id="print-combo-range" style="width: 248px;"></div></td></tr>',
+                                    '<tr class="print-sheets-row hidden"><td class="padding-small"><div id="print-sheets-list" role="group" aria-label="<%= scope.txtChooseSheets %>" style="width: 248px; max-height: 150px; overflow-y: auto;"></div></td></tr>',
                                     '<tr><td class="padding-large"><div id="print-chb-ignore" style="width: 248px;"></div></td></tr>',
                                     '<tr><td class="padding-large">',
                                         '<div class="pages">',
@@ -2798,6 +2799,7 @@ define([], function () {
                                     '</td></tr>',
                                     '<tr class="header-settings desktop-settings"><td class="padding-large"><label id="print-btn-system-dialog" data-hint="2" data-hint-direction="bottom" data-hint-offset="medium"><span class="link"><%= scope.txtPrintUsingSystemDialog %></span></label></td></tr>',
                                     //'<tr><td class="padding-large"><button type="button" class="btn btn-text-default" id="print-apply-all" style="width: 118px;" data-hint="2" data-hint-direction="bottom" data-hint-offset="medium"><%= scope.txtApplyToAllSheets %></button></td></tr>',
+                                    '<tr class="fms-open-pdf"><td class="padding-large"><div id="print-chb-open-pdf"></div></td></tr>',
                                     '<tr class="fms-btn-apply"><td>',
                                         '<div class="footer justify">',
                                             '<button id="print-btn-print-0" class="btn normal dlg-btn primary" result="print" style="width: 96px;" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtPrint %></button>',
@@ -2933,11 +2935,8 @@ define([], function () {
                 takeFocusOnClose: true,
                 restoreMenuHeightAndTop: true,
                 cls: 'input-group-nr',
-                data: [
-                    { value: Asc.c_oAscPrintType.ActiveSheets, displayValue: this.txtActiveSheets },
-                    { value: Asc.c_oAscPrintType.EntireWorkbook, displayValue: this.txtAllSheets },
-                    { value: Asc.c_oAscPrintType.Selection, displayValue: this.txtSelection }
-                ],
+                // desktop app: Entire workbook first (the default), then Active sheet, Choose sheets..., Selected cells
+                data: this.getRangeData(1),
                 dataHint: '2',
                 dataHintDirection: 'bottom',
                 dataHintOffset: 'big'
@@ -3268,19 +3267,28 @@ define([], function () {
 
 
             this.btnPrintSystemDialog = $markup.find('#print-btn-system-dialog > span');
+            // ElixirOffice desktop: remembered "open the PDF after Save as PDF" choice (like Office's open file after publishing)
+            if (this.mode.isElixirLocal) {
+                this.chOpenPdf = new Common.UI.CheckBox({
+                    el: $markup.findById('#print-chb-open-pdf'),
+                    labelText: this.txtOpenPdfAfter,
+                    value: Common.localStorage.getBool('eo-pdf-open-after', false)
+                });
+                this.chOpenPdf.on('change', function (field, state) { Common.localStorage.setBool('eo-pdf-open-after', state === 'checked'); });
+            } else $markup.find('.fms-open-pdf').remove();
             
             this.btnsSave = [];
             this.btnsPrint = [];
-            if (this.mode.isDesktopApp) {
+            // ElixirOffice desktop: Print and Save as PDF both feed the native PDF pipeline.
+            if (this.mode.isDesktopApp || this.mode.isElixirLocal) {
                 this.btnsPrintPDF = [];
                 for (var i=0; i<2; i++) {
                     var table =
-                        ['<table>',
-                            '<tr>',
-                                '<td><button id="print-btn-print-<%= index %>" class="btn normal dlg-btn primary auto" result="print" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtPrint %></button></td>',
-                                '<td><button id="print-btn-print-pdf-<%= index %>" class="btn normal dlg-btn auto" result="save-pdf" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtPrintToPDF %></button></td>',
-                                '<td><button id="print-btn-save-<%= index %>" class="btn normal dlg-btn auto" result="save" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtSave %></button></td>',
-                            '</tr>', '</table>',
+                        ['<div class="print-btn-row">',
+                                '<button id="print-btn-print-<%= index %>" class="btn normal dlg-btn primary auto" result="print" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtPrint %></button>',
+                                '<button id="print-btn-print-pdf-<%= index %>" class="btn normal dlg-btn auto" result="save-pdf" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtPrintToPDF %></button>',
+                                '<button id="print-btn-save-<%= index %>" class="btn normal dlg-btn auto" result="save" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtSave %></button>',
+                            '</div>',
                         ].join('');
                     var tableTemplate = _.template(table)({scope: this, index: i});
                     $($markup.find('.footer')[i]).html(tableTemplate);
@@ -3357,6 +3365,8 @@ define([], function () {
             this.$el.on('click', '#print-header-footer-settings > span', _.bind(this.openHeaderSettings, this));
             this.$previewBox = $('#print-preview-box');
             this.$previewEmpty = $('#print-preview-empty');
+            this.$sheetsRow = $markup.find('.print-sheets-row');
+            this.$sheetsList = $markup.find('#print-sheets-list');
 
             this.applyMode();
 
@@ -3635,8 +3645,36 @@ define([], function () {
             this.cmbRange.setValue(value);
         },
 
+        // Print range choices; the active-sheets entry names the grouped tabs when several are selected (Excel)
+        getRangeData: function(selectedTabs) {
+            var active = { value: Asc.c_oAscPrintType.ActiveSheets,
+                displayValue: selectedTabs > 1 ? this.txtSelectedSheets.replace('{n}', selectedTabs) : this.txtActiveSheets };
+            return this.mode.isElixirLocal ? [
+                { value: Asc.c_oAscPrintType.EntireWorkbook, displayValue: this.txtAllSheets },
+                active,
+                { value: this.CHOOSE_SHEETS, displayValue: this.txtChooseSheets },
+                { value: Asc.c_oAscPrintType.Selection, displayValue: this.txtSelection }
+            ] : [
+                active,
+                { value: Asc.c_oAscPrintType.EntireWorkbook, displayValue: this.txtAllSheets },
+                { value: Asc.c_oAscPrintType.Selection, displayValue: this.txtSelection }
+            ];
+        },
+
+        updateRangeLabels: function(selectedTabs) {
+            var value = this.cmbRange.getValue();
+            this.cmbRange.setData(this.getRangeData(selectedTabs));
+            this.cmbRange.setValue(value);
+        },
+
+        // the engine print type; "Choose sheets" prints the sheets ticked in the list as active sheets
         getRange: function() {
-            return this.cmbRange.getValue();
+            var value = this.cmbRange.getValue();
+            return value === this.CHOOSE_SHEETS ? Asc.c_oAscPrintType.ActiveSheets : value;
+        },
+
+        isChooseSheets: function() {
+            return this.cmbRange.getValue() === this.CHOOSE_SHEETS;
         },
 
         setIgnorePrintArea: function(value) {
@@ -3695,8 +3733,10 @@ define([], function () {
         },
 
         txtPrint: 'Print',
-        txtSave: 'Save',
-        txtPrintToPDF: 'Print to PDF',
+        txtSave: 'Save settings',
+        txtPrintToPDF: 'Save as PDF',
+        txtExportPdf: 'Export as PDF',
+        txtOpenPdfAfter: 'Open the PDF after export',
         txtPrinter: 'Printer',
         txtPrinterNotSelected: 'Printer not selected',
         txtPrintersNotFound: 'Printers not found',
@@ -3706,11 +3746,16 @@ define([], function () {
         txtPrintUsingSystemDialog: 'Print using the system dialog',
         txtPrintRange: 'Print range',
         txtCurrentSheet: 'Current sheet',
-        txtActiveSheets: 'Active sheets',
+        CHOOSE_SHEETS: 100,
+        txtChooseSheets: 'Choose sheets…',
+        txtEmptySelection: 'The selection is empty',
+        txtNoSheetChosen: 'Choose at least one sheet to print',
+        txtActiveSheets: 'Active sheet',
+        txtSelectedSheets: 'Selected sheets ({n})',
         txtPages: 'Pages:',
         txtTo: 'to',
-        txtAllSheets: 'All sheets',
-        txtSelection: 'Selection',
+        txtAllSheets: 'Entire workbook',
+        txtSelection: 'Selected cells',
         txtSettingsOfSheet: 'Settings of sheet',
         txtPageSize: 'Page size',
         txtPageOrientation: 'Page orientation',

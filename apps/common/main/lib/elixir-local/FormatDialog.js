@@ -64,6 +64,7 @@
    if(dark===undefined)dark=/dark/.test(doc.body.className+' '+doc.documentElement.className)||doc.defaultView.matchMedia('(prefers-color-scheme: dark)').matches;
    box.dataset.theme=dark?'dark':'light';
    header.appendChild(title);form.appendChild(header);
+   if(typeof options.note==='string'&&options.note){var note=doc.createElement('p');note.className='eo-format-note';note.textContent=options.note;note.style.cssText='margin:0;padding:0 24px 8px;color:var(--eo-dialog-muted,inherit);font-size:13px';form.appendChild(note);}
    var fileInput=null,fileError=null,fileOptions=options.fileName;
    if(fileChoice&&fileOptions){
     var fileBox=doc.createElement('div'),fileLabel=doc.createElement('label');

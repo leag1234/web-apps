@@ -389,6 +389,26 @@ define([
         });
     };
 
+    CommandBar.prototype.copyText = function (text, button) {
+        var done = function () {
+            button.textContent = ElixirAI.tf('copied');
+            setTimeout(function () { button.textContent = ElixirAI.tf('copy'); }, 1500);
+        };
+        var fallback = function () {
+            var area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', 'readonly');
+            area.style.position = 'fixed';
+            area.style.left = '-9999px';
+            document.body.appendChild(area);
+            area.select();
+            try { document.execCommand('copy'); } finally { document.body.removeChild(area); }
+            done();
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+        else fallback();
+    };
+
     CommandBar.prototype.addStep = function (tc) {
         if (tc.name === 'cannot_do' || tc.name === 'ask_user' || tc.name === 'verify_result') return;
         if (tc.name === 'submit_plan') {
@@ -513,7 +533,13 @@ define([
                 var ans = document.createElement('div');
                 ans.className = 'elixir-ai-answer';
                 ans.textContent = res.answer;
+                var copy = document.createElement('button');
+                copy.className = 'elixir-ai-btn';
+                copy.setAttribute('aria-label', ElixirAI.tf('copyAnswer'));
+                copy.textContent = ElixirAI.tf('copy');
+                copy.addEventListener('click', function () { me.copyText(res.answer, copy); });
                 notes.appendChild(ans);
+                notes.appendChild(copy);
             }
             if (res.verification && res.verification.goal_met === false && (res.verification.problems || []).length) {
                 var w = document.createElement('div');

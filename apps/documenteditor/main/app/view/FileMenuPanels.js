@@ -2768,6 +2768,7 @@ define([], function () {
                                 '<tr><td><label class="font-weight-bold"><%= scope.txtMargins %></label></td></tr>',
                                 '<tr><td class="padding-large"><div id="print-combo-margins" style="width: 248px;"></div></td></tr>',
                                 '<tr class="header-settings"><td class="padding-large"><label id="print-btn-system-dialog" data-hint="2" data-hint-direction="bottom" data-hint-offset="medium"><span class="link"><%= scope.txtPrintUsingSystemDialog %></span></label></td></tr>',
+                                '<tr class="fms-open-pdf"><td class="padding-large"><div id="print-chb-open-pdf"></div></td></tr>',
                                 '<tr class="fms-btn-apply"><td>',
                                     '<div class="footer justify">',
                                         '<button id="print-btn-print" class="btn normal dlg-btn primary margin-right-8" result="print" style="width: 96px;" data-hint="2" data-hint-direction="bottom" data-hint-offset="big"><%= scope.txtPrint %></button>',
@@ -3078,6 +3079,15 @@ define([], function () {
             this.trApply = $markup.find('.fms-btn-apply');
 
             this.btnPrintSystemDialog = $markup.find('#print-btn-system-dialog > span');
+            // ElixirOffice desktop: remembered "open the PDF after Save as PDF" choice (like Office's open file after publishing)
+            if (this.mode.isElixirLocal) {
+                this.chOpenPdf = new Common.UI.CheckBox({
+                    el: $markup.findById('#print-chb-open-pdf'),
+                    labelText: this.txtOpenPdfAfter,
+                    value: Common.localStorage.getBool('eo-pdf-open-after', false)
+                });
+                this.chOpenPdf.on('change', function (field, state) { Common.localStorage.setBool('eo-pdf-open-after', state === 'checked'); });
+            } else $markup.find('.fms-open-pdf').remove();
             this.btnPrint = new Common.UI.Button({
                 el: $markup.findById('#print-btn-print'),
                 disabled: true
@@ -3371,7 +3381,9 @@ define([], function () {
         },
 
         txtPrint: 'Print',
-        txtPrintPdf: 'Print to PDF',
+        txtPrintPdf: 'Save as PDF',
+        txtExportPdf: 'Export as PDF',
+        txtOpenPdfAfter: 'Open the PDF after export',
         txtPrinter: 'Printer',
         txtPrinterNotSelected: 'Printer not selected',
         txtPrintersNotFound: 'Printers not found',

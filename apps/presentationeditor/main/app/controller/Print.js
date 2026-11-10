@@ -23,8 +23,9 @@
  *
  */
 define([
-    'core'
-], function () {
+    'core',
+    'common/main/lib/elixir-local/PrintMode'
+], function (core, PrintMode) {
     'use strict';
 
     PE.Controllers.Print = Backbone.Controller.extend(_.extend({
@@ -190,6 +191,9 @@ define([
         },
 
         onShowMainSettingsPrint: function() {
+            // one panel, two entry points (File > Print / File > Export as PDF)
+            if (this.mode && this.mode.isElixirLocal)
+                PrintMode.apply(this.printSettings, PrintMode.consume(Common.Utils.InternalSettings), {print: this.printSettings.txtPrint, exportPdf: this.printSettings.txtExportPdf});
             var me = this;
             this.printSettings.$previewBox.removeClass('hidden');
 

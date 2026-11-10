@@ -1066,18 +1066,24 @@
                     .margin-right-8();
                     }
 
+                // the three buttons wrap onto further lines instead of overflowing the settings column
                 .footer-with-pdf {
-                    table {
-                        width: 247px;
-                    }
-                    td:not(:last-child) {
-                        .padding-right-5();
+                    .print-btn-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                        max-width: 100%;
                     }
                     .auto {
-                        padding-left: 3px;
-                        padding-right: 3px;
+                        flex: 1 1 auto;
+                        width: auto;
                         min-width: 64px;
-                        width: 100%;
+                        max-width: 100%;
+                        padding-left: 8px;
+                        padding-right: 8px;
+                        white-space: normal;
+                        height: auto;
+                        min-height: 22px;
                     }
                 }
             }

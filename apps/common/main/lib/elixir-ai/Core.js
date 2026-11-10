@@ -216,6 +216,47 @@ define([], function () {
     var REASONING_MODEL = /^(o\d|gpt-5)/i;
     // Models that refused a temperature in this session
     var SAMPLING_REFUSED = {};
+    var LOCAL_ENDPOINT = /^https?:\/\/(?:localhost|127\.0\.0\.1|\[::1\])(?::[0-9]+)?(?:\/|$)/i;
+
+    function parseToolCalls(text) {
+        var calls = [], re = new RegExp('<function=([A-Za-z0-9_.-]+)>([\\s\\S]*?)</function>|<tool_call>([\\s\\S]*?)</tool_call>', 'g'), m;
+        while ((m = re.exec(text))) {
+            if (m[1]) {
+                var args = {}, arg = /<parameter=([A-Za-z0-9_.-]+)>([\s\S]*?)<\/parameter>/g, a;
+                while ((a = arg.exec(m[2]))) {
+                    try { args[a[1]] = JSON.parse(a[2]); } catch (e) { args[a[1]] = a[2]; }
+                }
+                calls.push({ id: 'parsed-' + Math.random().toString(36).slice(2), type: 'function', 'function': { name: m[1], arguments: JSON.stringify(args) } });
+            } else {
+                try {
+                    var j = JSON.parse(m[3]);
+                    if (j && j.name) calls.push({ id: j.id || 'parsed-' + Math.random().toString(36).slice(2), type: 'function', 'function': { name: j.name, arguments: JSON.stringify(j.arguments || {}) } });
+                } catch (e) {
+                    if (/<function=/.test(m[3])) calls.push.apply(calls, parseToolCalls(m[3]));
+                }
+            }
+        }
+        return calls;
+    }
+
+    function normalizeMessage(message) {
+        if (!message) return { role: 'assistant', content: null };
+        if (Array.isArray(message.tool_calls) && message.tool_calls.length) return message;
+        var source = message.reasoning_content || message.reasoning || message.content || '';
+        var calls = parseToolCalls(String(source));
+        if (calls.length) message.tool_calls = calls;
+        return message;
+    }
+
+    function endpointError(message, status) {
+        var text = String(message || '');
+        var strings = ElixirAI.Strings || {};
+        var lang = ElixirAI.getLang ? ElixirAI.getLang() : 'en';
+        var table = strings[lang] || strings.en || {};
+        if (/n_keep\s*.*>=\s*n_ctx|context length/i.test(text)) return table.contextTooSmall || 'The model context is too small for this document. Use a model with at least 16K tokens of context.';
+        if (status === 200 && /unexpected endpoint/i.test(text)) return table.unexpectedEndpoint || 'The AI endpoint returned an unexpected response. The endpoint URL must end with /v1.';
+        return text;
+    }
 
     ElixirAI.Connector = {
         /**
@@ -252,15 +293,40 @@ define([], function () {
             if (s.apiKey) headers.Authorization = 'Bearer ' + s.apiKey;
 
             var t0 = performance.now(), ttfb = null;
+            var local = LOCAL_ENDPOINT.test(s.endpoint || '');
+            var totalLimit = local ? 20 * 60 * 1000 : 5 * 60 * 1000;
+            var idleLimit = 2 * 60 * 1000;
+            var controller = new AbortController();
+            var external = opts.signal;
+            var onAbort = function () { controller.abort(external && external.reason); };
+            if (external) {
+                if (external.aborted) onAbort();
+                else external.addEventListener('abort', onAbort);
+            }
+            var timeout = setTimeout(function () {
+                var e = new Error('AI endpoint unavailable: the response timed out.');
+                e.status = 0;
+                controller.abort(e);
+            }, totalLimit);
+            var clearTimers = function () {
+                clearTimeout(timeout);
+            };
             var send = function (b) {
-                return (window.eoDesktopAI ? window.eoDesktopAI.fetch : fetch)(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: opts.signal, credentials: 'omit', referrerPolicy: 'no-referrer', redirect: 'error' });
+                return (window.eoDesktopAI ? window.eoDesktopAI.fetch : fetch)(url, { method: 'POST', headers: headers, body: JSON.stringify(b), signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer', redirect: 'error' });
             };
             var retried = false;
             var retry400 = function (resp) {
                 if (resp.status !== 400 || retried) return resp;
                 return resp.clone().text().then(function (t) {
                     // some compatible servers reject stream_options or a sampling parameter: retry once without it
+                    var named = body.tool_choice && body.tool_choice.type === 'function' ? body.tool_choice['function'].name : null;
                     var drop = ['stream_options', 'temperature'].filter(function (k) { return body[k] !== undefined && new RegExp(k).test(t); });
+                    if (named && /tool_choice/i.test(t)) {
+                        retried = true;
+                        body.tool_choice = 'required';
+                        body.tools = (body.tools || []).filter(function (tool) { return tool['function'].name === named; });
+                        return send(body);
+                    }
                     if (!drop.length) return resp;
                     retried = true;
                     drop.forEach(function (k) {
@@ -275,19 +341,26 @@ define([], function () {
                     return resp.text().then(function (t) {
                         var msg = t;
                         try { msg = (JSON.parse(t).error || {}).message || t; } catch (e) {}
-                        throw ConnectorError('HTTP ' + resp.status + ': ' + String(msg).slice(0, 300), resp.status);
+                        throw ConnectorError('HTTP ' + resp.status + ': ' + endpointError(msg, resp.status).slice(0, 300), resp.status);
                     });
                 }
                 var ctype = resp.headers.get('content-type') || '';
                 if (ctype.indexOf('text/event-stream') < 0 || !resp.body) {
                     // non-streaming answer
                     return resp.json().then(function (j) {
+                        clearTimers();
                         var ch = (j.choices || [])[0] || {};
-                        return { message: ch.message || { role: 'assistant', content: '' }, usage: j.usage || null, finish_reason: ch.finish_reason, ms: performance.now() - t0, ttfbMs: performance.now() - t0 };
+                        if (!j || !Array.isArray(j.choices) || !j.choices.length)
+                            throw ConnectorError(endpointError(j && (j.error && j.error.message || j.message || j.detail || JSON.stringify(j)), 200), 200);
+                        return { message: normalizeMessage(ch.message || { role: 'assistant', content: '' }), usage: j.usage || null, finish_reason: ch.finish_reason, ms: performance.now() - t0, ttfbMs: performance.now() - t0 };
                     });
                 }
                 var reader = resp.body.getReader(), decoder = new TextDecoder(), buf = '';
-                var content = '', calls = [], usage = null, finish = null;
+                var content = '', reasoning = '', calls = [], usage = null, finish = null, idle = null;
+                var clearStreamTimers = function () {
+                    clearTimeout(idle);
+                    idle = null;
+                };
                 var handle = function (data) {
                     if (data === '[DONE]') return;
                     var j;
@@ -301,6 +374,8 @@ define([], function () {
                         content += d.content;
                         opts.onDelta && opts.onDelta(d.content, content);
                     }
+                    if (d.reasoning_content) reasoning += d.reasoning_content;
+                    if (d.reasoning) reasoning += d.reasoning;
                     (d.tool_calls || []).forEach(function (tc) {
                         var i = tc.index !== undefined ? tc.index : calls.length;
                         var c = calls[i] = calls[i] || { id: '', type: 'function', 'function': { name: '', arguments: '' } };
@@ -315,6 +390,12 @@ define([], function () {
                     return reader.read().then(function (r) {
                         if (ttfb === null) ttfb = performance.now() - t0;
                         if (r.done) return;
+                        clearTimeout(idle);
+                        idle = setTimeout(function () {
+                            var e = new Error('AI endpoint unavailable: no data was received for two minutes.');
+                            e.status = 0;
+                            controller.abort(e);
+                        }, idleLimit);
                         buf += decoder.decode(r.value, { stream: true });
                         var lines = buf.split(/\r?\n/);
                         buf = lines.pop();
@@ -325,12 +406,17 @@ define([], function () {
                     });
                 };
                 return pump().then(function () {
+                    clearTimers();
+                    clearStreamTimers();
                     if (buf.indexOf('data:') === 0) handle(buf.slice(5).trim());
-                    var message = { role: 'assistant', content: content || null };
+                    var message = normalizeMessage({ role: 'assistant', content: content || null, reasoning_content: reasoning || undefined });
                     calls = calls.filter(Boolean);
                     if (calls.length) message.tool_calls = calls;
                     return { message: message, usage: usage, finish_reason: finish, ms: performance.now() - t0, ttfbMs: ttfb };
                 });
+            }).then(undefined, function (err) {
+                clearTimers();
+                throw err;
             });
         }
     };
@@ -449,9 +535,21 @@ define([], function () {
             function handleError(err) {
                 // A missing Cell commit/cancel callback cannot prove that edits were reverted.
                 if (ts.requireConfirmedRollback && ctx && !ctx.groupOpen && changed) ctx.rollbackUnverified = true;
-                return (groupStarted && ctx ? ts.end(ctx, false) : Promise.resolve()).catch(function () {
+                return (groupStarted && ctx ? ts.end(ctx, false) : Promise.resolve()).then(function (result) {
+                    if (changed && ts.verifyRollback) {
+                        return Promise.resolve(ts.verifyRollback(ctx, result)).then(function (verified) {
+                            if (!verified) ctx.rollbackUnverified = true;
+                        });
+                    }
+                }).catch(function () {
                     if (ts.requireConfirmedRollback && ctx) ctx.rollbackUnverified = true;
                 }).then(function () {
+                    if (changed && ctx && !ctx.rollbackUnverified) {
+                        var note = (ElixirAI.tf ? ElixirAI.tf('rolledBackVerified') : '') || 'The action failed, but the document changes were rolled back and verified.';
+                        var wrapped = new Error(note + ' ' + (err && err.message || err));
+                        wrapped.cause = err; if (err && err.status !== undefined) wrapped.status = err.status;
+                        err = wrapped;
+                    }
                     return finish(opts.signal && opts.signal.aborted ? 'cancelled' : 'error', err);
                 }).then(function () {
                     emit('error', err);

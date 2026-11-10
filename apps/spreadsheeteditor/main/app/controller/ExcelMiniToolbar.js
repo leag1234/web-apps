@@ -43,6 +43,14 @@ define([
                 me.hide(true);
             });
             Common.NotificationCenter.on('window:resize', function () { me.hide(true); });
+            // Like Excel: scrolling, a selection change or a sheet switch dismisses it (its own formatting commands do not)
+            var dismiss = function () { if (!me.interacting) me.hide(true); };
+            document.addEventListener('wheel', function (e) {
+                if (me.$el && (me.$el[0].contains(e.target) || me.isOwnMenu(e.target))) return;
+                me.hide(true);
+            }, {capture: true, passive: true});
+            this.api.asc_registerCallback('asc_onSelectionChanged', dismiss);
+            this.api.asc_registerCallback('asc_onActiveSheetChanged', function () { me.hide(true); });
             this.api.asc_registerCallback('asc_onContextMenu', _.bind(this.onContextMenu, this));
         },
 
@@ -205,6 +213,11 @@ define([
             } catch (e) {}
         },
 
+        // File > Options > "Show the Mini Toolbar on right-click" (default on, like Office)
+        isEnabled: function () {
+            return Common.localStorage.getBool('eo-minitoolbar-context', true);
+        },
+
         canShow: function () {
             return this.mode && this.mode.isEdit && !Common.Utils.ModalWindow.isVisible() && !$('#file-menu-panel').is(':visible') &&
                 !(this.tb.btnCopyStyle && this.tb.btnCopyStyle.pressed);
@@ -213,8 +226,10 @@ define([
         onContextMenu: function () {
             var me = this;
             // after DocumentHolder has opened its menu
+            // an earlier click inside the mini toolbar must not keep this new one open
+            me.interacting = false;
             setTimeout(function () {
-                if (!me.canShow()) return;
+                if (!me.isEnabled() || !me.canShow()) return;
                 var dh = me.getApplication().getController('DocumentHolder'),
                     view = dh && dh.documentHolder, menu = dh && dh.currentMenu;
                 if (!menu || !view || menu !== view.ssMenu || !menu.isVisible()) return;
@@ -228,6 +243,8 @@ define([
                 // no room above: under the menu
                 if (top < 4) top = off.top + $menu.outerHeight() + 6;
                 me.$el.css({left: Math.max(4, Math.min(off.left, Common.Utils.innerWidth() - w - 4)), top: Math.max(4, top)});
+                // closing the context menu (a command ran, Escape, a click elsewhere) closes the mini toolbar
+                menu.once('hide:after', function () { _.defer(function () { if (!me.interacting) me.hide(true); }); });
             }, 30);
         },
 

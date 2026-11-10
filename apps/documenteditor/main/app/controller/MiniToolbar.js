@@ -257,8 +257,10 @@ define([
         onContextMenu: function(event) {
             var me = this;
             // after DocumentHolder has opened its menu
+            // an earlier click inside the mini toolbar must not keep this new one open
+            me.interacting = false;
             setTimeout(function() {
-                if (!me.canShow()) return;
+                if (!Common.localStorage.getBool('eo-minitoolbar-context', true) || !me.canShow()) return;
                 var dh = me.getApplication().getController('DocumentHolder');
                 var view = dh && dh.documentHolder, menu = view && view.currentMenu;
                 if (!menu || !menu.isVisible() || (menu !== view.textMenu && menu !== view.tableMenu)) return;

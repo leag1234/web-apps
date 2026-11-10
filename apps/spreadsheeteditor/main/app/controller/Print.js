@@ -23,8 +23,10 @@
  *
  */
 define([
-    'core'
-], function () {
+    'core',
+    'common/main/lib/elixir-local/PrintDefaults',
+    'common/main/lib/elixir-local/PrintMode'
+], function (core, PrintDefaults, PrintMode) {
     'use strict';
 
     SSE.Controllers.Print = Backbone.Controller.extend(_.extend({
@@ -47,6 +49,8 @@ define([
             };
 
             this._changedProps = null;
+            this._storedProps = [];
+            this._smartPending = {};
             this._originalPageSettings = null;
 
             this._margins = [];
@@ -104,7 +108,7 @@ define([
             this.printSettings.btnsPrint.forEach(function (btn) {
                 btn.on('click', _.bind(me.querySavePrintSettings, me, 'print', false));
             });
-            if (this.mode.isDesktopApp) {
+            if (this.mode.isDesktopApp || this.mode.isElixirLocal) {
                 this.printSettings.btnsPrintPDF.forEach(function (btn) {
                     btn.on('click', _.bind(me.querySavePrintSettings, me, 'print-pdf', false));
                 });
@@ -176,6 +180,7 @@ define([
                         });
                         if (!this._changedProps[i]) {
                             this._changedProps[i] = this.api.asc_getPageOptions(i, true, true);
+                            panel === this.printSettings && this.applySmartDefaults(i);
                         }
                     }
                 }
@@ -242,6 +247,9 @@ define([
             this._state.pgorient = opt.asc_getOrientation();
             item = panel.cmbPaperOrientation.store.findWhere({ value: 'auto' });
             !item && (item = panel.cmbPaperOrientation.store.findWhere({ value: this._state.pgorient }));
+            // a sideways page chosen by the smart defaults is shown as such, not as "automatic"
+            if (this._smartPending && this._smartPending[sheet] && this._smartPending[sheet].orientation)
+                item = panel.cmbPaperOrientation.store.findWhere({ value: this._state.pgorient }) || item;
             item && panel.cmbPaperOrientation.setValue(item.get('value'));
 
             if (panel.spnFirstPage) {
@@ -295,6 +303,7 @@ define([
             var menu = isDlg ? this.printSettingsDlg : this.printSettings,
                 printtype = menu.getRange();
             this.resetSheets(menu);
+            if (!isDlg) this.updateSheetsList(menu);
             var store = menu.cmbSheet.store,
                 item = (printtype !== Asc.c_oAscPrintType.EntireWorkbook) ? store.findWhere({value: this.api.asc_getActiveWorksheetIndex()}) : store.at(0);
             if (item) {
@@ -380,14 +389,30 @@ define([
             return props;
         },
 
-        savePageOptions: function(panel) {
-            this.api.asc_savePagePrintOptions(this._changedProps);
+        // Smart defaults (see applySmartDefaults) belong to this print run only: unless the sheet was changed by the user
+        // or the panel's own Save was pressed, the document keeps the page setup it had.
+        savePageOptions: function(panel, includeSmartDefaults) {
+            var map = this._changedProps;
+            if (!includeSmartDefaults && this._smartPending && this._storedProps) {
+                map = this._changedProps.slice();
+                for (var key in this._smartPending) {
+                    if (this._storedProps[key]) map[key] = this._storedProps[key];
+                }
+            }
+            this.api.asc_savePagePrintOptions(map);
             Common.NotificationCenter.trigger('page:settings');
         },
 
         onShowMainSettingsPrint: function() {
+            // one panel, two entry points (File > Print / File > Export as PDF)
+            if (this.mode && this.mode.isElixirLocal)
+                PrintMode.apply(this.printSettings, PrintMode.consume(Common.Utils.InternalSettings), {print: this.printSettings.txtPrint, exportPdf: this.printSettings.txtExportPdf});
             var me = this;
             this._changedProps = [];
+            this._storedProps = [];
+            this._smartPending = {};
+            this._rangeInfo = null;
+            this._checkedSheets = {};           // "Choose sheets": all ticked initially
             this.printSettings.$previewBox.removeClass('hidden');
 
             this.onUpdateLastCustomMargins(this._lastMargins, this.printSettings);
@@ -400,15 +425,18 @@ define([
             }
             this.adjPrintParams.asc_setPageOptionsMap(this._changedProps);
 
+            // several grouped tabs: the "active sheet" choice becomes "Selected sheets (N)" and prints exactly those tabs
+            this.printSettings.updateRangeLabels(SSE.getController('Statusbar').getSelectTabs().length);
+            // desktop app: every visible sheet is printed by default (the user can still choose Active sheets or Selection)
+            if (this.mode && this.mode.isElixirLocal) this.adjPrintParams.asc_setPrintType(Asc.c_oAscPrintType.EntireWorkbook);
             this.fillPrintOptions(this.adjPrintParams, false);
-            this.adjPrintParams.asc_setActiveSheetsArray(this.printSettings.getRange() === Asc.c_oAscPrintType.Selection || this.printSettings.getRange() === Asc.c_oAscPrintType.ActiveSheets ? SSE.getController('Statusbar').getSelectTabs() : null);
+            this.adjPrintParams.asc_setActiveSheetsArray(this.getActiveSheetsArray(this.printSettings));
 
             var opts = new Asc.asc_CDownloadOptions(null, Common.Utils.isChrome || Common.Utils.isOpera || Common.Utils.isGecko && Common.Utils.firefoxVersion>86);
             opts.asc_setAdvancedOptions(this.adjPrintParams);
             var pageCount = this.api.asc_initPrintPreview('print-preview', opts);
 
-            this.printSettings.$previewBox.toggleClass('hidden', !pageCount);
-            this.printSettings.$previewEmpty.toggleClass('hidden', !!pageCount);
+            pageCount = this.showPreviewState(pageCount);
             if (!!pageCount) {
                 this.updateNavigationButtons(0, pageCount);
                 this.printSettings.txtNumberPage.checkValidate();
@@ -524,7 +552,7 @@ define([
 
         querySavePrintSettings: function(print, useSystemDialog) {
             var view = SSE.getController('Toolbar').getView('Toolbar');
-            this.savePageOptions(this.printSettings);
+            this.savePageOptions(this.printSettings, print === 'save');
             this._isPrint = print === 'print';
             this.printSettings.applySettings();
 
@@ -532,7 +560,7 @@ define([
             this.adjPrintParams.asc_setPrintType(printType);
             this.adjPrintParams.asc_setPageOptionsMap(this._changedProps);
             this.adjPrintParams.asc_setIgnorePrintArea(this.printSettings.getIgnorePrintArea());
-            this.adjPrintParams.asc_setActiveSheetsArray(printType === Asc.c_oAscPrintType.Selection || printType === Asc.c_oAscPrintType.ActiveSheets ? SSE.getController('Statusbar').getSelectTabs() : null);
+            this.adjPrintParams.asc_setActiveSheetsArray(this.getActiveSheetsArray(this.printSettings));
             var pageFrom = this.printSettings.getPagesFrom(),
                 pageTo = this.printSettings.getPagesTo();
             if (pageFrom > pageTo) {
@@ -607,6 +635,7 @@ define([
                 if (me._changedProps) {
                     var currentSheet = panel.cmbSheet.getValue();
                     me._changedProps[currentSheet] = me.getPageOptions(panel, currentSheet);
+                    me._smartPending && delete me._smartPending[currentSheet];   // the user took over this sheet
                     me.updatePreview();
                 }
             };
@@ -957,6 +986,169 @@ define([
             }
         },
 
+        // ---- print range: which sheets, empty states ---------------------------------------------------------------
+        // The engine prints the sheets listed in the active sheets array (ActiveSheets); "Choose sheets" fills it from the list.
+        getActiveSheetsArray: function (panel) {
+            var printType = panel.getRange();
+            if (panel.isChooseSheets && panel.isChooseSheets()) return this.getCheckedSheets();
+            return printType === Asc.c_oAscPrintType.Selection || printType === Asc.c_oAscPrintType.ActiveSheets ? SSE.getController('Statusbar').getSelectTabs() : null;
+        },
+
+        getCheckedSheets: function () {
+            var res = [], wc = this.api.asc_getWorksheetsCount();
+            for (var i = 0; i < wc; i++) {
+                if (!this.api.asc_isWorksheetHidden(i) && this._checkedSheets[i] !== false) res.push(i);
+            }
+            return res;
+        },
+
+        updateSheetsList: function (panel) {
+            if (!panel || !panel.$sheetsRow) return;
+            var me = this, choose = panel.isChooseSheets();
+            panel.$sheetsRow.toggleClass('hidden', !choose);
+            if (!choose) return;
+            panel.$sheetsList.empty();
+            var wc = this.api.asc_getWorksheetsCount();
+            for (var i = 0; i < wc; i++) {
+                if (this.api.asc_isWorksheetHidden(i)) continue;
+                var $label = $('<label style="display:block;margin:2px 0"></label>'),
+                    $box = $('<input type="checkbox">').prop('checked', this._checkedSheets[i] !== false).data('sheet', i);
+                $label.append($box, ' ', $('<span></span>').text(this.api.asc_getWorksheetName(i)));
+                panel.$sheetsList.append($label);
+            }
+            panel.$sheetsList.off('change.eo').on('change.eo', 'input', function () {
+                me._checkedSheets[$(this).data('sheet')] = $(this).prop('checked');
+                me.updatePreview(true);
+            });
+        },
+
+        // a single empty cell (or nothing) is selected
+        isSelectionEmpty: function () {
+            try {
+                var range = this.api.asc_getActiveRangeStr(Asc.referenceType.A);
+                if (!range) return true;
+                if (range.indexOf(':') >= 0) return false;
+                var info = this.api.asc_getCellInfo();
+                return !(info.asc_getText() || (info.asc_getFormula && info.asc_getFormula()));
+            } catch (e) { return false; }
+        },
+
+        // Preview or a notice instead of a blank page; Print and Save as PDF are disabled while there is nothing to print.
+        showPreviewState: function (pageCount) {
+            var panel = this.printSettings, text = this.printSettings.txtEmptyTable, empty = !pageCount;
+            if (panel.getRange() === Asc.c_oAscPrintType.Selection && !panel.isChooseSheets()) {
+                if (this.isSelectionEmpty()) { empty = true; }
+                if (empty) text = panel.txtEmptySelection;
+            } else if (panel.isChooseSheets() && !this.getCheckedSheets().length) {
+                empty = true; text = panel.txtNoSheetChosen;
+            }
+            panel.$previewBox.toggleClass('hidden', empty);
+            panel.$previewEmpty.toggleClass('hidden', !empty).children('div').text(text);
+            if (this.mode && this.mode.isElixirLocal) {
+                panel.btnsPrint.concat(panel.btnsPrintPDF || []).forEach(function (btn) { btn.setDisabled(empty); });
+            }
+            return empty ? 0 : pageCount;
+        },
+
+        // ---- smart defaults ------------------------------------------------------------------------------------
+        // A wide sheet at the default 100% is preselected as "fit all columns on one page" (sideways when it is wider than
+        // tall, centred horizontally). The same options object feeds the preview and the PDF; the document is not changed.
+        getRangeInfo: function (index) {
+            if (!this.api || typeof this.api.asc_GetPrintRangeInfo !== 'function') return null;
+            if (!this._rangeInfo) {
+                var adjust = new Asc.asc_CAdjustPrint();
+                adjust.asc_setPrintType(Asc.c_oAscPrintType.EntireWorkbook);
+                adjust.asc_setIgnorePrintArea(!!this.printSettings.getIgnorePrintArea());
+                try { this._rangeInfo = this.api.asc_GetPrintRangeInfo(adjust) || []; } catch (e) { this._rangeInfo = []; }
+            }
+            return _.findWhere(this._rangeInfo, {sheetIndex: index}) || null;
+        },
+
+        applySmartDefaults: function (index) {
+            if (!this.mode || !this.mode.isElixirLocal) return;
+            var props = this._changedProps[index], setup = props && props.asc_getPageSetup(), info = this.getRangeInfo(index);
+            if (!setup || !info) return;
+            var widthMm = typeof info.widthMm === 'number' ? info.widthMm : null, heightMm = typeof info.heightMm === 'number' ? info.heightMm : null;
+            var hasPrintArea = info.hasPrintArea;
+            if (hasPrintArea === undefined) {
+                try { hasPrintArea = !!this.api.wbModel.getDefinesNames('Print_Area', this.api.wbModel.getWorksheet(index).getId()); } catch (e) { hasPrintArea = false; }
+            }
+            var margins = props.asc_getPageMargins(),
+                decision = PrintDefaults.decide({
+                    stored: {scale: setup.asc_getScale(), fitToWidth: setup.asc_getFitToWidth(), fitToHeight: setup.asc_getFitToHeight(),
+                        orientation: setup.asc_getOrientation(), horizontalCentered: props.asc_getHorizontalCentered()},
+                    pageWidth: setup.asc_getWidth(), pageHeight: setup.asc_getHeight(),
+                    margins: info.usedMargins || (margins && {left: margins.asc_getLeft(), right: margins.asc_getRight(), top: margins.asc_getTop(), bottom: margins.asc_getBottom()}),
+                    rangeWidth: widthMm, rangeHeight: heightMm,
+                    hasPrintArea: !!hasPrintArea && !this.printSettings.getIgnorePrintArea()
+                });
+            if (!decision.fitToWidth && decision.orientation === undefined) return;
+            this._storedProps[index] = this.api.asc_getPageOptions(index, true, true);
+            var storedScale = setup.asc_getScale();
+            if (decision.fitToWidth) {
+                setup.asc_setFitToWidth(1);
+                setup.asc_setFitToHeight(decision.fitToHeight ? 1 : 0);   // 1 x 1: one page per sheet
+                setup.asc_setScale(100);
+                decision.horizontalCentered && props.asc_setHorizontalCentered(true);
+            }
+            if (decision.orientation !== undefined) setup.asc_setOrientation(decision.orientation);
+            this._smartPending[index] = {orientation: decision.orientation !== undefined};
+            if (decision.tinyScale) this._smartPending[index].tinyScale = storedScale;
+        },
+
+        // ---- notices -------------------------------------------------------------------------------------------
+        // Non-blocking notices from the engine: sheets that would print tiny (with a one-click Fit to width) and
+        // page margins larger than the page. asc_GetPrintSetupWarnings is preferred; the scale-only API is the fallback.
+        updateScaleWarning: function (adjPrintParams) {
+            var panel = this.printSettings, me = this;
+            if (!panel || !panel.pnlSettings) return;
+            var raw = null;
+            if (this.api && typeof this.api.asc_GetPrintSetupWarnings === 'function') {
+                try { raw = this.api.asc_GetPrintSetupWarnings(adjPrintParams); } catch (e) { raw = null; }
+            } else if (this.api && typeof this.api.asc_GetPrintScaleWarnings === 'function') {
+                try { raw = this.api.asc_GetPrintScaleWarnings(adjPrintParams); } catch (e) { raw = null; }
+            }
+            var warnings = PrintDefaults.normalizeWarnings(raw);
+            // information: a sheet stored at a tiny scale was fitted to the page width for this print run
+            if (this._smartPending) {
+                for (var key in this._smartPending) {
+                    if (this._smartPending[key].tinyScale !== undefined && this._changedProps && this._changedProps[key])
+                        warnings.push({kind: 'fitted', sheetIndex: +key, name: this.api.asc_getWorksheetName(+key), scale: this._smartPending[key].tinyScale});
+                }
+            }
+            if (!this._scaleWarning) {
+                if (!warnings.length) return;
+                this._scaleWarning = $('<div class="print-scale-warning" role="status" style="margin:0 0 12px;font-size:12px;line-height:16px"></div>');
+                panel.pnlSettings.prepend(this._scaleWarning);
+            }
+            this._scaleWarning.toggleClass('hidden', !warnings.length).empty();
+            var templates = {scale: this.txtScaleWarning, margins: this.txtMarginsWarning, fitted: this.txtFittedInfo};
+            warnings.forEach(function (warning) {
+                var $row = $('<div style="margin:0 0 6px;padding:8px 12px;border:1px solid #c19c00;border-radius:4px;background:rgba(255,185,0,.15)"></div>');
+                $row.append($('<span></span>').text(PrintDefaults.formatWarning(warning, templates)));
+                if (warning.kind === 'scale') {
+                    $row.append(' ', $('<a href="#" class="link" role="button"></a>').text(me.txtFitToWidth).on('click', function (e) {
+                        e.preventDefault();
+                        me.fitSheetToWidth(warning.sheetIndex);
+                    }));
+                }
+                me._scaleWarning.append($row);
+            });
+        },
+
+        fitSheetToWidth: function (sheet) {
+            var panel = this.printSettings;
+            if (!this._changedProps) return;
+            var props = this._changedProps[sheet] || (this._changedProps[sheet] = this.api.asc_getPageOptions(sheet, true, true)),
+                setup = props.asc_getPageSetup();
+            setup.asc_setFitToWidth(1);
+            setup.asc_setFitToHeight(0);
+            setup.asc_setScale(100);
+            this._smartPending && delete this._smartPending[sheet];
+            if (panel.cmbSheet.getValue() === sheet) this.fillPageOptions(panel, props, sheet);
+            this.updatePreview(true);
+        },
+
         updatePreview: function (needUpdate) {
             if (this._isPreviewVisible) {
                 this.printSettings.$previewBox.removeClass('hidden');
@@ -966,7 +1158,7 @@ define([
                 adjPrintParams.asc_setPrintType(printType);
                 adjPrintParams.asc_setPageOptionsMap(this._changedProps);
                 adjPrintParams.asc_setIgnorePrintArea(this.printSettings.getIgnorePrintArea());
-                adjPrintParams.asc_setActiveSheetsArray(printType === Asc.c_oAscPrintType.Selection || printType === Asc.c_oAscPrintType.ActiveSheets ? SSE.getController('Statusbar').getSelectTabs() : null);
+                adjPrintParams.asc_setActiveSheetsArray(this.getActiveSheetsArray(this.printSettings));
                 var pageFrom = this.printSettings.getPagesFrom(),
                     pageTo = this.printSettings.getPagesTo();
                 if (pageFrom > pageTo) {
@@ -981,8 +1173,8 @@ define([
                 opts.asc_setAdvancedOptions(adjPrintParams);
 
                 var pageCount = this.api.asc_updatePrintPreview(opts);
-                this.printSettings.$previewBox.toggleClass('hidden', !pageCount);
-                this.printSettings.$previewEmpty.toggleClass('hidden', !!pageCount);
+                this.updateScaleWarning(adjPrintParams);
+                pageCount = this.showPreviewState(pageCount);
 
                 var newPage;
                 if (this._currentPrintType !== printType) {
@@ -1069,5 +1261,9 @@ define([
         textFirstRow: 'First row',
         textFirstCol: 'First column',
         txtZoomToPage: 'Zoom to page',
+        txtScaleWarning: 'Sheet {name} is set to {scale}%: text will be tiny. Use Fit to width.',
+        txtMarginsWarning: 'Sheet {name} has page margins larger than the page; default margins are used for printing.',
+        txtFitToWidth: 'Fit to width',
+        txtFittedInfo: 'Sheet {name} was stored at {scale}%: fitted to the page width for printing.',
     }, SSE.Controllers.Print || {}));
 });
