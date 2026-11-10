@@ -31,6 +31,12 @@ define([], function () {
     // They are still taken from this computer once the user agreed.
     LF.COMMON_FONTS = ['Arial', 'Times New Roman', 'Courier New', 'Symbol', 'Wingdings'];
 
+    // Clones with the same advance widths as the original, so the layout is that of Word.
+    LF.METRIC_CLONES = ['Carlito', 'Caladea', 'Liberation Sans', 'Liberation Serif', 'Liberation Mono',
+        'Liberation Sans Narrow', 'Arimo', 'Tinos', 'Cousine', 'Gelasio Metric', 'Selawik',
+        'Archivo Black Metric', 'Comic Relief Metric', 'URW Gothic Metric', 'Verdana Metric',
+        'Tahoma Metric', 'Roboto Metric', 'P052'];
+
     // ---- storage ---------------------------------------------------------------------------------
     function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
     function lsSet(k, v) { try { v === null ? window.localStorage.removeItem(k) : window.localStorage.setItem(k, v); } catch (e) { /* private mode */ } }
@@ -129,8 +135,23 @@ define([], function () {
             seen[n] = true;
             if (LF.COMMON_FONTS.indexOf(n) >= 0) return false;
             if (LF.isLocal(n)) return false;
+            if (LF.hasMetricSubstitute(n)) return false;
             return !A || A.g_map_font_index[n] === undefined;
         });
+    };
+
+    LF.hasMetricSubstitute = function (name) {
+        var A = window.AscFonts;
+        var substitutes = A && A.g_fontApplication && A.g_fontApplication.g_fontDictionary &&
+            A.g_fontApplication.g_fontDictionary.FD_Substitutes;
+        if (!substitutes || !A.g_map_font_index) return false;
+        var candidates = substitutes[name];
+        if (!candidates || !candidates.length) return false;
+        for (var i = 0; i < candidates.length; i++) {
+            if (A.g_map_font_index[candidates[i]] !== undefined &&
+                LF.METRIC_CLONES.indexOf(candidates[i]) >= 0) return true;
+        }
+        return false;
     };
 
     // ---- sfnt reading (face index of a collection, named instance of a variable font) -----------------
