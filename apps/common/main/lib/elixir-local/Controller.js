@@ -8,6 +8,11 @@
  var window=globalThis;
  'use strict';
  var emptyImportedImage='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+ var resourceMimeTypes={svg:'image/svg+xml',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',bmp:'image/bmp',webp:'image/webp',tif:'image/tiff',tiff:'image/tiff',ico:'image/x-icon',emf:'image/emf',wmf:'image/wmf'};
+ function resourceMimeType(path){
+  var extension=String(path).split('?')[0].split('#')[0].split('.').pop().toLowerCase();
+  return resourceMimeTypes[extension]||'';
+ }
  function resolveImportedImage(images,name,url){
   return images.get(name)||(/(?:^|\/)_offline_media\//.test(String(url))?emptyImportedImage:url);
  }
@@ -254,7 +259,7 @@
    var source=new Uint8Array(input);
    var output=await passwords.open(source,function(passwordOptions){return window.EOWasmConvert.convert(source,format,editorFormat,Object.assign({onProgress:function(value){progress(job,Object.assign({},value,passwordOptions.openPassword!==undefined&&value.stage==='converting'?{purpose:'decrypting'}:{}));},signal:signal()},passwordOptions));});
    resources=output.resources||[];resources.forEach(function(f){
-    var url=URL.createObjectURL(new Blob([f.bytes]));urls.push(url);
+    var type=resourceMimeType(f.path);var url=URL.createObjectURL(new Blob([f.bytes],type?{type:type}:undefined));urls.push(url);
     imageUrls.set(f.path.replace(/^media\//,''),url);imageUrls.set(f.path,url);
     add.call(docUrls,f.path.replace(/^media\//,''),url);
    });

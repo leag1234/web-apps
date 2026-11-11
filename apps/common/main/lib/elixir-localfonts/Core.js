@@ -343,6 +343,15 @@ define([], function () {
             fams[fam].forEach(function (fd) {
                 (fd.aliases || []).forEach(function (alias) {
                     if (typeof alias !== "string" || seen[alias] || fams[alias]) return;
+                    // a legacy family name that is also the full name of a weight variant of this family
+                    // ("Open Sans SemiBold", name ID 1 of the SemiBold face) is not an alias of the family:
+                    // the variant block below registers it with its own file
+                    var variant = fams[fam].some(function (o) {
+                        if (o.fullName !== alias) return false;
+                        var c = classify(o.style);
+                        return c.other > 0 || c.alt > 0;
+                    });
+                    if (variant) return;
                     seen[alias] = true;
                     add(alias, pickSlots(fams[fam]));
                 });
@@ -448,12 +457,35 @@ define([], function () {
         if (!A) return false;
         appWrapped = true;
         var FA = A.g_fontApplication;
+        // Word matches font names without regard to case: a document's "Open Sans SemiBold" (name ID 4 of the
+        // current Open Sans files) is the packaged "Open Sans Semibold" (name ID 1 of the older files). The engine
+        // map is case-sensitive and sent such a name to the fallback font (Carlito).
+        var caseNames = null, caseCount = -1;
+        var engineName = function (name) {
+            if (typeof name !== 'string' || A.g_map_font_index[name] !== undefined || (FA.DocumentEmbedded && FA.DocumentEmbedded[name])) return name;
+            if (caseCount !== A.g_font_infos.length) {
+                caseNames = Object.create(null);
+                for (var key in A.g_map_font_index) {
+                    var lower = key.toLowerCase();
+                    if (!(lower in caseNames)) caseNames[lower] = key;
+                }
+                caseCount = A.g_font_infos.length;
+            }
+            return caseNames[name.toLowerCase()] || name;
+        };
+        LF.engineName = engineName;
         ['GetFontFileWeb', 'GetFontFile'].forEach(function (fn) {
             var orig = FA[fn];
             if (typeof orig !== 'function') return;
             FA[fn] = function (name) {
                 var n = local.byName[name] ? name : LF.resolveName(name);
                 if (n && A.g_map_font_index[n] !== undefined && A.g_font_infos[A.g_map_font_index[n]].isLocalFont) return { m_wsFontName: n };
+                var exact = engineName(name);
+                if (exact !== name) {
+                    var args = Array.prototype.slice.call(arguments);
+                    args[0] = exact;
+                    return orig.apply(this, args);
+                }
                 return orig.apply(this, arguments);
             };
         });
