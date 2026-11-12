@@ -2759,7 +2759,7 @@ define([
             _updateHint(this.btnCellStyle, this.txtCellStyle);
             _updateHint(this.btnPercentStyle, this.tipDigStylePercent);
             _updateHint(this.btnCommaStyle, this.tipDigStyleComma);
-            _updateHint(this.btnCurrencyStyle, this.tipDigStyleAccounting);
+            _updateHint(this.btnCurrencyStyle, this.tipDigStyleCurrency);
             _updateHint(this.btnDecDecimal, this.tipDecDecimal);
             _updateHint(this.btnIncDecimal, this.tipIncDecimal);
             _updateHint(this.btnNamedRange, this.txtNamedRange);

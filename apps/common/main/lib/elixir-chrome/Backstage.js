@@ -161,6 +161,9 @@ define([
                 if ((action === 'saveas' || action === 'save-desktop') && me.isBrowserLocal()) {
                     return me.showLocalSaveAs();
                 }
+                if (action === 'new' && !(fm.panels && fm.panels['new']) && fm.mode && fm.mode.createUrl) {
+                    return fireEvent.call(this, 'create:new', [this, 'blank']);
+                }
                 return fireEvent.apply(this, arguments);
             };
             fm.applyMode = function () {
@@ -248,6 +251,7 @@ define([
 
             // captions in Word's words
             fm.miNew && fm.miNew.setCaption(this.txtNew);
+            fm.miNew && fm.miNew[((fm.panels && fm.panels['new']) || mode.createUrl) ? 'show' : 'hide']();
             fm.miInfo && fm.miInfo.setCaption(this.txtInfo);
             fm.miSaveCopyAs && fm.miSaveCopyAs.setCaption(this.txtSaveCopy);
             fm.miDownload && fm.miDownload.setCaption(mode.canDownload ? this.txtSaveAs : this.txtDownload);
@@ -459,7 +463,7 @@ define([
                     '<div class="elx-page-inner">' +
                     '<h1 class="header elx-greeting">' + esc(me.greeting()) + '</h1>' +
                     (thumbs.length ? '<section class="elx-section"><h2>' + esc(me.txtNew) + '</h2>' + me.thumbsHtml(thumbs.slice(0, 6)) +
-                        (me.isItemVisible('new') ? '<button type="button" class="elx-link" data-go="new">' + esc(me.txtMoreTemplates) + me.icon('chevron-right', 20) + '</button>' : '') +
+                        (me.fm.panels && me.fm.panels['new'] && me.isItemVisible('new') ? '<button type="button" class="elx-link" data-go="new">' + esc(me.txtMoreTemplates) + me.icon('chevron-right', 20) + '</button>' : '') +
                         '</section>' : '') +
                     (me.mode.canOpenRecent ? '<section class="elx-section"><h2>' + esc(me.txtRecent) + '</h2>' + me.recentList(12) +
                         (me.isItemVisible('elx-open') ? '<button type="button" class="elx-link" data-go="elx-open">' + esc(me.txtMoreDocuments) + me.icon('chevron-right', 20) + '</button>' : '') +
