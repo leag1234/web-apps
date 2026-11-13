@@ -5767,5 +5767,6 @@
     "Common.ElixirAI.CellStrings.chart": "Created a chart from {range}",
     "Common.ElixirAI.CellStrings.pivot": "Created a pivot table from {range}",
     "Common.ElixirAI.CellStrings.rollbackUnverified": "The action failed. Cancellation could not be verified. Review your spreadsheet and use Undo if needed.",
-    "Common.ElixirAI.CellStrings.staleDiscard": "The spreadsheet changed after this action. Use Undo to review later changes first; no changes were discarded."
+    "Common.ElixirAI.CellStrings.staleDiscard": "The spreadsheet changed after this action. Use Undo to review later changes first; no changes were discarded.",
+  "Common.Utils.txtLocalLinkWeb": "A link to a file on a computer can only be opened in the ElixirOffice desktop application."
 }

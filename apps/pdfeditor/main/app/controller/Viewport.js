@@ -91,7 +91,10 @@ define([
                         me.header.lockHeaderBtns( 'mode', state, Common.enumLock.changeModeLock);
                     },
                     'print:disabled' : function (state) {
-                        if ( me.header.btnPrint )
+                        // the print panel of the editor is off in the local desktop app (the ribbon button stays locked),
+                        // the quick access Print button asks the application to print and stays enabled
+                        var nativePrint = me.getApplication().getController('Main').appOptions.eoNativePrint;
+                        if ( me.header.btnPrint && !nativePrint )
                             me.header.btnPrint.setDisabled(state);
                         if ( me.header.btnPrintQuick )
                             me.header.btnPrintQuick.setDisabled(state);

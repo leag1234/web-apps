@@ -388,31 +388,23 @@ define([
             }
             if (words.length > 1) {
                 maxWidth = !!this.menu || this.split === true ? maxWidth - 10 : maxWidth;
-                if (words.length < 3) {
-                    words[0] = getShortText(words[0], !!this.menu ? maxWidth + 10 : maxWidth);
-                    words[1] = getShortText(words[1], maxWidth);
-                    newCaption = words[0] + '<br>' + words[1];
-                } else {
-                    var otherWords = '';
-                    if (getWidthOfCaption(words[0] + ' ' + words[1]) < maxWidth) { // first and second words in first line
-                        for (var i = 2; i < words.length; i++) {
-                            otherWords += words[i] + ' ';
-                        }
-                        if (getWidthOfCaption(otherWords + (!!this.menu ? 10 : 0))*2 < getWidthOfCaption(words[0] + ' ' + words[1])) {
-                            otherWords = getShortText((words[1] + ' ' + otherWords).trim(), maxWidth);
-                            newCaption = words[0] + '<br>' + otherWords;
-                        } else {
-                            otherWords = getShortText(otherWords.trim(), maxWidth);
-                            newCaption = words[0] + ' ' + words[1] + '<br>' + otherWords;
-                        }
-                    } else { // only first word is in first line
-                        for (var j = 1; j < words.length; j++) {
-                            otherWords += words[j] + ' ';
-                        }
-                        otherWords = getShortText(otherWords.trim(), maxWidth);
-                        newCaption = words[0] + '<br>' + otherWords;
+                var bestBreak = 1,
+                    bestWidth = Infinity;
+                for (var i = 1; i < words.length; i++) {
+                    var firstLine = words.slice(0, i).join(' '),
+                        secondLine = words.slice(i).join(' '),
+                        lineWidth = Math.max(getWidthOfCaption(firstLine), getWidthOfCaption(secondLine));
+                    if (lineWidth < bestWidth) {
+                        bestWidth = lineWidth;
+                        bestBreak = i;
                     }
                 }
+                words[0] = words.slice(0, bestBreak).join(' ');
+                words[1] = words.slice(bestBreak).join(' ');
+                words.length = 2;
+                words[0] = getShortText(words[0], maxWidth);
+                words[1] = getShortText(words[1], maxWidth);
+                newCaption = words[0] + '<br>' + words[1];
             } else {
                 var width = getWidthOfCaption(caption);
                 newCaption = width < maxWidth ? caption : getShortText(caption, maxWidth);
@@ -1179,4 +1171,3 @@ define([
         }
     };
 });
-

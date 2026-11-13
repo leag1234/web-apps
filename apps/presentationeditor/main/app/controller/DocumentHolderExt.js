@@ -373,6 +373,10 @@ define([], function () {
         };
 
         dh.onHyperlinkClick = function(url) {
+            if (url && AscCommon.isLocalFileHyperlink && AscCommon.isLocalFileHyperlink(url)) {
+                Common.Utils.openLocalFileLink(url.trim(), this.mode && this.mode.isElixirLocal, this.documentHolder.txtWarnUrl);
+                return;
+            }
             var safeUrl = AscCommon.getSafeHyperlink(url);
             if (!safeUrl) {
                 if (url) Common.UI.alert({msg: this.documentHolder.txtCannotOpenLink});

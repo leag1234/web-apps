@@ -5568,5 +5568,6 @@
   "Common.ElixirAI.SetupStrings.invalid": "Introduzca un punto de conexión HTTPS y un nombre de modelo válidos.",
   "Common.ElixirAI.SetupStrings.denied": "No se concedió permiso. La IA sigue desactivada.",
   "Common.ElixirAI.SetupStrings.failed": "No se pudo guardar la configuración. La IA sigue desactivada.",
-  "Common.ElixirAI.SetupStrings.waiting": "Esperando su permiso…"
+  "Common.ElixirAI.SetupStrings.waiting": "Esperando su permiso…",
+  "Common.Utils.txtLocalLinkWeb": "Un vínculo a un archivo del equipo solo se puede abrir en la aplicación de escritorio de ElixirOffice."
 }

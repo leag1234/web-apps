@@ -3535,5 +3535,19 @@
   "Common.ElixirAI.SlideStrings.align": "Allineate {n} forme",
   "Common.ElixirAI.SlideStrings.notes": "Note del relatore aggiornate",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "L’azione non è riuscita. Non è stato possibile verificare l’annullamento. Controlla la presentazione e usa Annulla se necessario.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "La presentazione è cambiata dopo questa azione. Usa Annulla per esaminare prima le modifiche successive; nessuna modifica è stata scartata."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "La presentazione è cambiata dopo questa azione. Usa Annulla per esaminare prima le modifiche successive; nessuna modifica è stata scartata.",
+  "PE.Controllers.SlideSections.txtSection": "Sezione",
+  "PE.Controllers.SlideSections.tipSection": "Organizza le diapositive in sezioni.",
+  "PE.Controllers.SlideSections.txtAdd": "Aggiungi sezione",
+  "PE.Controllers.SlideSections.txtRename": "Rinomina sezione",
+  "PE.Controllers.SlideSections.txtRemove": "Rimuovi sezione",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Rimuovi tutte le sezioni",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Rimuovi sezione e diapositive",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Comprimi tutto",
+  "PE.Controllers.SlideSections.txtExpandAll": "Espandi tutto",
+  "PE.Controllers.SlideSections.txtMoveUp": "Sposta sezione in alto",
+  "PE.Controllers.SlideSections.txtMoveDown": "Sposta sezione in basso",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Rinomina sezione",
+  "PE.Controllers.SlideSections.txtSectionName": "Nome sezione",
+  "PE.Controllers.SlideSections.txtLongName": "Il nome è troppo lungo."
 }

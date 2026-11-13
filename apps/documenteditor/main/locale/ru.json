@@ -5568,5 +5568,6 @@
   "Common.ElixirAI.SetupStrings.invalid": "Введите допустимую конечную точку HTTPS и название модели.",
   "Common.ElixirAI.SetupStrings.denied": "Разрешение не предоставлено. ИИ по-прежнему выключен.",
   "Common.ElixirAI.SetupStrings.failed": "Не удалось сохранить настройки. ИИ по-прежнему выключен.",
-  "Common.ElixirAI.SetupStrings.waiting": "Ожидание вашего разрешения…"
+  "Common.ElixirAI.SetupStrings.waiting": "Ожидание вашего разрешения…",
+  "Common.Utils.txtLocalLinkWeb": "Ссылку на файл на компьютере можно открыть только в настольном приложении ElixirOffice."
 }

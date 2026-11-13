@@ -5586,5 +5586,6 @@
   "Common.ElixirAI.SetupStrings.invalid": "Enter a valid HTTPS endpoint and model name.",
   "Common.ElixirAI.SetupStrings.denied": "Permission was not granted. AI is still off.",
   "Common.ElixirAI.SetupStrings.failed": "Settings could not be saved. AI is still off.",
-  "Common.ElixirAI.SetupStrings.waiting": "Waiting for your permission…"
+  "Common.ElixirAI.SetupStrings.waiting": "Waiting for your permission…",
+  "Common.Utils.txtLocalLinkWeb": "A link to a file on a computer can only be opened in the ElixirOffice desktop application."
 }

@@ -3993,5 +3993,20 @@
   "Common.ElixirAI.SlideStrings.align": "{n} formes alignées",
   "Common.ElixirAI.SlideStrings.notes": "Notes du présentateur mises à jour",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "L’action a échoué. L’annulation n’a pas pu être vérifiée. Examinez votre présentation et utilisez Annuler si nécessaire.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "La présentation a changé après cette action. Utilisez Annuler pour examiner d’abord les modifications ultérieures ; aucune modification n’a été écartée."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "La présentation a changé après cette action. Utilisez Annuler pour examiner d’abord les modifications ultérieures ; aucune modification n’a été écartée.",
+  "PE.Controllers.SlideSections.txtSection": "Section",
+  "PE.Controllers.SlideSections.tipSection": "Organisez vos diapositives en sections.",
+  "PE.Controllers.SlideSections.txtAdd": "Ajouter une section",
+  "PE.Controllers.SlideSections.txtRename": "Renommer la section",
+  "PE.Controllers.SlideSections.txtRemove": "Supprimer la section",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Supprimer toutes les sections",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Supprimer la section et les diapositives",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Réduire tout",
+  "PE.Controllers.SlideSections.txtExpandAll": "Développer tout",
+  "PE.Controllers.SlideSections.txtMoveUp": "Déplacer la section vers le haut",
+  "PE.Controllers.SlideSections.txtMoveDown": "Déplacer la section vers le bas",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Renommer la section",
+  "PE.Controllers.SlideSections.txtSectionName": "Nom de la section",
+  "PE.Controllers.SlideSections.txtLongName": "Le nom est trop long.",
+  "Common.Utils.txtLocalLinkWeb": "Un lien vers un fichier de l’ordinateur ne peut être ouvert que dans l’application de bureau ElixirOffice."
 }

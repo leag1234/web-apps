@@ -28,7 +28,7 @@ define([
     var esc = function (s) { return Common.Utils.String.htmlEncode(s || '').replace(/\n/g, '<br>'); };
     var icon = function (name) { return window.ElixirChromeIcons ? window.ElixirChromeIcons.svg(name, 20) : ''; };
 
-    DE.Views.ElixirCommentMargin = Backbone.View.extend({
+    DE.Views.ElixirCommentMargin = Backbone.View.extend(_.extend({
 
         initialize: function () {
             this.on_ = false;
@@ -355,7 +355,7 @@ define([
         textCancel: 'Cancel',
         textReply1: '1 reply',
         textReplies: '{0} replies'
-    });
+    }, DE.Views.ElixirCommentMargin || {}));
 
     // The cursor or the mouse on commented text: with the balloons shown, select the balloon instead of
     // opening the floating popover. The prototype is patched before the controller binds its API callbacks.

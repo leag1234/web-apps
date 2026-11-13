@@ -3990,5 +3990,20 @@
   "Common.ElixirAI.SlideStrings.align": "Se han alineado {n} formas",
   "Common.ElixirAI.SlideStrings.notes": "Notas del orador actualizadas",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "La acción ha fallado. No se ha podido comprobar la cancelación. Revisa la presentación y usa Deshacer si es necesario.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "La presentación cambió después de esta acción. Usa Deshacer para revisar primero los cambios posteriores; no se descartó ningún cambio."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "La presentación cambió después de esta acción. Usa Deshacer para revisar primero los cambios posteriores; no se descartó ningún cambio.",
+  "PE.Controllers.SlideSections.txtSection": "Sección",
+  "PE.Controllers.SlideSections.tipSection": "Organice las diapositivas en secciones.",
+  "PE.Controllers.SlideSections.txtAdd": "Agregar sección",
+  "PE.Controllers.SlideSections.txtRename": "Cambiar nombre de sección",
+  "PE.Controllers.SlideSections.txtRemove": "Quitar sección",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Quitar todas las secciones",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Quitar sección y diapositivas",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Contraer todo",
+  "PE.Controllers.SlideSections.txtExpandAll": "Expandir todo",
+  "PE.Controllers.SlideSections.txtMoveUp": "Subir sección",
+  "PE.Controllers.SlideSections.txtMoveDown": "Bajar sección",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Cambiar nombre de sección",
+  "PE.Controllers.SlideSections.txtSectionName": "Nombre de la sección",
+  "PE.Controllers.SlideSections.txtLongName": "El nombre es demasiado largo.",
+  "Common.Utils.txtLocalLinkWeb": "Un vínculo a un archivo del equipo solo se puede abrir en la aplicación de escritorio de ElixirOffice."
 }

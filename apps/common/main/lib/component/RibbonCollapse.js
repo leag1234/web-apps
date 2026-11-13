@@ -172,7 +172,20 @@ define([
                 }
                 if (need > avail) return;
                 me.expand(tab, e);
+                // a compact group may fit fully once the collapsed group is gone
+                var $compact = $(e.seg.groups).filter('[data-compact]');
+                if ($compact.length) {
+                    $compact.removeClass('elx-compact');
+                    me.need($panel) > avail && $compact.addClass('elx-compact');
+                }
                 changed = true;
+            });
+            // compact groups that never collapsed get their full layout back once it fits
+            $panel.find('.group.elx-compact[data-compact]').each(function () {
+                var $g = $(this);
+                $g.removeClass('elx-compact');
+                if (me.need($panel) > avail) $g.addClass('elx-compact');
+                else changed = true;
             });
             return changed;
         },
@@ -194,6 +207,12 @@ define([
                     var pick = segs[segs.length - 1];
                     for (var i = segs.length - 1; i > 0; i--) {
                         if ($(segs[i].groups).filter('[data-collapse-first]').length) { pick = segs[i]; break; }
+                    }
+                    // groups marked data-compact first shrink to their compact layout
+                    var $toCompact = $(pick.groups).filter('[data-compact]:not(.elx-compact)');
+                    if ($toCompact.length) {
+                        $toCompact.addClass('elx-compact');
+                        if (this.need($panel) <= avail) { changed = true; continue; }
                     }
                     this.collapse(tab, $panel, pick);
                     changed = true;

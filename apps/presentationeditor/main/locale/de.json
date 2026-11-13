@@ -3990,5 +3990,20 @@
   "Common.ElixirAI.SlideStrings.align": "{n} Formen ausgerichtet",
   "Common.ElixirAI.SlideStrings.notes": "Sprechernotizen aktualisiert",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "Die Aktion ist fehlgeschlagen. Der Abbruch konnte nicht überprüft werden. Prüfen Sie Ihre Präsentation und verwenden Sie bei Bedarf „Rückgängig“.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "Die Präsentation wurde nach dieser Aktion geändert. Verwenden Sie „Rückgängig“, um zuerst die späteren Änderungen zu prüfen; es wurden keine Änderungen verworfen."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "Die Präsentation wurde nach dieser Aktion geändert. Verwenden Sie „Rückgängig“, um zuerst die späteren Änderungen zu prüfen; es wurden keine Änderungen verworfen.",
+  "PE.Controllers.SlideSections.txtSection": "Abschnitt",
+  "PE.Controllers.SlideSections.tipSection": "Folien in Abschnitten organisieren.",
+  "PE.Controllers.SlideSections.txtAdd": "Abschnitt hinzufügen",
+  "PE.Controllers.SlideSections.txtRename": "Abschnitt umbenennen",
+  "PE.Controllers.SlideSections.txtRemove": "Abschnitt entfernen",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Alle Abschnitte entfernen",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Abschnitt und Folien entfernen",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Alle reduzieren",
+  "PE.Controllers.SlideSections.txtExpandAll": "Alle erweitern",
+  "PE.Controllers.SlideSections.txtMoveUp": "Abschnitt nach oben",
+  "PE.Controllers.SlideSections.txtMoveDown": "Abschnitt nach unten",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Abschnitt umbenennen",
+  "PE.Controllers.SlideSections.txtSectionName": "Abschnittsname",
+  "PE.Controllers.SlideSections.txtLongName": "Der Name ist zu lang.",
+  "Common.Utils.txtLocalLinkWeb": "Ein Link zu einer Datei auf dem Computer kann nur in der ElixirOffice-Desktopanwendung geöffnet werden."
 }

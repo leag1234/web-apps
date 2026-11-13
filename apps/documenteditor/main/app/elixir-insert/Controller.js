@@ -21,7 +21,7 @@ define([
     var esc = function (s) { return Common.Utils.String.htmlEncode(s || ''); };
     var COVER_TAG = 'elixir-cover-page';
 
-    DE.Controllers.ElixirInsert = Backbone.Controller.extend({
+    DE.Controllers.ElixirInsert = Backbone.Controller.extend(_.extend({
 
         initialize: function () {
             var me = this;
@@ -307,5 +307,5 @@ define([
         txtTypeHere: '[Type here]',
         txtPage: 'Page',
         txtOf: 'of'
-    });
+    }, DE.Controllers.ElixirInsert || {}));
 });

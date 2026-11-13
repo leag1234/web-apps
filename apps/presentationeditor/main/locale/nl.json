@@ -3997,5 +3997,19 @@
   "Common.ElixirAI.SlideStrings.align": "{n} vormen uitgelijnd",
   "Common.ElixirAI.SlideStrings.notes": "Sprekersnotities bijgewerkt",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "De actie is mislukt. Het annuleren kon niet worden gecontroleerd. Controleer de presentatie en gebruik zo nodig Ongedaan maken.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "De presentatie is na deze actie gewijzigd. Gebruik Ongedaan maken om latere wijzigingen eerst te bekijken; er zijn geen wijzigingen verworpen."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "De presentatie is na deze actie gewijzigd. Gebruik Ongedaan maken om latere wijzigingen eerst te bekijken; er zijn geen wijzigingen verworpen.",
+  "PE.Controllers.SlideSections.txtSection": "Sectie",
+  "PE.Controllers.SlideSections.tipSection": "Orden uw dia's in secties.",
+  "PE.Controllers.SlideSections.txtAdd": "Sectie toevoegen",
+  "PE.Controllers.SlideSections.txtRename": "Sectie een andere naam geven",
+  "PE.Controllers.SlideSections.txtRemove": "Sectie verwijderen",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Alle secties verwijderen",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Sectie en dia's verwijderen",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Alles samenvouwen",
+  "PE.Controllers.SlideSections.txtExpandAll": "Alles uitvouwen",
+  "PE.Controllers.SlideSections.txtMoveUp": "Sectie omhoog verplaatsen",
+  "PE.Controllers.SlideSections.txtMoveDown": "Sectie omlaag verplaatsen",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Sectie een andere naam geven",
+  "PE.Controllers.SlideSections.txtSectionName": "Naam van de sectie",
+  "PE.Controllers.SlideSections.txtLongName": "De naam is te lang."
 }

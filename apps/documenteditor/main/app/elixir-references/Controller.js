@@ -74,7 +74,7 @@ define([
         heading: function (style) { return style === 'mla' ? 'Works Cited' : 'References'; }
     };
 
-    DE.Controllers.ElixirReferences = Backbone.Controller.extend({
+    DE.Controllers.ElixirReferences = Backbone.Controller.extend(_.extend({
 
         initialize: function () {
             var me = this;
@@ -454,5 +454,5 @@ define([
         txtInsertIndex: 'Insert Index',
         txtUpdateIndex: 'Update Index',
         txtNoIndexEntries: 'No index entries found.'
-    });
+    }, DE.Controllers.ElixirReferences || {}));
 });

@@ -3990,5 +3990,19 @@
   "Common.ElixirAI.SlideStrings.align": "已对齐 {n} 个形状",
   "Common.ElixirAI.SlideStrings.notes": "已更新演讲者备注",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "操作失败。无法验证取消是否成功。请检查演示文稿，并在需要时使用“撤销”。",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "执行此操作后，演示文稿发生了更改。请使用“撤销”先检查后续更改；未丢弃任何更改。"
+  "Common.ElixirAI.SlideStrings.staleDiscard": "执行此操作后，演示文稿发生了更改。请使用“撤销”先检查后续更改；未丢弃任何更改。",
+  "PE.Controllers.SlideSections.txtSection": "节",
+  "PE.Controllers.SlideSections.tipSection": "将幻灯片组织成节。",
+  "PE.Controllers.SlideSections.txtAdd": "新增节",
+  "PE.Controllers.SlideSections.txtRename": "重命名节",
+  "PE.Controllers.SlideSections.txtRemove": "删除节",
+  "PE.Controllers.SlideSections.txtRemoveAll": "删除所有节",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "删除节和幻灯片",
+  "PE.Controllers.SlideSections.txtCollapseAll": "全部折叠",
+  "PE.Controllers.SlideSections.txtExpandAll": "全部展开",
+  "PE.Controllers.SlideSections.txtMoveUp": "向上移动节",
+  "PE.Controllers.SlideSections.txtMoveDown": "向下移动节",
+  "PE.Controllers.SlideSections.txtRenameTitle": "重命名节",
+  "PE.Controllers.SlideSections.txtSectionName": "节名称",
+  "PE.Controllers.SlideSections.txtLongName": "名称太长。"
 }

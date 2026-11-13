@@ -26,17 +26,29 @@
     // three rows of small buttons in the height of a two-row group (Editing)
     .elx-rows3 > .elset,
     .elset-column.elx-rows3 > .elset {
-        height: 18px;
+        height: 16px;
         &:not(:first-child) {
             margin-top: 0;
         }
         .btn-toolbar:not(.x-huge) {
-            height: 18px;
+            height: 16px;
+            svg.icon {
+                width: 16px;
+                height: 16px;
+            }
         }
     }
     // small buttons with their caption (Wrap Text, Merge & Center, AutoSum, Fill, Clear)
     .elx-captioned .caption {
         margin: 0 2px 0 4px;
+    }
+
+    // intermediate compact step before a whole group collapses
+    .group.elx-compact {
+        // Editing: keep the stacked split buttons, but show their icons only
+        &.elx-rows3 .caption {
+            display: none;
+        }
     }
 }
 
@@ -51,6 +63,12 @@
         white-space: nowrap;
         margin: 0 0 0 4px;
     }
+}
+// the slot of a captioned small button follows its width (toolbar.less fixes .btn-slot and
+// .btn-slot.split at the icon-only size, so Filter / Clear overflowed into the next group)
+#toolbar .toolbar .panel[data-tab=data] .btn-slot.slot-btn-setfilter,
+#toolbar .toolbar .panel[data-tab=data] .btn-slot.slot-btn-clear-filter {
+    width: auto;
 }
 #toolbar .toolbar .btn-group.split .btn-toolbar.elx-captioned + .dropdown-toggle,
 #toolbar .toolbar .elx-rows3 .btn-group {

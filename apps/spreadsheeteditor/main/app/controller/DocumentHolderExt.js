@@ -2014,6 +2014,10 @@ define([], function () {
         };
 
         dh.onApiHyperlinkClick = function(url) {
+            if (url && AscCommon.isLocalFileHyperlink && AscCommon.isLocalFileHyperlink(url)) {
+                Common.Utils.openLocalFileLink(url.trim(), this.permissions && this.permissions.isElixirLocal, this.txtWarnUrl);
+                return;
+            }
             var safeUrl = AscCommon.getSafeHyperlink(url);
             if (safeUrl) url = safeUrl;
             if (url && !AscCommon.isSafeHyperlink(url)) {

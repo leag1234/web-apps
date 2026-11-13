@@ -259,7 +259,7 @@
    var source=new Uint8Array(input);
    var output=await passwords.open(source,function(passwordOptions){return window.EOWasmConvert.convert(source,format,editorFormat,Object.assign({onProgress:function(value){progress(job,Object.assign({},value,passwordOptions.openPassword!==undefined&&value.stage==='converting'?{purpose:'decrypting'}:{}));},signal:signal()},passwordOptions));});
    resources=output.resources||[];resources.forEach(function(f){
-    var type=resourceMimeType(f.path);var url=URL.createObjectURL(new Blob([f.bytes],type?{type:type}:undefined));urls.push(url);
+    var type=resourceMimeType(f.path);var bytes=f.bytes;if(type==='image/svg+xml'&&window.AscCommon&&AscCommon.EoFixSvgHairlines){try{var svgText=new TextDecoder('utf-8').decode(bytes);var fixedSvg=AscCommon.EoFixSvgHairlines(svgText);if(fixedSvg!==svgText)bytes=new TextEncoder().encode(fixedSvg);}catch(e){bytes=f.bytes;}}var url=URL.createObjectURL(new Blob([bytes],type?{type:type}:undefined));urls.push(url);
     imageUrls.set(f.path.replace(/^media\//,''),url);imageUrls.set(f.path,url);
     add.call(docUrls,f.path.replace(/^media\//,''),url);
    });

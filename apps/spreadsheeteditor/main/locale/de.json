@@ -3614,8 +3614,8 @@
   "SSE.Views.FormulaDialog.txtSearch": "Funktion suchen",
   "SSE.Views.FormulaDialog.txtTitle": "Funktion einfügen",
   "SSE.Views.FormulaTab.capBtnRemoveArr": "Pfeile entfernen",
-  "SSE.Views.FormulaTab.capBtnTraceDep": "Trace-Abhängige",
-  "SSE.Views.FormulaTab.capBtnTracePrec": "Präzedenzfälle",
+  "SSE.Views.FormulaTab.capBtnTraceDep": "Spur zum Nachfolger",
+  "SSE.Views.FormulaTab.capBtnTracePrec": "Spur zum Vorgänger",
   "SSE.Views.FormulaTab.textAutomatic": "Automatisch",
   "SSE.Views.FormulaTab.textCalculateCurrentSheet": "Das aktuelle Blatt berechnen",
   "SSE.Views.FormulaTab.textCalculateWorkbook": "Arbeitsmappe berechnen",
@@ -5718,5 +5718,6 @@
     "Common.ElixirAI.CellStrings.chart": "Diagramm aus {range} erstellt",
     "Common.ElixirAI.CellStrings.pivot": "PivotTable aus {range} erstellt",
     "Common.ElixirAI.CellStrings.rollbackUnverified": "Die Aktion ist fehlgeschlagen. Der Abbruch konnte nicht überprüft werden. Prüfen Sie Ihre Kalkulationstabelle und verwenden Sie bei Bedarf „Rückgängig“.",
-    "Common.ElixirAI.CellStrings.staleDiscard": "Die Kalkulationstabelle wurde nach dieser Aktion geändert. Verwenden Sie „Rückgängig“, um zuerst die späteren Änderungen zu prüfen; es wurden keine Änderungen verworfen."
+    "Common.ElixirAI.CellStrings.staleDiscard": "Die Kalkulationstabelle wurde nach dieser Aktion geändert. Verwenden Sie „Rückgängig“, um zuerst die späteren Änderungen zu prüfen; es wurden keine Änderungen verworfen.",
+  "Common.Utils.txtLocalLinkWeb": "Ein Link zu einer Datei auf dem Computer kann nur in der ElixirOffice-Desktopanwendung geöffnet werden."
 }

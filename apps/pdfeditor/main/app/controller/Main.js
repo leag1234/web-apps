@@ -1366,6 +1366,9 @@ define([
                 }
                 this.appOptions.canPrint       = (this.permissions.print !== false);
                 this.appOptions.canQuickPrint = this.appOptions.canPrint && !Common.Utils.isMac && this.appOptions.isDesktopApp;
+                // the local desktop app prints a PDF itself (native print of the file): no print preview panel (canPrint is false),
+                // but the quick access toolbar still shows a Print button that asks the application to print
+                this.appOptions.eoNativePrint = !this.appOptions.canPrint && !!Common.ElixirLocal;
                 this.appOptions.canRename      = this.editorConfig.canRename;
                 this.appOptions.buildVersion   = params.asc_getBuildVersion();
                 this.appOptions.canForcesave   = (this.appOptions.isPDFAnnotate || this.appOptions.isPDFEdit) && !this.appOptions.isOffline && (typeof (this.editorConfig.customization) == 'object' && !!this.editorConfig.customization.forcesave);
@@ -2555,6 +2558,10 @@ define([
             },
 
             onPrint: function() {
+                if (this.appOptions.eoNativePrint && !Common.Utils.ModalWindow.isVisible()) {
+                    Common.NotificationCenter.trigger('eo:native-print');
+                    return;
+                }
                 if (!this.appOptions.canPrint || Common.Utils.ModalWindow.isVisible()) return;
                 Common.NotificationCenter.trigger('file:print');
                 Common.component.Analytics.trackEvent('Print');

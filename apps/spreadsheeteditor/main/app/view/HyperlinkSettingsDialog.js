@@ -137,6 +137,9 @@ define([], function () { 'use strict';
                     if (me.api.asc_getFullHyperlinkLength(trimmed)>2083) return me.txtSizeLimit;
 
                     me.urlType = me.api.asc_getUrlType(trimmed);
+                    // a link to a file of this computer (file: URL, absolute or relative path) is stored as it is
+                    if (me.urlType===AscCommon.c_oAscUrlType.Invalid && AscCommon.isLocalFileHyperlink && AscCommon.isLocalFileHyperlink(trimmed))
+                        me.urlType = AscCommon.c_oAscUrlType.Unsafe;
                     return (me.urlType!==AscCommon.c_oAscUrlType.Invalid) ? true : me.txtNotUrl;
                 }
             };

@@ -57,6 +57,26 @@ define([
             return Math.ceil(ctx.measureText(text).width);
         },
 
+        // Hide a group that holds no visible control at all (only its label), e.g. a group
+        // whose buttons do not exist in the desktop app. Runs after the layout pass and
+        // never throws: a failure keeps the ribbon as it is.
+        hideEmptyGroups: function ($panel) {
+            try {
+                $panel = $panel || (this.$panels && this.$panels.filter('.active'));
+                if (!$panel || !$panel.length) return;
+                $panel.children('.group').each(function () {
+                    var $group = $(this);
+                    if ($group.hasClass('elx-hidden-group')) return;
+                    var controls = $group.find('.btn-slot, button, input, .combobox, .dataview, .x-huge, .elset > *').filter(function () {
+                        return this.offsetWidth > 0 && this.offsetHeight > 0;
+                    });
+                    if (controls.length) return;
+                    $group.addClass('elx-hidden-group');
+                    $group.prev('.separator').addClass('elx-hidden-group');
+                });
+            } catch (e) {}
+        },
+
         updateGroupLabels: function ($panel) {
             var me = this;
             $panel = $panel || (me.$panels && me.$panels.filter('.active'));

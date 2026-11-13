@@ -3990,5 +3990,19 @@
   "Common.ElixirAI.SlideStrings.align": "{n} formas alinhadas",
   "Common.ElixirAI.SlideStrings.notes": "Anotações do apresentador atualizadas",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "A ação falhou. Não foi possível confirmar o cancelamento. Revise a apresentação e use Desfazer se necessário.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "A apresentação mudou após esta ação. Use Desfazer para revisar primeiro as alterações posteriores; nenhuma alteração foi descartada."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "A apresentação mudou após esta ação. Use Desfazer para revisar primeiro as alterações posteriores; nenhuma alteração foi descartada.",
+  "PE.Controllers.SlideSections.txtSection": "Seção",
+  "PE.Controllers.SlideSections.tipSection": "Organize seus slides em seções.",
+  "PE.Controllers.SlideSections.txtAdd": "Adicionar Seção",
+  "PE.Controllers.SlideSections.txtRename": "Renomear Seção",
+  "PE.Controllers.SlideSections.txtRemove": "Remover Seção",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Remover Todas as Seções",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Remover Seção e Slides",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Recolher Tudo",
+  "PE.Controllers.SlideSections.txtExpandAll": "Expandir Tudo",
+  "PE.Controllers.SlideSections.txtMoveUp": "Mover Seção para Cima",
+  "PE.Controllers.SlideSections.txtMoveDown": "Mover Seção para Baixo",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Renomear Seção",
+  "PE.Controllers.SlideSections.txtSectionName": "Nome da seção",
+  "PE.Controllers.SlideSections.txtLongName": "O nome é muito longo."
 }

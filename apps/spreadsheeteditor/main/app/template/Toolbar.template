@@ -106,7 +106,7 @@
                     <span class="btn-slot text x-huge" id="slot-btn-table-tpl"></span>
                 </div>
                 <div class="separator long invisible"></div>
-                <div class="group small flex field-styles" id="slot-field-styles" style="width: 300px; min-width: 148px;" data-group-width="300px" data-group="cellstyles" data-collapse-first="1" data-collapse-icon="#btn-big-elx-cell-styles"></div>
+                <div class="group small flex field-styles" id="slot-field-styles" style="width: 300px; min-width: 200px;" data-group-width="300px" data-group="cellstyles" data-collapse-first="1" data-collapse-icon="#btn-big-elx-cell-styles"></div>
                 <div class="separator long"></div>
                 <div class="group" data-group="cells">
                     <span class="btn-slot text x-huge" id="slot-btn-cell-ins"></span>
@@ -114,7 +114,7 @@
                     <span class="btn-slot text x-huge" id="slot-btn-cell-format"></span>
                 </div>
                 <div class="separator long"></div>
-                <div class="group small elx-rows3" data-group="editing">
+                <div class="group small elx-rows3" data-group="editing" data-compact="1">
                     <div class="elset">
                         <span class="btn-slot text split" id="slot-btn-formula"></span>
                     </div>
@@ -155,14 +155,14 @@
                 <div class="group" data-group="charts" data-launcher="charts">
                     <span class="btn-slot text x-huge" id="slot-btn-insrecommend"></span>
                     <div class="elset-column elx-rows3 elx-chart-gallery-col">
-                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-column"></span></div>
-                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-line"></span></div>
-                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-pie"></span></div>
+                        <div class="elset"><span class="btn-slot split" id="slot-elx-chart-column"></span></div>
+                        <div class="elset"><span class="btn-slot split" id="slot-elx-chart-line"></span></div>
+                        <div class="elset"><span class="btn-slot split" id="slot-elx-chart-pie"></span></div>
                     </div>
                     <div class="elset-column elx-rows3 elx-chart-gallery-col">
-                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-scatter"></span></div>
-                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-stock"></span></div>
-                        <div class="elset"><span class="btn-slot" id="slot-elx-chart-combo"></span></div>
+                        <div class="elset"><span class="btn-slot split" id="slot-elx-chart-scatter"></span></div>
+                        <div class="elset"><span class="btn-slot split" id="slot-elx-chart-stock"></span></div>
+                        <div class="elset"><span class="btn-slot split" id="slot-elx-chart-combo"></span></div>
                     </div>
                     <span class="btn-slot text x-huge" id="slot-btn-inschart"></span>
                 </div>

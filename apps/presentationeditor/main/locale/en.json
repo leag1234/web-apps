@@ -4000,5 +4000,20 @@
   "Common.ElixirAI.SlideStrings.align": "Aligned {n} shapes",
   "Common.ElixirAI.SlideStrings.notes": "Updated speaker notes",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "The action failed. Cancellation could not be verified. Review your presentation and use Undo if needed.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "The presentation changed after this action. Use Undo to review later changes first; no changes were discarded."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "The presentation changed after this action. Use Undo to review later changes first; no changes were discarded.",
+  "PE.Controllers.SlideSections.txtSection": "Section",
+  "PE.Controllers.SlideSections.tipSection": "Organize your slides into sections.",
+  "PE.Controllers.SlideSections.txtAdd": "Add Section",
+  "PE.Controllers.SlideSections.txtRename": "Rename Section",
+  "PE.Controllers.SlideSections.txtRemove": "Remove Section",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Remove All Sections",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Remove Section & Slides",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Collapse All",
+  "PE.Controllers.SlideSections.txtExpandAll": "Expand All",
+  "PE.Controllers.SlideSections.txtMoveUp": "Move Section Up",
+  "PE.Controllers.SlideSections.txtMoveDown": "Move Section Down",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Rename Section",
+  "PE.Controllers.SlideSections.txtSectionName": "Section name",
+  "PE.Controllers.SlideSections.txtLongName": "The name is too long.",
+  "Common.Utils.txtLocalLinkWeb": "A link to a file on a computer can only be opened in the ElixirOffice desktop application."
 }

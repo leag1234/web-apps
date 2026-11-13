@@ -4203,7 +4203,7 @@
   "DE.Views.Toolbar.textTabLayout": "Layout",
   "DE.Views.Toolbar.textTabLinks": "Verweise",
   "DE.Views.Toolbar.textTabProtect": "Schutz",
-  "DE.Views.Toolbar.textTabReview": "Review",
+  "DE.Views.Toolbar.textTabReview": "Überprüfen",
   "DE.Views.Toolbar.textTabView": "Ansicht",
   "DE.Views.Toolbar.textTilde": "Tilde",
   "DE.Views.Toolbar.textTitleError": "Fehler",
@@ -5568,5 +5568,6 @@
   "Common.ElixirAI.SetupStrings.invalid": "Geben Sie einen gültigen HTTPS-Endpunkt und Modellnamen ein.",
   "Common.ElixirAI.SetupStrings.denied": "Die Berechtigung wurde nicht erteilt. Die KI ist weiterhin deaktiviert.",
   "Common.ElixirAI.SetupStrings.failed": "Die Einstellungen konnten nicht gespeichert werden. Die KI ist weiterhin deaktiviert.",
-  "Common.ElixirAI.SetupStrings.waiting": "Warten auf Ihre Zustimmung…"
+  "Common.ElixirAI.SetupStrings.waiting": "Warten auf Ihre Zustimmung…",
+  "Common.Utils.txtLocalLinkWeb": "Ein Link zu einer Datei auf dem Computer kann nur in der ElixirOffice-Desktopanwendung geöffnet werden."
 }

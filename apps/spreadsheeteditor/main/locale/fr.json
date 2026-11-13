@@ -5729,5 +5729,6 @@
     "Common.ElixirAI.CellStrings.chart": "Graphique créé à partir de {range}",
     "Common.ElixirAI.CellStrings.pivot": "Tableau croisé dynamique créé à partir de {range}",
     "Common.ElixirAI.CellStrings.rollbackUnverified": "L’action a échoué. L’annulation n’a pas pu être vérifiée. Examinez votre feuille de calcul et utilisez Annuler si nécessaire.",
-    "Common.ElixirAI.CellStrings.staleDiscard": "La feuille de calcul a changé après cette action. Utilisez Annuler pour examiner d’abord les modifications ultérieures ; aucune modification n’a été écartée."
+    "Common.ElixirAI.CellStrings.staleDiscard": "La feuille de calcul a changé après cette action. Utilisez Annuler pour examiner d’abord les modifications ultérieures ; aucune modification n’a été écartée.",
+  "Common.Utils.txtLocalLinkWeb": "Un lien vers un fichier de l’ordinateur ne peut être ouvert que dans l’application de bureau ElixirOffice."
 }

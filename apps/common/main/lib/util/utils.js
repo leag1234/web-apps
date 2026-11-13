@@ -375,6 +375,26 @@ define([], function () {
         }
     })();
 
+    // A click on a link to a file of this computer: only the desktop application opens it. The desktop application
+    // asks the user itself (native dialog) and checks the file, so that no other code of the page can open a file
+    // without that question; the web editors say that only the desktop application opens such links.
+    utils.openLocalFileLink = function (url, isDesktop) {
+        if (!isDesktop) {
+            Common.UI.alert({msg: Common.Utils.txtLocalLinkWeb || 'A link to a file on a computer can only be opened in the ElixirOffice desktop application.'});
+            return;
+        }
+        // Chromium refuses to open a file: URL from the editor page ("Not allowed to load local resource"), so the
+        // link goes to the desktop application through its bridge; the application asks natively before opening it.
+        var bridge = null;
+        try { bridge = window.eoDesktop || (window.parent && window.parent.eoDesktop) || null; } catch (e) { bridge = null; }
+        try {
+            if (bridge && typeof bridge.openLocalLink === 'function') { bridge.openLocalLink(String(url)); return; }
+            window.open(url, '_blank');
+        } catch (err) {
+            err && console.log(err.stack);
+        }
+    };
+
     Common.Utils = _extend_object(Common.Utils, utils);
 
     var themecolor = new (function () {

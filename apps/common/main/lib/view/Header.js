@@ -1060,8 +1060,9 @@ define([
                     if ( config.canCloseEditor )
                         me.btnClose = createTitleButton('toolbar__icon icon--inverse btn-close', $html.findById('#slot-btn-close'), false, 'left', '10, 10');
 
-                    if ( config.canPrint && config.twoLevelHeader ) {
-                        me.btnPrint = createTitleButton('toolbar__icon icon--inverse btn-print', $html.findById('#slot-btn-dt-print'), true, undefined, undefined, 'P');
+                    if ( (config.canPrint || config.eoNativePrint) && config.twoLevelHeader ) {
+                        // the native print button is enabled right away: nothing in the editor enables it later (its ribbon button stays locked)
+                        me.btnPrint = createTitleButton('toolbar__icon icon--inverse btn-print', $html.findById('#slot-btn-dt-print'), !config.eoNativePrint, undefined, undefined, 'P');
                         me.shortcutHints.PrintPreviewAndPrint = {
                             btn: me.btnPrint,
                             label: me.tipPrint

@@ -24,7 +24,7 @@ define([
     var PR = window.ElixirDesignPresets;
     var esc = function (s) { return Common.Utils.String.htmlEncode(s || ''); };
 
-    DE.Controllers.ElixirDesign = Backbone.Controller.extend({
+    DE.Controllers.ElixirDesign = Backbone.Controller.extend(_.extend({
 
         initialize: function () {
             var me = this;
@@ -351,5 +351,5 @@ define([
         txtMeasureFrom: 'Measure from:',
         txtFromText: 'Text',
         txtFromEdge: 'Edge of page'
-    });
+    }, DE.Controllers.ElixirDesign || {}));
 });

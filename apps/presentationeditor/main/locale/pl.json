@@ -3997,5 +3997,19 @@
   "Common.ElixirAI.SlideStrings.align": "Wyrównano kształty: {n}",
   "Common.ElixirAI.SlideStrings.notes": "Zaktualizowano notatki prelegenta",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "Akcja nie powiodła się. Nie udało się zweryfikować anulowania. Sprawdź prezentację i w razie potrzeby użyj polecenia Cofnij.",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "Prezentacja zmieniła się po tej akcji. Użyj polecenia Cofnij, aby najpierw przejrzeć późniejsze zmiany; żadnych zmian nie odrzucono."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "Prezentacja zmieniła się po tej akcji. Użyj polecenia Cofnij, aby najpierw przejrzeć późniejsze zmiany; żadnych zmian nie odrzucono.",
+  "PE.Controllers.SlideSections.txtSection": "Sekcja",
+  "PE.Controllers.SlideSections.tipSection": "Uporządkuj slajdy w sekcje.",
+  "PE.Controllers.SlideSections.txtAdd": "Dodaj sekcję",
+  "PE.Controllers.SlideSections.txtRename": "Zmień nazwę sekcji",
+  "PE.Controllers.SlideSections.txtRemove": "Usuń sekcję",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Usuń wszystkie sekcje",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Usuń sekcję i slajdy",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Zwiń wszystko",
+  "PE.Controllers.SlideSections.txtExpandAll": "Rozwiń wszystko",
+  "PE.Controllers.SlideSections.txtMoveUp": "Przenieś sekcję w górę",
+  "PE.Controllers.SlideSections.txtMoveDown": "Przenieś sekcję w dół",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Zmień nazwę sekcji",
+  "PE.Controllers.SlideSections.txtSectionName": "Nazwa sekcji",
+  "PE.Controllers.SlideSections.txtLongName": "Nazwa jest zbyt długa."
 }

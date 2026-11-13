@@ -3685,5 +3685,19 @@
   "Common.ElixirAI.SlideStrings.align": "{n} 個の図形を整列しました",
   "Common.ElixirAI.SlideStrings.notes": "発表者のノートを更新しました",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "操作に失敗しました。取り消しを確認できませんでした。プレゼンテーションを確認し、必要に応じて［元に戻す］を使用してください。",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "この操作の後にプレゼンテーションが変更されました。後の変更を先に確認するには［元に戻す］を使用してください。変更は破棄されていません。"
+  "Common.ElixirAI.SlideStrings.staleDiscard": "この操作の後にプレゼンテーションが変更されました。後の変更を先に確認するには［元に戻す］を使用してください。変更は破棄されていません。",
+  "PE.Controllers.SlideSections.txtSection": "セクション",
+  "PE.Controllers.SlideSections.tipSection": "スライドをセクションに整理します。",
+  "PE.Controllers.SlideSections.txtAdd": "セクションの追加",
+  "PE.Controllers.SlideSections.txtRename": "セクション名の変更",
+  "PE.Controllers.SlideSections.txtRemove": "セクションの削除",
+  "PE.Controllers.SlideSections.txtRemoveAll": "すべてのセクションを削除",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "セクションとスライドの削除",
+  "PE.Controllers.SlideSections.txtCollapseAll": "すべて折りたたむ",
+  "PE.Controllers.SlideSections.txtExpandAll": "すべて展開",
+  "PE.Controllers.SlideSections.txtMoveUp": "セクションを上へ移動",
+  "PE.Controllers.SlideSections.txtMoveDown": "セクションを下へ移動",
+  "PE.Controllers.SlideSections.txtRenameTitle": "セクション名の変更",
+  "PE.Controllers.SlideSections.txtSectionName": "セクション名",
+  "PE.Controllers.SlideSections.txtLongName": "名前が長すぎます。"
 }

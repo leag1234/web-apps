@@ -144,8 +144,19 @@ define([
             if (!$review.length || !$protect.length || $protect.hasClass('elx-merged')) return;
             if (tb.isTabVisible && !tb.isTabVisible('review')) return;
             $protect.addClass('elx-merged');
+            // Excel order: Protect Sheet, Protect Workbook, Protect Range, lock check
+            // boxes, then Encrypt. Drop the protect panel's separators so the whole
+            // block reads as one "Protect" group (reorderRuns places it after Comments).
+            var $groups = $protect.children('.group'),
+                pick = function (sel) { return $groups.filter(function () { return $(this).find(sel).length; }); },
+                $wbSheet = pick('#slot-btn-protect-wb'),
+                $range = pick('#slot-btn-protect-range'),
+                $lockCell = pick('#slot-chk-locked-cell'),
+                $lockShape = pick('#slot-chk-locked-shape'),
+                $encrypt = pick('#slot-btn-add-password'),
+                $protectForm = pick('#slot-btn-protect-form');
             $review.append('<div class="separator long"></div>');
-            $review.append($protect.children());
+            $review.append($wbSheet, $range, $lockCell, $lockShape, $encrypt, $protectForm);
             tb.setVisible('protect', false);
             tb.tagPanelGroups($review);
         },
@@ -179,6 +190,12 @@ define([
             _.each(sorted, function (o, i) {
                 _.each(o.r.items, function ($c) { $panel.append($c); });
                 var $sep = o.r.sep || $('<div class="separator long"></div>');
+                // ReviewChanges hides the separator after its last visible group; once the
+                // run is no longer last (Protect follows Comments) that separator must show
+                // again, or the two runs merge and share one label
+                if (o.r.sep && $sep.css('display') === 'none' && i < sorted.length - 1 && _.some(o.r.items, function ($c) {
+                    return $c.hasClass('group') && $c.css('display') !== 'none';
+                })) $sep.css('display', '');
                 $panel.append($sep);
                 i === sorted.length - 1 && $sep.css('display', 'none');
             });
@@ -193,6 +210,9 @@ define([
             var f = inData(tb.btnsSetAutofilter), c = inData(tb.btnsClearAutofilter);
             f && f.setCaption && f.setCaption(v.txtFilter);
             c && c.setCaption && c.setCaption(v.txtClearFilter);
+            _.each([f, c], function (b) {
+                if (b && b.cmpEl) b.cmpEl.addClass('elx-captioned');
+            });
         },
 
         // ---- new controls ---------------------------------------------------------------

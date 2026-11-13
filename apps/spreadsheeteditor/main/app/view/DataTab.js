@@ -262,7 +262,13 @@ define([
                     dataHintDirection: 'bottom',
                     dataHintOffset: 'small'
                 });
-                this.toolbar.mode.isElixirLocal && this.btnExternalLinks.setVisible(false);
+                if (this.toolbar.mode.isElixirLocal) {
+                    this.btnExternalLinks.setVisible(false);
+                    // no control left: the group (and its separator) must not show its label alone
+                    var $qg = $host.find('#slot-btn-data-external-links').closest('.group');
+                    $qg.addClass('elx-hidden-group');
+                    $qg.prev('.separator').addClass('elx-hidden-group');
+                }
                 this.lockedControls.push(this.btnExternalLinks);
 
                 this.btnGoalSeek = new Common.UI.Button({

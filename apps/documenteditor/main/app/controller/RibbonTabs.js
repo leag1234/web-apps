@@ -217,7 +217,7 @@ define([
             this.hideSource($pb);
             var $ln = $ps.find('#slot-btn-line-numbers').removeClass('x-huge'),
                 $hy = $ps.find('#slot-btn-hyphenation').removeClass('x-huge'),
-                $col = $('<div class="elset-column elx-rows3"></div>');
+                $col = $('<div class="elset-column elx-rows3 elx-rows3-16"></div>');
             $col.append($('<div class="elset"></div>').append(slot('slot-elx-lay-breaks', '')),
                         $('<div class="elset"></div>').append($ln),
                         $('<div class="elset"></div>').append($hy));
@@ -597,6 +597,15 @@ define([
 
             // Collaboration, Chat, History and Mail Merge after Protect (Word has none of them)
             var $tail = $();
+            // Mail merge lives in the Mailings tab: without its button the group is empty, drop it
+            // (same for Chat and History: the desktop app has neither, only the label would remain)
+            // (and Sharing / Co-editing mode: neither exists in the desktop app, which left the label "Collaboration" alone)
+            _.each([['#slot-btn-sharing', rv.btnSharing || rv.btnCoAuthMode], ['#slot-btn-mailrecepients', rv.btnMailRecepients], ['#slot-btn-chat', rv.btnChat], ['#slot-btn-history', rv.btnHistory]], function (p) {
+                if (p[1]) return;
+                var $mm = $rp.find(p[0]).closest('.group');
+                $mm.prev('.separator').remove();
+                $mm.remove();
+            });
             _.each(['#slot-btn-sharing', '#slot-btn-chat', '#slot-btn-history', '#slot-btn-mailrecepients'], function (id) {
                 var $g = $rp.find(id).closest('.group');
                 if ($g.length) $tail = $tail.add($g.prev('.separator')).add($g);

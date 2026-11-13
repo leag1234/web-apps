@@ -18,7 +18,7 @@ define([
 ], function () {
     'use strict';
 
-    SSE.Controllers.ExcelShortcuts = Backbone.Controller.extend({
+    SSE.Controllers.ExcelShortcuts = Backbone.Controller.extend(_.extend({
         initialize: function () {
             Common.NotificationCenter.on('app:ready', _.bind(this.onAppReady, this));
         },
@@ -660,5 +660,5 @@ define([
             var rt = this.ctrl('RibbonTabs');
             rt && rt.toggleRibbon && rt.toggleRibbon();
         }
-    });
+    }, SSE.Controllers.ExcelShortcuts || {}));
 });

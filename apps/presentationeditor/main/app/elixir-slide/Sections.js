@@ -13,7 +13,7 @@ define([
 ], function () {
     'use strict';
 
-    PE.Controllers.SlideSections = Backbone.Controller.extend({
+    PE.Controllers.SlideSections = Backbone.Controller.extend(_.extend({
         initialize: function () {
             Common.NotificationCenter.on('app:ready', this.onAppReady.bind(this));
         },
@@ -192,5 +192,5 @@ define([
         txtRenameTitle: 'Rename Section',
         txtSectionName: 'Section name',
         txtLongName: 'The name is too long.'
-    });
+    }, PE.Controllers.SlideSections || {}));
 });

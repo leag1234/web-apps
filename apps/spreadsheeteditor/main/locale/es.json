@@ -5718,5 +5718,6 @@
     "Common.ElixirAI.CellStrings.chart": "Gráfico creado a partir de {range}",
     "Common.ElixirAI.CellStrings.pivot": "Tabla dinámica creada a partir de {range}",
     "Common.ElixirAI.CellStrings.rollbackUnverified": "La acción ha fallado. No se ha podido comprobar la cancelación. Revisa la hoja de cálculo y usa Deshacer si es necesario.",
-    "Common.ElixirAI.CellStrings.staleDiscard": "La hoja de cálculo cambió después de esta acción. Usa Deshacer para revisar primero los cambios posteriores; no se descartó ningún cambio."
+    "Common.ElixirAI.CellStrings.staleDiscard": "La hoja de cálculo cambió después de esta acción. Usa Deshacer para revisar primero los cambios posteriores; no se descartó ningún cambio.",
+  "Common.Utils.txtLocalLinkWeb": "Un vínculo a un archivo del equipo solo se puede abrir en la aplicación de escritorio de ElixirOffice."
 }

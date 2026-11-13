@@ -5586,5 +5586,6 @@
   "Common.ElixirAI.SetupStrings.invalid": "Saisissez un point de terminaison HTTPS et un nom de modèle valides.",
   "Common.ElixirAI.SetupStrings.denied": "L’autorisation n’a pas été accordée. L’IA reste désactivée.",
   "Common.ElixirAI.SetupStrings.failed": "Impossible d’enregistrer les paramètres. L’IA reste désactivée.",
-  "Common.ElixirAI.SetupStrings.waiting": "En attente de votre autorisation…"
+  "Common.ElixirAI.SetupStrings.waiting": "En attente de votre autorisation…",
+  "Common.Utils.txtLocalLinkWeb": "Un lien vers un fichier de l’ordinateur ne peut être ouvert que dans l’application de bureau ElixirOffice."
 }

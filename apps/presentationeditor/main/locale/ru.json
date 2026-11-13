@@ -3990,5 +3990,20 @@
   "Common.ElixirAI.SlideStrings.align": "Выровнено фигур: {n}",
   "Common.ElixirAI.SlideStrings.notes": "Заметки докладчика обновлены",
   "Common.ElixirAI.SlideStrings.rollbackUnverified": "Не удалось выполнить действие. Не удалось проверить отмену. Проверьте презентацию и при необходимости используйте команду «Отменить».",
-  "Common.ElixirAI.SlideStrings.staleDiscard": "После этого действия презентация изменилась. Сначала просмотрите последующие изменения с помощью команды «Отменить»; изменения не были отброшены."
+  "Common.ElixirAI.SlideStrings.staleDiscard": "После этого действия презентация изменилась. Сначала просмотрите последующие изменения с помощью команды «Отменить»; изменения не были отброшены.",
+  "PE.Controllers.SlideSections.txtSection": "Раздел",
+  "PE.Controllers.SlideSections.tipSection": "Упорядочите слайды по разделам.",
+  "PE.Controllers.SlideSections.txtAdd": "Добавить раздел",
+  "PE.Controllers.SlideSections.txtRename": "Переименовать раздел",
+  "PE.Controllers.SlideSections.txtRemove": "Удалить раздел",
+  "PE.Controllers.SlideSections.txtRemoveAll": "Удалить все разделы",
+  "PE.Controllers.SlideSections.txtRemoveSlides": "Удалить раздел и слайды",
+  "PE.Controllers.SlideSections.txtCollapseAll": "Свернуть все",
+  "PE.Controllers.SlideSections.txtExpandAll": "Развернуть все",
+  "PE.Controllers.SlideSections.txtMoveUp": "Переместить раздел вверх",
+  "PE.Controllers.SlideSections.txtMoveDown": "Переместить раздел вниз",
+  "PE.Controllers.SlideSections.txtRenameTitle": "Переименование раздела",
+  "PE.Controllers.SlideSections.txtSectionName": "Название раздела",
+  "PE.Controllers.SlideSections.txtLongName": "Название слишком длинное.",
+  "Common.Utils.txtLocalLinkWeb": "Ссылку на файл на компьютере можно открыть только в настольном приложении ElixirOffice."
 }
