@@ -333,6 +333,7 @@ define([
             toolbar.btnIncFontSize.on('click',                          _.bind(this.onIncrease, this));
             toolbar.btnDecFontSize.on('click',                          _.bind(this.onDecrease, this));
             toolbar.mnuChangeCase.on('item:click',                      _.bind(this.onChangeCase, this));
+            toolbar.btnSort.on('click',                                 _.bind(this.onSort, this));
             toolbar.btnBold.on('click',                                 _.bind(this.onBold, this));
             toolbar.btnItalic.on('click',                               _.bind(this.onItalic, this));
             toolbar.btnUnderline.on('click',                            _.bind(this.onUnderline, this));
@@ -1588,6 +1589,11 @@ define([
 
                 Common.NotificationCenter.trigger('edit:complete', this.toolbar);
             }
+        },
+
+        onSort: function() {
+            var sort = this.getApplication().getController('Sort');
+            sort && sort.open();
         },
 
         onChangeCase: function(menu, item, e) {

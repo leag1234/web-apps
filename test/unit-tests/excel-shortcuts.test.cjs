@@ -13,6 +13,7 @@ function load() {
     const notifications = [];
     const context = {
         console,
+        _: require(path.join(root, 'vendor/underscore/underscore-node.cjs')),
         SSE: {Controllers: {}},
         Backbone: {Controller: {extend: specification => specification}},
         Asc: {

@@ -41,7 +41,7 @@ define([
             [S('slot-btn-instextart'), 'W'], [S('slot-btn-datetime'), 'D'], [S('slot-btn-slidenum'), 'SN'],
             [S('slot-btn-insertequation'), 'E'], [S('slot-btn-inssymbol'), 'U'], [S('slot-btn-insvideo'), 'V'], [S('slot-btn-insaudio'), 'O']
         ],
-        design: [[S('slot-btn-colorschemas'), 'C'], [S('slot-btn-slidesize'), 'S'], [S('slot-elx-format-bg'), 'G']],
+        design: [[S('slot-btn-colorschemas'), 'C'], [S('slot-elx-fonts'), 'F'], [S('slot-elx-bgstyles'), 'B'], [S('slot-btn-slidesize'), 'S'], [S('slot-elx-format-bg'), 'G']],
         transit: [[S('transit-button-preview'), 'P'], [S('transit-button-parameters'), 'EO'], [S('transit-button-apply'), 'L']],
         animate: [[S('animation-button-preview'), 'P'], [S('animation-button-parameters'), 'EM'], [S('animation-button-add-effect'), 'AA'],
                   [S('animation-button-pane'), 'C'], [S('animation-trigger'), 'AT'], [S('animation-moveearlier'), 'E'], [S('animation-movelater'), 'L']],

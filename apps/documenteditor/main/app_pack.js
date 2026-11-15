@@ -45,6 +45,7 @@ require([
     'documenteditor/main/app/view/TableSettingsAdvanced',
     'documenteditor/main/app/view/DropcapSettingsAdvanced',
     'documenteditor/main/app/view/StyleTitleDialog',
+    'documenteditor/main/app/view/SortDialog',
     'documenteditor/main/app/view/TableFormulaDialog',
     'documenteditor/main/app/view/TableToTextDialog',
     'documenteditor/main/app/view/TextToTableDialog',

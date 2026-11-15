@@ -99,7 +99,7 @@ define([
             ['review.btnsAddComment.0', 'C'], ['#tlbtn-addcomment-1', 'C'], ['review.btnCommentRemove', 'D'], ['review.btnTurnOn', 'G'],
             ['review.btnReviewView', 'TD'], ['review.btnAccept', 'A2'], ['review.btnReject', 'J'], ['review.btnCompare', 'M'],
             ['review.btnHistory', 'HI'],
-            ['ribbon.btnRevSpelling', 'C1'], ['ribbon.btnRevWordCount', 'W'], ['ribbon.btnRevLanguage', 'U'],
+            ['ribbon.btnRevSpelling', 'C1'], ['ribbon.btnRevThesaurus', 'TH'], ['ribbon.btnRevReadAloud', 'RA'], ['ribbon.btnRevWordCount', 'W'], ['ribbon.btnRevLanguage', 'U'],
             ['ribbon.btnRevPrevComment', 'V'], ['ribbon.btnRevNextComment', 'N'], ['ribbon.btnRevTrack', 'G'],
             ['ribbon.btnRevShowComments', 'P']
         ],

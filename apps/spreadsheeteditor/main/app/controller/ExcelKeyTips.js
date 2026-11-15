@@ -67,7 +67,9 @@ define([
             [S('slot-btn-goal-seek'), 'W'], [S('slot-btn-group'), 'G'], [S('slot-btn-ungroup'), 'U'], [S('slot-btn-solver'), 'Y2']
         ],
         review: [
+            [S('slot-elx-rev-spelling'), 'S'], [S('slot-elx-rev-thesaurus'), 'T'], [S('slot-elx-rev-wbstats'), 'W'],
             [IN('review', '.slot-comment'), 'C'], [S('slot-comment-remove'), 'D'],
+            [S('slot-elx-rev-prevcomment'), 'V'], [S('slot-elx-rev-nextcomment'), 'N'], [S('slot-elx-rev-showcomments'), 'A'],
             [S('slot-btn-protect-sheet'), 'PS'], [S('slot-btn-protect-wb'), 'PW'], [S('slot-btn-allow-ranges'), 'U']
         ],
         view: [

@@ -164,6 +164,8 @@ require([
             ,'WordEditKeys'
             ,'WordViews'
             ,'WordPanes'
+            ,'ReadAloud'
+            ,'Sort'
             ,'WordMailings'
             ,'WordKeyTips'
             ,'MiniToolbar'
@@ -233,6 +235,8 @@ require([
                 ,'documenteditor/main/app/controller/WordEditKeys'
                 ,'documenteditor/main/app/controller/WordViews'
                 ,'documenteditor/main/app/controller/WordPanes'
+                ,'documenteditor/main/app/controller/ReadAloud'
+                ,'documenteditor/main/app/controller/Sort'
                 ,'documenteditor/main/app/controller/WordMailings'
                 ,'documenteditor/main/app/controller/WordKeyTips'
                 ,'documenteditor/main/app/controller/MiniToolbar'
@@ -287,6 +291,7 @@ require([
                     'documenteditor/main/app/view/TableSettingsAdvanced',
                     'documenteditor/main/app/view/DropcapSettingsAdvanced',
                     'documenteditor/main/app/view/StyleTitleDialog',
+                    'documenteditor/main/app/view/SortDialog',
                     'documenteditor/main/app/view/TableFormulaDialog',
                     'documenteditor/main/app/view/TableToTextDialog',
                     'documenteditor/main/app/view/TextToTableDialog',

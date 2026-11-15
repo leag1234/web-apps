@@ -59,6 +59,7 @@ define([
                     'pivottable:blankrows':     _.bind(this.onPivotBlankRows, this),
                     'pivottable:subtotals':     _.bind(this.onPivotSubtotals, this),
                     'pivottable:grandtotals':   _.bind(this.onPivotGrandTotals, this),
+                    'pivottable:group':         _.bind(this.onPivotGroup, this),
                     'pivot:open':               _.bind(this.onPivotOpen, this)
                 },
                 'TableDesignTab': {
@@ -255,6 +256,15 @@ define([
                 this._originalProps.asc_setExpandCollapseByActiveCell(this.api, true, false);
             }
             Common.NotificationCenter.trigger('edit:complete', this);
+        },
+
+        // Group Selection, Group Field and Ungroup run the engine on the selected cells; the Group dialog
+        // (dates by days, months, quarters, years; numbers by ranges) is opened by the engine itself
+        onPivotGroup: function(type) {
+            if (!this.api) return;
+            if (type == 'ungroup') this.api.asc_ungroupPivot();
+            else this.api.asc_groupPivot();
+            Common.NotificationCenter.trigger('edit:complete', this.view);
         },
 
         onPivotStyleSelect: function(record){
@@ -531,8 +541,19 @@ define([
             Common.Utils.lockControls(Common.enumLock.pivotExpandLock, !(pivotInfo && pivotInfo.asc_canExpandCollapseByActiveCell(this.api)), {array: [this.view.btnExpandField, this.view.btnCollapseField]});
             Common.Utils.lockControls(Common.enumLock.pivotCalcItemsLock, !(pivotInfo && pivotInfo.asc_canChangeCalculatedItemByActiveCell()), {array: [this.view.btnCalculatedItems]});
 
+            Common.Utils.lockControls(Common.enumLock.pivotGroupLock, !(pivotInfo && this.canGroup()), {array: [this.view.btnGroupSelection, this.view.btnUngroupPivot, this.view.btnGroupField]});
+
             if (pivotInfo)
                 this.ChangeSettings(pivotInfo);
+        },
+
+        // the cursor or the selection is on items of a row or column field (not on values, totals or the data)
+        canGroup: function() {
+            try {
+                return !!(this.api && this.api.asc_canGroupPivot && this.api.asc_canGroupPivot());
+            } catch (e) {
+                return false;
+            }
         },
 
         onCellsRange: function(status) {

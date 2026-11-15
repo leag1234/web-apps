@@ -21,7 +21,9 @@ define([
     'common/main/lib/component/MetricSpinner',
     'common/main/lib/component/ComboDataView',
     'common/main/lib/component/ColorButton',
-    'common/main/lib/component/RibbonMirror'
+    'common/main/lib/component/RibbonMirror',
+    'common/main/lib/component/WordArtRibbon',
+    'common/main/lib/component/ChartRibbon'
 ], function () {
     'use strict';
 
@@ -72,7 +74,7 @@ define([
                         elset(small('elx-btn-tbl-al-6') + small('elx-btn-tbl-al-7') + small('elx-btn-tbl-al-8')) +
                     '</div>', 'small') +
                 group('alignment', 'cellmargins', big('elx-btn-tbl-direction') + big('elx-btn-tbl-margins')) + SEP +
-                group('data', null, big('elx-btn-tbl-repeat-header') + big('elx-btn-tbl-to-text') + big('elx-btn-tbl-formula'))
+                group('data', null, big('elx-btn-tbl-repeat-header') + big('elx-btn-tbl-sort') + big('elx-btn-tbl-to-text') + big('elx-btn-tbl-formula'))
             ),
             pictureformat: panel('pictureformat',
                 group('adjust', null, big('elx-btn-pic-transparency') + big('elx-btn-pic-change') + big('elx-btn-pic-reset')) + SEP +
@@ -86,6 +88,9 @@ define([
             shapeformat: panel('shapeformat',
                 group('insertshapes', null, big('elx-btn-shp-shapes') + big('elx-btn-shp-edit') + big('elx-btn-shp-textbox')) + SEP +
                 group('shapestyles', 'shapestyles', big('elx-btn-shp-fill') + big('elx-btn-shp-outline') + big('elx-btn-shp-effects')) + SEP +
+                group('wordart', null, big('elx-btn-shp-wa-styles') +
+                    column(elset(small('elx-btn-shp-wa-fill', 'text')) + elset(small('elx-btn-shp-wa-outline', 'text')) + elset(small('elx-btn-shp-wa-effects', 'text'))),
+                    'small elx-three-rows') + SEP +
                 group('text', null, big('elx-btn-shp-direction') + big('elx-btn-shp-aligntext')) + SEP +
                 group('accessibility', null, big('elx-btn-shp-alttext')) + SEP +
                 group('arrange', null, big('elx-btn-shp-position') + big('elx-btn-shp-wrap') + big('elx-btn-shp-forward') +
@@ -93,6 +98,8 @@ define([
                 group('size', 'shpsize', spinRow('elx-lbl-shp-height', 'elx-spin-shp-height') + spinRow('elx-lbl-shp-width', 'elx-spin-shp-width'), 'small')
             ),
             chartdesign: panel('chartdesign',
+                group('chartlayouts', null, big('elx-btn-cht-element') + big('elx-btn-cht-layout')) + SEP +
+                group('chartstyles', null, big('elx-btn-cht-colors')) +
                 '<div class="group small flex elx-cht-styles" id="elx-cht-styles" data-group="chartstyles" data-launcher="chartstyles" style="width: 420px; min-width: 140px;" data-group-width="420px"></div>' + SEP +
                 group('chartdata', null, big('elx-btn-cht-editdata')) + SEP +
                 group('charttype', null, big('elx-btn-cht-type'))
@@ -376,6 +383,7 @@ define([
                 });
                 this.btnTblMargins = this._btn(t, 'elx-btn-tbl-margins', {iconCls: 'toolbar__icon btn-elx-cell-margins', caption: this.txtCellMargins});
                 this.btnTblRepeatHeader = this._btn(t, 'elx-btn-tbl-repeat-header', {iconCls: 'toolbar__icon btn-elx-tbl-repeat-header', caption: this.txtRepeatHeader, enableToggle: true});
+                this.btnTblSort = this._btn(t, 'elx-btn-tbl-sort', {iconCls: 'toolbar__icon btn-elx-sort', caption: this.txtSort});
                 this.btnTblToText = this._btn(t, 'elx-btn-tbl-to-text', {iconCls: 'toolbar__icon btn-elx-tbl-to-text', caption: this.txtConvertToText});
                 this.btnTblFormula = this._btn(t, 'elx-btn-tbl-formula', {iconCls: 'toolbar__icon btn-elx-formula', caption: this.txtFormula});
             },
@@ -484,7 +492,7 @@ define([
             },
 
             createShapeFormat: function () {
-                var t = 'shapeformat', tb = this.toolbar;
+                var t = 'shapeformat', tb = this.toolbar, me = this;
                 this.btnShpShapes = this._btn(t, 'elx-btn-shp-shapes', {
                     iconCls: 'toolbar__icon btn-insertshape', caption: tb.capBtnInsShape,
                     menu: new Common.UI.Menu({cls: 'menu-shapes menu-insert-shape', items: []})
@@ -522,6 +530,25 @@ define([
                         {caption: this.txtAlignBottom, iconCls: 'menu__icon btn-align-bottom', checkable: true, checkmark: false, toggleGroup: 'elx-shp-valign', valign: Asc.c_oAscVAlign.Bottom}
                     ]})
                 });
+                // WordArt Styles: Quick Styles, Text Fill, Text Outline, Text Effects (Common.UI.WordArtRibbon)
+                this.wordArt = Common.UI.WordArtRibbon.create({
+                    strings: this,
+                    ids: {styles: 'elx-btn-shp-wa-styles', fill: 'elx-btn-shp-wa-fill', outline: 'elx-btn-shp-wa-outline', effects: 'elx-btn-shp-wa-effects'},
+                    lock: this._baseLock(),
+                    add: function (slot, cmp) { me._register(t, slot, cmp); },
+                    api: function () { return DE.getController('ContextTabs').api; },
+                    apply: function (fn) {
+                        var api = DE.getController('ContextTabs').api;
+                        if (!api) return;
+                        var p = new Asc.asc_CImgProperty(), sp = new Asc.asc_CShapeProperty();
+                        fn(sp);
+                        p.put_ShapeProperties(sp);
+                        api.ImgApply(p);
+                    },
+                    collection: function () { return DE.getCollection('Common.Collections.TextArt'); },
+                    fillTextArt: function () { var api = DE.getController('ContextTabs').api; api && DE.getController('Main').fillTextArt(api.asc_getTextArtPreviews()); },
+                    done: function () { Common.NotificationCenter.trigger('edit:complete', tb); }
+                });
                 this.btnShpAltText = this._btn(t, 'elx-btn-shp-alttext', {iconCls: 'toolbar__icon btn-elx-alt-text', caption: this.txtAltText});
                 this.shpArrange = this._createArrange(t, 'shp');
                 this.spnShpHeight = this._spinner(t, 'elx-lbl-shp-height', 'elx-spin-shp-height', this.txtHeight);
@@ -546,6 +573,19 @@ define([
                     dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: '-16, 0'
                 });
                 this._register(t, 'elx-cht-styles', this.chartStyles);
+                // Chart Layouts (Add Chart Element, Quick Layout) and Change Colors: Common.UI.ChartRibbon, shared with Excel and PowerPoint
+                var me = this, ctx = function () { return DE.getController('ContextTabs'); }, dh = function () { return DE.getController('DocumentHolder'); };
+                this.chartRibbon = Common.UI.ChartRibbon.create({
+                    strings: this,
+                    ids: {element: 'elx-btn-cht-element', layout: 'elx-btn-cht-layout', colors: 'elx-btn-cht-colors'},
+                    lock: this._baseLock(),
+                    add: function (id, cmp) { me._register('chartdesign', id, cmp); },
+                    api: function () { return ctx().api; },
+                    chart: function () { return ctx().getChartProps(); },
+                    dh: dh,
+                    sourceMenu: function () { var h = dh(); return h && h.documentHolder && h.documentHolder.menuChartElement && h.documentHolder.menuChartElement.menu; },
+                    done: function () { Common.NotificationCenter.trigger('edit:complete', me.toolbar); }
+                });
                 this.btnChtEditData = this._btn(t, 'elx-btn-cht-editdata', {iconCls: 'toolbar__icon btn-elx-edit-data', caption: this.txtEditData});
                 this.btnChtType = this._btn(t, 'elx-btn-cht-type', {
                     iconCls: 'toolbar__icon btn-elx-chart-type', caption: this.txtChangeChartType,
@@ -654,6 +694,13 @@ define([
             txtTabChartDesign: 'Chart Design',
             txtTabChartFormat: 'Format',
             txtGroupChartstyles: 'Chart Styles',
+            txtGroupChartlayouts: 'Chart Layouts',
+            txtAddChartElement: 'Add Chart Element',
+            txtQuickLayout: 'Quick Layout',
+            txtChangeColors: 'Change Colors',
+            txtLayout: 'Layout',
+            txtColorful: 'Colorful',
+            txtMonochromatic: 'Monochromatic',
             txtGroupChartdata: 'Data',
             txtGroupCharttype: 'Type',
             txtChartStyles: 'Chart Styles',
@@ -675,6 +722,12 @@ define([
             txtGroupSize: 'Size',
             txtGroupInsertshapes: 'Insert Shapes',
             txtGroupShapestyles: 'Shape Styles',
+            txtGroupWordart: 'WordArt Styles',
+            txtWordArtQuickStyles: 'Quick Styles',
+            txtTextFill: 'Text Fill',
+            txtTextOutline: 'Text Outline',
+            txtTextEffects: 'Text Effects',
+            txtTransform: 'Transform',
             txtGroupText: 'Text',
             txtGroupTools: 'Tools',
             txtGroupSymbols: 'Symbols',
@@ -745,6 +798,7 @@ define([
             txtRepeatHeader: 'Repeat Header Rows',
             txtConvertToText: 'Convert to Text',
             txtFormula: 'Formula',
+            txtSort: 'Sort',
             txtPosition: 'Position',
             txtInLine: 'In Line with Text',
             txtPosTopLeft: 'Position in Top Left',

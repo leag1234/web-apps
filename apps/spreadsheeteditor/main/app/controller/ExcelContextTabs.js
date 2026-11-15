@@ -4,7 +4,8 @@
  *
  * SSE.Controllers.ExcelContextTabs: Excel's contextual tabs for the objects
  * of a sheet, shown at the right of the tab row while the object is selected:
- * - Chart Design (Change Chart Type, Select Data, Switch Row/Column) and
+ * - Chart Design (Add Chart Element, Quick Layout, Change Colors, Chart Styles, Change Chart Type,
+ *   Select Data, Switch Row/Column; Common.UI.ChartRibbon) and
  *   Format (Format pane, Arrange) for a chart;
  * - Shape Format (Insert Shapes, Text Box, Format pane, Arrange) for a shape;
  * - Picture Format (Format pane, Arrange) for a picture.
@@ -16,7 +17,8 @@
 define([
     'core',
     'common/main/lib/component/Button',
-    'common/main/lib/component/RibbonMirror'
+    'common/main/lib/component/RibbonMirror',
+    'common/main/lib/component/ChartRibbon'
 ], function () {
     'use strict';
 
@@ -100,7 +102,8 @@ define([
                 tb.$el.find('.ribtab > a[data-tab=' + action + ']').closest('.ribtab').addClass('contextual');
             };
             // Chart Design
-            var $cd = this.panel([['type', ['slot-elx-chart-type']], ['data', ['slot-elx-chart-switch', 'slot-elx-chart-data']]]);
+            var $cd = this.panel([['chartlayouts', ['slot-elx-chart-element', 'slot-elx-chart-layout']], ['chartstyles', ['slot-elx-chart-colors', 'slot-elx-chart-styles']],
+                ['type', ['slot-elx-chart-type']], ['data', ['slot-elx-chart-switch', 'slot-elx-chart-data']]]);
             add('chartdesign', this.txtChartDesign, $cd);
             this.btnChartType = this.bigBtn($cd.find('#slot-elx-chart-type'), {caption: this.txtChangeChartType, iconCls: 'toolbar__icon btn-big-elx-chart-type'});
             this.btnChartSwitch = this.bigBtn($cd.find('#slot-elx-chart-switch'), {caption: this.txtSwitchRowCol, iconCls: 'toolbar__icon btn-big-elx-switch-rowcol'});
@@ -108,6 +111,24 @@ define([
             this.btnChartType.on('click', function () { me.chartChangeType(); });
             this.btnChartSwitch.on('click', function () { me.chartSwitch(); });
             this.btnChartData.on('click', function () { me.chartSelectData(); });
+            this.chartRibbon = Common.UI.ChartRibbon.create({
+                strings: this,
+                ids: {element: 'slot-elx-chart-element', layout: 'slot-elx-chart-layout', colors: 'slot-elx-chart-colors', styles: 'slot-elx-chart-styles'},
+                lock: [],
+                transaction: true,
+                add: function (id, cmp) { cmp.render($cd.find('#' + id)); (me.chartCtrls = me.chartCtrls || []).push(cmp); },
+                api: function () { return me.api; },
+                chart: function () { return me.chartProps(); },
+                dh: function () { return me.ctrl('DocumentHolder'); },
+                sourceMenu: function () { var h = me.ctrl('DocumentHolder'); return h && h.documentHolder && h.documentHolder.menuChartElement && h.documentHolder.menuChartElement.menu; },
+                applyStyle: function (props, style) {
+                    var p = new Asc.asc_CImgProperty();
+                    props.putStyle(style);
+                    p.asc_putChartProperties(props);
+                    me.api.asc_setGraphicObjectProps(p);
+                },
+                done: function () { Common.NotificationCenter.trigger('edit:complete', me.tb); }
+            });
             // Format (chart)
             var $cf = this.panel([['currentselection', ['slot-elx-chart-pane']], this.arrange('cf')]);
             add('chartformat', this.txtFormat, $cf);
@@ -162,6 +183,7 @@ define([
             this.btnChartType && this.btnChartType.setDisabled(!editable);
             this.btnChartData && this.btnChartData.setDisabled(!editable);
             this.btnChartSwitch && this.btnChartSwitch.setDisabled(!editable);
+            _.each(this.chartCtrls || [], function (b) { b.setDisabled(!editable); });
         },
 
         openPane: function (type) {
@@ -170,6 +192,17 @@ define([
         },
 
         // ---- chart commands (those of the right panel, SSE.Views.ChartSettings) -----------
+        // the asc_ChartSettings of the selected chart, fresh (what the chart's floating button uses)
+        chartProps: function () {
+            var found = null;
+            _.each(this.api.asc_getGraphicObjectProps() || [], function (o) {
+                if (found || o.asc_getObjectType() !== Asc.c_oAscTypeSelectElement.Image) return;
+                var cp = o.asc_getObjectValue().asc_getChartProperties();
+                cp && (found = cp);
+            });
+            return found;
+        },
+
         chartType: function () {
             var objs = this.api.asc_getGraphicObjectProps() || [], type;
             _.each(objs, function (o) {
@@ -199,6 +232,13 @@ define([
         txtChangeChartType: 'Change Chart Type',
         txtSwitchRowCol: 'Switch Row/Column',
         txtSelectData: 'Select Data',
-        txtFormatPane: 'Format Pane'
+        txtFormatPane: 'Format Pane',
+        txtAddChartElement: 'Add Chart Element',
+        txtQuickLayout: 'Quick Layout',
+        txtChangeColors: 'Change Colors',
+        txtChartStyles: 'Chart Styles',
+        txtLayout: 'Layout',
+        txtColorful: 'Colorful',
+        txtMonochromatic: 'Monochromatic'
     }, SSE.Controllers.ExcelContextTabs || {}));
 });

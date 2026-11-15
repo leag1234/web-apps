@@ -76,6 +76,20 @@ define([
                 '</div>' +
                 '<div class="separator long"></div>' +
                 '<div class="group small">' +
+                    '<div class="elset-column elx-rows3">' +
+                        '<div class="elset">' +
+                            '<span class="btn-slot text" id="slot-btn-group-selection"></span>' +
+                        '</div>' +
+                        '<div class="elset">' +
+                            '<span class="btn-slot text" id="slot-btn-ungroup-pivot"></span>' +
+                        '</div>' +
+                        '<div class="elset">' +
+                            '<span class="btn-slot text" id="slot-btn-group-field"></span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="separator long"></div>' +
+                '<div class="group small">' +
                     '<div class="elset">' +
                         '<span class="btn-slot text" id="slot-chk-header-row"></span>' +
                     '</div>' +
@@ -144,6 +158,18 @@ define([
 
             this.btnCollapseField.on('click', function (e) {
                 me.fireEvent('pivottable:collapse');
+            });
+
+            this.btnGroupSelection.on('click', function (e) {
+                me.fireEvent('pivottable:group', ['selection']);
+            });
+
+            this.btnUngroupPivot.on('click', function (e) {
+                me.fireEvent('pivottable:group', ['ungroup']);
+            });
+
+            this.btnGroupField.on('click', function (e) {
+                me.fireEvent('pivottable:group', ['field']);
             });
 
             this.chRowHeader.on('change', function (field, value) {
@@ -331,6 +357,39 @@ define([
                 });
                 this.lockedControls.push(this.btnCollapseField);
 
+                this.btnGroupSelection = new Common.UI.Button({
+                    cls: 'btn-toolbar',
+                    iconCls: 'toolbar__icon btn-elx-group-selection',
+                    caption: this.txtGroupSelection,
+                    lock        : [_set.lostConnect, _set.coAuth, _set.noPivot, _set.selRangeEdit, _set.pivotLock, _set.pivotGroupLock, _set['FormatCells'], _set['PivotTables']],
+                    dataHint    : '1',
+                    dataHintDirection: 'bottom',
+                    dataHintOffset: 'small'
+                });
+                this.lockedControls.push(this.btnGroupSelection);
+
+                this.btnUngroupPivot = new Common.UI.Button({
+                    cls: 'btn-toolbar',
+                    iconCls: 'toolbar__icon btn-elx-ungroup-pivot',
+                    caption: this.txtUngroupPivot,
+                    lock        : [_set.lostConnect, _set.coAuth, _set.noPivot, _set.selRangeEdit, _set.pivotLock, _set.pivotGroupLock, _set['FormatCells'], _set['PivotTables']],
+                    dataHint    : '1',
+                    dataHintDirection: 'bottom',
+                    dataHintOffset: 'small'
+                });
+                this.lockedControls.push(this.btnUngroupPivot);
+
+                this.btnGroupField = new Common.UI.Button({
+                    cls: 'btn-toolbar',
+                    iconCls: 'toolbar__icon btn-elx-group-field',
+                    caption: this.txtGroupField,
+                    lock        : [_set.lostConnect, _set.coAuth, _set.noPivot, _set.selRangeEdit, _set.pivotLock, _set.pivotGroupLock, _set['FormatCells'], _set['PivotTables']],
+                    dataHint    : '1',
+                    dataHintDirection: 'bottom',
+                    dataHintOffset: 'small'
+                });
+                this.lockedControls.push(this.btnGroupField);
+
                 this.pivotStyles = new Common.UI.ComboDataView({
                     cls             : 'combo-pivot-template',
                     style           : 'min-width: 103px; max-width: 517px;',
@@ -397,6 +456,9 @@ define([
                     });
                     me.btnSelectPivot.updateHint(me.tipSelect);
                     me.btnCalculatedItems.updateHint(me.tipCalculatedItems);
+                    me.btnGroupSelection.updateHint(me.tipGroupSelection);
+                    me.btnUngroupPivot.updateHint(me.tipUngroupPivot);
+                    me.btnGroupField.updateHint(me.tipGroupField);
                     me.btnPivotLayout.updateHint(me.capLayout);
                     me.btnPivotLayout.setMenu(new Common.UI.Menu({
                         items: [
@@ -465,6 +527,9 @@ define([
                 this.btnCalculatedItems.render(this.$el.find('#slot-btn-calculated-items'));
                 this.btnExpandField.render(this.$el.find('#slot-btn-expand-field'));
                 this.btnCollapseField.render(this.$el.find('#slot-btn-collapse-field'));
+                this.btnGroupSelection.render(this.$el.find('#slot-btn-group-selection'));
+                this.btnUngroupPivot.render(this.$el.find('#slot-btn-ungroup-pivot'));
+                this.btnGroupField.render(this.$el.find('#slot-btn-group-field'));
                 this.btnPivotLayout.render(this.$el.find('#slot-btn-pivot-report-layout'));
                 this.btnPivotBlankRows.render(this.$el.find('#slot-btn-pivot-blank-rows'));
                 this.btnPivotSubtotals.render(this.$el.find('#slot-btn-pivot-subtotals'));
@@ -526,6 +591,12 @@ define([
             tipCalculatedItems: 'Calculated items',
             txtExpandEntire: 'Expand Entire Field',
             txtCollapseEntire: 'Collapse Entire Field',
+            txtGroupSelection: 'Group Selection',
+            txtUngroupPivot: 'Ungroup',
+            txtGroupField: 'Group Field',
+            tipGroupSelection: 'Group the selected items of the PivotTable, or the dates or numbers of the field in ranges',
+            tipUngroupPivot: 'Ungroup the selected items, or the grouped dates or numbers of the field',
+            tipGroupField: 'Group the dates (days, months, quarters, years) or the numbers (ranges) of the field',
             tipSelect: 'Select entire pivot table',
             txtPivotTable: 'Pivot Table',
             txtTable_PivotStyleMedium: 'Pivot Table Style Medium',

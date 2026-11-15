@@ -349,15 +349,23 @@ define([
             var me = this, $ct = $('#editor-container');
             if (!$ct.length) return;
             this.api.asc_WatchRecalculation && this.api.asc_WatchRecalculation();
-            this._state.split = {ratio: 0.5};
+            this._state.split = {ratio: 0.5, lower: false, target: null};
+            if (!this._onSplitTarget) {
+                this._onSplitTarget = _.bind(this.onSplitTarget, this);
+                this.api.asc_registerCallback('asc_onElxTarget', this._onSplitTarget);
+            }
             $ct.css('position', 'relative');
             this.$splitBar = $('<div id="elx-split-bar" title="' + this.tipSplitBar + '" style="position:absolute;left:0;height:6px;cursor:row-resize;z-index:5;' +
                 'background:var(--background-toolbar, #f1f1f1);border-top:1px solid var(--border-toolbar, #cbcbcb);border-bottom:1px solid var(--border-toolbar, #cbcbcb);box-sizing:border-box;"></div>');
-            this.$splitPane = $('<div id="elx-split-pane" tabindex="-1" style="position:absolute;left:0;bottom:0;overflow:auto;z-index:4;background:var(--canvas-background, #e2e2e2);">' +
+            this.$splitPane = $('<div id="elx-split-pane" tabindex="-1" style="position:absolute;left:0;bottom:0;overflow:hidden;z-index:4;background:var(--canvas-background, #e2e2e2);">' +
                 '<div class="elx-split-pages" style="position:relative;"></div></div>');
             $ct.append(this.$splitBar, this.$splitPane);
+            // the application scrollbar, as in the upper pane
+            this.splitScroller = new Common.UI.Scroller({el: this.$splitPane, suppressScrollX: true, alwaysVisibleY: true});
             this.$splitPane.on('scroll', _.throttle(function () { me.renderSplitPages(false); }, 60));
             this.$splitPane.on('mousedown', '.elx-split-page', function (e) { me.onSplitPageClick(e, $(this)); });
+            // a click in the upper pane gives the keyboard back to it (and to its scrolling)
+            $('#editor_sdk').on('mousedown.elxsplit', function () { me.setSplitLower(false); });
             this.$splitBar.on('dblclick', function () { me.toggleSplit(false); });
             this.$splitBar.on('mousedown', function (e) {
                 e.preventDefault();
@@ -379,6 +387,10 @@ define([
         },
 
         closeSplit: function () {
+            this.setSplitLower(false);
+            $('#editor_sdk').off('mousedown.elxsplit');
+            this.splitScroller && this.splitScroller.destroy();
+            this.splitScroller = null;
             this.$splitBar && this.$splitBar.remove();
             this.$splitPane && this.$splitPane.remove();
             this.$splitBar = this.$splitPane = null;
@@ -417,6 +429,7 @@ define([
             var me = this, boxes = this.splitGeometry(), $pages = this.$splitPane.find('.elx-split-pages');
             var last = boxes[boxes.length - 1];
             $pages.css('height', (last ? last.top + last.h + 10 : 0) + 'px');
+            this.splitScroller && this.splitScroller.update();
             var $existing = $pages.children('.elx-split-page');
             $existing.each(function () { var i = +$(this).attr('data-page'); if (!boxes[i]) $(this).remove(); });
             var viewTop = this.$splitPane.scrollTop(), viewBottom = viewTop + this.$splitPane.height(), ratio = window.devicePixelRatio || 1;
@@ -434,6 +447,41 @@ define([
                     $p.data('drawn', me.api.asc_DrawPageToCanvas(i, $p[0], b.w * ratio));
                 }
             });
+            this.showSplitCaret(false);
+        },
+
+        // The lower pane is a picture of the document, so it has no caret of its own. While it has the
+        // keyboard the engine is told not to scroll the upper pane to the caret, and the caret is drawn here.
+        setSplitLower: function (on) {
+            var st = this._state.split;
+            if (st && !!st.lower === !!on) return;
+            if (st) st.lower = !!on;
+            this.api && this.api.asc_LockScrollToTarget && this.api.asc_LockScrollToTarget(!!on);
+            if (!on) this.$splitPane && this.$splitPane.find('.elx-split-caret').remove();
+            else this.showSplitCaret(true);
+        },
+
+        onSplitTarget: function (x, y, page, size) {
+            var st = this._state.split;
+            if (!st) return;
+            st.target = {x: x, y: y, page: page, size: size};
+            st.lower && this.showSplitCaret(true);
+        },
+
+        showSplitCaret: function (reveal) {
+            var st = this._state.split;
+            if (!st || !this.$splitPane) return;
+            var $pages = this.$splitPane.find('.elx-split-pages'), $c = $pages.children('.elx-split-caret');
+            var t = st.target, b = t && st.lower && this.splitGeometry()[t.page];
+            if (!b) { $c.remove(); return; }
+            var k = b.w / b.mmW, top = b.top + t.y * k, h = Math.max(8, t.size * k);
+            if (!$c.length) $c = $('<div class="elx-split-caret" style="position:absolute;width:1px;background:var(--text-normal, #000);pointer-events:none;z-index:2;"></div>').appendTo($pages);
+            $c.css({left: Math.round(b.left + t.x * k) + 'px', top: Math.round(top) + 'px', height: Math.round(h) + 'px'});
+            if (reveal) {
+                var vt = this.$splitPane.scrollTop(), vh = this.$splitPane.height();
+                if (top < vt) this.$splitPane.scrollTop(Math.max(0, top - 20));
+                else if (top + h > vt + vh) this.$splitPane.scrollTop(top + h - vh + 20);
+            }
         },
 
         onSplitPageClick: function (e, $p) {
@@ -441,6 +489,7 @@ define([
             if (!b) return;
             var off = $p.offset(), x = (e.pageX - off.left) / b.w * b.mmW, y = (e.pageY - off.top) / b.h * b.mmH;
             e.preventDefault();
+            this.setSplitLower(true);
             this.api.asc_ClickInPage(i, x, y);
             this.api.asc_enableKeyEvents(true);
             var area = document.getElementById('area_id');

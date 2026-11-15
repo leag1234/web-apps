@@ -353,6 +353,18 @@ define([
             this.updateArrange(v.chtArrange, props);
         },
 
+        // the asc_ChartSettings of the selected chart, fresh (what the chart's floating button uses)
+        getChartProps: function () {
+            var els = this.api && this.api.getSelectedElements() || [], found = null;
+            _.each(els, function (el) {
+                if (!found && el.asc_getObjectType() === Asc.c_oAscTypeSelectElement.Image) {
+                    var cp = el.asc_getObjectValue().asc_getChartProperties();
+                    cp && (found = cp);
+                }
+            });
+            return found;
+        },
+
         isComboChart: function (type) {
             var t = Asc.c_oAscChartTypeSettings;
             return type === t.comboBarLine || type === t.comboBarLineSecondary || type === t.comboAreaBar || type === t.comboCustom;
@@ -490,6 +502,7 @@ define([
                 if (!b.menu || !_.isObject(b.menu)) { b.setMenu(); b.getPicker(); }
                 b.getPicker().updateColors(eff, std);
             });
+            v.wordArt && v.wordArt.updateColors(eff, std);
         },
 
         // ---- table styles gallery --------------------------------------------------------
@@ -721,6 +734,10 @@ define([
             v.btnTblDirection.menu.on('item:click', function (menu, item) { tbl(function (p) { p.put_CellsTextDirection(item.options.direction); }); });
             v.btnTblMargins.on('click', function () { me.openTableAdvanced(1); });
             v.btnTblRepeatHeader.on('click', function (btn) { tbl(function (p) { p.put_RowsInHeader(btn.pressed); }); });
+            v.btnTblSort.on('click', function () {
+                var sort = me.getApplication().getController('Sort');
+                sort && sort.open();
+            });
             v.btnTblToText.on('click', function () {
                 (new DE.Views.TableToTextDialog({
                     handler: function (dlg, result) {

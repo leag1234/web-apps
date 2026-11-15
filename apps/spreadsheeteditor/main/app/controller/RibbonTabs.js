@@ -112,6 +112,7 @@ define([
             this.bindRibbonShortcuts();
             setTimeout(function () {
                 me.arrangeTabs();
+                me.arrangeReview();
                 me.mergeProtection();
                 me.reorderRuns('review', ['proofing', 'comments', 'protect', 'collaboration', 'chat', 'history']);
                 me.reorderRuns('view', ['sheetview', 'workbookviews', 'show', 'zoom', 'window', 'interface', 'appearance', 'macros']);
@@ -133,6 +134,52 @@ define([
                 // contextual tabs: at the right, in the accent colour, like Excel
                 /^(pivot|tabledesign|chartdesign|chartformat|shapeformat|pictureformat)$/.test(tab) && $a.closest('.ribtab').addClass('contextual');
             });
+        },
+
+        // Review, like Excel: Proofing (Spelling, Thesaurus, Workbook Statistics) first, then the comments
+        // (New, Delete, Previous, Next, Show Comments); Protect follows (mergeProtection)
+        arrangeReview: function () {
+            var me = this, v = this.view, tb = this.toolbar, app = this.getApplication(),
+                rc = app.getController('Common.Controllers.ReviewChanges'),
+                rv = rc && rc.getView('Common.Views.ReviewChanges'),
+                er = app.getController('ExcelReview'),
+                $rp = tb && tb.$el && tb.$el.find('.box-panels > .panel[data-tab=review]');
+            if (!$rp || !$rp.length || !rv || $rp.hasClass('elx-review-arranged')) return;
+            $rp.addClass('elx-review-arranged');
+            var sep = function () { return $('<div class="separator long"></div>'); },
+                big = function (id) { return '<span class="btn-slot text x-huge" id="' + id + '"></span>'; },
+                small = function (id) { return '<div class="elset"><span class="btn-slot text" id="' + id + '"></span></div>'; };
+
+            // Proofing: the big Spelling button with Thesaurus and Workbook Statistics stacked next to it
+            var $proof = $('<div class="group" data-group="proofing">' + big('slot-elx-rev-spelling') +
+                '<div class="elset-column">' + small('slot-elx-rev-thesaurus') + small('slot-elx-rev-wbstats') + '</div></div>');
+            $rp.prepend($proof, sep());
+            var lm = function () { var c = app.getController('LeftMenu'); return c && c.leftMenu; };
+            // Spelling opens the Spell Checking pane, like F7; it is locked as the pane button of the left menu is
+            v.btnRevSpelling = v.liveMirror($rp.find('#slot-elx-rev-spelling'), function () { var l = lm(); return l && l.btnSpellcheck; }, {
+                caption: v.txtSpelling, iconCls: 'toolbar__icon btn-elx-spelling', hint: v.tipSpelling, split: false,
+                click: function () { var sc = app.getController('ExcelShortcuts'); sc && sc.spelling(); }
+            });
+            v.btnRevThesaurus = v.liveBtn($rp.find('#slot-elx-rev-thesaurus'), {cls: 'btn-toolbar', caption: v.txtThesaurus, iconCls: 'toolbar__icon btn-elx-thesaurus', hint: v.tipThesaurus});
+            v.btnRevThesaurus.on('click', function () { er && er.openThesaurus(); });
+            v.btnRevWbStats = v.liveBtn($rp.find('#slot-elx-rev-wbstats'), {cls: 'btn-toolbar', caption: v.txtWorkbookStats, iconCls: 'toolbar__icon btn-elx-workbook-stats', hint: v.tipWorkbookStats});
+            v.btnRevWbStats.on('click', function () { er && er.showStatistics(); });
+
+            // Comments: New, Delete, then Previous, Next and Show Comments
+            var $comments = $rp.find('#slot-comment-remove').closest('.group').attr('data-group', 'comments');
+            $comments.append('<div class="elset-column">' + small('slot-elx-rev-prevcomment') + small('slot-elx-rev-nextcomment') + '</div>' + big('slot-elx-rev-showcomments'));
+            v.btnRevPrevComment = v.liveBtn($rp.find('#slot-elx-rev-prevcomment'), {cls: 'btn-toolbar', caption: v.txtPrevComment, iconCls: 'toolbar__icon btn-elx-prev-comment', hint: v.tipPrevComment});
+            v.btnRevNextComment = v.liveBtn($rp.find('#slot-elx-rev-nextcomment'), {cls: 'btn-toolbar', caption: v.txtNextComment, iconCls: 'toolbar__icon btn-elx-next-comment', hint: v.tipNextComment});
+            v.btnRevPrevComment.on('click', function () { er && er.gotoComment(-1); });
+            v.btnRevNextComment.on('click', function () { er && er.gotoComment(1); });
+            v.btnRevShowComments = v.liveMirror($rp.find('#slot-elx-rev-showcomments'), function () { var l = lm(); return l && l.btnComments; }, {
+                caption: v.txtShowComments, iconCls: 'toolbar__icon btn-big-menu-comments', hint: v.tipShowComments
+            });
+            var tbc = app.getController('Toolbar');
+            _.each((tbc && tbc.btnsComment) || [], function (b) {
+                b && b.cmpEl && b.cmpEl.closest('#review-changes-panel').length && b.setCaption(v.txtNewComment);
+            });
+            tb.tagPanelGroups && tb.tagPanelGroups($rp);
         },
 
         // Excel's Review tab holds Protect Sheet / Protect Workbook / Allow Edit Ranges

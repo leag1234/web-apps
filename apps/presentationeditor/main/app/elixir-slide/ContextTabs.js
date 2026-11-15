@@ -18,12 +18,18 @@ define([
     'common/main/lib/component/Button',
     'common/main/lib/component/RibbonMirror',
     'common/main/lib/component/CheckBox',
-    'common/main/lib/component/MetricSpinner'
+    'common/main/lib/component/MetricSpinner',
+    'common/main/lib/component/ColorButton',
+    'common/main/lib/component/ComboBorderSize',
+    'common/main/lib/component/WordArtRibbon',
+    'common/main/lib/component/ChartRibbon'
 ], function () {
     'use strict';
 
     var TABS = ['shapeformat', 'pictureformat', 'tabledesign', 'tablelayout', 'chartdesign'];
     var KEYTIPS = { shapeformat: 'JD', pictureformat: 'JP', tabledesign: 'JT', tablelayout: 'JL', chartdesign: 'JC' };
+
+    var CELL_MARGINS = { none: [0, 0, 0, 0], narrow: [1.27, 1.27, 1.27, 1.27], moderate: [1.905, 1.27, 1.905, 1.27], wide: [5.08, 1.27, 5.08, 1.27] };
 
     var STRINGS = {
         txtTabShapeFormat: 'Shape Format', txtTabPictureFormat: 'Picture Format', txtTabTableDesign: 'Table Design',
@@ -46,7 +52,20 @@ define([
         txtInsertAbove: 'Insert Above', txtInsertBelow: 'Insert Below', txtInsertLeft: 'Insert Left', txtInsertRight: 'Insert Right',
         txtMergeCells: 'Merge Cells', txtSplitCells: 'Split Cells', txtDistRows: 'Distribute Rows', txtDistCols: 'Distribute Columns',
         txtAlignTop: 'Align Top', txtAlignMiddle: 'Center Vertically', txtAlignBottom: 'Align Bottom',
-        txtChangeChartType: 'Change Chart Type', txtEditData: 'Edit Data', txtProperties: 'Properties'
+        txtChangeChartType: 'Change Chart Type', txtEditData: 'Edit Data', txtProperties: 'Properties',
+        txtGroupDrawBorders: 'Draw Borders', txtGroupCellSize: 'Cell Size', txtGroupWordArt: 'WordArt Styles',
+        txtPenWeight: 'Pen Weight', txtPenColor: 'Pen Color', txtBorders: 'Borders',
+        txtBorderBottom: 'Bottom Border', txtBorderTop: 'Top Border', txtBorderLeft: 'Left Border', txtBorderRight: 'Right Border',
+        txtBorderNone: 'No Border', txtBorderAll: 'All Borders', txtBorderOutside: 'Outside Borders', txtBorderInside: 'Inside Borders',
+        txtBorderInsideH: 'Inside Horizontal Border', txtBorderInsideV: 'Inside Vertical Border', txtTableProperties: 'Table Properties...',
+        txtTextDirection: 'Text Direction', txtDirHorizontal: 'Horizontal', txtDirRotateDown: 'Rotate all text 90°', txtDirRotateUp: 'Rotate all text 270°',
+        txtCellMargins: 'Cell Margins', txtMarginsNormal: 'Normal', txtMarginsNone: 'None', txtMarginsNarrow: 'Narrow',
+        txtMarginsModerate: 'Moderate', txtMarginsWide: 'Wide', txtMarginsCustom: 'Custom Margins...',
+        txtWordArtQuickStyles: 'Quick Styles', txtTextFill: 'Text Fill', txtTextOutline: 'Text Outline', txtTextEffects: 'Text Effects',
+        txtTransform: 'Transform', txtWeight: 'Weight',
+        txtGroupChartlayouts: 'Chart Layouts', txtGroupChartstyles: 'Chart Styles', txtAddChartElement: 'Add Chart Element',
+        txtQuickLayout: 'Quick Layout', txtChangeColors: 'Change Colors', txtChartStyles: 'Chart Styles', txtLayout: 'Layout',
+        txtColorful: 'Colorful', txtMonochromatic: 'Monochromatic'
     };
 
     PE.Views.SlideContextTabs = Backbone.View.extend(_.extend({ initialize: function () {} }, STRINGS, PE.Views.SlideContextTabs || {}));
@@ -191,12 +210,29 @@ define([
         },
         arrangeHtml: function (pfx) { return this.smallRows([pfx + '-arrange', pfx + '-align']); },
 
-        // Shape Format: Shape Styles | Arrange | Size
+        // WordArt Styles group (Common.UI.WordArtRibbon, shared with the document editor)
+        wordArt: function ($p, pfx) {
+            var me = this, s = this.strings, _set = Common.enumLock;
+            this.wa = Common.UI.WordArtRibbon.create({
+                strings: s,
+                ids: { styles: pfx + '-wa-styles', fill: pfx + '-wa-fill', outline: pfx + '-wa-outline', effects: pfx + '-wa-effects' },
+                lock: [_set.lostConnect, _set.noSlides, _set.disableOnStart],
+                add: function (id, cmp) { cmp.render($p.find('#' + id)); me.controls.push(cmp); },
+                apply: function (fn) { if (!me.api) return; var props = new Asc.asc_CShapeProperty(); fn(props); me.api.ShapeApply(props); },
+                api: function () { return me.api; },
+                collection: function () { return PE.getCollection('Common.Collections.TextArt'); },
+                fillTextArt: function () { me.api && PE.getController('Main').fillTextArt(me.api.asc_getTextArtPreviews()); },
+                done: function () { me.done(); }
+            });
+        },
+
+        // Shape Format: Shape Styles | WordArt Styles | Arrange | Size
         build_shapeformat: function ($p) {
             var s = this.strings, me = this;
             this.layout($p, [
                 ['shapeStyles', this.smallRows(['sf-fill', 'sf-outline']) , 'small', 'shape'],
                 ['', this.big('sf-pane')],
+                ['wordArt', this.big('sf-wa-styles') + '<div class="elset-column">' + this.smallRows(['sf-wa-fill', 'sf-wa-outline', 'sf-wa-effects']) + '</div>', 'small elx-three-rows'],
                 ['arrange', this.arrangeHtml('sf'), 'small'],
                 ['size', this.sizeHtml('sf'), 'small elx-size', 'shapesize']
             ]);
@@ -205,6 +241,7 @@ define([
             this.sfOutline = this.colorButton($p, 'sf-outline', { iconCls: 'toolbar__icon btn-elx-shape-outline', caption: s.txtShapeOutline }, function (c) { me.applyShapeStroke(c); });
             this.button($p, 'sf-pane', { iconCls: 'toolbar__icon btn-elx-pane', caption: s.txtFormatPane })
                 .on('click', function () { me.rightPanel(Asc.c_oAscTypeSelectElement.Shape); });
+            this.wordArt($p, 'sf');
             this.arrange($p, 'sf');
             this.sfH = this.spinner($p, 'sf-height', function (mm) { me.applySize('shape', null, mm); });
             this.sfW = this.spinner($p, 'sf-width', function (mm) { me.applySize('shape', mm, null); });
@@ -242,9 +279,10 @@ define([
                 ['styleOptions', '<div class="elset-column"><div class="elset">' + chk('td-header') + '</div><div class="elset">' + chk('td-total') + '</div><div class="elset">' + chk('td-bandrows') + '</div></div>' +
                     '<div class="elset-column"><div class="elset">' + chk('td-first') + '</div><div class="elset">' + chk('td-last') + '</div><div class="elset">' + chk('td-bandcols') + '</div></div>', 'small elx-three-rows'],
                 ['tableStyles', this.smallRows(['td-shading']) , 'small', 'table'],
+                ['drawBorders', '<div class="elset-column"><div class="elset"><span class="btn-slot" id="td-bsize"></span></div><div class="elset"><span class="btn-slot text" id="td-pen"></span></div></div>' + this.big('td-borders'), 'small elx-borders'],
                 ['', this.big('td-pane')]
             ]);
-            $p.find('.separator').eq(1).addClass('invisible');
+            $p.find('.separator').eq(2).addClass('invisible');
             this.tdChecks = {};
             var looks = [['td-header', 'txtHeaderRow', 0], ['td-total', 'txtTotalRow', 1], ['td-bandrows', 'txtBandedRows', 2],
                          ['td-first', 'txtFirstColumn', 3], ['td-last', 'txtLastColumn', 4], ['td-bandcols', 'txtBandedColumns', 5]];
@@ -254,20 +292,67 @@ define([
                 me.tdChecks[l[2]] = c;
                 me.controls.push(c);
             });
+            this.drawBorders($p);
             this.tdShading = this.colorButton($p, 'td-shading', { iconCls: 'toolbar__icon btn-elx-shape-fill', caption: s.txtShading }, function (c) { me.applyCellShading(c); });
             this.button($p, 'td-pane', { iconCls: 'toolbar__icon btn-elx-pane', caption: s.txtFormatPane })
                 .on('click', function () { me.rightPanel(Asc.c_oAscTypeSelectElement.Table); });
         },
 
-        // Layout: Table (Select) | Rows & Columns | Merge | Alignment
+        // Draw Borders: pen weight and colour, Borders presets (the Word controls on the presentation table API)
+        drawBorders: function ($p) {
+            var s = this.strings, me = this, _set = Common.enumLock, lock = [_set.lostConnect, _set.noSlides, _set.disableOnStart];
+            var hint = { dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: 'big' };
+            this.tdBorderSize = new Common.UI.ComboBorderSize(_.extend({ style: 'width: 93px;', lock: lock, ariaLabel: s.txtPenWeight }, hint));
+            this.tdBorderSize.render($p.find('#td-bsize'));
+            this._borderSize = this.tdBorderSize.store.at(1).get('value');
+            this.tdBorderSize.setValue(this._borderSize);
+            this.tdBorderSize.on('selected', function (combo, record) { me._borderSize = record.value; });
+            this.controls.push(this.tdBorderSize);
+
+            this.tdPen = new Common.UI.ButtonColored({
+                cls: 'btn-toolbar', iconCls: 'toolbar__icon btn-elx-pen-color', caption: s.txtPenColor, menu: true, auto: true, color: 'auto',
+                eyeDropper: true, lock: lock, dataHint: '1', dataHintDirection: 'left', dataHintOffset: 'small'
+            });
+            this.tdPen.render($p.find('#td-pen'));
+            this.tdPen.setMenu();
+            this.tdPen.getPicker();
+            this.controls.push(this.tdPen);
+
+            var bi = function (value, cls, caption) { return { caption: caption, iconCls: 'menu__icon ' + cls, value: value }; };
+            this.tdBorders = new Common.UI.Button({
+                cls: 'btn-toolbar x-huge icon-top', iconCls: 'toolbar__icon btn-elx-borders', caption: s.txtBorders, split: true, lock: lock,
+                dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: 'small',
+                menu: new Common.UI.Menu({ cls: 'shifted-right', items: [
+                    bi('b', 'btn-border-bottom', s.txtBorderBottom), bi('t', 'btn-border-top', s.txtBorderTop),
+                    bi('l', 'btn-border-left', s.txtBorderLeft), bi('r', 'btn-border-right', s.txtBorderRight),
+                    { caption: '--' },
+                    bi('', 'btn-border-no', s.txtBorderNone), bi('lrtbcm', 'btn-border-all', s.txtBorderAll),
+                    bi('lrtb', 'btn-border-out', s.txtBorderOutside), bi('cm', 'btn-border-inside', s.txtBorderInside),
+                    bi('m', 'btn-border-insidehor', s.txtBorderInsideH), bi('c', 'btn-border-insidevert', s.txtBorderInsideV),
+                    { caption: '--' },
+                    { caption: s.txtTableProperties, value: 'advanced' }
+                ] })
+            });
+            this.tdBorders.render($p.find('#td-borders'));
+            this.tdBorders.options.lastBorder = 'b';
+            this.controls.push(this.tdBorders);
+            this.tdBorders.menu.on('item:click', function (menu, item) {
+                if (item.value === 'advanced') { me.tableProperties(); return; }
+                me.tdBorders.options.lastBorder = item.value;
+                me.applyCellBorders(item.value);
+            });
+            this.tdBorders.on('click', function () { me.applyCellBorders(me.tdBorders.options.lastBorder); });
+        },
+
+        // Layout: Table (Select) | Rows & Columns | Merge | Cell Size | Alignment
         build_tablelayout: function ($p) {
             var s = this.strings, me = this, api = function () { return me.api; };
             this.layout($p, [
                 ['table', this.big('tl-select')],
                 ['rowsCols', this.big('tl-delete') + this.big('tl-above') + this.big('tl-below') + this.big('tl-left') + this.big('tl-right')],
                 ['merge', this.big('tl-merge') + this.big('tl-split')],
-                ['size', this.smallRows(['tl-distrows', 'tl-distcols']), 'small'],
-                ['alignment', this.smallRows(['tl-top', 'tl-middle', 'tl-bottom']), 'small elx-three-rows']
+                ['cellSize', '<div class="elset-column">' + this.sizeHtml('tl') + '</div><div class="elset-column">' + this.smallRows(['tl-distrows', 'tl-distcols']) + '</div>', 'small elx-size'],
+                ['alignment', '<div class="elset-column">' + this.smallRows(['tl-top', 'tl-middle', 'tl-bottom']) + '</div><div class="elset-column">' + this.smallRows(['tl-direction', 'tl-margins']) + '</div>', 'small elx-three-rows']
             ]);
             var sel = this.button($p, 'tl-select', { iconCls: 'toolbar__icon btn-elx-tbl-select', caption: s.txtSelect, menu: new Common.UI.Menu({
                 items: [{ caption: s.txtSelectCell, value: 'cell' }, { caption: s.txtSelectColumn, value: 'col' }, { caption: s.txtSelectRow, value: 'row' }, { caption: s.txtSelectTable, value: 'table' }] }) });
@@ -289,17 +374,59 @@ define([
             small('tl-top', 'btn-elx-valign-top', s.txtAlignTop, valign(Asc.c_oAscVertAlignJc.Top));
             small('tl-middle', 'btn-elx-valign-middle', s.txtAlignMiddle, valign(Asc.c_oAscVertAlignJc.Center));
             small('tl-bottom', 'btn-elx-valign-bottom', s.txtAlignBottom, valign(Asc.c_oAscVertAlignJc.Bottom));
+
+            // Cell Size: row height and column width of the selected cells
+            this.tlH = this.spinner($p, 'tl-height', function (mm) { me.applyTable(function (p) { p.put_RowHeight(mm); }); });
+            this.tlW = this.spinner($p, 'tl-width', function (mm) { me.applyTable(function (p) { p.put_ColumnWidth(mm); }); });
+
+            // Text Direction and Cell Margins
+            var dir = function (cap, icon, d) { return { caption: cap, iconCls: 'menu__icon ' + icon, checkable: true, checkmark: false, toggleGroup: 'elx-tl-dir', direction: d }; };
+            this.tlDirection = this.button($p, 'tl-direction', { iconCls: 'toolbar__icon btn-elx-text-direction', caption: s.txtTextDirection, menu: new Common.UI.Menu({
+                cls: 'ppm-toolbar shifted-right', items: [
+                    dir(s.txtDirHorizontal, 'btn-text-orient-hor', Asc.c_oAscCellTextDirection.LRTB),
+                    dir(s.txtDirRotateDown, 'btn-text-orient-rdown', Asc.c_oAscCellTextDirection.TBRL),
+                    dir(s.txtDirRotateUp, 'btn-text-orient-rup', Asc.c_oAscCellTextDirection.BTLR)] }) }, true);
+            this.tlDirection.menu.on('item:click', function (m, it) { me.applyTable(function (p) { p.put_CellsTextDirection(it.options.direction); }); });
+            this.tlMargins = this.button($p, 'tl-margins', { iconCls: 'toolbar__icon btn-elx-cell-margins', caption: s.txtCellMargins, menu: new Common.UI.Menu({
+                items: [{ caption: s.txtMarginsNormal, value: 'normal' }, { caption: s.txtMarginsNone, value: 'none' }, { caption: s.txtMarginsNarrow, value: 'narrow' },
+                        { caption: s.txtMarginsModerate, value: 'moderate' }, { caption: s.txtMarginsWide, value: 'wide' }, { caption: '--' },
+                        { caption: s.txtMarginsCustom, value: 'custom' }] }) }, true);
+            this.tlMargins.menu.on('item:click', function (m, it) {
+                if (it.value === 'custom') me.tableProperties();
+                else me.applyCellMargins(it.value);
+            });
         },
 
-        // Chart Design: Type | Data | Format pane
+        // Chart Design: Chart Layouts | Chart Styles | Type | Data | Format pane
         build_chartdesign: function ($p) {
-            var s = this.strings, me = this;
+            var s = this.strings, me = this, _set = Common.enumLock;
             this.layout($p, [
+                ['chartlayouts', this.big('cd-element') + this.big('cd-layout')],
+                ['chartstyles', this.big('cd-colors') + this.big('cd-styles')],
                 ['type', this.big('cd-type')],
                 ['data', this.big('cd-data')],
                 ['', this.big('cd-pane')]
             ]);
-            $p.find('.separator').eq(1).addClass('invisible');
+            $p.find('.separator').eq(3).addClass('invisible');
+            // Common.UI.ChartRibbon, shared with the document and spreadsheet editors
+            var dh = function () { return PE.getController('DocumentHolder'); };
+            this.chartRibbon = Common.UI.ChartRibbon.create({
+                strings: s,
+                ids: {element: 'cd-element', layout: 'cd-layout', colors: 'cd-colors', styles: 'cd-styles'},
+                lock: [_set.lostConnect, _set.noSlides, _set.disableOnStart],
+                add: function (id, cmp) { cmp.render($p.find('#' + id)); me.controls.push(cmp); },
+                api: function () { return me.api; },
+                chart: function () { return me.api && me.api.asc_getChartSettings(true); },
+                dh: dh,
+                sourceMenu: function () { var h = dh(); return h && h.documentHolder && h.documentHolder.menuChartElement && h.documentHolder.menuChartElement.menu; },
+                applyStyle: function (props, style) {
+                    var p = new Asc.CAscChartProp();
+                    props.putStyle(style);
+                    p.put_ChartProperties(props);
+                    me.api.ChartApply(p);
+                },
+                done: function () { me.done(); }
+            });
             this.button($p, 'cd-type', { iconCls: 'toolbar__icon btn-elx-chart-type', caption: s.txtChangeChartType }).on('click', function () { me.chartCommand('type'); });
             this.button($p, 'cd-data', { iconCls: 'toolbar__icon btn-elx-chart-data', caption: s.txtEditData }).on('click', function () { me.chartCommand('data'); });
             this.button($p, 'cd-pane', { iconCls: 'toolbar__icon btn-elx-pane', caption: s.txtFormatPane }).on('click', function () { me.rightPanel(Asc.c_oAscTypeSelectElement.Chart); });
@@ -345,6 +472,11 @@ define([
         },
 
         updateTable: function (t) {
+            var h = t.get_RowHeight && t.get_RowHeight(), w = t.get_ColumnWidth && t.get_ColumnWidth();
+            this.tlH && this.tlH.setValue(h !== null && h !== undefined ? Common.Utils.Metric.fnRecalcFromMM(h).toFixed(2) : '', true);
+            this.tlW && this.tlW.setValue(w !== null && w !== undefined ? Common.Utils.Metric.fnRecalcFromMM(w).toFixed(2) : '', true);
+            var dir = t.get_CellsTextDirection && t.get_CellsTextDirection();
+            this.tlDirection && _.each(this.tlDirection.menu.items, function (it) { it.setChecked && it.options.direction !== undefined && it.setChecked(it.options.direction === dir, true); });
             var look = t.get_TableLook && t.get_TableLook();
             if (!look) return;
             var vals = [look.get_FirstRow(), look.get_LastRow(), look.get_BandHor(), look.get_FirstCol(), look.get_LastCol(), look.get_BandVer()];
@@ -365,6 +497,9 @@ define([
                 b.picker && b.picker.updateColors(colors, Common.Utils.ThemeColor.getStandartColors());
                 if (!b.currentColor) { b.currentColor = colors[4] && colors[4].color || colors[4]; b.setColor(b.currentColor); }
             });
+            var std = Common.Utils.ThemeColor.getStandartColors();
+            this.wa && this.wa.updateColors(colors, std);
+            this.tdPen && this.tdPen.getPicker().updateColors(colors, std);
         },
 
         // inserting a table, picture, shape or chart opens its tab, whatever surface inserted it
@@ -492,6 +627,66 @@ define([
             props.put_CellSelect(true);
             this.api.tblApply(props);
             this.done();
+        },
+
+        applyTable: function (fill) {
+            if (!this.api) return;
+            var props = new Asc.CTableProp();
+            fill(props);
+            this.api.tblApply(props);
+            this.done();
+        },
+
+        // margins in mm (PowerPoint's presets: left, top, right, bottom); Normal gives the cells back the table default margins
+        applyCellMargins: function (kind) {
+            var v = CELL_MARGINS[kind];
+            this.applyTable(function (p) {
+                var cm = new Asc.CMargins();
+                if (!v) cm.put_Flag(0);
+                else {
+                    cm.put_Left(v[0]); cm.put_Top(v[1]); cm.put_Right(v[2]); cm.put_Bottom(v[3]);
+                    cm.put_Flag(2);
+                }
+                p.put_CellMargins(cm);
+                p.put_CellSelect(true);
+            });
+        },
+
+        // border presets of the Borders menu: the same CBorders as Word's Table Design tab
+        applyCellBorders: function (border) {
+            var me = this, borders = new Asc.CBorders(), visible = border !== '', size = this._borderSize, pen = this.tdPen;
+            var set = function (putter, key) {
+                if (border.indexOf(key) > -1 || !visible) {
+                    var b = new Asc.asc_CTextBorder();
+                    if (visible && size > 0) {
+                        b.put_Value(1);
+                        b.put_Size(parseFloat(size) * 25.4 / 72.0);
+                        var color;
+                        if (pen.isAutoColor()) { color = new Asc.asc_CColor(); color.put_auto(true); }
+                        else color = this.rgb(pen.color);
+                        b.put_Color(color);
+                    } else b.put_Value(0);
+                    borders[putter](b);
+                }
+            };
+            set = _.bind(set, this);
+            set('put_Left', 'l'); set('put_Top', 't'); set('put_Right', 'r'); set('put_Bottom', 'b'); set('put_InsideV', 'c'); set('put_InsideH', 'm');
+            this.applyTable(function (p) { p.put_CellBorders(borders); p.put_CellSelect(true); });
+        },
+
+        // Table Properties (Placement, Margins, Alternative Text): the dialog of the right panel
+        tableProperties: function () {
+            var me = this, api = this.api, el = null;
+            _.each(api ? api.getSelectedElements() : [], function (e) { if (e.get_ObjectType() === Asc.c_oAscTypeSelectElement.Table) el = e; });
+            if (!el) return;
+            (new PE.Views.TableSettingsAdvanced({
+                tableProps: el.get_ObjectValue(),
+                slideSize: PE.getController('Toolbar').currentPageSize,
+                handler: function (result, value) {
+                    result === 'ok' && me.api && me.api.tblApply(value.tableProps);
+                    me.done();
+                }
+            })).show();
         },
 
         splitCells: function () {

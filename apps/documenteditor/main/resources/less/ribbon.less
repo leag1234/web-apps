@@ -12,6 +12,7 @@
 #toolbar .toolbar {
     // three rows of small controls in the height of a two-row group
     .elx-table-options .elset,
+    .elx-three-rows .elset,
     .elx-align-grid .elset {
         height: 17px;
         &:not(:first-child) {
@@ -41,6 +42,15 @@
             .icon {
                 margin-top: -1px;
             }
+        }
+    }
+
+    // WordArt Styles: Text Fill, Text Outline, Text Effects on three rows next to Quick Styles
+    .elx-three-rows .elset-column {
+        vertical-align: top;
+        margin-left: 6px;
+        .btn-toolbar {
+            height: 17px;
         }
     }
 

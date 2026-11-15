@@ -94,6 +94,7 @@ define([
         pivotLock: 'pivot-lock',
         pivotExpandLock: 'pivot-expand-lock',
         pivotCalcItemsLock: 'pivot-calculated-items-lock',
+        pivotGroupLock: 'pivot-group-lock',
         tableHasSlicer: 'table-has-slicer',
         sheetView: 'sheet-view',
         wbLock: 'workbook-lock',

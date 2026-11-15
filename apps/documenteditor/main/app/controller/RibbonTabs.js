@@ -507,16 +507,35 @@ define([
                 small = function (id) { return '<div class="elset"><span class="btn-slot text" id="' + id + '"></span></div>'; };
 
             // Proofing and Language, first like Word
-            var $proof = grp('proofing', big('slot-elx-rev-spelling') + big('slot-elx-rev-wordcount')),
+            var $proof = grp('proofing', big('slot-elx-rev-spelling') + '<div class="elset-column">' + small('slot-elx-rev-thesaurus') + small('slot-elx-rev-wordcount') + '</div>'),
+                $speech = grp('speech', big('slot-elx-rev-readaloud')),
                 $lang = grp('language', big('slot-elx-rev-language'));
-            $rp.prepend($proof, sep(), $lang, sep());
+            $rp.prepend($proof, sep(), $speech, sep(), $lang, sep());
             var app = this.getApplication(),
                 sbView = function () { var c = app.getController('Statusbar'); return c && c.getView('Statusbar'); };
             v.btnRevSpelling = v.liveMirror($rp.find('#slot-elx-rev-spelling'), function () { return rv.btnsSpelling && rv.btnsSpelling[0]; }, {
                 caption: v.txtSpelling, iconCls: 'toolbar__icon btn-elx-spelling', hint: v.tipSpelling
             });
-            v.btnRevWordCount = v.liveBtn($rp.find('#slot-elx-rev-wordcount'), {caption: v.txtWordCount, iconCls: 'toolbar__icon btn-elx-word-count'});
+            // Thesaurus and Word Count: two small buttons stacked next to the big Spelling one, like Word
+            v.btnRevThesaurus = v.liveBtn($rp.find('#slot-elx-rev-thesaurus'), {cls: 'btn-toolbar', caption: v.txtThesaurus, iconCls: 'toolbar__icon btn-elx-thesaurus', hint: v.tipThesaurus});
+            v.btnRevThesaurus.on('click', function () {
+                var panes = app.getController('WordPanes');
+                panes && panes.open('thesaurus');
+            });
+            v.btnRevWordCount = v.liveBtn($rp.find('#slot-elx-rev-wordcount'), {cls: 'btn-toolbar', caption: v.txtWordCount, iconCls: 'toolbar__icon btn-word-count'});
             v.btnRevWordCount.on('click', function () { me.showWordCount(); });
+            // Read Aloud: works in a read-only document too, so it only locks when the system has no speech voice
+            v.btnRevReadAloud = v.liveBtn($rp.find('#slot-elx-rev-readaloud'), {
+                caption: v.txtReadAloud, iconCls: 'toolbar__icon btn-elx-read-aloud', hint: v.tipReadAloud, enableToggle: true,
+                lock: ['elxNoSpeech', Common.enumLock.lostConnect, Common.enumLock.disableOnStart]
+            });
+            v.btnRevReadAloud.on('click', function () {
+                var ra = app.getController('ReadAloud');
+                ra && ra.toggle();
+                Common.NotificationCenter.trigger('edit:complete', tb);
+            });
+            var raCtrl = app.getController('ReadAloud');
+            raCtrl && raCtrl.attachButton(v.btnRevReadAloud);
             v.btnRevLanguage = v.liveMirror($rp.find('#slot-elx-rev-language'), function () { return rv.btnsDocLang && rv.btnsDocLang[0]; }, {
                 caption: v.txtLanguage, iconCls: 'toolbar__icon btn-elx-language', split: false,
                 menu: new Common.UI.Menu({items: [{caption: v.txtSetProofingLanguage, value: 'lang'}]})
@@ -671,7 +690,8 @@ define([
                 title: v.txtWordCountTitle, width: 320, cls: 'modal-dlg', buttons: ['close'], tpl: html
             });
             win.show();
-            win.$window.find('.box, .body').length;
+            // The footer button comes from the "buttons" option, but a plain window does not bind it (#82).
+            win.$window.find('.dlg-btn').on('click', function () { win.close(); });
             var info = {};
             var fill = function () {
                 win.$window && win.$window.find('.elx-wc-val').each(function () {

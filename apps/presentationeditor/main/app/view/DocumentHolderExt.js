@@ -1351,7 +1351,7 @@ define([], function () {
                             })
                         },
                         { 
-                            caption: me.textGridLines, 
+                            caption: me.textGridlines, 
                             value: 'gridLines', 
                             disabled: false,
                             menu: new Common.UI.Menu({

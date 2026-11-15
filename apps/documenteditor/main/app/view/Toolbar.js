@@ -555,6 +555,18 @@ define([
                     });
                     this.paragraphControls.push(this.btnChangeCase);
 
+                    this.btnSort = new Common.UI.Button({
+                        id: 'id-toolbar-btn-sort',
+                        cls: 'btn-toolbar',
+                        iconCls: 'toolbar__icon btn-elx-sort',
+                        action: 'sort',
+                        lock: [_set.paragraphLock, _set.headerLock, _set.richEditLock, _set.plainEditLock, _set.previewReviewMode, _set.viewFormMode, _set.lostConnect, _set.disableOnStart, _set.docLockViewText, _set.docLockForms, _set.docLockCommentsText, _set.viewMode],
+                        dataHint: '1',
+                        dataHintDirection: 'bottom',
+                        dataHintOffset: '0, -16'
+                    });
+                    this.paragraphControls.push(this.btnSort);
+
                     this.btnAlignLeft = new Common.UI.Button({
                         id: 'id-toolbar-btn-align-left',
                         cls: 'btn-toolbar',
@@ -2229,6 +2241,7 @@ define([
                 _injectComponent('#slot-btn-decoffset', this.btnDecLeftOffset);
                 _injectComponent('#slot-btn-linespace', this.btnLineSpace);
                 _injectComponent('#slot-btn-direction', this.btnTextDir);
+                _injectComponent('#slot-btn-sort', this.btnSort);
                 _injectComponent('#slot-btn-hidenchars', this.btnShowHidenChars);
                 _injectComponent('#slot-btn-markers', this.btnMarkers);
                 _injectComponent('#slot-btn-numbering', this.btnNumbers);
@@ -2671,6 +2684,7 @@ define([
                 this.btnParagraphColor.updateHint(this.tipPrColor);
                 this.btnBorders.updateHint(this.tipBorders);
                 this.btnChangeCase.updateHint(this.tipChangeCase);
+                this.btnSort.updateHint(this.tipSort || 'Sort');
                 this.btnLineSpace.updateHint(this.tipLineSpace);
                 this.btnTextDir.updateHint(this.tipTextDir);
                 this.btnMarkers.updateHint(this.tipMarkers);

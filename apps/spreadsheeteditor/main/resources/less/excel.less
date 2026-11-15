@@ -163,3 +163,68 @@
         margin-right: 1px;
     }
 }
+
+// Workbook Statistics dialog (Review > Proofing)
+.elx-word-count {
+    padding: 16px 20px 8px;
+    .elx-wc-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    table {
+        width: 100%;
+        td {
+            padding: 3px 0;
+        }
+        .elx-wc-val {
+            text-align: right;
+            .rtl & {
+                text-align: left;
+            }
+        }
+    }
+}
+
+// Thesaurus dialog (Review > Proofing)
+.elx-sse-thes {
+    padding: 12px 16px 0;
+    .elx-th-row {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 8px;
+        .elx-th-input {
+            flex: 1;
+            height: 22px;
+        }
+    }
+    .elx-th-result {
+        height: 220px;
+        overflow: auto;
+    }
+    .elx-th-pos {
+        margin: 8px 0 2px;
+        font-weight: bold;
+    }
+    .elx-th-syn {
+        display: flex;
+        align-items: center;
+        padding: 3px 4px;
+        cursor: pointer;
+        &:hover {
+            background-color: @highlight-button-hover;
+        }
+        .elx-th-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .elx-th-insert {
+            border: 0;
+            background: none;
+            cursor: pointer;
+            color: inherit;
+            width: 22px;
+        }
+    }
+}

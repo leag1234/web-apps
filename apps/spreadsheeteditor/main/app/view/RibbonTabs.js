@@ -22,6 +22,7 @@ define([
             this.toolbar = options.toolbar;
             this.mode = options.mode || {};
             this.lockedControls = [];
+            this.twins = [];
         },
 
         // groups of the panels built by other controllers: [selector, group key]
@@ -58,6 +59,7 @@ define([
                 ['#slot-btn-select-pivot', 'actions'],
                 ['#slot-btn-calculated-items', 'calculations'],
                 ['#slot-btn-expand-field', 'activefield'],
+                ['#slot-btn-group-selection', 'pivotgroup'],
                 ['#slot-chk-header-row', 'pivotstyleoptions'],
                 ['#slot-field-pivot-styles', 'pivotstyles']
             ],
@@ -148,6 +150,27 @@ define([
             });
         },
 
+        // a control rendered into an existing (live) slot
+        liveBtn: function ($slot, cfg) {
+            var b = new Common.UI.Button(_.extend({
+                cls: 'btn-toolbar x-huge icon-top', lock: [Common.enumLock.lostConnect, Common.enumLock.disableOnStart],
+                dataHint: '1', dataHintDirection: 'bottom', dataHintOffset: 'small'
+            }, cfg));
+            b.render($slot);
+            this.lockedControls.push(b);
+            return b;
+        },
+
+        // a twin of a stock button (state and clicks follow the source, see Common.UI.RibbonMirror)
+        liveMirror: function ($slot, src, opts) {
+            var safe = _.isFunction(src) ? function () { try { return src(); } catch (e) { return undefined; } } : src;
+            var twin = Common.UI.RibbonMirror(safe, opts);
+            twin.render($slot);
+            this.twins.push(twin);
+            twin.mirrorAttach();
+            return twin;
+        },
+
         renderControls: function ($host) {
             var put = function (sel, b) {
                 var $slot = $host.find(sel);
@@ -220,6 +243,7 @@ define([
         txtGroupActions: 'Actions',
         txtGroupCalculations: 'Calculations',
         txtGroupActivefield: 'Active Field',
+        txtGroupPivotgroup: 'Group',
         txtGroupPivotstyleoptions: 'PivotTable Style Options',
         txtGroupPivotstyles: 'PivotTable Styles',
         txtGroupProperties: 'Properties',
@@ -228,11 +252,46 @@ define([
         txtGroupAccessibility: 'Accessibility',
         txtGroupTablestyles: 'Table Styles',
         txtGroupType: 'Type',
+        txtGroupChartlayouts: 'Chart Layouts',
+        txtGroupChartstyles: 'Chart Styles',
         txtGroupCurrentselection: 'Current Selection',
         txtGroupInsertshapes: 'Insert Shapes',
         txtGroupShapestyles: 'Shape Styles',
         txtGroupPicturestyles: 'Picture Styles',
         tipGroupLauncher: 'More {0} options',
+
+        txtSpelling: 'Spelling',
+        tipSpelling: 'Check the spelling of the worksheet (F7)',
+        txtThesaurus: 'Thesaurus',
+        tipThesaurus: 'Look up synonyms of the text of the active cell',
+        txtThesaurusTitle: 'Thesaurus',
+        txtSearchFor: 'Search for',
+        txtLookUp: 'Look Up',
+        txtSearching: 'Searching...',
+        txtNoThesaurus: 'There is no thesaurus for the language of this text.',
+        txtNoResults: 'No results for "{0}".',
+        txtTypeWord: 'Type a word and press Enter.',
+        txtWorkbookStats: 'Workbook Statistics',
+        tipWorkbookStats: 'Count the worksheets, cells, formulas, tables, charts and comments of the workbook',
+        txtWorkbookStatsTitle: 'Workbook Statistics',
+        txtStatistics: 'Statistics:',
+        txtStatSheets: 'Worksheets',
+        txtStatHidden: 'Hidden worksheets',
+        txtStatCells: 'Cells with data',
+        txtStatFormulas: 'Formulas',
+        txtStatTables: 'Tables',
+        txtStatPivots: 'PivotTables',
+        txtStatCharts: 'Charts',
+        txtStatPictures: 'Pictures',
+        txtStatShapes: 'Shapes and other objects',
+        txtStatComments: 'Comments',
+        txtNewComment: 'New Comment',
+        txtPrevComment: 'Previous',
+        txtNextComment: 'Next',
+        tipPrevComment: 'Go to the previous comment of the worksheet',
+        tipNextComment: 'Go to the next comment of the worksheet',
+        txtShowComments: 'Show Comments',
+        tipShowComments: 'Show or hide the Comments pane',
 
         txtTabPageLayout: 'Page Layout',
         txtTabFormulas: 'Formulas',
