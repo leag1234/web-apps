@@ -9,7 +9,7 @@
  *                      document holder (the one of the chart's floating button), and runs the same
  *                      handlers (onChartElement, updateChartElementMenu), so the engine calls
  *                      (asc_ChartSettings.setDisplay*) are the existing ones.
- *   Quick Layout       a gallery of element combinations, applied with the same setDisplay* calls.
+ *   Quick Layout       a gallery of element combinations, applied with the same setDisplay* calls as one undo step.
  *   Change Colors      Colorful (the engine's palette) and Monochromatic 1 to 6 (shades of each theme accent),
  *                      asc_ChartSettings.setChartColors / getChartColorsAccent.
  *   Chart Styles       a gallery of the chart style presets of the chart type (asc_getChartPreviews),
@@ -27,7 +27,6 @@
  *   host.dh()                    the DocumentHolder controller (onChartElement, updateChartElementMenu)
  *   host.sourceMenu()            the chart element menu of the document holder view
  *   host.applyStyle(props, id)   applies a chart style (the editor's own ImgApply/ChartApply call)
- *   host.transaction             true when the history supports transactions (spreadsheet): one undo step
  *   host.done()                  give the focus back to the document
  */
 define([
@@ -108,8 +107,7 @@ define([
         ACCENTS: ACCENTS,
         thumbnail: thumbnail,
 
-        // What a preset would change: the steps of it that the chart does not already match (each step is an
-        // undo step of its own where the history has no transactions, so only the needed ones are run)
+        // What a preset would change: the steps of it that the chart does not already match
         layoutSteps: function (p, def) {
             var T = Asc.c_oAscChartTitleShowSettings, L = Asc.c_oAscChartLegendShowSettings, type = p.getType();
             var hor = p.getHorAxesProps && p.getHorAxesProps() || [], ver = p.getVertAxesProps && p.getVertAxesProps() || [], axes = hor.concat(ver);
@@ -127,26 +125,23 @@ define([
             return steps;
         },
 
-        // Quick Layout: sets the chart elements of a preset, one setDisplay* call each, on a fresh chart object
+        // Quick Layout: sets the chart elements of a preset, one setDisplay* call each, on a fresh chart object.
+        // The calls run inside asc_ChartSettings.runAsOneStep, so the whole layout is one undo step in every editor
+        // (the setDisplay* calls would each add an undo point of their own in Word and PowerPoint).
         applyLayout: function (host, def) {
             var p = host.chart();
             if (!p) return;
             var steps = this.layoutSteps(p, def), type = p.getType();
-            var H = typeof AscCommon !== 'undefined' && AscCommon.History, tx = !!(host.transaction && H && H.StartTransaction);
-            if (tx) {
-                H.Create_NewPoint(AscDFH.historyitem_type_ChartSpace);
-                H.StartTransaction();
-            }
-            try {
-                var fresh = function () { return host.chart() || p; };
+            if (!Object.keys(steps).some(function (k) { return steps[k]; })) return;
+            var fresh = function () { return host.chart() || p; };
+            var run = function () {
                 steps.title && fresh().setDisplayChartTitle(!!def.title, false);
                 steps.legend && fresh().setDisplayLegend(!!def.legend, def.legend ? LEGEND()[def.legend] : Asc.c_oAscChartLegendShowSettings.none);
                 steps.labels && fresh().setDisplayDataLabels(!!def.labels, def.labels ? labelPos(type) : false);
                 steps.grid && fresh().setDisplayGridlines(!!def.grid, false, false, false);
                 steps.axisTitles && fresh().setDisplayAxisTitles(!!def.axisTitles, false, !!def.axisTitles, false, false);
-            } finally {
-                tx && H.EndTransaction();
-            }
+            };
+            p.runAsOneStep ? p.runAsOneStep(run) : run();
         },
 
         // Builds the controls; returns {controls: [...], ...buttons}

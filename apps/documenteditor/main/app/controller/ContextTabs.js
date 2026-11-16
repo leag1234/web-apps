@@ -384,8 +384,10 @@ define([
                 return {imageUrl: st.asc_getImage(), data: st.asc_getName(), tip: v.txtChartStyles + ' ' + st.asc_getName()};
             }));
             v.chartStyles.setDisabled(!styles.length || !!(this._imgProps && this._imgProps.get_Locked()));
+            // all the previews are requested, those of the gallery in view first: while the Chart Design tab is hidden
+            // the gallery shows none, and the drop-down shows all of them
             var shown = this.selectChartStyle();
-            shown && shown.length && this.api.asc_generateChartPreviews(type, shown);
+            styles.length && this.api.asc_generateChartPreviews(type, shown || []);
         },
 
         selectChartStyle: function () {

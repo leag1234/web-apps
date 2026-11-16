@@ -115,7 +115,6 @@ define([
                 strings: this,
                 ids: {element: 'slot-elx-chart-element', layout: 'slot-elx-chart-layout', colors: 'slot-elx-chart-colors', styles: 'slot-elx-chart-styles'},
                 lock: [],
-                transaction: true,
                 add: function (id, cmp) { cmp.render($cd.find('#' + id)); (me.chartCtrls = me.chartCtrls || []).push(cmp); },
                 api: function () { return me.api; },
                 chart: function () { return me.chartProps(); },

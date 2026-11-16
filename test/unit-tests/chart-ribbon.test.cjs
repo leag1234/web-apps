@@ -73,7 +73,8 @@ function chartProps(over) {
     const p = Object.assign({
         calls, getType: () => 0, getStyle: () => 3, getTitle: () => 2, getLegendPos: () => 4, getDataLabelsPos: () => 0,
         getHorAxesProps: () => [{getLabel: () => 0, getGridlines: () => 0}], getVertAxesProps: () => [{getLabel: () => 0, getGridlines: () => 1}],
-        getChartColorsAccent: () => -1,
+        getChartColorsAccent: () => -1, oneStepRuns: 0,
+        runAsOneStep(fn) { this.oneStepRuns++; fn.call(this); },
         setDisplayChartTitle: rec('title'), setDisplayLegend: rec('legend'), setDisplayDataLabels: rec('labels'),
         setDisplayGridlines: rec('grid'), setDisplayAxisTitles: rec('axisTitles'), setChartColors: rec('colors'), putStyle: rec('putStyle')
     }, over || {});
@@ -94,7 +95,7 @@ function build(opts) {
         strings: {txtAddChartElement: 'Add Chart Element', txtQuickLayout: 'Quick Layout', txtChangeColors: 'Change Colors', txtChartStyles: 'Chart Styles',
             txtLayout: 'Layout', txtColorful: 'Colorful', txtMonochromatic: 'Monochromatic'},
         ids: Object.assign({element: 'e', layout: 'l', colors: 'c'}, opts.styles === false ? {} : {styles: 's'}),
-        lock: ['x'], transaction: !!opts.transaction,
+        lock: ['x'],
         add: (id, cmp) => { added[id] = cmp; },
         api: () => api,
         chart: () => props,
@@ -171,7 +172,7 @@ test('Quick Layout offers eight presets with a thumbnail each', () => {
 
 test('a layout sets the title, legend, labels, gridlines and axis titles that differ, in that order', () => {
     const {ctx, getProps} = build();
-    const host = {chart: () => getProps(), transaction: false};
+    const host = {chart: () => getProps()};
     // layout 5: title, legend right, axis titles, gridlines
     ctx.Common.UI.ChartRibbon.applyLayout(host, ctx.Common.UI.ChartRibbon.LAYOUTS[4]);
     const calls = getProps().calls;
@@ -209,10 +210,25 @@ test('a pie chart gets best-fit labels and no axis steps', () => {
     assert.equal(byName.axisTitles, undefined);
 });
 
-test('a spreadsheet layout is one undo step: one history point and one transaction', () => {
-    const {ctx, history, getProps} = build();
-    ctx.Common.UI.ChartRibbon.applyLayout({chart: () => getProps(), transaction: true}, ctx.Common.UI.ChartRibbon.LAYOUTS[4]);
-    assert.deepEqual(history.calls, ['point', 'start', 'end']);
+test('a layout is one undo step in every editor: all its steps run inside runAsOneStep', () => {
+    const {ctx, getProps} = build();
+    ctx.Common.UI.ChartRibbon.applyLayout({chart: () => getProps()}, ctx.Common.UI.ChartRibbon.LAYOUTS[4]);
+    assert.equal(getProps().oneStepRuns, 1);
+    assert.deepEqual(getProps().calls.map(c => c[0]), ['legend', 'axisTitles']);
+});
+
+test('a layout on a chart without runAsOneStep still applies its steps', () => {
+    const {ctx, getProps} = build();
+    getProps().runAsOneStep = undefined;
+    ctx.Common.UI.ChartRibbon.applyLayout({chart: () => getProps()}, ctx.Common.UI.ChartRibbon.LAYOUTS[4]);
+    assert.deepEqual(getProps().calls.map(c => c[0]), ['legend', 'axisTitles']);
+});
+
+test('a layout that already matches the chart creates no undo step', () => {
+    const {ctx, getProps, history} = build();
+    ctx.Common.UI.ChartRibbon.applyLayout({chart: () => getProps()}, ctx.Common.UI.ChartRibbon.LAYOUTS[2]);
+    assert.equal(getProps().oneStepRuns, 0);
+    assert.deepEqual(history.calls, []);
 });
 
 test('choosing a layout in the gallery applies it and hands the focus back', () => {
@@ -292,7 +308,7 @@ test('the three editors build the group with the ids their tab declares', () => 
     assert.doesNotMatch(word.slice(word.indexOf('Common.UI.ChartRibbon.create'), word.indexOf('Common.UI.ChartRibbon.create') + 400), /styles:/, 'Word keeps its gallery');
     const excel = read('spreadsheeteditor/main/app/controller/ExcelContextTabs.js');
     assert.match(excel, /Common\.UI\.ChartRibbon\.create/);
-    assert.match(excel, /transaction: true/);
+    assert.doesNotMatch(excel, /transaction: true/, 'the engine groups the steps (runAsOneStep)');
     assert.match(excel, /asc_setGraphicObjectProps/);
     for (const id of ['slot-elx-chart-element', 'slot-elx-chart-layout', 'slot-elx-chart-colors', 'slot-elx-chart-styles']) assert.match(excel, new RegExp(id));
     const ppt = read('presentationeditor/main/app/elixir-slide/ContextTabs.js');
@@ -327,4 +343,30 @@ test('the chart ribbon strings and group labels exist in the nine shipped locale
 test('the presentation editor chart element menu labels Gridlines', () => {
     const view = read('presentationeditor/main/app/view/DocumentHolderExt.js');
     assert.doesNotMatch(view, /me\.textGridLines\b/);
+});
+
+// ---- Word: the thumbnails of the Chart Styles gallery ---------------------------------------------------
+test('Word requests the previews of all the chart styles, even when the gallery in view shows none', () => {
+    const calls = [];
+    const DE = {Controllers: {}};
+    const ctx = {DE, Backbone: {Controller: {extend: o => o}}, _: {extend: Object.assign, map: (a, f) => a.map(f)}, define: (_d, f) => f(), console};
+    ctx.window = ctx;
+    vm.runInNewContext(read('documenteditor/main/app/controller/ContextTabs.js'), ctx, {filename: 'ContextTabs.js'});
+    const ctl = ctx.DE.Controllers.ContextTabs;
+    const styles = [1, 2, 3].map(n => ({asc_getImage: () => '', asc_getName: () => n}));
+    const picker = {store: {reset() {}}};
+    const view = {txtChartStyles: 'Chart Styles', chartStyles: {menuPicker: picker, setDisabled() {}, clearComboView() {}}};
+    for (const shown of [[], [1, 2], null]) {
+        calls.length = 0;
+        const self = {view, _state: {chartType: 0, chartStyle: 1}, isComboChart: () => false, selectChartStyle: () => shown,
+            api: {asc_getChartPreviews: () => styles, asc_generateChartPreviews: (t, ids) => calls.push([t, plain(ids)])}};
+        ctl.updateChartStyles.call(self);
+        assert.deepEqual(calls, [[0, shown || []]], 'generation is requested; the engine adds the other styles after the listed ones');
+    }
+    // no style for the chart type: nothing to generate
+    calls.length = 0;
+    const none = {view, _state: {chartType: 0}, isComboChart: () => false, selectChartStyle: () => null,
+        api: {asc_getChartPreviews: () => [], asc_generateChartPreviews: () => calls.push(1)}};
+    ctl.updateChartStyles.call(none);
+    assert.equal(calls.length, 0);
 });
