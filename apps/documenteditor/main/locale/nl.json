@@ -931,6 +931,8 @@
   "Common.Views.Header.textZoom": "Zoomen",
   "Common.Views.Header.tipAccessRights": "Toegangsrechten van documenten beheren",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Pas de werkbalk Snelle toegang aan",
+  "Common.Views.Header.txtHideQuickAccess": "Werkbalk Snelle toegang verbergen",
+  "Common.Views.Header.txtShowQuickAccess": "Werkbalk Snelle toegang weergeven",
   "Common.Views.Header.tipDocEdit": "Editing",
   "Common.Views.Header.tipDocView": "Viewing",
   "Common.Views.Header.tipDocViewForm": "Viewing form",

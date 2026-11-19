@@ -213,21 +213,62 @@ define([
             var n = this.pageCount || (api.getCountPages ? api.getCountPages() : 0) || 0, cur = api.getCurrentPage ? api.getCurrentPage() : 0;
             var $list = this.$pages.find('.elx-pages-list');
             var html = '';
-            for (var i = 0; i < n; i++)
+            for (var i = 0; i < n; i++) {
+                // placeholder keeps the scroll height without any backing memory
+                var size = api.asc_getPageSize ? api.asc_getPageSize(i) : null;
+                var wmm = size && size['W'] || 210, hmm = size && size['H'] || 297;
+                var ph = Math.round(150 * hmm / wmm);
                 html += '<button type="button" class="elx-page-thumb' + (i === cur ? ' current' : '') + '" data-page="' + i + '" aria-label="' + esc(Common.Utils.String.format(this.txtPage, i + 1)) + '">' +
-                    '<canvas width="1" height="1"></canvas><span>' + (i + 1) + '</span></button>';
+                    '<canvas width="1" height="1" style="aspect-ratio: 150 / ' + ph + ';"></canvas><span>' + (i + 1) + '</span></button>';
+            }
             $list.html(html);
             this._pagesRendered = true;
             clearTimeout(this._pagesTimer);
-            var i0 = 0;
-            var step = function () {
-                // the File menu print preview owns the renderer while it is open
-                if (api.printPreview || !me.$pages.is(':visible')) return;
-                var end = Math.min(n, i0 + 4);
-                for (; i0 < end; i0++) me.drawThumb(i0, $list.find('.elx-page-thumb[data-page=' + i0 + '] canvas')[0]);
-                if (i0 < n) me._pagesTimer = setTimeout(step, 16);
-            };
-            this._pagesTimer = setTimeout(step, 30);
+            if (this._pagesObserver) { this._pagesObserver.disconnect(); this._pagesObserver = null; }
+            var canvases = $list.find('.elx-page-thumb canvas').get();
+            if (window.IntersectionObserver && this.$pages[0]) {
+                // draw only the thumbs near the visible scroll area; far ones release their canvas
+                var visible = new Set(), queued = false;
+                var step = function () {
+                    me._pagesTimer = null; queued = false;
+                    // the File menu print preview owns the renderer while it is open
+                    if (api.printPreview || !me.$pages.is(':visible')) { me._pagesTimer = setTimeout(step, 250); queued = true; return; }
+                    var pending = [];
+                    visible.forEach(function (p) { if (canvases[p] && !canvases[p].dataset.drawn) pending.push(p); });
+                    if (!pending.length) return;
+                    pending.sort(function (a, b) { return Math.abs(a - cur) - Math.abs(b - cur); });
+                    for (var k = 0; k < Math.min(pending.length, 4); k++) { me.drawThumb(pending[k], canvases[pending[k]]); canvases[pending[k]].dataset.drawn = '1'; }
+                    if (pending.length > 4) kick(16);
+                };
+                var kick = function (delay) { if (!queued) { queued = true; me._pagesTimer = setTimeout(step, delay); } };
+                this._pagesObserver = new IntersectionObserver(function (entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        var p = parseInt(entries[k].target.getAttribute('data-page'), 10), c = canvases[p];
+                        if (entries[k].isIntersecting) visible.add(p);
+                        else { visible.delete(p); if (c && c.dataset.drawn) { c.width = 1; c.height = 1; delete c.dataset.drawn; } }
+                    }
+                    kick(30);
+                }, { root: this.$pages[0], rootMargin: '600px 0px' });
+                $list.find('.elx-page-thumb').each(function () { me._pagesObserver.observe(this); });
+            } else {
+                // no IntersectionObserver: draw everything, like before
+                var i0 = 0;
+                var stepAll = function () {
+                    if (api.printPreview || !me.$pages.is(':visible')) return;
+                    var end = Math.min(n, i0 + 4);
+                    for (; i0 < end; i0++) me.drawThumb(i0, canvases[i0]);
+                    if (i0 < n) me._pagesTimer = setTimeout(stepAll, 16);
+                };
+                this._pagesTimer = setTimeout(stepAll, 30);
+            }
+            // bring the current page into view so its neighbours draw first
+            var curThumb = $list.find('.elx-page-thumb[data-page=' + cur + ']')[0];
+            if (curThumb && this.$pages[0]) {
+                var sc = this.$pages[0];
+                var top = curThumb.offsetTop, bottom = top + curThumb.offsetHeight;
+                if (top < sc.scrollTop || bottom > sc.scrollTop + sc.clientHeight)
+                    curThumb.scrollIntoView({ block: 'nearest' });
+            }
         },
 
         drawThumb: function (i, canvas) {

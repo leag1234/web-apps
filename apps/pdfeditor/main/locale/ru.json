@@ -769,6 +769,8 @@
   "Common.Views.Header.tipAccessRights": "Управление правами доступа к документу",
   "Common.Views.Header.tipComment": "Комментирование",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Настроить панель быстрого доступа",
+  "Common.Views.Header.txtHideQuickAccess": "Скрыть панель быстрого доступа",
+  "Common.Views.Header.txtShowQuickAccess": "Показать панель быстрого доступа",
   "Common.Views.Header.tipDownload": "Скачать файл",
   "Common.Views.Header.tipEdit": "Редактирование",
   "Common.Views.Header.tipGoEdit": "Редактировать текущий файл",

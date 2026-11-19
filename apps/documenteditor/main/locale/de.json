@@ -931,6 +931,8 @@
   "Common.Views.Header.textZoom": "Vergrößern",
   "Common.Views.Header.tipAccessRights": "Zugriffsrechte für das Dokument verwalten",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Symbolleiste für den Schnellzugriff anpassen",
+  "Common.Views.Header.txtHideQuickAccess": "Symbolleiste für den Schnellzugriff ausblenden",
+  "Common.Views.Header.txtShowQuickAccess": "Symbolleiste für den Schnellzugriff anzeigen",
   "Common.Views.Header.tipDocEdit": "Bearbeitung",
   "Common.Views.Header.tipDocView": "Anzeigen",
   "Common.Views.Header.tipDocViewForm": "Formularvorschau",

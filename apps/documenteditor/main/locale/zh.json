@@ -1033,6 +1033,8 @@
   "Common.Views.Header.textZoom": "縮放",
   "Common.Views.Header.tipAccessRights": "管理文档访问权限",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "自定义快速访问工具栏",
+  "Common.Views.Header.txtHideQuickAccess": "隐藏快速访问工具栏",
+  "Common.Views.Header.txtShowQuickAccess": "显示快速访问工具栏",
   "Common.Views.Header.tipDocEdit": "编辑",
   "Common.Views.Header.tipDocView": "查看",
   "Common.Views.Header.tipDocViewForm": "查看表单",

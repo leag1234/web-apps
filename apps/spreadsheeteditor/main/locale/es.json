@@ -950,6 +950,8 @@
   "Common.Views.Header.textZoom": "Ampliación",
   "Common.Views.Header.tipAccessRights": "Gestionar permisos de acceso al documento",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Personalizar la barra de herramientas Acceso rápido",
+  "Common.Views.Header.txtHideQuickAccess": "Ocultar la barra de herramientas de acceso rápido",
+  "Common.Views.Header.txtShowQuickAccess": "Mostrar la barra de herramientas de acceso rápido",
   "Common.Views.Header.tipDownload": "Descargar archivo",
   "Common.Views.Header.tipGoEdit": "Editar el archivo actual",
   "Common.Views.Header.tipPrint": "Imprimir archivo",

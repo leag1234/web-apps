@@ -314,6 +314,8 @@
   "Common.Views.Header.tipAccessRights": "Gestisci i diritti di accesso al documento",
   "Common.Views.Header.tipComment": "Commenta",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Personalizza la barra degli strumenti di accesso rapido",
+  "Common.Views.Header.txtHideQuickAccess": "Nascondi barra di accesso rapido",
+  "Common.Views.Header.txtShowQuickAccess": "Mostra barra di accesso rapido",
   "Common.Views.Header.tipDownload": "Scarica file",
   "Common.Views.Header.tipEdit": "Modifica",
   "Common.Views.Header.tipGoEdit": "Modifica il file attuale",

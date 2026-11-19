@@ -53,8 +53,34 @@ define([], function () {
         try { url = new URL(value); } catch (e) { return false; }
         if (raw[1].indexOf('@') >= 0 || /:$/.test(raw[1]) || url.username || url.password || url.port === '0') return false;
         if (url.protocol === 'https:') return true;
-        return url.protocol === 'http:' && /^(?:localhost|127\.0\.0\.1|\[::1\])(?::[0-9]+)?$/i.test(raw[1]);
+        if (url.protocol !== 'http:') return false;
+        if (/^(?:localhost|127\.0\.0\.1|\[::1\])(?::[0-9]+)?$/i.test(raw[1])) return true;
+        // Only the desktop app may use plain HTTP to another machine on the user's own network
+        // (the main process re-checks it and the user is warned about the missing encryption).
+        return !!window.eoDesktopAI && privateAuthority(raw[1]);
     }
+
+    // host[:port] of a machine on a private network: RFC 1918 IPv4, link-local, unique-local / link-local IPv6,
+    // and *.local, *.lan, *.home.arpa names. Numeric aliases (127.1, 0177...) and encoded forms are not literals.
+    function privateAuthority(authority) {
+        var m = /^(\[[0-9a-fA-F:.]+\]|[^:\[\]]+)(?::([0-9]+))?$/.exec(authority);
+        if (!m) return false;
+        var host = m[1].toLowerCase(), quad = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(host);
+        if (quad) {
+            var p = quad.slice(1), a, b, i;
+            for (i = 0; i < 4; i++) if ((p[i].length > 1 && p[i].charAt(0) === '0') || Number(p[i]) > 255) return false;
+            a = Number(p[0]); b = Number(p[1]);
+            return a === 10 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 169 && b === 254);
+        }
+        if (host.charAt(0) === '[') return /^\[(?:f[cd][0-9a-f]{2}|fe[89ab][0-9a-f]):[0-9a-f:]*\]$/.test(host);
+        return /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:local|lan|home\.arpa)$/.test(host) && !/^[0-9.]+$/.test(host);
+    }
+    ElixirAI.isPrivateAuthority = privateAuthority;
+    // True when plain HTTP goes to another machine on the local network (the settings form warns about it)
+    ElixirAI.isInsecureLanEndpoint = function (value) {
+        var raw = /^http:\/\/([^/?#]+)(?:[/?#]|$)/i.exec(String(value || ''));
+        return !!raw && !/^(?:localhost|127\.0\.0\.1|\[::1\])(?::[0-9]+)?$/i.test(raw[1]) && privateAuthority(raw[1]);
+    };
 
     function readJSON(key) {
         try { return JSON.parse(window.localStorage.getItem(key) || 'null'); } catch (e) { return null; }
@@ -217,6 +243,12 @@ define([], function () {
     // Models that refused a temperature in this session
     var SAMPLING_REFUSED = {};
     var LOCAL_ENDPOINT = /^https?:\/\/(?:localhost|127\.0\.0\.1|\[::1\])(?::[0-9]+)?(?:\/|$)/i;
+    // loopback or a private network: slow local models get the long limits
+    function isLocalEndpoint(value) {
+        if (LOCAL_ENDPOINT.test(value || '')) return true;
+        var raw = /^https?:\/\/([^/?#]+)(?:[/?#]|$)/i.exec(value || '');
+        return !!window.eoDesktopAI && !!raw && privateAuthority(raw[1]);
+    }
 
     function parseToolCalls(text) {
         var calls = [], re = new RegExp('<function=([A-Za-z0-9_.-]+)>([\\s\\S]*?)</function>|<tool_call>([\\s\\S]*?)</tool_call>', 'g'), m;
@@ -254,6 +286,7 @@ define([], function () {
         var lang = ElixirAI.getLang ? ElixirAI.getLang() : 'en';
         var table = strings[lang] || strings.en || {};
         if (/n_keep\s*.*>=\s*n_ctx|context length/i.test(text)) return table.contextTooSmall || 'The model context is too small for this document. Use a model with at least 16K tokens of context.';
+        if (/AI certificate not trusted/i.test(text)) return table.certUntrusted || 'The certificate of the AI endpoint is not trusted. Install its certificate authority in your operating system certificate store, then try again.';
         if (status === 200 && /unexpected endpoint/i.test(text)) return table.unexpectedEndpoint || 'The AI endpoint returned an unexpected response. The endpoint URL must end with /v1.';
         return text;
     }
@@ -293,7 +326,7 @@ define([], function () {
             if (s.apiKey) headers.Authorization = 'Bearer ' + s.apiKey;
 
             var t0 = performance.now(), ttfb = null;
-            var local = LOCAL_ENDPOINT.test(s.endpoint || '');
+            var local = isLocalEndpoint(s.endpoint);
             var totalLimit = local ? 20 * 60 * 1000 : 5 * 60 * 1000;
             var idleLimit = 2 * 60 * 1000;
             var controller = new AbortController();
@@ -416,6 +449,8 @@ define([], function () {
                 });
             }).then(undefined, function (err) {
                 clearTimers();
+                // the desktop main process reports an untrusted certificate: say how to fix it
+                if (err && /AI certificate not trusted/i.test(String(err.message))) throw ConnectorError(endpointError(err.message, 0), 0);
                 throw err;
             });
         }

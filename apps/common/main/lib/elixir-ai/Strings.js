@@ -14,6 +14,8 @@ define([], function () {
 
     ElixirAI.Strings = {
         en: {
+            lanHttp: 'This connection is not encrypted. Use it only on a network you trust.',
+            certUntrusted: 'The certificate of the AI endpoint is not trusted. Install its certificate authority in your operating system certificate store, then try again.',
             tab: 'Elixir', ask: 'Ask Elixir', settings: 'AI settings', journal: 'AI journal',
             askHint: 'Ask Elixir to change the document', settingsHint: 'Model connection and AI journal',
             placeholder: 'Ask Elixir… e.g. “Put this section in two columns”, “Add page numbers”',
@@ -59,6 +61,8 @@ define([], function () {
             d_header: 'Updated the header', d_footer: 'Updated the footer', d_comment: 'Added a comment'
         },
         fr: {
+            lanHttp: 'Cette connexion n’est pas chiffrée. Ne l’utilisez que sur un réseau de confiance.',
+            certUntrusted: 'Le certificat du service IA n’est pas approuvé. Installez son autorité de certification dans le magasin de certificats de votre système, puis réessayez.',
             tab: 'Elixir', ask: 'Demander à Elixir', settings: 'Réglages IA', journal: 'Journal IA',
             askHint: 'Demander à Elixir de modifier le document', settingsHint: 'Connexion au modèle et journal IA',
             placeholder: 'Demandez à Elixir… ex. « Mets cette section en deux colonnes », « Ajoute les numéros de page »',
@@ -104,6 +108,8 @@ define([], function () {
             d_header: 'En-tête mis à jour', d_footer: 'Pied de page mis à jour', d_comment: 'Commentaire ajouté'
         },
         de: {
+            lanHttp: 'Diese Verbindung ist nicht verschlüsselt. Verwenden Sie sie nur in einem vertrauenswürdigen Netzwerk.',
+            certUntrusted: 'Dem Zertifikat des KI-Dienstes wird nicht vertraut. Installieren Sie die Zertifizierungsstelle im Zertifikatspeicher Ihres Betriebssystems und versuchen Sie es erneut.',
             tab: 'Elixir', ask: 'Elixir fragen', settings: 'KI-Einstellungen', journal: 'KI-Protokoll',
             askHint: 'Elixir bitten, das Dokument zu ändern', settingsHint: 'Modellverbindung und KI-Protokoll',
             placeholder: 'Elixir fragen… z. B. „Diesen Abschnitt zweispaltig setzen“, „Seitenzahlen hinzufügen“',
@@ -144,6 +150,8 @@ define([], function () {
             d_header: 'Kopfzeile aktualisiert', d_footer: 'Fußzeile aktualisiert', d_comment: 'Kommentar hinzugefügt'
         },
         es: {
+            lanHttp: 'Esta conexión no está cifrada. Úsela solo en una red de confianza.',
+            certUntrusted: 'No se confía en el certificado del servicio de IA. Instale su autoridad de certificación en el almacén de certificados del sistema y vuelva a intentarlo.',
             tab: 'Elixir', ask: 'Preguntar a Elixir', settings: 'Ajustes de IA', journal: 'Registro de IA',
             askHint: 'Pedir a Elixir que modifique el documento', settingsHint: 'Conexión al modelo y registro de IA',
             placeholder: 'Pregunte a Elixir… p. ej. «Pon esta sección en dos columnas», «Añade números de página»',
@@ -184,6 +192,7 @@ define([], function () {
             d_header: 'Encabezado actualizado', d_footer: 'Pie de página actualizado', d_comment: 'Comentario añadido'
         },
         it: {
+            lanHttp: 'Questa connessione non è cifrata. Usala solo su una rete di cui ti fidi.',
             tab: 'Elixir', ask: 'Chiedi a Elixir', settings: 'Impostazioni IA', journal: 'Registro IA',
             askHint: 'Chiedi a Elixir di modificare il documento', settingsHint: 'Connessione al modello e registro IA',
             placeholder: 'Chiedi a Elixir… es. «Metti questa sezione su due colonne», «Aggiungi i numeri di pagina»',
@@ -224,6 +233,7 @@ define([], function () {
             d_header: 'Intestazione aggiornata', d_footer: 'Piè di pagina aggiornato', d_comment: 'Commento aggiunto'
         },
         pt: {
+            lanHttp: 'Esta ligação não está cifrada. Utilize-a apenas numa rede de confiança.',
             tab: 'Elixir', ask: 'Perguntar ao Elixir', settings: 'Configurações de IA', journal: 'Registro de IA',
             askHint: 'Pedir ao Elixir para alterar o documento', settingsHint: 'Conexão com o modelo e registro de IA',
             placeholder: 'Pergunte ao Elixir… ex.: “Coloque esta seção em duas colunas”, “Adicione números de página”',
@@ -264,6 +274,7 @@ define([], function () {
             d_header: 'Cabeçalho atualizado', d_footer: 'Rodapé atualizado', d_comment: 'Comentário adicionado'
         },
         nl: {
+            lanHttp: 'Deze verbinding is niet versleuteld. Gebruik haar alleen op een netwerk dat u vertrouwt.',
             tab: 'Elixir', ask: 'Vraag het Elixir', settings: 'AI-instellingen', journal: 'AI-logboek',
             askHint: 'Elixir vragen het document te wijzigen', settingsHint: 'Modelverbinding en AI-logboek',
             placeholder: 'Vraag het Elixir… bijv. „Zet deze sectie in twee kolommen”, „Voeg paginanummers toe”',
@@ -304,6 +315,7 @@ define([], function () {
             d_header: 'Koptekst bijgewerkt', d_footer: 'Voettekst bijgewerkt', d_comment: 'Opmerking toegevoegd'
         },
         ru: {
+            lanHttp: 'Это соединение не зашифровано. Используйте его только в сети, которой вы доверяете.',
             tab: 'Elixir', ask: 'Спросить Elixir', settings: 'Настройки ИИ', journal: 'Журнал ИИ',
             askHint: 'Попросить Elixir изменить документ', settingsHint: 'Подключение к модели и журнал ИИ',
             placeholder: 'Спросите Elixir… напр. «Сделай этот раздел в две колонки», «Добавь номера страниц»',
@@ -344,6 +356,7 @@ define([], function () {
             d_header: 'Верхний колонтитул обновлён', d_footer: 'Нижний колонтитул обновлён', d_comment: 'Комментарий добавлен'
         },
         pl: {
+            lanHttp: 'To połączenie nie jest szyfrowane. Używaj go tylko w zaufanej sieci.',
             tab: 'Elixir', ask: 'Zapytaj Elixir', settings: 'Ustawienia AI', journal: 'Dziennik AI',
             askHint: 'Poproś Elixir o zmianę dokumentu', settingsHint: 'Połączenie z modelem i dziennik AI',
             placeholder: 'Zapytaj Elixir… np. „Ustaw tę sekcję w dwóch kolumnach”, „Dodaj numery stron”',
@@ -384,6 +397,7 @@ define([], function () {
             d_header: 'Zaktualizowano nagłówek', d_footer: 'Zaktualizowano stopkę', d_comment: 'Dodano komentarz'
         },
         ja: {
+            lanHttp: 'この接続は暗号化されていません。信頼できるネットワークでのみ使用してください。',
             tab: 'Elixir', ask: 'Elixir に依頼', settings: 'AI の設定', journal: 'AI ログ',
             askHint: 'Elixir に文書の変更を依頼', settingsHint: 'モデル接続と AI ログ',
             placeholder: 'Elixir に依頼… 例:「このセクションを 2 段組みに」「ページ番号を追加」',
@@ -424,6 +438,7 @@ define([], function () {
             d_header: 'ヘッダーを更新しました', d_footer: 'フッターを更新しました', d_comment: 'コメントを追加しました'
         },
         zh: {
+            lanHttp: '此连接未加密。请仅在您信任的网络中使用。',
             tab: 'Elixir', ask: '询问 Elixir', settings: 'AI 设置', journal: 'AI 日志',
             askHint: '让 Elixir 修改文档', settingsHint: '模型连接和 AI 日志',
             placeholder: '询问 Elixir… 例如“把这一节分成两栏”“添加页码”',

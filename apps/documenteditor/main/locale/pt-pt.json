@@ -4705,6 +4705,8 @@
   "Common.Views.Header.textView": "Viewing",
   "Common.Views.Header.textViewForm": "Preview",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Customize Quick Access Toolbar",
+  "Common.Views.Header.txtHideQuickAccess": "Ocultar a Barra de Ferramentas de Acesso Rápido",
+  "Common.Views.Header.txtShowQuickAccess": "Mostrar a Barra de Ferramentas de Acesso Rápido",
   "Common.Views.Header.tipDocView": "Viewing",
   "Common.Views.Header.tipDocViewForm": "Viewing form",
   "Common.Views.Header.tipFillStatus": "Filling status",

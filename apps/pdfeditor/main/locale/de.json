@@ -769,6 +769,8 @@
   "Common.Views.Header.tipAccessRights": "Dokumentzugriffsrechte verwalten",
   "Common.Views.Header.tipComment": "Kommentieren",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Symbolleiste für den Schnellzugriff anpassen",
+  "Common.Views.Header.txtHideQuickAccess": "Symbolleiste für den Schnellzugriff ausblenden",
+  "Common.Views.Header.txtShowQuickAccess": "Symbolleiste für den Schnellzugriff anzeigen",
   "Common.Views.Header.tipDownload": "Datei herunterladen",
   "Common.Views.Header.tipEdit": "Bearbeitung",
   "Common.Views.Header.tipGoEdit": "Aktuelle Datei bearbeiten",

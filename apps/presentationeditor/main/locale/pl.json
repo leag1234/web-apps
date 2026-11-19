@@ -432,6 +432,8 @@
   "Common.Views.Header.textZoom": "Powiększenie",
   "Common.Views.Header.tipAccessRights": "Zarządzaj prawami dostępu do dokumentu",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Dostosuj Szybki dostęp",
+  "Common.Views.Header.txtHideQuickAccess": "Ukryj pasek narzędzi Szybki dostęp",
+  "Common.Views.Header.txtShowQuickAccess": "Pokaż pasek narzędzi Szybki dostęp",
   "Common.Views.Header.tipDownload": "Pobierz plik",
   "Common.Views.Header.tipGoEdit": "Edytuj bieżący plik",
   "Common.Views.Header.tipPrint": "Drukuj plik",

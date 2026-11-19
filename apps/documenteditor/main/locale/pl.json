@@ -573,6 +573,8 @@
   "Common.Views.Header.textZoom": "Powiększenie",
   "Common.Views.Header.tipAccessRights": "Zarządzaj prawami dostępu do dokumentu",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Dostosuj Szybki dostęp",
+  "Common.Views.Header.txtHideQuickAccess": "Ukryj pasek narzędzi Szybki dostęp",
+  "Common.Views.Header.txtShowQuickAccess": "Pokaż pasek narzędzi Szybki dostęp",
   "Common.Views.Header.tipDocEdit": "Redagowanie",
   "Common.Views.Header.tipDocView": "Podgląd",
   "Common.Views.Header.tipDocViewForm": "Przeglądanie formularzy",

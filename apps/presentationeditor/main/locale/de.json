@@ -1017,6 +1017,8 @@
   "Common.Views.Header.textZoom": "Zoom",
   "Common.Views.Header.tipAccessRights": "Zugriffsrechte für das Dokument verwalten",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Symbolleiste für den Schnellzugriff anpassen",
+  "Common.Views.Header.txtHideQuickAccess": "Symbolleiste für den Schnellzugriff ausblenden",
+  "Common.Views.Header.txtShowQuickAccess": "Symbolleiste für den Schnellzugriff anzeigen",
   "Common.Views.Header.tipDownload": "Datei herunterladen",
   "Common.Views.Header.tipGoEdit": "Aktuelle Datei bearbeiten",
   "Common.Views.Header.tipPrint": "Datei drucken",

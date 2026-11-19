@@ -596,9 +596,15 @@ define([
                     this.showNewStyle();
                     break;
                 case 'update':
-                    var style = api.asc_GetStyleFromFormatting();
-                    style.put_Name(name);
-                    api.asc_AddNewStyle(style);
+                    if (record.get('type') === 'c') {
+                        // a character style takes the text formatting of the selection only
+                        api.asc_UpdateCharacterStyleFromSelection(name);
+                    } else {
+                        var style = api.asc_GetStyleFromFormatting();
+                        style.put_Name(name);
+                        api.asc_AddNewStyle(style);
+                    }
+                    Common.NotificationCenter.trigger('edit:complete', this.toolbar);
                     break;
                 case 'modify':
                     this.showModifyStyle(name);
@@ -673,9 +679,28 @@ define([
                     TextPr: api.asc_GetFontDialogProps ? api.asc_GetFontDialogProps() : {},
                     ParaPr: {}
                 };
-            this.openStyleDialog(info, true, function (changes, dlgName) {
+            this.openStyleDialog(info, true, function (changes, dlgName, type) {
                 var title = dlgName || info.Caption,
                     style = api.asc_GetStyleFromFormatting();
+                if (type === Asc.c_oAscStyleType.Character) {
+                    // a character style: the run style of the pair, without its paragraph-style link
+                    var taken = api.asc_GetStyleForModify(title);
+                    if (taken && taken.Type !== Asc.c_oAscStyleType.Character) {
+                        Common.UI.warning({msg: me.textStyleExists, buttons: ['ok']});
+                        return;
+                    }
+                    var charStyle = style.get_Link();
+                    charStyle.put_Link(null);
+                    charStyle.put_Name(title);
+                    charStyle.put_Next(null);
+                    api.asc_AddNewStyle(charStyle);
+                    delete changes.Name;
+                    delete changes.Next;
+                    delete changes.ParaPr;
+                    changes.QFormat = changes.QFormat !== false;
+                    api.asc_ModifyStyle(title, changes);
+                    return;
+                }
                 style.put_Name(title);
                 style.get_Link() && style.get_Link().put_Name(title + '_character');
                 style.put_Next(changes.Next || null);
@@ -699,7 +724,7 @@ define([
             var dlg = new DE.Views.ModifyStyleDialog({
                 isNew: isNew,
                 styleInfo: info,
-                styleNames: _.filter(list, function (s) { return s.type === 'p'; }),
+                styleNames: list,
                 fontStore: this.getFontStore(),
                 handler: function (result, changes) {
                     if (result === 'font') {
@@ -708,7 +733,7 @@ define([
                     }
                     if (result === 'ok') {
                         var name = this.inputName ? this.inputName.getValue().trim() : '';
-                        onOk(changes || {}, name);
+                        onOk(changes || {}, name, this.getStyleType());
                     }
                     Common.NotificationCenter.trigger('edit:complete', me.toolbar);
                 }
@@ -751,6 +776,7 @@ define([
         textApplyStyles: 'Apply Styles...',
         textModify: 'Modify...',
         textDeleteConfirm: 'Do you want to delete the style {0} from the document?',
-        textStyleN: 'Style'
+        textStyleN: 'Style',
+        textStyleExists: 'A style with this name already exists and is not a character style. Enter another name.'
     }, DE.Controllers.WordFormatting || {}));
 });

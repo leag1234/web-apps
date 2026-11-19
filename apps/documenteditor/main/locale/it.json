@@ -1033,6 +1033,8 @@
   "Common.Views.Header.textZoom": "Ingrandimento",
   "Common.Views.Header.tipAccessRights": "Gestisci i diritti di accesso al documento",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Personalizza barra degli strumenti di accesso rapido",
+  "Common.Views.Header.txtHideQuickAccess": "Nascondi barra di accesso rapido",
+  "Common.Views.Header.txtShowQuickAccess": "Mostra barra di accesso rapido",
   "Common.Views.Header.tipDocEdit": "Modifica",
   "Common.Views.Header.tipDocView": "Visualizzazione",
   "Common.Views.Header.tipDocViewForm": "Visualizzazione del modulo",

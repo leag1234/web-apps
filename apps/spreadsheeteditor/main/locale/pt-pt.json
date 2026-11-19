@@ -4790,6 +4790,8 @@
   "Common.Views.Header.textClose": "Close file",
   "Common.Views.Header.textPrint": "Print",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Customize Quick Access Toolbar",
+  "Common.Views.Header.txtHideQuickAccess": "Ocultar a Barra de Ferramentas de Acesso Rápido",
+  "Common.Views.Header.txtShowQuickAccess": "Mostrar a Barra de Ferramentas de Acesso Rápido",
   "Common.Views.Header.tipPrintQuick": "Quick print",
   "Common.Views.History.textHighlightDeleted": "Highlight deleted",
   "Common.Views.History.textMore": "More",

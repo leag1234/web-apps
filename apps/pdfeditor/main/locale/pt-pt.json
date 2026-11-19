@@ -185,6 +185,8 @@
   "Common.Views.Draw.txtSelect": "Selecionar",
   "Common.Views.Draw.txtSize": "Tamanho",
   "Common.Views.Header.labelCoUsersDescr": "Utilizadores que estão a editar o ficheiro:",
+  "Common.Views.Header.txtHideQuickAccess": "Ocultar a Barra de Ferramentas de Acesso Rápido",
+  "Common.Views.Header.txtShowQuickAccess": "Mostrar a Barra de Ferramentas de Acesso Rápido",
   "Common.Views.Header.textAddFavorite": "Marcar como favorito",
   "Common.Views.Header.textAdvSettings": "Definições avançadas",
   "Common.Views.Header.textBack": "Abrir localização do ficheiro",

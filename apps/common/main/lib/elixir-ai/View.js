@@ -85,6 +85,11 @@ define([
         return t(k).replace(/\{(\w+)\}/g, function (m, n) { return vals[n] !== undefined && vals[n] !== null ? String(vals[n]) : m; });
     };
 
+    // plain HTTP to another machine of a private network (desktop app only): the form warns about it
+    function insecureLan(value) {
+        return !!(window.eoDesktopAI && ElixirAI.isInsecureLanEndpoint && ElixirAI.isInsecureLanEndpoint(value));
+    }
+
     function esc(s) {
         return String(s === undefined || s === null ? '' : s).replace(/[&<>"']/g, function (c) {
             return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -686,6 +691,7 @@ define([
                 '<label for="elixir-ai-key">' + esc(window.eoDesktopAI ? ElixirAI.ConfigForm.desktopKeyLabel : t('keyLabel')) + '</label>' +
                 '<input id="elixir-ai-key" type="password" autocomplete="off" value="' + esc(s.apiKey) + '"' + (window.eoDesktopAI && s.hasKey ? ' placeholder="••••••••"' : '') + '>' +
                 '<div class="hint elixir-ai-cors" style="display:none">' + esc(t('corsNote')) + '</div>' +
+                '<div class="hint elixir-ai-lan" role="note" style="display:none;color:var(--text-error,#b3261e)">' + esc(t('lanHttp')) + '</div>' +
                 '<details class="elixir-ai-adv"><summary>' + esc(t('advanced')) + '</summary>' +
                 '<label for="elixir-ai-extra">' + esc(t('extra')) + '</label>' +
                 '<input id="elixir-ai-extra" placeholder=\'{"reasoning_effort":"low"}\' value="' + esc(s.extraParams) + '">' +
@@ -704,6 +710,7 @@ define([
             var ep = $('#elixir-ai-endpoint'), mod = $('#elixir-ai-model');
             var refresh = function () {
                 $('#elixir-ai-notice').textContent = ElixirAI.dataNotice(ep.value.trim());
+                $('.elixir-ai-lan').style.display = insecureLan(ep.value.trim()) ? '' : 'none';
                 $('.elixir-ai-cors').style.display = (!window.eoDesktopAI && (/^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i.test(ep.value.trim()) || presetOf(ep.value.trim()) === 'ollama')) ? '' : 'none';
             };
             $('#elixir-ai-preset').addEventListener('change', function () {
@@ -732,18 +739,20 @@ define([
                 return n;
             };
             var changed = function () { host && host.onSettingsChanged && host.onSettingsChanged(); };
+            // Save the form; resolves true when saved, false (message shown) otherwise.
+            var saveForm = function (n) {
+                return Promise.resolve(!n.endpoint ? ElixirAI.Settings.clear() : ElixirAI.Settings.save(n)).then(function (saved) {
+                    if (saved === false) { msg(t('notConfigured'), true); return false; }
+                    changed();
+                    return true;
+                }, function () { msg(t('invalidUrl'), true); return false; });
+            };
             $('[data-act=save]').addEventListener('click', function () {
                 var n = read();
                 if (!n) return;
-                Promise.resolve(!n.endpoint ? ElixirAI.Settings.clear() : ElixirAI.Settings.save(n)).then(function (saved) {
-                    if (saved === false) { msg(t('notConfigured'), true); return; }
-                    msg(t('saved')); changed();
-                }).catch(function () { msg(t('invalidUrl'), true); });
+                saveForm(n).then(function (ok) { if (ok) msg(t('saved') + (insecureLan(n.endpoint) ? ' ' + t('lanHttp') : '')); });
             });
-            $('[data-act=test]').addEventListener('click', function () {
-                var n = read();
-                if (!n) return;
-                if (!n.endpoint && ElixirAI.Settings.managed) n = ElixirAI.Settings.get();
+            var test = function (n) {
                 if (!ElixirAI.Settings.isConfigured(n)) { msg(t('notConfigured'), true); return; }
                 msg(t('testing'));
                 ElixirAI.Connector.chat({ settings: n, messages: [{ role: 'user', content: 'Reply with: ok' }] }).then(function (r) {
@@ -754,6 +763,18 @@ define([
                         m = ElixirAI.tf('netError', { host: hostOf(n.endpoint) || n.endpoint });
                     msg(m, true);
                 });
+            };
+            $('[data-act=test]').addEventListener('click', function () {
+                var n = read();
+                if (!n) return;
+                // Desktop: the app tests and uses the configuration it keeps (the key stays in the main process),
+                // so save the form first; testing unsaved values said "not configured".
+                if (window.eoDesktopAI) {
+                    saveForm(n).then(function (ok) { if (ok) test(ElixirAI.Settings.get()); });
+                    return;
+                }
+                if (!n.endpoint && ElixirAI.Settings.managed) n = ElixirAI.Settings.get();
+                test(n);
             });
             $('[data-act=clear]').addEventListener('click', function () {
                 Promise.resolve(ElixirAI.Settings.clear()).then(function () {

@@ -1713,6 +1713,8 @@
   "Common.Views.Header.textViewDesc": "Wszystkie zmiany zostaną zapisane lokalnie",
   "Common.Views.Header.textViewDescNoCoedit": "Wyświetl lub skomentuj",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Dostosuj pasek narzędzi szybkiego dostępu",
+  "Common.Views.Header.txtHideQuickAccess": "Ukryj pasek narzędzi Szybki dostęp",
+  "Common.Views.Header.txtShowQuickAccess": "Pokaż pasek narzędzi Szybki dostęp",
   "Common.Views.PasswordDialog.txtIncorrectPwd": "Hasło potwierdzające nie jest identyczne",
   "Common.Views.PasswordDialog.txtWarning": "Ostrzeżenie: Jeśli zgubisz lub zapomnisz hasło, nie będzie można go odzyskać. Proszę przechowywać go w bezpiecznym miejscu.",
   "Common.Views.PluginDlg.textDock": "Przypnij wtyczkę",

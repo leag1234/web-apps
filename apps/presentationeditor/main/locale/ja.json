@@ -761,6 +761,8 @@
   "Common.Views.Header.textZoom": "ズーム",
   "Common.Views.Header.tipAccessRights": "文書のアクセス許可の管理",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "クイックアクセスツールバーのカスタマイズ",
+  "Common.Views.Header.txtHideQuickAccess": "クイック アクセス ツール バーを非表示にする",
+  "Common.Views.Header.txtShowQuickAccess": "クイック アクセス ツール バーを表示する",
   "Common.Views.Header.tipDownload": "ファイルをダウンロードする",
   "Common.Views.Header.tipGoEdit": "現在のファイルを編集する",
   "Common.Views.Header.tipPrint": "ファイルを印刷する",

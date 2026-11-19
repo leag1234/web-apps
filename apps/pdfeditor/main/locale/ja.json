@@ -769,6 +769,8 @@
   "Common.Views.Header.tipAccessRights": "文書のアクセス許可の管理",
   "Common.Views.Header.tipComment": "コメント",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "クイックアクセスツールバーのカスタマイズ",
+  "Common.Views.Header.txtHideQuickAccess": "クイック アクセス ツール バーを非表示にする",
+  "Common.Views.Header.txtShowQuickAccess": "クイック アクセス ツール バーを表示する",
   "Common.Views.Header.tipDownload": "ファイルをダウンロード",
   "Common.Views.Header.tipEdit": "編集",
   "Common.Views.Header.tipGoEdit": "現在のファイルを編集する",

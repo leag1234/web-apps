@@ -36,7 +36,8 @@ Common.Views = Common.Views || {};
 
 define([
     'backbone',
-    'core'
+    'core',
+    'common/main/lib/elixir-chrome/QuickAccess'
 ], function (Backbone) { 'use strict';
 
     Common.Views.Header =  Backbone.View.extend(_.extend(function(){
@@ -1470,6 +1471,8 @@ define([
             textClose: 'Close file',
             textStartFill: 'Start filling',
             tipCustomizeQuickAccessToolbar: 'Customize Quick Access Toolbar',
+            txtHideQuickAccess: 'Hide Quick Access Toolbar',
+            txtShowQuickAccess: 'Show Quick Access Toolbar',
             textPrint: 'Print',
             textViewForm: 'Viewing form',
             tipDocViewForm: 'Viewing form',

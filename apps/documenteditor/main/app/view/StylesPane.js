@@ -387,11 +387,13 @@ define([
                 value: info.Caption || info.Name || '', disabled: !!info.IsDefault
             });
             this.cmbType = new Common.UI.ComboBox({
-                el: $win.find('.word-ms-type'), cls: 'input-group-nr', editable: false, disabled: true, menuStyle: 'min-width: 100%;',
+                el: $win.find('.word-ms-type'), cls: 'input-group-nr', editable: false, disabled: !this.options.isNew, menuStyle: 'min-width: 100%;',
                 data: [{value: 1, displayValue: this.txtParagraph}, {value: 4, displayValue: this.txtCharacter}]
             });
-            this.cmbType.setValue(info.Type === 4 ? 4 : 1);
-            var names = [{value: '', displayValue: this.txtNoStyle}].concat(_.map(this.styleNames, function (s) { return {value: s.name, displayValue: s.caption}; }));
+            this.styleType = info.Type === 4 ? 4 : 1;
+            this.cmbType.setValue(this.styleType);
+            this.cmbType.on('selected', function (c, r) { me.setStyleType(r.value); });
+            var names = this.getBasedOnNames();
             this.cmbBasedOn = new Common.UI.ComboBox({
                 el: $win.find('.word-ms-basedon'), cls: 'input-group-nr', editable: false, menuStyle: 'min-width: 100%; max-height: 220px;',
                 data: _.filter(names, function (n) { return n.value !== info.Name; })
@@ -400,7 +402,7 @@ define([
             this.cmbBasedOn.on('selected', function (c, r) { me.basedOn = r.value; });
             this.cmbNext = new Common.UI.ComboBox({
                 el: $win.find('.word-ms-next'), cls: 'input-group-nr', editable: false, menuStyle: 'min-width: 100%; max-height: 220px;',
-                data: _.filter(names, function (n) { return n.value !== ''; }), disabled: info.Type === 4
+                data: _.filter(this.getBasedOnNames(1), function (n) { return n.value !== ''; }), disabled: info.Type === 4
             });
             this.cmbNext.setValue(info.Next || info.Name);
             this.cmbNext.on('selected', function (c, r) { me.next = r.value; });
@@ -486,10 +488,36 @@ define([
             _.each(this.alignButtons, function (b) { b.toggle(b.jc === pp.Jc, true); });
             _.each(this.lineButtons, function (b) { b.toggle(pp.LineRule === Asc.linerule_Auto && Math.abs((pp.Line || 0) - b.line) < 0.01, true); });
             this.setColorButton(tp.Color);
-            if (info.Type === 4) {
-                _.each(this.alignButtons.concat(this.lineButtons, [this.btnSpMore, this.btnSpLess, this.btnIndDec, this.btnIndInc]), function (b) { b.setDisabled(true); });
-            }
+            this.updateTypeControls();
             this.afterRender();
+        },
+
+        // names offered by Style based on (type 4: character styles) and Style for following paragraph (always paragraph styles)
+        getBasedOnNames: function (forceType) {
+            var type = forceType || this.styleType, wanted = type === 4 ? 'c' : 'p';
+            return [{value: '', displayValue: this.txtNoStyle}].concat(_.map(_.filter(this.styleNames, function (s) { return (s.type || 'p') === wanted; }),
+                function (s) { return {value: s.name, displayValue: s.caption}; }));
+        },
+
+        getStyleType: function () { return this.styleType; },
+
+        // Style type changed (new style only): character styles have no paragraph formatting and no following style
+        setStyleType: function (type) {
+            this.styleType = type;
+            this.basedOn = '';
+            this.next = undefined;
+            this.paraChanges = {};
+            this.cmbBasedOn.setData(_.filter(this.getBasedOnNames(), function (n) { return n.value !== (this.styleInfo.Name || ''); }, this));
+            this.cmbBasedOn.setValue('');
+            this.updateTypeControls();
+            this.updatePreview();
+        },
+
+        updateTypeControls: function () {
+            var isChar = this.styleType === 4;
+            _.each(this.alignButtons.concat(this.lineButtons, [this.btnSpMore, this.btnSpLess, this.btnIndDec, this.btnIndInc]), function (b) { b.setDisabled(isChar); });
+            this.cmbNext && this.cmbNext.setDisabled(isChar);
+            this.btnFormat && this.btnFormat.menu && this.btnFormat.menu.items[1] && this.btnFormat.menu.items[1].setDisabled(true);
         },
 
         afterRender: function () {
@@ -564,7 +592,7 @@ define([
             css['text-transform'] = tp.Caps ? 'uppercase' : 'none';
             var c = tp.Color;
             css['color'] = (c && c.get_auto && !c.get_auto()) ? '#' + Common.Utils.ThemeColor.getHexColor(c.get_r(), c.get_g(), c.get_b()) : '';
-            if (this.styleInfo.Type !== 4) {
+            if (this.styleType !== 4) {
                 css['text-align'] = ({0: 'right', 1: 'left', 2: 'center', 3: 'justify'})[pp.Jc] || 'left';
                 css['line-height'] = (pp.LineRule === Asc.linerule_Auto && pp.Line) ? String(Math.max(1, pp.Line) * 1.2) : '';
                 css['margin-left'] = pp.IndLeft ? Math.min(pp.IndLeft, 60) + 'mm' : '';
@@ -576,10 +604,10 @@ define([
             var res = {}, name = this.inputName.getValue().trim();
             if (!this.styleInfo.IsDefault && name && name !== (this.styleInfo.Caption || this.styleInfo.Name)) res.Name = name;
             if (this.basedOn !== undefined) res.BasedOn = this.basedOn;
-            if (this.next !== undefined) res.Next = this.next;
+            if (this.next !== undefined && this.styleType !== 4) res.Next = this.next;
             if (this.qformat !== undefined) res.QFormat = this.qformat;
             if (!_.isEmpty(this.textChanges)) res.TextPr = this.textChanges;
-            if (!_.isEmpty(this.paraChanges)) res.ParaPr = this.paraChanges;
+            if (!_.isEmpty(this.paraChanges) && this.styleType !== 4) res.ParaPr = this.paraChanges;
             return res;
         },
 

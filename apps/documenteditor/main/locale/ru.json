@@ -1033,6 +1033,8 @@
   "Common.Views.Header.textZoom": "Масштаб",
   "Common.Views.Header.tipAccessRights": "Управление правами доступа к документу",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Настроить панель быстрого доступа",
+  "Common.Views.Header.txtHideQuickAccess": "Скрыть панель быстрого доступа",
+  "Common.Views.Header.txtShowQuickAccess": "Показать панель быстрого доступа",
   "Common.Views.Header.tipDocEdit": "Редактирование",
   "Common.Views.Header.tipDocView": "Просмотр",
   "Common.Views.Header.tipDocViewForm": "Предпросмотр формы",

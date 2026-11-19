@@ -769,6 +769,8 @@
   "Common.Views.Header.tipAccessRights": "Manage document access rights",
   "Common.Views.Header.tipComment": "Commenting",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Customize Quick Access Toolbar",
+  "Common.Views.Header.txtHideQuickAccess": "Hide Quick Access Toolbar",
+  "Common.Views.Header.txtShowQuickAccess": "Show Quick Access Toolbar",
   "Common.Views.Header.tipDownload": "Download file",
   "Common.Views.Header.tipEdit": "Editing",
   "Common.Views.Header.tipGoEdit": "Edit current file",

@@ -4114,6 +4114,8 @@
   "Common.Views.Header.textPrint": "Print",
   "Common.Views.Header.textReadOnly": "Read only",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Customize Quick Access Toolbar",
+  "Common.Views.Header.txtHideQuickAccess": "Ukryj pasek narzędzi Szybki dostęp",
+  "Common.Views.Header.txtShowQuickAccess": "Pokaż pasek narzędzi Szybki dostęp",
   "Common.Views.History.textHighlightDeleted": "Highlight deleted",
   "Common.Views.History.textMore": "More",
   "Common.Views.History.textVersionHistory": "Version History",

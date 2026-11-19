@@ -769,6 +769,8 @@
   "Common.Views.Header.tipAccessRights": "Toegangsrechten documenten beheren",
   "Common.Views.Header.tipComment": "Opmerkingen plaatsen",
   "Common.Views.Header.tipCustomizeQuickAccessToolbar": "Pas de werkbalk Snelle toegang aan",
+  "Common.Views.Header.txtHideQuickAccess": "Werkbalk Snelle toegang verbergen",
+  "Common.Views.Header.txtShowQuickAccess": "Werkbalk Snelle toegang weergeven",
   "Common.Views.Header.tipDownload": "Bestand downloaden",
   "Common.Views.Header.tipEdit": "Bewerken",
   "Common.Views.Header.tipGoEdit": "Huidig bestand bewerken",

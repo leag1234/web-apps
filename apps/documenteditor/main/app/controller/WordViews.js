@@ -349,7 +349,7 @@ define([
             var me = this, $ct = $('#editor-container');
             if (!$ct.length) return;
             this.api.asc_WatchRecalculation && this.api.asc_WatchRecalculation();
-            this._state.split = {ratio: 0.5, lower: false, target: null};
+            this._state.split = {ratio: 0.5, lower: false, target: null, drag: null};
             if (!this._onSplitTarget) {
                 this._onSplitTarget = _.bind(this.onSplitTarget, this);
                 this.api.asc_registerCallback('asc_onElxTarget', this._onSplitTarget);
@@ -387,6 +387,7 @@ define([
         },
 
         closeSplit: function () {
+            this.endSplitDrag(true);
             this.setSplitLower(false);
             $('#editor_sdk').off('mousedown.elxsplit');
             this.splitScroller && this.splitScroller.destroy();
@@ -448,6 +449,7 @@ define([
                 }
             });
             this.showSplitCaret(false);
+            this.showSplitSelection();
         },
 
         // The lower pane is a picture of the document, so it has no caret of its own. While it has the
@@ -466,6 +468,35 @@ define([
             if (!st) return;
             st.target = {x: x, y: y, page: page, size: size};
             st.lower && this.showSplitCaret(true);
+            this.scheduleSplitSelection();
+        },
+
+        scheduleSplitSelection: function () {
+            var me = this, st = this._state.split;
+            if (!st || st.selTimer) return;
+            st.selTimer = setTimeout(function () { var s = me._state.split; if (s) s.selTimer = null; me.showSplitSelection(); }, 30);
+        },
+
+        // The selection of the document, painted on the pages of the lower pane that are on screen.
+        showSplitSelection: function () {
+            var st = this._state.split;
+            if (!st || !this.$splitPane || !this.api.asc_GetSelectionRects) return;
+            var $pages = this.$splitPane.find('.elx-split-pages'), boxes = this.splitGeometry(), html = '';
+            var viewTop = this.$splitPane.scrollTop(), viewBottom = viewTop + this.$splitPane.height();
+            for (var i = 0; i < boxes.length; i++) {
+                var b = boxes[i];
+                if (b.top + b.h < viewTop - 200 || b.top > viewBottom + 200) continue;
+                var rects = this.api.asc_GetSelectionRects(i) || [], k = b.w / b.mmW;
+                for (var j = 0; j < rects.length; j++) {
+                    var r = rects[j];
+                    html += '<div class="elx-split-sel" style="position:absolute;pointer-events:none;background:rgb(51,102,204);' +
+                        'left:' + Math.round(b.left + r.x * k) + 'px;top:' + Math.round(b.top + r.y * k) + 'px;' +
+                        'width:' + Math.max(1, Math.round(r.w * k)) + 'px;height:' + Math.max(1, Math.round(r.h * k)) + 'px;"></div>';
+                }
+            }
+            // one translucent layer, so rectangles that overlap do not darken each other
+            $pages.children('.elx-split-sels').remove();
+            html && $pages.append('<div class="elx-split-sels" style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;opacity:0.3;z-index:1;">' + html + '</div>');
         },
 
         showSplitCaret: function (reveal) {
@@ -484,16 +515,79 @@ define([
             }
         },
 
+        // The page under a point of the screen and the place on it in millimetres. Above the first page and
+        // below the last one the point belongs to those pages, so a drag can go past the end of the document.
+        // origin is the position of the page container on the screen.
+        splitLocate: function (boxes, origin, pageX, pageY) {
+            if (!boxes.length) return null;
+            var y = pageY - origin.top, i = 0;
+            for (var n = 0; n < boxes.length; n++) {
+                if (y >= boxes[n].top - 5) i = n;
+            }
+            var b = boxes[i];
+            return {
+                page: i,
+                x: (pageX - origin.left - b.left) / b.w * b.mmW,
+                y: Math.max(0, Math.min(b.mmH, (y - b.top) / b.h * b.mmH))
+            };
+        },
+
+        splitMouse: function (kind, e, count) {
+            var pos = this.splitLocate(this.splitGeometry(), this.$splitPane.find('.elx-split-pages').offset(), e.pageX, e.pageY);
+            if (!pos) return null;
+            this.api.asc_MouseInPage(kind, pos.page, pos.x, pos.y, count, e.shiftKey, e.ctrlKey || e.metaKey);
+            this.scheduleSplitSelection();
+            return pos;
+        },
+
+        // A click in the lower pane places the caret, a double click selects a word, a triple click a
+        // paragraph, and dragging with the button down selects text, as in the upper pane.
         onSplitPageClick: function (e, $p) {
             var i = +$p.attr('data-page'), b = this.splitGeometry()[i];
-            if (!b) return;
-            var off = $p.offset(), x = (e.pageX - off.left) / b.w * b.mmW, y = (e.pageY - off.top) / b.h * b.mmH;
+            if (!b || (e.which && e.which !== 1)) return;
+            var count = Math.max(1, Math.min(3, (e.originalEvent && e.originalEvent.detail) || e.detail || 1));
             e.preventDefault();
             this.setSplitLower(true);
-            this.api.asc_ClickInPage(i, x, y);
+            this.splitMouse('down', e, count);
             this.api.asc_enableKeyEvents(true);
             var area = document.getElementById('area_id');
             area && area.focus();
+            this.startSplitDrag(count, e);
+        },
+
+        startSplitDrag: function (count, e) {
+            var me = this, st = this._state.split;
+            if (!st) return;
+            this.endSplitDrag(true);
+            var drag = st.drag = {count: count, last: {pageX: e.pageX, pageY: e.pageY, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey, metaKey: e.metaKey}, timer: null};
+            drag.move = function (ev) {
+                drag.last = {pageX: ev.pageX, pageY: ev.pageY, shiftKey: ev.shiftKey, ctrlKey: ev.ctrlKey, metaKey: ev.metaKey};
+                me.splitMouse('move', drag.last, count);
+            };
+            drag.up = function (ev) {
+                me.splitMouse('up', {pageX: ev.pageX, pageY: ev.pageY, shiftKey: ev.shiftKey, ctrlKey: ev.ctrlKey, metaKey: ev.metaKey}, count);
+                me.endSplitDrag(false);
+            };
+            $(document).on('mousemove.elxsplitdrag', drag.move).on('mouseup.elxsplitdrag', drag.up);
+            // beyond the top or the bottom of the pane the drag scrolls the pane
+            drag.timer = setInterval(function () {
+                if (!me.$splitPane) return;
+                var top = me.$splitPane.offset().top, bottom = top + me.$splitPane.height(), y = drag.last.pageY, d = 0;
+                if (y < top) d = -Math.min(60, 8 + (top - y) / 4);
+                else if (y > bottom) d = Math.min(60, 8 + (y - bottom) / 4);
+                if (!d) return;
+                var before = me.$splitPane.scrollTop();
+                me.$splitPane.scrollTop(before + d);
+                if (me.$splitPane.scrollTop() !== before) me.splitMouse('move', drag.last, count);
+            }, 40);
+        },
+
+        endSplitDrag: function (silent) {
+            var st = this._state.split, drag = st && st.drag;
+            if (!drag) return;
+            st.drag = null;
+            clearInterval(drag.timer);
+            $(document).off('mousemove.elxsplitdrag', drag.move).off('mouseup.elxsplitdrag', drag.up);
         },
 
         // ---- field hints -------------------------------------------------------------------
