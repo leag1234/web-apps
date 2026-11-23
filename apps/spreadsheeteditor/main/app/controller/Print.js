@@ -61,6 +61,10 @@ define([
             };
 
             this._isPreviewVisible = false;
+            this._isPreviewPreparing = false;
+            this._previewUpdatePending = false;
+            this._previewPrepareTimer = null;
+            this._previewPrepareFrame = null;
             this.isZoomedToPage = true;
 
             this.addListeners({
@@ -403,6 +407,17 @@ define([
             Common.NotificationCenter.trigger('page:settings');
         },
 
+        showPreparingPreview: function () {
+            // #92: visible feedback while the deferred preview calculation runs.
+            var panel = this.printSettings;
+            panel.$previewBox.addClass('hidden');
+            panel.$previewEmpty.removeClass('hidden').children('div').text(panel.txtPreparingPreview);
+            if (this.mode && this.mode.isElixirLocal) {
+                panel.btnsPrint.concat(panel.btnsPrintPDF || []).forEach(function (btn) { btn.setDisabled(true); });
+            }
+            this._previewButtonsDisabled = true;
+        },
+
         onShowMainSettingsPrint: function() {
             // one panel, two entry points (File > Print / File > Export as PDF)
             if (this.mode && this.mode.isElixirLocal)
@@ -427,22 +442,50 @@ define([
 
             // several grouped tabs: the "active sheet" choice becomes "Selected sheets (N)" and prints exactly those tabs
             this.printSettings.updateRangeLabels(SSE.getController('Statusbar').getSelectTabs().length);
-            // desktop app: every visible sheet is printed by default (the user can still choose Active sheets or Selection)
-            if (this.mode && this.mode.isElixirLocal) this.adjPrintParams.asc_setPrintType(Asc.c_oAscPrintType.EntireWorkbook);
+            // #92: Excel defaults to active sheets; adjPrintParams keeps the user's session choice.
             this.fillPrintOptions(this.adjPrintParams, false);
             this.adjPrintParams.asc_setActiveSheetsArray(this.getActiveSheetsArray(this.printSettings));
 
-            var opts = new Asc.asc_CDownloadOptions(null, Common.Utils.isChrome || Common.Utils.isOpera || Common.Utils.isGecko && Common.Utils.firefoxVersion>86);
-            opts.asc_setAdvancedOptions(this.adjPrintParams);
-            var pageCount = this.api.asc_initPrintPreview('print-preview', opts);
-
-            pageCount = this.showPreviewState(pageCount);
-            if (!!pageCount) {
-                this.updateNavigationButtons(0, pageCount);
-                this.printSettings.txtNumberPage.checkValidate();
-            }
             this._isPreviewVisible = true;
-            !!pageCount && this.updatePreview();
+            this._isPreviewPreparing = true;
+            this.showPreparingPreview();
+            // #92: let the panel paint before the synchronous print preview calculation.
+            this._previewPrepareFrame = requestAnimationFrame(function () {
+                me._previewPrepareFrame = null;
+                me._previewPrepareTimer = setTimeout(function () {
+                    me._previewPrepareTimer = null;
+                    if (!me._isPreviewVisible) {
+                        me._isPreviewPreparing = false;
+                        return;
+                    }
+
+                    me.adjPrintParams.asc_setPrintType(me.printSettings.getRange());
+                    me.adjPrintParams.asc_setIgnorePrintArea(me.printSettings.getIgnorePrintArea());
+                    me.adjPrintParams.asc_setActiveSheetsArray(me.getActiveSheetsArray(me.printSettings));
+                    var opts = new Asc.asc_CDownloadOptions(null, Common.Utils.isChrome || Common.Utils.isOpera || Common.Utils.isGecko && Common.Utils.firefoxVersion>86);
+                    opts.asc_setAdvancedOptions(me.adjPrintParams);
+                    var pageCount = me.api.asc_initPrintPreview('print-preview', opts);
+
+                    pageCount = me.showPreviewState(pageCount);
+                    if (me._previewButtonsDisabled) {
+                        me._previewButtonsDisabled = false;
+                        if (me.mode && me.mode.isElixirLocal) {
+                            me.printSettings.btnsPrint.concat(me.printSettings.btnsPrintPDF || []).forEach(function (btn) { btn.setDisabled(!pageCount); });
+                        }
+                    }
+                    if (!!pageCount) {
+                        me.updateNavigationButtons(0, pageCount);
+                        me.printSettings.txtNumberPage.checkValidate();
+                    }
+                    me._isPreviewPreparing = false;
+                    if (me._previewUpdatePending) {
+                        me._previewUpdatePending = false;
+                        me.updatePreview();
+                    } else if (!!pageCount) {
+                        me.updatePreview();
+                    }
+                }, 0);
+            });
 
             if(this._state.shouldUpdateCmbPrinter) {
                 this.updateCmbPrinter();      
@@ -882,10 +925,20 @@ define([
         },
 
         onHidePrintMenu: function () {
+            if (this._previewPrepareFrame) {
+                cancelAnimationFrame(this._previewPrepareFrame);
+                this._previewPrepareFrame = null;
+            }
+            if (this._previewPrepareTimer) {
+                clearTimeout(this._previewPrepareTimer);
+                this._previewPrepareTimer = null;
+            }
             if (this._isPreviewVisible) {
                 this.api.asc_closePrintPreview(this._isPrint);
                 this._isPreviewVisible = false;
             }
+            this._isPreviewPreparing = false;
+            this._previewUpdatePending = false;
         },
 
         onChangePreviewPage: function (next) {
@@ -1150,6 +1203,10 @@ define([
         },
 
         updatePreview: function (needUpdate) {
+            if (this._isPreviewPreparing) {
+                this._previewUpdatePending = true;
+                return;
+            }
             if (this._isPreviewVisible) {
                 this.printSettings.$previewBox.removeClass('hidden');
 

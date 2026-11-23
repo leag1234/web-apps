@@ -1594,13 +1594,17 @@ define([], function () {
                 validateOnChange : true,
                 validation       : function () { return true; }
             }).on ('changing', function (input, value) {
-                if (value.length) {
-                    value = value.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
-                    me.filter = new RegExp(value, 'ig');
-                } else {
-                    me.filter = undefined;
+                me.filter = value.length ? new RegExp(SSE.Views.AutoFilterDialog.eoSearchPattern(value), 'i') : undefined;
+                me.searchText = value.length ? value : undefined;
+                // #99: debounce list rebuilds while the user types.
+                me.clearSearchTimer();
+                me.searchTimer = _.delay(function () { me.searchTimer = undefined; me.setupDataCells(); }, 250);
+            }).on ('keydown:before', function (input, event) {
+                if (event.keyCode == Common.UI.Keys.RETURN) {
+                    // #99: Enter applies the current text without waiting.
+                    me.clearSearchTimer();
+                    me.setupDataCells();
                 }
-                me.setupDataCells();
             });
 
             this.cells = new Common.UI.TreeViewStore();
@@ -1674,6 +1678,7 @@ define([], function () {
                     me.close();
             };
             this.on('close',function() {
+                me.clearSearchTimer();
                 $(document.body).off('mousedown', checkDocumentClick);
             });
             _.delay(function () {
@@ -2088,12 +2093,15 @@ define([], function () {
                     me = this,
                     idxs = (me.filter) ? me.filteredIndexes : me.throughIndexes;
                 if ('0' == record.get('groupid')) {
+                    // #99: bulk selection also updates the matching values beyond the display limit,
+                    // but never the values that do not match the search.
+                    for (var throughIndex = 2; throughIndex < idxs.length; throughIndex++) {
+                        if (!me.filter || (me.filterMatches && me.filterMatches[throughIndex]))
+                            idxs[throughIndex] = check;
+                    }
                     this.cells.each(function(cell) {
-                        if ('2' !== cell.get('groupid')) {
+                        if ('2' !== cell.get('groupid'))
                             cell.set('check', check);
-                            if (cell.get('throughIndex')>1)
-                                idxs[parseInt(cell.get('throughIndex'))] = check;
-                        }
                     });
                 } else {
                     record.set('check', check);
@@ -2350,6 +2358,11 @@ define([], function () {
                 selectedCells = 0,
                 arr = [], arrEx = [],
                 idxs = (me.filter) ? me.filteredIndexes : me.throughIndexes,
+                visibleValueCount = 0,
+                isCappedValueList = SSE.Views.AutoFilterDialog.isCappedFilterValueList(me.configTo.asc_getValues().length),
+                filterMatches = me.filterMatches = [],
+                hiddenMatches = me.hiddenMatches = [],
+                hasNonTextSearchMatch = false,
                 isdate,
                 isTimeFormat = me.configTo.asc_getTimeFormat(),
                 lastDate,
@@ -2417,10 +2430,21 @@ define([], function () {
                         applyfilter = false;
                     }
                     idxs[throughIndex] = applyfilter;
+                    filterMatches[throughIndex] = applyfilter;
+                    if (applyfilter && (isnumber || isDate))
+                        hasNonTextSearchMatch = true;
                 } else if (idxs[throughIndex]==undefined)
                     idxs[throughIndex] = item.asc_getVisible();
 
                 if (applyfilter) {
+                    // #99: render at most 10,000 values; hidden states stay in idxs.
+                    if (visibleValueCount >= 10000) {
+                        hiddenMatches.push(throughIndex);
+                        ++throughIndex;
+                        return;
+                    }
+                    visibleValueCount++;
+
                     if (isDate) {
                         if (dateLevel === 0) { // year
                             countYears += 1;
@@ -2500,6 +2524,7 @@ define([], function () {
 
             if (me.filter || idxs[0]==undefined)
                 idxs[0] = true;
+            me.hasNonTextSearchMatch = !!me.filter && hasNonTextSearchMatch;
             if (!me.filter || arr.length>0)
                 arr.unshift(new Common.UI.TreeViewModel({
                     id              : ++index,
@@ -2526,6 +2551,9 @@ define([], function () {
 
             this.cells.reset(arr);
             this.filterExcludeCells.reset(arrEx);
+            this.$window.find('.filter-values-limit').remove();
+            if (visibleValueCount >= 10000 || (me.filter && isCappedValueList))
+                this.$window.find('.border-values').after('<div class="filter-values-limit" style="padding: 4px 10px 0; flex-shrink: 0;">' + Common.Utils.String.htmlEncode(this.textNotAllItems) + '</div>');
 
             if (this.cells.length) {
                 if (isdate && selectedCells !== arr.length) {
@@ -2575,6 +2603,29 @@ define([], function () {
                 var arr = this.configTo.asc_getValues(),
                     isValid = false,
                     me = this;
+                if (SSE.Views.AutoFilterDialog.shouldUseSearchCustomFilter({
+                    searchText: me.searchText,
+                    valueCount: arr.length,
+                    allMatchesChecked: SSE.Views.AutoFilterDialog.areAllSearchMatchesChecked(me.filterMatches, me.filteredIndexes),
+                    addSelectionChecked: me.filteredIndexes[1] === true,
+                    hasNonTextSearchMatch: me.hasNonTextSearchMatch,
+                    isPivot: !!this.configTo.asc_getPivotObj()
+                })) {
+                    // #99: a capped value list cannot represent every search match.
+                    var filterObj = this.configTo.asc_getFilterObj();
+                    filterObj.asc_setFilter(new Asc.CustomFilters());
+                    filterObj.asc_setType(Asc.c_oAscAutoFilterTypes.CustomFilters);
+
+                    var customFilter = filterObj.asc_getFilter();
+                    customFilter.asc_setCustomFilters([new Asc.CustomFilter()]);
+                    customFilter.asc_setAnd(true);
+                    var customFilters = customFilter.asc_getCustomFilters();
+                    customFilters[0].asc_setOperator(Asc.c_oAscCustomAutoFilter.equals);
+                    customFilters[0].asc_setVal(SSE.Views.AutoFilterDialog.getSearchCustomFilterValue(me.searchText));
+
+                    this.api.asc_applyAutoFilter(this.configTo);
+                    return;
+                }
                 if (this.filter && this.filteredIndexes[1]) {
                     if (this.initialFilterType === Asc.c_oAscAutoFilterTypes.CustomFilters) {
                         arr.forEach(function(item, index) {
@@ -2585,6 +2636,10 @@ define([], function () {
                         if ('1' == cell.get('groupid')) {
                             arr[parseInt(cell.get('throughIndex'))-2].asc_setVisible(cell.get('check'));
                         }
+                    });
+                    // #99: matching values beyond the display limit follow their stored state.
+                    (this.hiddenMatches || []).forEach(function(throughIndex) {
+                        arr[throughIndex-2].asc_setVisible(!!me.filteredIndexes[throughIndex]);
                     });
                     arr.forEach(function(item, index) {
                         if (item.asc_getVisible()) {
@@ -2631,6 +2686,14 @@ define([], function () {
                     this.configTo.asc_getFilterObj().asc_setType(Asc.c_oAscAutoFilterTypes.Filters);
                     this.api.asc_applyAutoFilter(this.configTo);
                 }
+            }
+        },
+
+        // #99: pending debounced search of the value list
+        clearSearchTimer: function () {
+            if (this.searchTimer) {
+                clearTimeout(this.searchTimer);
+                this.searchTimer = undefined;
             }
         },
 
@@ -2707,6 +2770,7 @@ define([], function () {
         txtNotContains      : "Does not contain...",
         textSelectAllResults: 'Select All Search Results',
         textAddSelection    : 'Add current selection to filter',
+        textNotAllItems     : 'Not all items showing',
         txtValueFilter: 'Value filter',
         txtLabelFilter: 'Label filter',
         warnFilterError: 'You need at least one field in the Values area in order to apply a value filter.',
@@ -2749,4 +2813,49 @@ define([], function () {
         txtDecember: 'December'
 
     }, SSE.Views.AutoFilterDialog || {}));
+
+    // #99: the engine caps the AutoFilter value list at 10,000 entries.
+    SSE.Views.AutoFilterDialog.isCappedFilterValueList = function (valueCount) {
+        return valueCount >= 10000;
+    };
+
+    // #99: use a custom filter only for a complete search on a capped list.
+    SSE.Views.AutoFilterDialog.shouldUseSearchCustomFilter = function (options) {
+        return !!options.searchText &&
+            SSE.Views.AutoFilterDialog.isCappedFilterValueList(options.valueCount) &&
+            options.allMatchesChecked === true &&
+            options.addSelectionChecked !== true &&
+            options.hasNonTextSearchMatch !== true &&
+            !options.isPivot;
+    };
+
+    // #99: filteredIndexes[0] is not kept in sync with unchecks, so read every match.
+    SSE.Views.AutoFilterDialog.areAllSearchMatchesChecked = function (matches, indexes) {
+        var found = false;
+        for (var i = 2; i < (matches || []).length; i++) {
+            if (!matches[i]) continue;
+            if (!indexes || indexes[i] !== true) return false;
+            found = true;
+        }
+        return found;
+    };
+
+    SSE.Views.AutoFilterDialog.getSearchCustomFilterValue = function (searchText) {
+        return '*' + searchText + '*';
+    };
+
+    // #99: Excel-style search wildcards for AutoFilter values.
+    SSE.Views.AutoFilterDialog.eoSearchPattern = function (value) {
+        var result = '';
+        for (var i = 0; i < value.length; i++) {
+            var char = value[i];
+            if (char === '~' && i + 1 < value.length) {
+                var next = value[++i];
+                result += next === '*' || next === '?' || next === '~' ? '\\' + next : '~' + next;
+            } else {
+                result += char === '*' ? '.*' : char === '?' ? '.' : char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+        }
+        return result;
+    };
 });

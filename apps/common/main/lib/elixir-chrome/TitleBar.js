@@ -266,7 +266,9 @@ define([
         openFlyout: function () {
             var me = this, mode = this.mode || {}, h = this.hostConfig();
             var name = this.caption(), parts = this.splitName(name);
-            var canRename = !!(mode.canRename && !mode.isDesktopApp && !this.header.readOnly);
+            // #94: the ElixirOffice desktop app (mode.isDesktopApp is false there) sets desktopAction;
+            // its files rename through that bridge, which keeps the extension and validates the name.
+            var canRename = !!(mode.canRename && !this.header.readOnly && (!mode.isDesktopApp || this.desktopAction));
             Common.UI.Menu.Manager.hideAll();
             this.closeSearch();
             if (!this.$flyout) {
@@ -299,6 +301,10 @@ define([
                 if (/[\t*+:"<>?|\\/]/.test(v)) {
                     me.$flyout.find('.elx-fly-hint').addClass('error').text(me.txtInvalidName + ' *+:"<>?|\\/');
                     return false;
+                }
+                if (me.desktopAction) {
+                    me.desktopAction('rename', v);
+                    return true;
                 }
                 me.header.fireEvent('rename', [v]);
                 me.header.setDocumentCaption(v + parts.ext);
@@ -623,7 +629,9 @@ define([
                     window.top.location.href = id ? url + (url.indexOf('?') < 0 ? '?' : '&') + 'userid=' + encodeURIComponent(id) : url;
                 }
             });
-            this.$account.on('keydown', function (e) {
+            // #100: the menu element is reused at every opening: bind its keyboard handler only once, otherwise
+            // each opening added a handler and the arrow keys skipped entries.
+            this.$account.off('keydown.elxaccount').on('keydown.elxaccount', function (e) {
                 var $items = me.$account.find('.elx-fly-link'), i = $items.index(document.activeElement);
                 if (e.keyCode === Common.UI.Keys.ESC) { e.preventDefault(); me.closeAccount(true); me.$avatar.focus(); }
                 else if (e.keyCode === Common.UI.Keys.DOWN) { e.preventDefault(); $items.eq((i + 1) % $items.length).focus(); }

@@ -643,3 +643,9 @@
         }
     }
 }
+
+// #93: dark themes - invert the white-background style preview images in the Styles gallery
+.theme-type-dark #slot-field-styles .combo-styles .style > div,
+.theme-type-dark .menu-picker .style > div {
+    filter: invert(1) hue-rotate(180deg);
+}

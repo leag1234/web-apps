@@ -36,10 +36,10 @@ test('all three Print controllers read the mode when the panel is shown, only in
         assert.match(src, /if \(this\.mode && this\.mode\.isElixirLocal\)\s+PrintMode\.apply\(this\.printSettings, PrintMode\.consume\(Common\.Utils\.InternalSettings\)/);
     }
 });
-test('the spreadsheet panel defaults to the entire workbook in the desktop app, before the panel is filled', () => {
+test('the spreadsheet panel defaults to active sheets, matching Excel', () => {
     const src = read('apps/spreadsheeteditor/main/app/controller/Print.js');
-    const a = src.indexOf('this.adjPrintParams.asc_setPrintType(Asc.c_oAscPrintType.EntireWorkbook)'), b = src.indexOf('this.fillPrintOptions(this.adjPrintParams, false);');
-    assert.ok(a > 0 && b > a, 'default set before fillPrintOptions'); assert.match(src.slice(a - 120, a), /isElixirLocal/);
+    assert.doesNotMatch(src, /this\.adjPrintParams\.asc_setPrintType\(Asc\.c_oAscPrintType\.EntireWorkbook\)/);
+    assert.match(src, /#92: Excel defaults to active sheets; adjPrintParams keeps the user's session choice\./);
 });
 test('labels: Export as PDF title, Save as PDF, Save settings in English and French', () => {
     const want = {documenteditor: ['DE', 'txtPrintPdf'], presentationeditor: ['PE', 'txtPrintPdf'], spreadsheeteditor: ['SSE', 'txtPrintToPDF']};

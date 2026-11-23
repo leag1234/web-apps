@@ -3750,6 +3750,7 @@ define([], function () {
         txtChooseSheets: 'Choose sheets…',
         txtEmptySelection: 'The selection is empty',
         txtNoSheetChosen: 'Choose at least one sheet to print',
+        txtPreparingPreview: 'Preparing preview…',
         txtActiveSheets: 'Active sheet',
         txtSelectedSheets: 'Selected sheets ({n})',
         txtPages: 'Pages:',

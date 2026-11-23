@@ -43,6 +43,20 @@ define([], function () {
         H.el = function (i) { return doc.GetElement(i); };
         H.kind = function (el) { return el ? el.GetClassType() : null; };
         H.round = function (v, d) { var k = Math.pow(10, d || 0); return Math.round(v * k) / k; };
+        // #100: the assistant's own revisions. Get_AllChanges() returns an object keyed by paragraph id,
+        // each holding an array; a change spanning several paragraphs is listed in each, so keep it once.
+        H.ownRevisions = function (a) {
+            var byPara = doc.Document.TrackRevisionsManager.Get_AllChanges(), own = [];
+            for (var id in byPara) {
+                if (!Object.prototype.hasOwnProperty.call(byPara, id) || !byPara[id]) continue;
+                for (var i = 0; i < byPara[id].length; i++) {
+                    var change = byPara[id][i];
+                    if (change && change.get_UserId() === a.userId && change.get_UserName() === a.name
+                        && own.indexOf(change) < 0) own.push(change);
+                }
+            }
+            return own;
+        };
         H.styleName = function (p) {
             var s = p.GetStyle();
             return s ? s.GetName() : 'Normal';
@@ -370,7 +384,9 @@ define([], function () {
     CMD.init = function (a, H) {
         var total = H.count(), from = 0, to = total - 1, scope = 'document', selText = '', image = null, cursor = null;
         var r = H.doc.GetRangeBySelect();
-        if (r && r.GetText() && r.GetText().replace(/[\s\r\n]/g, '').length > 0) {
+        var cd = H.doc.Document, hasSel = !(cd && typeof cd.IsSelectionUse === 'function') || cd.IsSelectionUse();
+        // a plain caret in a list paragraph returns the list marker as range text (i114)
+        if (hasSel && r && r.GetText() && r.GetText().replace(/[\s\r\n]/g, '').length > 0) {
             var paras = r.GetAllParagraphs();
             if (paras.length) {
                 from = H.topIndex(paras[0]);
@@ -447,6 +463,23 @@ define([], function () {
 
     CMD.revisions = function (a, H) {
         return { ok: true, revisions: H.revisions() };
+    };
+
+    // #100: process only revisions created by the assistant, never other authors.
+    CMD.acceptOwn = function (a, H) {
+        var own = H.ownRevisions(a);
+        H.doc.Document.StartAction(AscDFH.historydescription_Document_AcceptRevisionChange, null, AscWord.ACTION_FLAGS.UPDATEALL_RECALCULATE);
+        for (var j = 0; j < own.length; j++) H.doc.Document.AcceptRevisionChange(own[j]);
+        H.doc.Document.FinalizeAction();
+        return { ok: true, count: own.length };
+    };
+
+    CMD.rejectOwn = function (a, H) {
+        var own = H.ownRevisions(a);
+        H.doc.Document.StartAction(AscDFH.historydescription_Document_RejectRevisionChange, null, AscWord.ACTION_FLAGS.UPDATEALL_RECALCULATE);
+        for (var j = 0; j < own.length; j++) H.doc.Document.RejectRevisionChange(own[j]);
+        H.doc.Document.FinalizeAction();
+        return { ok: true, count: own.length };
     };
 
     CMD.select = function (a, H) {
@@ -2006,24 +2039,17 @@ define([], function () {
                 });
             },
 
-            // Accept the assistant's revisions: everything when the document had none before, else only
-            // those in the touched range (the plugin API cannot filter revisions by author).
+            // #100: when earlier revisions exist, filter by the assistant identity instead of a range.
             accept: function (ctx) {
                 var before = ctx.revisionsBefore ? ctx.revisionsBefore.count : 0;
                 if (!before) return callMethod(api, 'AcceptReviewChanges', [true]);
-                var t = ctx.touched || { from: ctx.from, to: ctx.to };
-                return callCommand(api, 'select', { from: t.from, to: t.to }).then(function () {
-                    return callMethod(api, 'AcceptReviewChanges', [false]);
-                });
+                return callCommand(api, 'acceptOwn', { name: ASSISTANT_NAME, userId: 'uid-' + ASSISTANT_NAME });
             },
 
             reject: function (ctx) {
                 var before = ctx.revisionsBefore ? ctx.revisionsBefore.count : 0;
                 if (!before) return callMethod(api, 'RejectReviewChanges', [true]);
-                var t = ctx.touched || { from: ctx.from, to: ctx.to };
-                return callCommand(api, 'select', { from: t.from, to: t.to }).then(function () {
-                    return callMethod(api, 'RejectReviewChanges', [false]);
-                });
+                return callCommand(api, 'rejectOwn', { name: ASSISTANT_NAME, userId: 'uid-' + ASSISTANT_NAME });
             },
 
             undo: function () { return callMethod(api, 'Undo', []); },

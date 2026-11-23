@@ -506,7 +506,10 @@ define([
             });
 
             if (view) {
-                var innerEl = $(this.el).find('.inner').addBack().filter('.inner');
+                // #99: reuse the list container while it is still in the view (see TreeView.onAddItem).
+                var innerEl = this._eoInnerEl;
+                if (!innerEl || !innerEl[0] || !this.el.contains(innerEl[0]))
+                    innerEl = this._eoInnerEl = $(this.el).find('.inner').addBack().filter('.inner');
 
                 if (this.groups && this.groups.length > 0) {
                     var group = this.groups.findWhere({id: record.get('group')});

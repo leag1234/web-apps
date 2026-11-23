@@ -105,7 +105,8 @@ define([
         '.elixir-ai-notice{margin:10px 0 4px;padding:8px 10px;border-left:3px solid var(--border-preview-select,#4a7fd1);background:var(--background-toolbar,#f4f4f4);font-weight:600}.elixir-ai-adv{margin-top:8px}.elixir-ai-adv summary{cursor:pointer;color:var(--text-secondary,#555)}',
         '.elx-page .elixir-ai-cfg{max-width:560px}.elx-page .elixir-ai-cfg label{display:block;margin:10px 0 3px}.elx-page .elixir-ai-cfg input,.elx-page .elixir-ai-cfg select{width:100%;box-sizing:border-box;padding:6px 8px}',
         '.elixir-ai-icon{background:none!important;background-color:var(--text-normal,#333)!important;-webkit-mask:var(--elixir-mask) center/24px 24px no-repeat;mask:var(--elixir-mask) center/24px 24px no-repeat;}',
-        '.elixir-ai-bar{position:fixed;z-index:1001;width:640px;max-width:calc(100vw - 32px);box-sizing:border-box;background:var(--background-normal,#fff);color:var(--text-normal,#222);',
+        // #68: a long answer scrolls inside the pop-up; input and actions stay reachable
+        '.elixir-ai-bar{position:fixed;z-index:1001;width:640px;max-width:calc(100vw - 32px);box-sizing:border-box;background:var(--background-normal,#fff);color:var(--text-normal,#222);display:flex;flex-direction:column;max-height:calc(100vh - 60px);',
         '  border:1px solid var(--border-regular-control,#c0c0c0);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.22);font:13px/1.4 var(--font-family-base-custom,"Segoe UI",Arial,sans-serif);padding:10px 12px;}',
         '.elixir-ai-bar *{box-sizing:border-box;}',
         '.elixir-ai-row{display:flex;align-items:flex-start;gap:8px;}',
@@ -119,9 +120,9 @@ define([
         '.elixir-ai-btn[disabled]{opacity:.5;cursor:default;}',
         '.elixir-ai-meta{display:flex;justify-content:space-between;gap:8px;margin-top:4px;color:var(--text-secondary,#777);font-size:11px;}',
         '.elixir-ai-chip{border:1px solid var(--border-divider,#ddd);border-radius:10px;padding:0 8px;}',
-        '.elixir-ai-panel{margin-top:8px;border-top:1px solid var(--border-divider,#e0e0e0);padding-top:8px;display:none;}',
+        '.elixir-ai-panel{margin-top:8px;border-top:1px solid var(--border-divider,#e0e0e0);padding-top:8px;display:none;min-height:0;overflow:auto;}',
         '.elixir-ai-panel.show{display:block;}',
-        '.elixir-ai-plan{color:var(--text-secondary,#666);white-space:pre-wrap;margin-bottom:4px;}',
+        '.elixir-ai-plan{color:var(--text-secondary,#666);white-space:pre-wrap;margin-bottom:4px;user-select:text;-webkit-user-select:text;cursor:text;max-height:20vh;overflow:auto;}',
         '.elixir-ai-steps{list-style:none;margin:0;padding:0;max-height:180px;overflow:auto;}',
         '.elixir-ai-steps li{padding:2px 0 2px 20px;position:relative;}',
         '.elixir-ai-steps li:before{content:"";position:absolute;left:4px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--border-regular-control,#bbb);}',
@@ -129,7 +130,7 @@ define([
         '.elixir-ai-steps li .err-msg{color:#c62828;font-size:11px;display:block;}',
         '.elixir-ai-status{margin-top:6px;}',
         '.elixir-ai-status.error{color:#c62828;}',
-        '.elixir-ai-answer{margin-top:6px;white-space:pre-wrap;}',
+        '.elixir-ai-answer{margin-top:6px;white-space:pre-wrap;user-select:text;-webkit-user-select:text;cursor:text;max-height:40vh;overflow:auto;overscroll-behavior:contain;}',
         '.elixir-ai-note.warn{background:#fff4e5;color:#7a4b00;}',
         '.elixir-ai-note{margin-top:6px;padding:4px 8px;border-radius:6px;background:var(--background-toolbar-additional,#f3f3f3);font-size:12px;}',
         '.elixir-ai-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px;}',
@@ -522,7 +523,10 @@ define([
                 // a question about the document: the model's answer; otherwise say nothing was changed
                 planEl.textContent = res.answer || '';
                 me.setStatus(res.answer ? '' : t('noChange'));
-                me.setActions([{ label: t('close'), fn: me.close.bind(me) }]);
+                me.setActions(res.answer ? [
+                    { id: 'copy', label: ElixirAI.tf('copy'), fn: function () { me.copyText(res.answer, me.panel.querySelector('[data-act=copy]')); } },
+                    { label: t('close'), fn: me.close.bind(me) }
+                ] : [{ label: t('close'), fn: me.close.bind(me) }]);
                 return;
             }
             // the plan line keeps what Elixir understood (the plan goal); the steps say, in plain words, what was done

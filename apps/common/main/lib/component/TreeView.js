@@ -204,7 +204,11 @@ define([
                 });
 
                 if (view) {
-                    var innerEl = (this.$el || $(this.el)).find('.inner').addBack().filter('.inner');
+                    // #99: reuse the list container while it is still in the view. Searching it again for every
+                    // added item scanned all the items already added, so a list of 10,000 values took 24 s to open.
+                    var innerEl = this._eoInnerEl;
+                    if (!innerEl || !innerEl[0] || !this.el.contains(innerEl[0]))
+                        innerEl = this._eoInnerEl = (this.$el || $(this.el)).find('.inner').addBack().filter('.inner');
                     if (innerEl) {
                         (this.dataViewItems.length<1) && innerEl.find('.empty-text').remove();
 
