@@ -2525,7 +2525,9 @@ define([], function () {
             if (me.filter || idxs[0]==undefined)
                 idxs[0] = true;
             me.hasNonTextSearchMatch = !!me.filter && hasNonTextSearchMatch;
-            if (!me.filter || arr.length>0)
+            // #99: a search with no match among the listed values may still match beyond the engine's list limit
+            me.searchBeyondList = !!me.filter && isCappedValueList && arr.length === 0;
+            if (!me.filter || arr.length>0 || me.searchBeyondList)
                 arr.unshift(new Common.UI.TreeViewModel({
                     id              : ++index,
                     selected        : false,
@@ -2574,6 +2576,8 @@ define([], function () {
             if (this.cells) {
                 if (this.filter && this.filteredIndexes[1])
                     isValid = true;
+                else if (this.searchBeyondList && this.isSelectAllResultsChecked())
+                    isValid = true;
                 else
                     this.cells.forEach(function(item){
                         if ('1' == item.get('groupid') && item.get('check')) {
@@ -2599,6 +2603,11 @@ define([], function () {
             return isValid;
         },
         save: function () {
+            if (this.searchTimer) {
+                // #99: OK pressed before the debounced search was applied
+                this.clearSearchTimer();
+                this.setupDataCells();
+            }
             if (this.api && this.configTo && this.cells && this.filterExcludeCells) {
                 var arr = this.configTo.asc_getValues(),
                     isValid = false,
@@ -2606,7 +2615,8 @@ define([], function () {
                 if (SSE.Views.AutoFilterDialog.shouldUseSearchCustomFilter({
                     searchText: me.searchText,
                     valueCount: arr.length,
-                    allMatchesChecked: SSE.Views.AutoFilterDialog.areAllSearchMatchesChecked(me.filterMatches, me.filteredIndexes),
+                    allMatchesChecked: me.searchBeyondList ? me.isSelectAllResultsChecked() :
+                        SSE.Views.AutoFilterDialog.areAllSearchMatchesChecked(me.filterMatches, me.filteredIndexes),
                     addSelectionChecked: me.filteredIndexes[1] === true,
                     hasNonTextSearchMatch: me.hasNonTextSearchMatch,
                     isPivot: !!this.configTo.asc_getPivotObj()
@@ -2687,6 +2697,12 @@ define([], function () {
                     this.api.asc_applyAutoFilter(this.configTo);
                 }
             }
+        },
+
+        // #99: state of the "Select all search results" item (the only item when the list has no match)
+        isSelectAllResultsChecked: function () {
+            var cell = this.cells && this.cells.length ? this.cells.at(0) : null;
+            return !!cell && '0' == cell.get('groupid') && !!cell.get('check');
         },
 
         // #99: pending debounced search of the value list
@@ -2840,8 +2856,19 @@ define([], function () {
         return found;
     };
 
+    // #99: true when the text holds an unescaped * or ? (a typed Excel wildcard).
+    SSE.Views.AutoFilterDialog.hasSearchWildcard = function (searchText) {
+        var text = searchText || '';
+        for (var i = 0; i < text.length; i++) {
+            if (text[i] === '~') i++;
+            else if (text[i] === '*' || text[i] === '?') return true;
+        }
+        return false;
+    };
+
+    // #99: like Excel, plain text means "contains"; a text with wildcards is the whole pattern.
     SSE.Views.AutoFilterDialog.getSearchCustomFilterValue = function (searchText) {
-        return '*' + searchText + '*';
+        return SSE.Views.AutoFilterDialog.hasSearchWildcard(searchText) ? searchText : '*' + searchText + '*';
     };
 
     // #99: Excel-style search wildcards for AutoFilter values.
@@ -2856,6 +2883,7 @@ define([], function () {
                 result += char === '*' ? '.*' : char === '?' ? '.' : char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             }
         }
-        return result;
+        // Excel: a search with wildcards must match the whole value ("WOOD*" = begins with WOOD)
+        return SSE.Views.AutoFilterDialog.hasSearchWildcard(value) ? '^' + result + '$' : result;
     };
 });
